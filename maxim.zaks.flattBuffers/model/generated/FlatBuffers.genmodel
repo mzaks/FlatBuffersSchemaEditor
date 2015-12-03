@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<genmodel:GenModel xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore"
+    xmlns:genmodel="http://www.eclipse.org/emf/2002/GenModel" modelDirectory="/maxim.zaks.flattBuffers/src-gen" editDirectory="/maxim.zaks.flattBuffers.edit/src"
+    editorDirectory="/maxim.zaks.flattBuffers.editor/src" modelPluginID="maxim.zaks.flattBuffers"
+    forceOverwrite="true" modelName="FlatBuffers" updateClasspath="false" rootExtendsClass="org.eclipse.emf.ecore.impl.MinimalEObjectImpl$Container"
+    complianceLevel="6.0" copyrightFields="false" editPluginID="maxim.zaks.flattBuffers.edit"
+    editorPluginID="maxim.zaks.flattBuffers.editor" runtimeVersion="2.11">
+  <genPackages prefix="FlatBuffers" basePackage="maxim.zaks" disposableProviderFactory="true"
+      fileExtensions="fbs" ecorePackage="FlatBuffers.ecore#/">
+    <genClasses ecoreClass="FlatBuffers.ecore#//Schema">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute FlatBuffers.ecore#//Schema/includes"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference FlatBuffers.ecore#//Schema/namepsace"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute FlatBuffers.ecore#//Schema/fileIdentifier"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference FlatBuffers.ecore#//Schema/customAttributes"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference FlatBuffers.ecore#//Schema/tables"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference FlatBuffers.ecore#//Schema/rootType"/>
+    </genClasses>
+    <genClasses ecoreClass="FlatBuffers.ecore#//RootType">
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference FlatBuffers.ecore#//RootType/type"/>
+    </genClasses>
+    <genClasses ecoreClass="FlatBuffers.ecore#//CustomAttributes">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute FlatBuffers.ecore#//CustomAttributes/name"/>
+    </genClasses>
+    <genClasses ecoreClass="FlatBuffers.ecore#//Namespace">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute FlatBuffers.ecore#//Namespace/name"/>
+    </genClasses>
+    <genClasses ecoreClass="FlatBuffers.ecore#//Table">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute FlatBuffers.ecore#//Table/name"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference FlatBuffers.ecore#//Table/fields"/>
+    </genClasses>
+    <genClasses ecoreClass="FlatBuffers.ecore#//Fields">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute FlatBuffers.ecore#//Fields/name"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference FlatBuffers.ecore#//Fields/type"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute FlatBuffers.ecore#//Fields/defaultValue"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference FlatBuffers.ecore#//Fields/attributes"/>
+    </genClasses>
+    <genClasses ecoreClass="FlatBuffers.ecore#//FieldAttributes">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute FlatBuffers.ecore#//FieldAttributes/attributeList"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference FlatBuffers.ecore#//FieldAttributes/atributeName"/>
+    </genClasses>
+    <genClasses ecoreClass="FlatBuffers.ecore#//AttributeName">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute FlatBuffers.ecore#//AttributeName/deprectated"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference FlatBuffers.ecore#//AttributeName/customName"/>
+    </genClasses>
+    <genClasses ecoreClass="FlatBuffers.ecore#//Type">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute FlatBuffers.ecore#//Type/primType"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference FlatBuffers.ecore#//Type/vectorType"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference FlatBuffers.ecore#//Type/tableType"/>
+    </genClasses>
+    <genClasses ecoreClass="FlatBuffers.ecore#//Vector">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute FlatBuffers.ecore#//Vector/primType"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference FlatBuffers.ecore#//Vector/tableType"/>
+    </genClasses>
+    <genClasses ecoreClass="FlatBuffers.ecore#//TableType">
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference FlatBuffers.ecore#//TableType/type"/>
+    </genClasses>
+  </genPackages>
+</genmodel:GenModel>

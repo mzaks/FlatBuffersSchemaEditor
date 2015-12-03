@@ -1,0 +1,79 @@
+grammar maxim.zaks.FlatBuffers with org.eclipse.xtext.common.Terminals
+
+generate flatBuffers "http://www.zaks.maxim/FlatBuffers"
+
+Schema:
+	includes+=Include*
+	namepsace=Namespace?
+	fileIdentifier=FileIdentifier?
+	customAttributes+=CustomAttributes*
+	tables+=Table*
+	rootType=RootType
+;
+
+RootType:
+	'root_type' type=[Table] ';'
+;
+
+CustomAttributes:
+	'attribute' '"' name=ID '"' ';'
+;
+
+FileIdentifier:
+	'file_identifier' STRING ';'
+;
+
+Namespace:
+	'namespace' name=QualifiedName ';'
+;
+
+Include:
+	'include' STRING ';'
+;
+	
+Table:
+	'table' name=ID '{'
+	fields+=Fields*
+	'}';
+
+Fields:
+	name=ID ':' type=Type ('=' defaultValue=Value)? attributes=FieldAttributes? ';'
+;
+
+Value:
+	Number | 'false' | 'true'
+;
+
+FieldAttributes:
+	attributeList='(' atributeName+=AttributeName* ')'
+;
+
+AttributeName:
+	(deprectated?='deprecated' | customName=[CustomAttributes])
+;
+
+
+Type:
+	( primType=Primitive | vectorType=Vector |  tableType=TableType)
+;
+
+Vector:
+	'[' ( primType=Primitive | tableType=TableType) ']'
+;
+
+Primitive:
+	'bool' | 'byte' | 'ubyte' | 'short' | 'ushort' | 'int' | 'uint' | 'float' | 'long' | 'ulong' | 'double' | 'string' 	
+;
+
+TableType:
+	type = [Table]
+;
+
+QualifiedName:
+  ValidID ('.' ValidID)*;
+
+ValidID:
+	ID;
+	
+Number hidden():
+	(INT) ('.' (INT))?;
