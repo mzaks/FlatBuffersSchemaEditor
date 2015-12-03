@@ -32,7 +32,10 @@ public class CSharpGenerator {
       String _name = _type.getName();
       this.rootTableName = _name;
       Namespace _namepsace = schema.getNamepsace();
-      String _name_1 = _namepsace.getName();
+      String _name_1 = null;
+      if (_namepsace!=null) {
+        _name_1=_namepsace.getName();
+      }
       this.nameSpace = _name_1;
       String _fileIdentifier = schema.getFileIdentifier();
       this.fileIdentifier = _fileIdentifier;

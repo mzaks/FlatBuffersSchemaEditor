@@ -12,7 +12,7 @@ class CSharpGenerator {
 	
 	public def generate(Schema schema) {
 		rootTableName = schema.rootType.type.name
-		nameSpace = schema.namepsace.name
+		nameSpace = schema.namepsace?.name
 		fileIdentifier = schema.fileIdentifier
 		'''
 			«IF nameSpace!=null»
