@@ -27,6 +27,7 @@ import org.eclipse.emf.ecore.impl.MinimalEObjectImpl;
  *   <li>{@link maxim.zaks.flatBuffers.impl.TypeImpl#getPrimType <em>Prim Type</em>}</li>
  *   <li>{@link maxim.zaks.flatBuffers.impl.TypeImpl#getVectorType <em>Vector Type</em>}</li>
  *   <li>{@link maxim.zaks.flatBuffers.impl.TypeImpl#getDefType <em>Def Type</em>}</li>
+ *   <li>{@link maxim.zaks.flatBuffers.impl.TypeImpl#getQualifiedType <em>Qualified Type</em>}</li>
  * </ul>
  *
  * @generated
@@ -72,6 +73,26 @@ public class TypeImpl extends MinimalEObjectImpl.Container implements Type
    * @ordered
    */
   protected Definition defType;
+
+  /**
+   * The default value of the '{@link #getQualifiedType() <em>Qualified Type</em>}' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see #getQualifiedType()
+   * @generated
+   * @ordered
+   */
+  protected static final String QUALIFIED_TYPE_EDEFAULT = null;
+
+  /**
+   * The cached value of the '{@link #getQualifiedType() <em>Qualified Type</em>}' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see #getQualifiedType()
+   * @generated
+   * @ordered
+   */
+  protected String qualifiedType = QUALIFIED_TYPE_EDEFAULT;
 
   /**
    * <!-- begin-user-doc -->
@@ -213,6 +234,29 @@ public class TypeImpl extends MinimalEObjectImpl.Container implements Type
    * <!-- end-user-doc -->
    * @generated
    */
+  public String getQualifiedType()
+  {
+    return qualifiedType;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public void setQualifiedType(String newQualifiedType)
+  {
+    String oldQualifiedType = qualifiedType;
+    qualifiedType = newQualifiedType;
+    if (eNotificationRequired())
+      eNotify(new ENotificationImpl(this, Notification.SET, FlatBuffersPackage.TYPE__QUALIFIED_TYPE, oldQualifiedType, qualifiedType));
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
   @Override
   public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs)
   {
@@ -241,6 +285,8 @@ public class TypeImpl extends MinimalEObjectImpl.Container implements Type
       case FlatBuffersPackage.TYPE__DEF_TYPE:
         if (resolve) return getDefType();
         return basicGetDefType();
+      case FlatBuffersPackage.TYPE__QUALIFIED_TYPE:
+        return getQualifiedType();
     }
     return super.eGet(featureID, resolve, coreType);
   }
@@ -263,6 +309,9 @@ public class TypeImpl extends MinimalEObjectImpl.Container implements Type
         return;
       case FlatBuffersPackage.TYPE__DEF_TYPE:
         setDefType((Definition)newValue);
+        return;
+      case FlatBuffersPackage.TYPE__QUALIFIED_TYPE:
+        setQualifiedType((String)newValue);
         return;
     }
     super.eSet(featureID, newValue);
@@ -287,6 +336,9 @@ public class TypeImpl extends MinimalEObjectImpl.Container implements Type
       case FlatBuffersPackage.TYPE__DEF_TYPE:
         setDefType((Definition)null);
         return;
+      case FlatBuffersPackage.TYPE__QUALIFIED_TYPE:
+        setQualifiedType(QUALIFIED_TYPE_EDEFAULT);
+        return;
     }
     super.eUnset(featureID);
   }
@@ -307,6 +359,8 @@ public class TypeImpl extends MinimalEObjectImpl.Container implements Type
         return vectorType != null;
       case FlatBuffersPackage.TYPE__DEF_TYPE:
         return defType != null;
+      case FlatBuffersPackage.TYPE__QUALIFIED_TYPE:
+        return QUALIFIED_TYPE_EDEFAULT == null ? qualifiedType != null : !QUALIFIED_TYPE_EDEFAULT.equals(qualifiedType);
     }
     return super.eIsSet(featureID);
   }
@@ -324,6 +378,8 @@ public class TypeImpl extends MinimalEObjectImpl.Container implements Type
     StringBuffer result = new StringBuffer(super.toString());
     result.append(" (primType: ");
     result.append(primType);
+    result.append(", qualifiedType: ");
+    result.append(qualifiedType);
     result.append(')');
     return result.toString();
   }

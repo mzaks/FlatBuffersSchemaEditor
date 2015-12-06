@@ -78,6 +78,7 @@
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute FlatBuffers.ecore#//Type/primType"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference FlatBuffers.ecore#//Type/vectorType"/>
       <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference FlatBuffers.ecore#//Type/defType"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute FlatBuffers.ecore#//Type/qualifiedType"/>
     </genClasses>
     <genClasses ecoreClass="FlatBuffers.ecore#//Vector">
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference FlatBuffers.ecore#//Vector/type"/>

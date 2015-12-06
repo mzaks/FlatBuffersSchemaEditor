@@ -21,7 +21,7 @@ import java.util.ArrayList;
 @SuppressWarnings("all")
 public class InternalFlatBuffersParser extends AbstractInternalAntlrParser {
     public static final String[] tokenNames = new String[] {
-        "<invalid>", "<EOR>", "<DOWN>", "<UP>", "RULE_ID", "RULE_STRING", "RULE_DEPRECTED_ATTRIBUTE", "RULE_ID_ATTRIBUTE", "RULE_INT", "RULE_REQUIRED_ATTRIBUTE", "RULE_HASH_ATTRIBUTE", "RULE_KEY_ATTRIBUTE", "RULE_HEX", "RULE_DECIMAL", "RULE_ML_COMMENT", "RULE_SL_COMMENT", "RULE_WS", "RULE_ANY_OTHER", "'root_type'", "';'", "'attribute'", "'file_identifier'", "'file_extension'", "'namespace'", "'include'", "'struct'", "'{'", "'}'", "':'", "'table'", "'='", "'false'", "'true'", "'('", "','", "')'", "'original_order'", "'force_align'", "'bit_flags'", "'nested_flatbuffer'", "'['", "']'", "'bool'", "'float'", "'double'", "'string'", "'enum'", "'union'", "'byte'", "'ubyte'", "'short'", "'ushort'", "'int'", "'uint'", "'long'", "'ulong'", "'.'"
+        "<invalid>", "<EOR>", "<DOWN>", "<UP>", "RULE_ID", "RULE_STRING", "RULE_DEPRECTED_ATTRIBUTE", "RULE_ID_ATTRIBUTE", "RULE_INT", "RULE_REQUIRED_ATTRIBUTE", "RULE_HASH_ATTRIBUTE", "RULE_KEY_ATTRIBUTE", "RULE_HEX", "RULE_DECIMAL", "RULE_ML_COMMENT", "RULE_SL_COMMENT", "RULE_WS", "RULE_ANY_OTHER", "'root_type'", "';'", "'attribute'", "'file_identifier'", "'file_extension'", "'namespace'", "'include'", "'struct'", "'{'", "'}'", "':'", "'table'", "'='", "'false'", "'true'", "'('", "','", "')'", "'original_order'", "'force_align'", "'bit_flags'", "'nested_flatbuffer'", "'.'", "'['", "']'", "'bool'", "'float'", "'double'", "'string'", "'enum'", "'union'", "'byte'", "'ubyte'", "'short'", "'ushort'", "'int'", "'uint'", "'long'", "'ulong'"
     };
     public static final int RULE_HEX=12;
     public static final int T__50=50;
@@ -411,7 +411,7 @@ public class InternalFlatBuffersParser extends AbstractInternalAntlrParser {
                 int alt6=2;
                 int LA6_0 = input.LA(1);
 
-                if ( (LA6_0==25||LA6_0==29||(LA6_0>=46 && LA6_0<=47)) ) {
+                if ( (LA6_0==25||LA6_0==29||(LA6_0>=47 && LA6_0<=48)) ) {
                     alt6=1;
                 }
 
@@ -1169,12 +1169,12 @@ public class InternalFlatBuffersParser extends AbstractInternalAntlrParser {
                 alt7=2;
                 }
                 break;
-            case 46:
+            case 47:
                 {
                 alt7=3;
                 }
                 break;
-            case 47:
+            case 48:
                 {
                 alt7=4;
                 }
@@ -1578,7 +1578,7 @@ public class InternalFlatBuffersParser extends AbstractInternalAntlrParser {
             int alt10=2;
             int LA10_0 = input.LA(1);
 
-            if ( ((LA10_0>=42 && LA10_0<=44)||(LA10_0>=48 && LA10_0<=55)) ) {
+            if ( ((LA10_0>=43 && LA10_0<=45)||(LA10_0>=49 && LA10_0<=56)) ) {
                 alt10=1;
             }
             else if ( (LA10_0==RULE_ID) ) {
@@ -3284,7 +3284,7 @@ public class InternalFlatBuffersParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "ruleType"
-    // ../maxim.zaks.flattBuffers/src-gen/maxim/zaks/parser/antlr/internal/InternalFlatBuffers.g:1378:1: ruleType returns [EObject current=null] : ( ( (lv_primType_0_0= rulePrimitive ) ) | ( (lv_vectorType_1_0= ruleVector ) ) | ( (otherlv_2= RULE_ID ) ) ) ;
+    // ../maxim.zaks.flattBuffers/src-gen/maxim/zaks/parser/antlr/internal/InternalFlatBuffers.g:1378:1: ruleType returns [EObject current=null] : ( ( (lv_primType_0_0= rulePrimitive ) ) | ( (lv_vectorType_1_0= ruleVector ) ) | ( (otherlv_2= RULE_ID ) ) | ( (lv_qualifiedType_3_0= ruleQualifiedType ) ) ) ;
     public final EObject ruleType() throws RecognitionException {
         EObject current = null;
 
@@ -3293,21 +3293,22 @@ public class InternalFlatBuffersParser extends AbstractInternalAntlrParser {
 
         EObject lv_vectorType_1_0 = null;
 
+        AntlrDatatypeRuleToken lv_qualifiedType_3_0 = null;
+
 
          enterRule(); 
             
         try {
-            // ../maxim.zaks.flattBuffers/src-gen/maxim/zaks/parser/antlr/internal/InternalFlatBuffers.g:1381:28: ( ( ( (lv_primType_0_0= rulePrimitive ) ) | ( (lv_vectorType_1_0= ruleVector ) ) | ( (otherlv_2= RULE_ID ) ) ) )
-            // ../maxim.zaks.flattBuffers/src-gen/maxim/zaks/parser/antlr/internal/InternalFlatBuffers.g:1382:1: ( ( (lv_primType_0_0= rulePrimitive ) ) | ( (lv_vectorType_1_0= ruleVector ) ) | ( (otherlv_2= RULE_ID ) ) )
+            // ../maxim.zaks.flattBuffers/src-gen/maxim/zaks/parser/antlr/internal/InternalFlatBuffers.g:1381:28: ( ( ( (lv_primType_0_0= rulePrimitive ) ) | ( (lv_vectorType_1_0= ruleVector ) ) | ( (otherlv_2= RULE_ID ) ) | ( (lv_qualifiedType_3_0= ruleQualifiedType ) ) ) )
+            // ../maxim.zaks.flattBuffers/src-gen/maxim/zaks/parser/antlr/internal/InternalFlatBuffers.g:1382:1: ( ( (lv_primType_0_0= rulePrimitive ) ) | ( (lv_vectorType_1_0= ruleVector ) ) | ( (otherlv_2= RULE_ID ) ) | ( (lv_qualifiedType_3_0= ruleQualifiedType ) ) )
             {
-            // ../maxim.zaks.flattBuffers/src-gen/maxim/zaks/parser/antlr/internal/InternalFlatBuffers.g:1382:1: ( ( (lv_primType_0_0= rulePrimitive ) ) | ( (lv_vectorType_1_0= ruleVector ) ) | ( (otherlv_2= RULE_ID ) ) )
-            int alt20=3;
+            // ../maxim.zaks.flattBuffers/src-gen/maxim/zaks/parser/antlr/internal/InternalFlatBuffers.g:1382:1: ( ( (lv_primType_0_0= rulePrimitive ) ) | ( (lv_vectorType_1_0= ruleVector ) ) | ( (otherlv_2= RULE_ID ) ) | ( (lv_qualifiedType_3_0= ruleQualifiedType ) ) )
+            int alt20=4;
             switch ( input.LA(1) ) {
-            case 42:
             case 43:
             case 44:
             case 45:
-            case 48:
+            case 46:
             case 49:
             case 50:
             case 51:
@@ -3315,18 +3316,41 @@ public class InternalFlatBuffersParser extends AbstractInternalAntlrParser {
             case 53:
             case 54:
             case 55:
+            case 56:
                 {
                 alt20=1;
                 }
                 break;
-            case 40:
+            case 41:
                 {
                 alt20=2;
                 }
                 break;
             case RULE_ID:
                 {
-                alt20=3;
+                int LA20_3 = input.LA(2);
+
+                if ( (LA20_3==EOF||LA20_3==19||LA20_3==30||LA20_3==33||LA20_3==42) ) {
+                    alt20=3;
+                }
+                else if ( (LA20_3==40) ) {
+                    alt20=4;
+                }
+                else {
+                    NoViableAltException nvae =
+                        new NoViableAltException("", 20, 3, input);
+
+                    throw nvae;
+                }
+                }
+                break;
+            case RULE_DEPRECTED_ATTRIBUTE:
+            case RULE_ID_ATTRIBUTE:
+            case RULE_REQUIRED_ATTRIBUTE:
+            case RULE_HASH_ATTRIBUTE:
+            case RULE_KEY_ATTRIBUTE:
+                {
+                alt20=4;
                 }
                 break;
             default:
@@ -3438,6 +3462,43 @@ public class InternalFlatBuffersParser extends AbstractInternalAntlrParser {
 
                     }
                     break;
+                case 4 :
+                    // ../maxim.zaks.flattBuffers/src-gen/maxim/zaks/parser/antlr/internal/InternalFlatBuffers.g:1434:6: ( (lv_qualifiedType_3_0= ruleQualifiedType ) )
+                    {
+                    // ../maxim.zaks.flattBuffers/src-gen/maxim/zaks/parser/antlr/internal/InternalFlatBuffers.g:1434:6: ( (lv_qualifiedType_3_0= ruleQualifiedType ) )
+                    // ../maxim.zaks.flattBuffers/src-gen/maxim/zaks/parser/antlr/internal/InternalFlatBuffers.g:1435:1: (lv_qualifiedType_3_0= ruleQualifiedType )
+                    {
+                    // ../maxim.zaks.flattBuffers/src-gen/maxim/zaks/parser/antlr/internal/InternalFlatBuffers.g:1435:1: (lv_qualifiedType_3_0= ruleQualifiedType )
+                    // ../maxim.zaks.flattBuffers/src-gen/maxim/zaks/parser/antlr/internal/InternalFlatBuffers.g:1436:3: lv_qualifiedType_3_0= ruleQualifiedType
+                    {
+                     
+                    	        newCompositeNode(grammarAccess.getTypeAccess().getQualifiedTypeQualifiedTypeParserRuleCall_3_0()); 
+                    	    
+                    pushFollow(FOLLOW_ruleQualifiedType_in_ruleType2970);
+                    lv_qualifiedType_3_0=ruleQualifiedType();
+
+                    state._fsp--;
+
+
+                    	        if (current==null) {
+                    	            current = createModelElementForParent(grammarAccess.getTypeRule());
+                    	        }
+                           		set(
+                           			current, 
+                           			"qualifiedType",
+                            		lv_qualifiedType_3_0, 
+                            		"QualifiedType");
+                    	        afterParserOrEnumRuleCall();
+                    	    
+
+                    }
+
+
+                    }
+
+
+                    }
+                    break;
 
             }
 
@@ -3458,8 +3519,162 @@ public class InternalFlatBuffersParser extends AbstractInternalAntlrParser {
     // $ANTLR end "ruleType"
 
 
+    // $ANTLR start "entryRuleQualifiedType"
+    // ../maxim.zaks.flattBuffers/src-gen/maxim/zaks/parser/antlr/internal/InternalFlatBuffers.g:1460:1: entryRuleQualifiedType returns [String current=null] : iv_ruleQualifiedType= ruleQualifiedType EOF ;
+    public final String entryRuleQualifiedType() throws RecognitionException {
+        String current = null;
+
+        AntlrDatatypeRuleToken iv_ruleQualifiedType = null;
+
+
+        try {
+            // ../maxim.zaks.flattBuffers/src-gen/maxim/zaks/parser/antlr/internal/InternalFlatBuffers.g:1461:2: (iv_ruleQualifiedType= ruleQualifiedType EOF )
+            // ../maxim.zaks.flattBuffers/src-gen/maxim/zaks/parser/antlr/internal/InternalFlatBuffers.g:1462:2: iv_ruleQualifiedType= ruleQualifiedType EOF
+            {
+             newCompositeNode(grammarAccess.getQualifiedTypeRule()); 
+            pushFollow(FOLLOW_ruleQualifiedType_in_entryRuleQualifiedType3007);
+            iv_ruleQualifiedType=ruleQualifiedType();
+
+            state._fsp--;
+
+             current =iv_ruleQualifiedType.getText(); 
+            match(input,EOF,FOLLOW_EOF_in_entryRuleQualifiedType3018); 
+
+            }
+
+        }
+         
+            catch (RecognitionException re) { 
+                recover(input,re); 
+                appendSkippedTokens();
+            } 
+        finally {
+        }
+        return current;
+    }
+    // $ANTLR end "entryRuleQualifiedType"
+
+
+    // $ANTLR start "ruleQualifiedType"
+    // ../maxim.zaks.flattBuffers/src-gen/maxim/zaks/parser/antlr/internal/InternalFlatBuffers.g:1469:1: ruleQualifiedType returns [AntlrDatatypeRuleToken current=new AntlrDatatypeRuleToken()] : (this_ValidID_0= ruleValidID kw= '.' this_ValidID_2= ruleValidID (kw= '.' this_ValidID_4= ruleValidID )* ) ;
+    public final AntlrDatatypeRuleToken ruleQualifiedType() throws RecognitionException {
+        AntlrDatatypeRuleToken current = new AntlrDatatypeRuleToken();
+
+        Token kw=null;
+        AntlrDatatypeRuleToken this_ValidID_0 = null;
+
+        AntlrDatatypeRuleToken this_ValidID_2 = null;
+
+        AntlrDatatypeRuleToken this_ValidID_4 = null;
+
+
+         enterRule(); 
+            
+        try {
+            // ../maxim.zaks.flattBuffers/src-gen/maxim/zaks/parser/antlr/internal/InternalFlatBuffers.g:1472:28: ( (this_ValidID_0= ruleValidID kw= '.' this_ValidID_2= ruleValidID (kw= '.' this_ValidID_4= ruleValidID )* ) )
+            // ../maxim.zaks.flattBuffers/src-gen/maxim/zaks/parser/antlr/internal/InternalFlatBuffers.g:1473:1: (this_ValidID_0= ruleValidID kw= '.' this_ValidID_2= ruleValidID (kw= '.' this_ValidID_4= ruleValidID )* )
+            {
+            // ../maxim.zaks.flattBuffers/src-gen/maxim/zaks/parser/antlr/internal/InternalFlatBuffers.g:1473:1: (this_ValidID_0= ruleValidID kw= '.' this_ValidID_2= ruleValidID (kw= '.' this_ValidID_4= ruleValidID )* )
+            // ../maxim.zaks.flattBuffers/src-gen/maxim/zaks/parser/antlr/internal/InternalFlatBuffers.g:1474:5: this_ValidID_0= ruleValidID kw= '.' this_ValidID_2= ruleValidID (kw= '.' this_ValidID_4= ruleValidID )*
+            {
+             
+                    newCompositeNode(grammarAccess.getQualifiedTypeAccess().getValidIDParserRuleCall_0()); 
+                
+            pushFollow(FOLLOW_ruleValidID_in_ruleQualifiedType3065);
+            this_ValidID_0=ruleValidID();
+
+            state._fsp--;
+
+
+            		current.merge(this_ValidID_0);
+                
+             
+                    afterParserOrEnumRuleCall();
+                
+            kw=(Token)match(input,40,FOLLOW_40_in_ruleQualifiedType3083); 
+
+                    current.merge(kw);
+                    newLeafNode(kw, grammarAccess.getQualifiedTypeAccess().getFullStopKeyword_1()); 
+                
+             
+                    newCompositeNode(grammarAccess.getQualifiedTypeAccess().getValidIDParserRuleCall_2()); 
+                
+            pushFollow(FOLLOW_ruleValidID_in_ruleQualifiedType3105);
+            this_ValidID_2=ruleValidID();
+
+            state._fsp--;
+
+
+            		current.merge(this_ValidID_2);
+                
+             
+                    afterParserOrEnumRuleCall();
+                
+            // ../maxim.zaks.flattBuffers/src-gen/maxim/zaks/parser/antlr/internal/InternalFlatBuffers.g:1501:1: (kw= '.' this_ValidID_4= ruleValidID )*
+            loop21:
+            do {
+                int alt21=2;
+                int LA21_0 = input.LA(1);
+
+                if ( (LA21_0==40) ) {
+                    alt21=1;
+                }
+
+
+                switch (alt21) {
+            	case 1 :
+            	    // ../maxim.zaks.flattBuffers/src-gen/maxim/zaks/parser/antlr/internal/InternalFlatBuffers.g:1502:2: kw= '.' this_ValidID_4= ruleValidID
+            	    {
+            	    kw=(Token)match(input,40,FOLLOW_40_in_ruleQualifiedType3124); 
+
+            	            current.merge(kw);
+            	            newLeafNode(kw, grammarAccess.getQualifiedTypeAccess().getFullStopKeyword_3_0()); 
+            	        
+            	     
+            	            newCompositeNode(grammarAccess.getQualifiedTypeAccess().getValidIDParserRuleCall_3_1()); 
+            	        
+            	    pushFollow(FOLLOW_ruleValidID_in_ruleQualifiedType3146);
+            	    this_ValidID_4=ruleValidID();
+
+            	    state._fsp--;
+
+
+            	    		current.merge(this_ValidID_4);
+            	        
+            	     
+            	            afterParserOrEnumRuleCall();
+            	        
+
+            	    }
+            	    break;
+
+            	default :
+            	    break loop21;
+                }
+            } while (true);
+
+
+            }
+
+
+            }
+
+             leaveRule(); 
+        }
+         
+            catch (RecognitionException re) { 
+                recover(input,re); 
+                appendSkippedTokens();
+            } 
+        finally {
+        }
+        return current;
+    }
+    // $ANTLR end "ruleQualifiedType"
+
+
     // $ANTLR start "entryRuleVector"
-    // ../maxim.zaks.flattBuffers/src-gen/maxim/zaks/parser/antlr/internal/InternalFlatBuffers.g:1441:1: entryRuleVector returns [EObject current=null] : iv_ruleVector= ruleVector EOF ;
+    // ../maxim.zaks.flattBuffers/src-gen/maxim/zaks/parser/antlr/internal/InternalFlatBuffers.g:1526:1: entryRuleVector returns [EObject current=null] : iv_ruleVector= ruleVector EOF ;
     public final EObject entryRuleVector() throws RecognitionException {
         EObject current = null;
 
@@ -3470,17 +3685,17 @@ public class InternalFlatBuffersParser extends AbstractInternalAntlrParser {
         		HiddenTokens myHiddenTokenState = ((XtextTokenStream)input).setHiddenTokens();
         	
         try {
-            // ../maxim.zaks.flattBuffers/src-gen/maxim/zaks/parser/antlr/internal/InternalFlatBuffers.g:1445:2: (iv_ruleVector= ruleVector EOF )
-            // ../maxim.zaks.flattBuffers/src-gen/maxim/zaks/parser/antlr/internal/InternalFlatBuffers.g:1446:2: iv_ruleVector= ruleVector EOF
+            // ../maxim.zaks.flattBuffers/src-gen/maxim/zaks/parser/antlr/internal/InternalFlatBuffers.g:1530:2: (iv_ruleVector= ruleVector EOF )
+            // ../maxim.zaks.flattBuffers/src-gen/maxim/zaks/parser/antlr/internal/InternalFlatBuffers.g:1531:2: iv_ruleVector= ruleVector EOF
             {
              newCompositeNode(grammarAccess.getVectorRule()); 
-            pushFollow(FOLLOW_ruleVector_in_entryRuleVector2985);
+            pushFollow(FOLLOW_ruleVector_in_entryRuleVector3199);
             iv_ruleVector=ruleVector();
 
             state._fsp--;
 
              current =iv_ruleVector; 
-            match(input,EOF,FOLLOW_EOF_in_entryRuleVector2995); 
+            match(input,EOF,FOLLOW_EOF_in_entryRuleVector3209); 
 
             }
 
@@ -3501,7 +3716,7 @@ public class InternalFlatBuffersParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "ruleVector"
-    // ../maxim.zaks.flattBuffers/src-gen/maxim/zaks/parser/antlr/internal/InternalFlatBuffers.g:1456:1: ruleVector returns [EObject current=null] : (otherlv_0= '[' ( (lv_type_1_0= ruleType ) ) otherlv_2= ']' ) ;
+    // ../maxim.zaks.flattBuffers/src-gen/maxim/zaks/parser/antlr/internal/InternalFlatBuffers.g:1541:1: ruleVector returns [EObject current=null] : (otherlv_0= '[' ( (lv_type_1_0= ruleType ) ) otherlv_2= ']' ) ;
     public final EObject ruleVector() throws RecognitionException {
         EObject current = null;
 
@@ -3514,26 +3729,26 @@ public class InternalFlatBuffersParser extends AbstractInternalAntlrParser {
         		HiddenTokens myHiddenTokenState = ((XtextTokenStream)input).setHiddenTokens();
             
         try {
-            // ../maxim.zaks.flattBuffers/src-gen/maxim/zaks/parser/antlr/internal/InternalFlatBuffers.g:1460:28: ( (otherlv_0= '[' ( (lv_type_1_0= ruleType ) ) otherlv_2= ']' ) )
-            // ../maxim.zaks.flattBuffers/src-gen/maxim/zaks/parser/antlr/internal/InternalFlatBuffers.g:1461:1: (otherlv_0= '[' ( (lv_type_1_0= ruleType ) ) otherlv_2= ']' )
+            // ../maxim.zaks.flattBuffers/src-gen/maxim/zaks/parser/antlr/internal/InternalFlatBuffers.g:1545:28: ( (otherlv_0= '[' ( (lv_type_1_0= ruleType ) ) otherlv_2= ']' ) )
+            // ../maxim.zaks.flattBuffers/src-gen/maxim/zaks/parser/antlr/internal/InternalFlatBuffers.g:1546:1: (otherlv_0= '[' ( (lv_type_1_0= ruleType ) ) otherlv_2= ']' )
             {
-            // ../maxim.zaks.flattBuffers/src-gen/maxim/zaks/parser/antlr/internal/InternalFlatBuffers.g:1461:1: (otherlv_0= '[' ( (lv_type_1_0= ruleType ) ) otherlv_2= ']' )
-            // ../maxim.zaks.flattBuffers/src-gen/maxim/zaks/parser/antlr/internal/InternalFlatBuffers.g:1461:3: otherlv_0= '[' ( (lv_type_1_0= ruleType ) ) otherlv_2= ']'
+            // ../maxim.zaks.flattBuffers/src-gen/maxim/zaks/parser/antlr/internal/InternalFlatBuffers.g:1546:1: (otherlv_0= '[' ( (lv_type_1_0= ruleType ) ) otherlv_2= ']' )
+            // ../maxim.zaks.flattBuffers/src-gen/maxim/zaks/parser/antlr/internal/InternalFlatBuffers.g:1546:3: otherlv_0= '[' ( (lv_type_1_0= ruleType ) ) otherlv_2= ']'
             {
-            otherlv_0=(Token)match(input,40,FOLLOW_40_in_ruleVector3036); 
+            otherlv_0=(Token)match(input,41,FOLLOW_41_in_ruleVector3250); 
 
                 	newLeafNode(otherlv_0, grammarAccess.getVectorAccess().getLeftSquareBracketKeyword_0());
                 
-            // ../maxim.zaks.flattBuffers/src-gen/maxim/zaks/parser/antlr/internal/InternalFlatBuffers.g:1465:1: ( (lv_type_1_0= ruleType ) )
-            // ../maxim.zaks.flattBuffers/src-gen/maxim/zaks/parser/antlr/internal/InternalFlatBuffers.g:1466:1: (lv_type_1_0= ruleType )
+            // ../maxim.zaks.flattBuffers/src-gen/maxim/zaks/parser/antlr/internal/InternalFlatBuffers.g:1550:1: ( (lv_type_1_0= ruleType ) )
+            // ../maxim.zaks.flattBuffers/src-gen/maxim/zaks/parser/antlr/internal/InternalFlatBuffers.g:1551:1: (lv_type_1_0= ruleType )
             {
-            // ../maxim.zaks.flattBuffers/src-gen/maxim/zaks/parser/antlr/internal/InternalFlatBuffers.g:1466:1: (lv_type_1_0= ruleType )
-            // ../maxim.zaks.flattBuffers/src-gen/maxim/zaks/parser/antlr/internal/InternalFlatBuffers.g:1467:3: lv_type_1_0= ruleType
+            // ../maxim.zaks.flattBuffers/src-gen/maxim/zaks/parser/antlr/internal/InternalFlatBuffers.g:1551:1: (lv_type_1_0= ruleType )
+            // ../maxim.zaks.flattBuffers/src-gen/maxim/zaks/parser/antlr/internal/InternalFlatBuffers.g:1552:3: lv_type_1_0= ruleType
             {
              
             	        newCompositeNode(grammarAccess.getVectorAccess().getTypeTypeParserRuleCall_1_0()); 
             	    
-            pushFollow(FOLLOW_ruleType_in_ruleVector3057);
+            pushFollow(FOLLOW_ruleType_in_ruleVector3271);
             lv_type_1_0=ruleType();
 
             state._fsp--;
@@ -3555,7 +3770,7 @@ public class InternalFlatBuffersParser extends AbstractInternalAntlrParser {
 
             }
 
-            otherlv_2=(Token)match(input,41,FOLLOW_41_in_ruleVector3069); 
+            otherlv_2=(Token)match(input,42,FOLLOW_42_in_ruleVector3283); 
 
                 	newLeafNode(otherlv_2, grammarAccess.getVectorAccess().getRightSquareBracketKeyword_2());
                 
@@ -3583,7 +3798,7 @@ public class InternalFlatBuffersParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "entryRulePrimitiveWithoutString"
-    // ../maxim.zaks.flattBuffers/src-gen/maxim/zaks/parser/antlr/internal/InternalFlatBuffers.g:1498:1: entryRulePrimitiveWithoutString returns [String current=null] : iv_rulePrimitiveWithoutString= rulePrimitiveWithoutString EOF ;
+    // ../maxim.zaks.flattBuffers/src-gen/maxim/zaks/parser/antlr/internal/InternalFlatBuffers.g:1583:1: entryRulePrimitiveWithoutString returns [String current=null] : iv_rulePrimitiveWithoutString= rulePrimitiveWithoutString EOF ;
     public final String entryRulePrimitiveWithoutString() throws RecognitionException {
         String current = null;
 
@@ -3591,17 +3806,17 @@ public class InternalFlatBuffersParser extends AbstractInternalAntlrParser {
 
 
         try {
-            // ../maxim.zaks.flattBuffers/src-gen/maxim/zaks/parser/antlr/internal/InternalFlatBuffers.g:1499:2: (iv_rulePrimitiveWithoutString= rulePrimitiveWithoutString EOF )
-            // ../maxim.zaks.flattBuffers/src-gen/maxim/zaks/parser/antlr/internal/InternalFlatBuffers.g:1500:2: iv_rulePrimitiveWithoutString= rulePrimitiveWithoutString EOF
+            // ../maxim.zaks.flattBuffers/src-gen/maxim/zaks/parser/antlr/internal/InternalFlatBuffers.g:1584:2: (iv_rulePrimitiveWithoutString= rulePrimitiveWithoutString EOF )
+            // ../maxim.zaks.flattBuffers/src-gen/maxim/zaks/parser/antlr/internal/InternalFlatBuffers.g:1585:2: iv_rulePrimitiveWithoutString= rulePrimitiveWithoutString EOF
             {
              newCompositeNode(grammarAccess.getPrimitiveWithoutStringRule()); 
-            pushFollow(FOLLOW_rulePrimitiveWithoutString_in_entryRulePrimitiveWithoutString3110);
+            pushFollow(FOLLOW_rulePrimitiveWithoutString_in_entryRulePrimitiveWithoutString3324);
             iv_rulePrimitiveWithoutString=rulePrimitiveWithoutString();
 
             state._fsp--;
 
              current =iv_rulePrimitiveWithoutString.getText(); 
-            match(input,EOF,FOLLOW_EOF_in_entryRulePrimitiveWithoutString3121); 
+            match(input,EOF,FOLLOW_EOF_in_entryRulePrimitiveWithoutString3335); 
 
             }
 
@@ -3619,7 +3834,7 @@ public class InternalFlatBuffersParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "rulePrimitiveWithoutString"
-    // ../maxim.zaks.flattBuffers/src-gen/maxim/zaks/parser/antlr/internal/InternalFlatBuffers.g:1507:1: rulePrimitiveWithoutString returns [AntlrDatatypeRuleToken current=new AntlrDatatypeRuleToken()] : (kw= 'bool' | kw= 'float' | kw= 'double' | this_PrimitiveNumberType_3= rulePrimitiveNumberType ) ;
+    // ../maxim.zaks.flattBuffers/src-gen/maxim/zaks/parser/antlr/internal/InternalFlatBuffers.g:1592:1: rulePrimitiveWithoutString returns [AntlrDatatypeRuleToken current=new AntlrDatatypeRuleToken()] : (kw= 'bool' | kw= 'float' | kw= 'double' | this_PrimitiveNumberType_3= rulePrimitiveNumberType ) ;
     public final AntlrDatatypeRuleToken rulePrimitiveWithoutString() throws RecognitionException {
         AntlrDatatypeRuleToken current = new AntlrDatatypeRuleToken();
 
@@ -3630,28 +3845,27 @@ public class InternalFlatBuffersParser extends AbstractInternalAntlrParser {
          enterRule(); 
             
         try {
-            // ../maxim.zaks.flattBuffers/src-gen/maxim/zaks/parser/antlr/internal/InternalFlatBuffers.g:1510:28: ( (kw= 'bool' | kw= 'float' | kw= 'double' | this_PrimitiveNumberType_3= rulePrimitiveNumberType ) )
-            // ../maxim.zaks.flattBuffers/src-gen/maxim/zaks/parser/antlr/internal/InternalFlatBuffers.g:1511:1: (kw= 'bool' | kw= 'float' | kw= 'double' | this_PrimitiveNumberType_3= rulePrimitiveNumberType )
+            // ../maxim.zaks.flattBuffers/src-gen/maxim/zaks/parser/antlr/internal/InternalFlatBuffers.g:1595:28: ( (kw= 'bool' | kw= 'float' | kw= 'double' | this_PrimitiveNumberType_3= rulePrimitiveNumberType ) )
+            // ../maxim.zaks.flattBuffers/src-gen/maxim/zaks/parser/antlr/internal/InternalFlatBuffers.g:1596:1: (kw= 'bool' | kw= 'float' | kw= 'double' | this_PrimitiveNumberType_3= rulePrimitiveNumberType )
             {
-            // ../maxim.zaks.flattBuffers/src-gen/maxim/zaks/parser/antlr/internal/InternalFlatBuffers.g:1511:1: (kw= 'bool' | kw= 'float' | kw= 'double' | this_PrimitiveNumberType_3= rulePrimitiveNumberType )
-            int alt21=4;
+            // ../maxim.zaks.flattBuffers/src-gen/maxim/zaks/parser/antlr/internal/InternalFlatBuffers.g:1596:1: (kw= 'bool' | kw= 'float' | kw= 'double' | this_PrimitiveNumberType_3= rulePrimitiveNumberType )
+            int alt22=4;
             switch ( input.LA(1) ) {
-            case 42:
-                {
-                alt21=1;
-                }
-                break;
             case 43:
                 {
-                alt21=2;
+                alt22=1;
                 }
                 break;
             case 44:
                 {
-                alt21=3;
+                alt22=2;
                 }
                 break;
-            case 48:
+            case 45:
+                {
+                alt22=3;
+                }
+                break;
             case 49:
             case 50:
             case 51:
@@ -3659,22 +3873,23 @@ public class InternalFlatBuffersParser extends AbstractInternalAntlrParser {
             case 53:
             case 54:
             case 55:
+            case 56:
                 {
-                alt21=4;
+                alt22=4;
                 }
                 break;
             default:
                 NoViableAltException nvae =
-                    new NoViableAltException("", 21, 0, input);
+                    new NoViableAltException("", 22, 0, input);
 
                 throw nvae;
             }
 
-            switch (alt21) {
+            switch (alt22) {
                 case 1 :
-                    // ../maxim.zaks.flattBuffers/src-gen/maxim/zaks/parser/antlr/internal/InternalFlatBuffers.g:1512:2: kw= 'bool'
+                    // ../maxim.zaks.flattBuffers/src-gen/maxim/zaks/parser/antlr/internal/InternalFlatBuffers.g:1597:2: kw= 'bool'
                     {
-                    kw=(Token)match(input,42,FOLLOW_42_in_rulePrimitiveWithoutString3159); 
+                    kw=(Token)match(input,43,FOLLOW_43_in_rulePrimitiveWithoutString3373); 
 
                             current.merge(kw);
                             newLeafNode(kw, grammarAccess.getPrimitiveWithoutStringAccess().getBoolKeyword_0()); 
@@ -3683,9 +3898,9 @@ public class InternalFlatBuffersParser extends AbstractInternalAntlrParser {
                     }
                     break;
                 case 2 :
-                    // ../maxim.zaks.flattBuffers/src-gen/maxim/zaks/parser/antlr/internal/InternalFlatBuffers.g:1519:2: kw= 'float'
+                    // ../maxim.zaks.flattBuffers/src-gen/maxim/zaks/parser/antlr/internal/InternalFlatBuffers.g:1604:2: kw= 'float'
                     {
-                    kw=(Token)match(input,43,FOLLOW_43_in_rulePrimitiveWithoutString3178); 
+                    kw=(Token)match(input,44,FOLLOW_44_in_rulePrimitiveWithoutString3392); 
 
                             current.merge(kw);
                             newLeafNode(kw, grammarAccess.getPrimitiveWithoutStringAccess().getFloatKeyword_1()); 
@@ -3694,9 +3909,9 @@ public class InternalFlatBuffersParser extends AbstractInternalAntlrParser {
                     }
                     break;
                 case 3 :
-                    // ../maxim.zaks.flattBuffers/src-gen/maxim/zaks/parser/antlr/internal/InternalFlatBuffers.g:1526:2: kw= 'double'
+                    // ../maxim.zaks.flattBuffers/src-gen/maxim/zaks/parser/antlr/internal/InternalFlatBuffers.g:1611:2: kw= 'double'
                     {
-                    kw=(Token)match(input,44,FOLLOW_44_in_rulePrimitiveWithoutString3197); 
+                    kw=(Token)match(input,45,FOLLOW_45_in_rulePrimitiveWithoutString3411); 
 
                             current.merge(kw);
                             newLeafNode(kw, grammarAccess.getPrimitiveWithoutStringAccess().getDoubleKeyword_2()); 
@@ -3705,12 +3920,12 @@ public class InternalFlatBuffersParser extends AbstractInternalAntlrParser {
                     }
                     break;
                 case 4 :
-                    // ../maxim.zaks.flattBuffers/src-gen/maxim/zaks/parser/antlr/internal/InternalFlatBuffers.g:1533:5: this_PrimitiveNumberType_3= rulePrimitiveNumberType
+                    // ../maxim.zaks.flattBuffers/src-gen/maxim/zaks/parser/antlr/internal/InternalFlatBuffers.g:1618:5: this_PrimitiveNumberType_3= rulePrimitiveNumberType
                     {
                      
                             newCompositeNode(grammarAccess.getPrimitiveWithoutStringAccess().getPrimitiveNumberTypeParserRuleCall_3()); 
                         
-                    pushFollow(FOLLOW_rulePrimitiveNumberType_in_rulePrimitiveWithoutString3225);
+                    pushFollow(FOLLOW_rulePrimitiveNumberType_in_rulePrimitiveWithoutString3439);
                     this_PrimitiveNumberType_3=rulePrimitiveNumberType();
 
                     state._fsp--;
@@ -3745,7 +3960,7 @@ public class InternalFlatBuffersParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "entryRulePrimitive"
-    // ../maxim.zaks.flattBuffers/src-gen/maxim/zaks/parser/antlr/internal/InternalFlatBuffers.g:1551:1: entryRulePrimitive returns [String current=null] : iv_rulePrimitive= rulePrimitive EOF ;
+    // ../maxim.zaks.flattBuffers/src-gen/maxim/zaks/parser/antlr/internal/InternalFlatBuffers.g:1636:1: entryRulePrimitive returns [String current=null] : iv_rulePrimitive= rulePrimitive EOF ;
     public final String entryRulePrimitive() throws RecognitionException {
         String current = null;
 
@@ -3753,17 +3968,17 @@ public class InternalFlatBuffersParser extends AbstractInternalAntlrParser {
 
 
         try {
-            // ../maxim.zaks.flattBuffers/src-gen/maxim/zaks/parser/antlr/internal/InternalFlatBuffers.g:1552:2: (iv_rulePrimitive= rulePrimitive EOF )
-            // ../maxim.zaks.flattBuffers/src-gen/maxim/zaks/parser/antlr/internal/InternalFlatBuffers.g:1553:2: iv_rulePrimitive= rulePrimitive EOF
+            // ../maxim.zaks.flattBuffers/src-gen/maxim/zaks/parser/antlr/internal/InternalFlatBuffers.g:1637:2: (iv_rulePrimitive= rulePrimitive EOF )
+            // ../maxim.zaks.flattBuffers/src-gen/maxim/zaks/parser/antlr/internal/InternalFlatBuffers.g:1638:2: iv_rulePrimitive= rulePrimitive EOF
             {
              newCompositeNode(grammarAccess.getPrimitiveRule()); 
-            pushFollow(FOLLOW_rulePrimitive_in_entryRulePrimitive3271);
+            pushFollow(FOLLOW_rulePrimitive_in_entryRulePrimitive3485);
             iv_rulePrimitive=rulePrimitive();
 
             state._fsp--;
 
              current =iv_rulePrimitive.getText(); 
-            match(input,EOF,FOLLOW_EOF_in_entryRulePrimitive3282); 
+            match(input,EOF,FOLLOW_EOF_in_entryRulePrimitive3496); 
 
             }
 
@@ -3781,7 +3996,7 @@ public class InternalFlatBuffersParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "rulePrimitive"
-    // ../maxim.zaks.flattBuffers/src-gen/maxim/zaks/parser/antlr/internal/InternalFlatBuffers.g:1560:1: rulePrimitive returns [AntlrDatatypeRuleToken current=new AntlrDatatypeRuleToken()] : (kw= 'string' | this_PrimitiveWithoutString_1= rulePrimitiveWithoutString ) ;
+    // ../maxim.zaks.flattBuffers/src-gen/maxim/zaks/parser/antlr/internal/InternalFlatBuffers.g:1645:1: rulePrimitive returns [AntlrDatatypeRuleToken current=new AntlrDatatypeRuleToken()] : (kw= 'string' | this_PrimitiveWithoutString_1= rulePrimitiveWithoutString ) ;
     public final AntlrDatatypeRuleToken rulePrimitive() throws RecognitionException {
         AntlrDatatypeRuleToken current = new AntlrDatatypeRuleToken();
 
@@ -3792,30 +4007,30 @@ public class InternalFlatBuffersParser extends AbstractInternalAntlrParser {
          enterRule(); 
             
         try {
-            // ../maxim.zaks.flattBuffers/src-gen/maxim/zaks/parser/antlr/internal/InternalFlatBuffers.g:1563:28: ( (kw= 'string' | this_PrimitiveWithoutString_1= rulePrimitiveWithoutString ) )
-            // ../maxim.zaks.flattBuffers/src-gen/maxim/zaks/parser/antlr/internal/InternalFlatBuffers.g:1564:1: (kw= 'string' | this_PrimitiveWithoutString_1= rulePrimitiveWithoutString )
+            // ../maxim.zaks.flattBuffers/src-gen/maxim/zaks/parser/antlr/internal/InternalFlatBuffers.g:1648:28: ( (kw= 'string' | this_PrimitiveWithoutString_1= rulePrimitiveWithoutString ) )
+            // ../maxim.zaks.flattBuffers/src-gen/maxim/zaks/parser/antlr/internal/InternalFlatBuffers.g:1649:1: (kw= 'string' | this_PrimitiveWithoutString_1= rulePrimitiveWithoutString )
             {
-            // ../maxim.zaks.flattBuffers/src-gen/maxim/zaks/parser/antlr/internal/InternalFlatBuffers.g:1564:1: (kw= 'string' | this_PrimitiveWithoutString_1= rulePrimitiveWithoutString )
-            int alt22=2;
-            int LA22_0 = input.LA(1);
+            // ../maxim.zaks.flattBuffers/src-gen/maxim/zaks/parser/antlr/internal/InternalFlatBuffers.g:1649:1: (kw= 'string' | this_PrimitiveWithoutString_1= rulePrimitiveWithoutString )
+            int alt23=2;
+            int LA23_0 = input.LA(1);
 
-            if ( (LA22_0==45) ) {
-                alt22=1;
+            if ( (LA23_0==46) ) {
+                alt23=1;
             }
-            else if ( ((LA22_0>=42 && LA22_0<=44)||(LA22_0>=48 && LA22_0<=55)) ) {
-                alt22=2;
+            else if ( ((LA23_0>=43 && LA23_0<=45)||(LA23_0>=49 && LA23_0<=56)) ) {
+                alt23=2;
             }
             else {
                 NoViableAltException nvae =
-                    new NoViableAltException("", 22, 0, input);
+                    new NoViableAltException("", 23, 0, input);
 
                 throw nvae;
             }
-            switch (alt22) {
+            switch (alt23) {
                 case 1 :
-                    // ../maxim.zaks.flattBuffers/src-gen/maxim/zaks/parser/antlr/internal/InternalFlatBuffers.g:1565:2: kw= 'string'
+                    // ../maxim.zaks.flattBuffers/src-gen/maxim/zaks/parser/antlr/internal/InternalFlatBuffers.g:1650:2: kw= 'string'
                     {
-                    kw=(Token)match(input,45,FOLLOW_45_in_rulePrimitive3320); 
+                    kw=(Token)match(input,46,FOLLOW_46_in_rulePrimitive3534); 
 
                             current.merge(kw);
                             newLeafNode(kw, grammarAccess.getPrimitiveAccess().getStringKeyword_0()); 
@@ -3824,12 +4039,12 @@ public class InternalFlatBuffersParser extends AbstractInternalAntlrParser {
                     }
                     break;
                 case 2 :
-                    // ../maxim.zaks.flattBuffers/src-gen/maxim/zaks/parser/antlr/internal/InternalFlatBuffers.g:1572:5: this_PrimitiveWithoutString_1= rulePrimitiveWithoutString
+                    // ../maxim.zaks.flattBuffers/src-gen/maxim/zaks/parser/antlr/internal/InternalFlatBuffers.g:1657:5: this_PrimitiveWithoutString_1= rulePrimitiveWithoutString
                     {
                      
                             newCompositeNode(grammarAccess.getPrimitiveAccess().getPrimitiveWithoutStringParserRuleCall_1()); 
                         
-                    pushFollow(FOLLOW_rulePrimitiveWithoutString_in_rulePrimitive3348);
+                    pushFollow(FOLLOW_rulePrimitiveWithoutString_in_rulePrimitive3562);
                     this_PrimitiveWithoutString_1=rulePrimitiveWithoutString();
 
                     state._fsp--;
@@ -3864,7 +4079,7 @@ public class InternalFlatBuffersParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "entryRuleEnum"
-    // ../maxim.zaks.flattBuffers/src-gen/maxim/zaks/parser/antlr/internal/InternalFlatBuffers.g:1590:1: entryRuleEnum returns [EObject current=null] : iv_ruleEnum= ruleEnum EOF ;
+    // ../maxim.zaks.flattBuffers/src-gen/maxim/zaks/parser/antlr/internal/InternalFlatBuffers.g:1675:1: entryRuleEnum returns [EObject current=null] : iv_ruleEnum= ruleEnum EOF ;
     public final EObject entryRuleEnum() throws RecognitionException {
         EObject current = null;
 
@@ -3872,17 +4087,17 @@ public class InternalFlatBuffersParser extends AbstractInternalAntlrParser {
 
 
         try {
-            // ../maxim.zaks.flattBuffers/src-gen/maxim/zaks/parser/antlr/internal/InternalFlatBuffers.g:1591:2: (iv_ruleEnum= ruleEnum EOF )
-            // ../maxim.zaks.flattBuffers/src-gen/maxim/zaks/parser/antlr/internal/InternalFlatBuffers.g:1592:2: iv_ruleEnum= ruleEnum EOF
+            // ../maxim.zaks.flattBuffers/src-gen/maxim/zaks/parser/antlr/internal/InternalFlatBuffers.g:1676:2: (iv_ruleEnum= ruleEnum EOF )
+            // ../maxim.zaks.flattBuffers/src-gen/maxim/zaks/parser/antlr/internal/InternalFlatBuffers.g:1677:2: iv_ruleEnum= ruleEnum EOF
             {
              newCompositeNode(grammarAccess.getEnumRule()); 
-            pushFollow(FOLLOW_ruleEnum_in_entryRuleEnum3393);
+            pushFollow(FOLLOW_ruleEnum_in_entryRuleEnum3607);
             iv_ruleEnum=ruleEnum();
 
             state._fsp--;
 
              current =iv_ruleEnum; 
-            match(input,EOF,FOLLOW_EOF_in_entryRuleEnum3403); 
+            match(input,EOF,FOLLOW_EOF_in_entryRuleEnum3617); 
 
             }
 
@@ -3900,7 +4115,7 @@ public class InternalFlatBuffersParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "ruleEnum"
-    // ../maxim.zaks.flattBuffers/src-gen/maxim/zaks/parser/antlr/internal/InternalFlatBuffers.g:1599:1: ruleEnum returns [EObject current=null] : (otherlv_0= 'enum' ( (lv_name_1_0= RULE_ID ) ) (otherlv_2= ':' ( (lv_type_3_0= rulePrimitiveNumberType ) ) )? ( (lv_attributes_4_0= ruleFieldAttributes ) )? otherlv_5= '{' ( (lv_enumCases_6_0= ruleEnumCase ) ) (otherlv_7= ',' ( (lv_enumCases_8_0= ruleEnumCase ) ) )* otherlv_9= '}' ) ;
+    // ../maxim.zaks.flattBuffers/src-gen/maxim/zaks/parser/antlr/internal/InternalFlatBuffers.g:1684:1: ruleEnum returns [EObject current=null] : (otherlv_0= 'enum' ( (lv_name_1_0= RULE_ID ) ) (otherlv_2= ':' ( (lv_type_3_0= rulePrimitiveNumberType ) ) )? ( (lv_attributes_4_0= ruleFieldAttributes ) )? otherlv_5= '{' ( (lv_enumCases_6_0= ruleEnumCase ) ) (otherlv_7= ',' ( (lv_enumCases_8_0= ruleEnumCase ) ) )* otherlv_9= '}' ) ;
     public final EObject ruleEnum() throws RecognitionException {
         EObject current = null;
 
@@ -3922,23 +4137,23 @@ public class InternalFlatBuffersParser extends AbstractInternalAntlrParser {
          enterRule(); 
             
         try {
-            // ../maxim.zaks.flattBuffers/src-gen/maxim/zaks/parser/antlr/internal/InternalFlatBuffers.g:1602:28: ( (otherlv_0= 'enum' ( (lv_name_1_0= RULE_ID ) ) (otherlv_2= ':' ( (lv_type_3_0= rulePrimitiveNumberType ) ) )? ( (lv_attributes_4_0= ruleFieldAttributes ) )? otherlv_5= '{' ( (lv_enumCases_6_0= ruleEnumCase ) ) (otherlv_7= ',' ( (lv_enumCases_8_0= ruleEnumCase ) ) )* otherlv_9= '}' ) )
-            // ../maxim.zaks.flattBuffers/src-gen/maxim/zaks/parser/antlr/internal/InternalFlatBuffers.g:1603:1: (otherlv_0= 'enum' ( (lv_name_1_0= RULE_ID ) ) (otherlv_2= ':' ( (lv_type_3_0= rulePrimitiveNumberType ) ) )? ( (lv_attributes_4_0= ruleFieldAttributes ) )? otherlv_5= '{' ( (lv_enumCases_6_0= ruleEnumCase ) ) (otherlv_7= ',' ( (lv_enumCases_8_0= ruleEnumCase ) ) )* otherlv_9= '}' )
+            // ../maxim.zaks.flattBuffers/src-gen/maxim/zaks/parser/antlr/internal/InternalFlatBuffers.g:1687:28: ( (otherlv_0= 'enum' ( (lv_name_1_0= RULE_ID ) ) (otherlv_2= ':' ( (lv_type_3_0= rulePrimitiveNumberType ) ) )? ( (lv_attributes_4_0= ruleFieldAttributes ) )? otherlv_5= '{' ( (lv_enumCases_6_0= ruleEnumCase ) ) (otherlv_7= ',' ( (lv_enumCases_8_0= ruleEnumCase ) ) )* otherlv_9= '}' ) )
+            // ../maxim.zaks.flattBuffers/src-gen/maxim/zaks/parser/antlr/internal/InternalFlatBuffers.g:1688:1: (otherlv_0= 'enum' ( (lv_name_1_0= RULE_ID ) ) (otherlv_2= ':' ( (lv_type_3_0= rulePrimitiveNumberType ) ) )? ( (lv_attributes_4_0= ruleFieldAttributes ) )? otherlv_5= '{' ( (lv_enumCases_6_0= ruleEnumCase ) ) (otherlv_7= ',' ( (lv_enumCases_8_0= ruleEnumCase ) ) )* otherlv_9= '}' )
             {
-            // ../maxim.zaks.flattBuffers/src-gen/maxim/zaks/parser/antlr/internal/InternalFlatBuffers.g:1603:1: (otherlv_0= 'enum' ( (lv_name_1_0= RULE_ID ) ) (otherlv_2= ':' ( (lv_type_3_0= rulePrimitiveNumberType ) ) )? ( (lv_attributes_4_0= ruleFieldAttributes ) )? otherlv_5= '{' ( (lv_enumCases_6_0= ruleEnumCase ) ) (otherlv_7= ',' ( (lv_enumCases_8_0= ruleEnumCase ) ) )* otherlv_9= '}' )
-            // ../maxim.zaks.flattBuffers/src-gen/maxim/zaks/parser/antlr/internal/InternalFlatBuffers.g:1603:3: otherlv_0= 'enum' ( (lv_name_1_0= RULE_ID ) ) (otherlv_2= ':' ( (lv_type_3_0= rulePrimitiveNumberType ) ) )? ( (lv_attributes_4_0= ruleFieldAttributes ) )? otherlv_5= '{' ( (lv_enumCases_6_0= ruleEnumCase ) ) (otherlv_7= ',' ( (lv_enumCases_8_0= ruleEnumCase ) ) )* otherlv_9= '}'
+            // ../maxim.zaks.flattBuffers/src-gen/maxim/zaks/parser/antlr/internal/InternalFlatBuffers.g:1688:1: (otherlv_0= 'enum' ( (lv_name_1_0= RULE_ID ) ) (otherlv_2= ':' ( (lv_type_3_0= rulePrimitiveNumberType ) ) )? ( (lv_attributes_4_0= ruleFieldAttributes ) )? otherlv_5= '{' ( (lv_enumCases_6_0= ruleEnumCase ) ) (otherlv_7= ',' ( (lv_enumCases_8_0= ruleEnumCase ) ) )* otherlv_9= '}' )
+            // ../maxim.zaks.flattBuffers/src-gen/maxim/zaks/parser/antlr/internal/InternalFlatBuffers.g:1688:3: otherlv_0= 'enum' ( (lv_name_1_0= RULE_ID ) ) (otherlv_2= ':' ( (lv_type_3_0= rulePrimitiveNumberType ) ) )? ( (lv_attributes_4_0= ruleFieldAttributes ) )? otherlv_5= '{' ( (lv_enumCases_6_0= ruleEnumCase ) ) (otherlv_7= ',' ( (lv_enumCases_8_0= ruleEnumCase ) ) )* otherlv_9= '}'
             {
-            otherlv_0=(Token)match(input,46,FOLLOW_46_in_ruleEnum3440); 
+            otherlv_0=(Token)match(input,47,FOLLOW_47_in_ruleEnum3654); 
 
                 	newLeafNode(otherlv_0, grammarAccess.getEnumAccess().getEnumKeyword_0());
                 
-            // ../maxim.zaks.flattBuffers/src-gen/maxim/zaks/parser/antlr/internal/InternalFlatBuffers.g:1607:1: ( (lv_name_1_0= RULE_ID ) )
-            // ../maxim.zaks.flattBuffers/src-gen/maxim/zaks/parser/antlr/internal/InternalFlatBuffers.g:1608:1: (lv_name_1_0= RULE_ID )
+            // ../maxim.zaks.flattBuffers/src-gen/maxim/zaks/parser/antlr/internal/InternalFlatBuffers.g:1692:1: ( (lv_name_1_0= RULE_ID ) )
+            // ../maxim.zaks.flattBuffers/src-gen/maxim/zaks/parser/antlr/internal/InternalFlatBuffers.g:1693:1: (lv_name_1_0= RULE_ID )
             {
-            // ../maxim.zaks.flattBuffers/src-gen/maxim/zaks/parser/antlr/internal/InternalFlatBuffers.g:1608:1: (lv_name_1_0= RULE_ID )
-            // ../maxim.zaks.flattBuffers/src-gen/maxim/zaks/parser/antlr/internal/InternalFlatBuffers.g:1609:3: lv_name_1_0= RULE_ID
+            // ../maxim.zaks.flattBuffers/src-gen/maxim/zaks/parser/antlr/internal/InternalFlatBuffers.g:1693:1: (lv_name_1_0= RULE_ID )
+            // ../maxim.zaks.flattBuffers/src-gen/maxim/zaks/parser/antlr/internal/InternalFlatBuffers.g:1694:3: lv_name_1_0= RULE_ID
             {
-            lv_name_1_0=(Token)match(input,RULE_ID,FOLLOW_RULE_ID_in_ruleEnum3457); 
+            lv_name_1_0=(Token)match(input,RULE_ID,FOLLOW_RULE_ID_in_ruleEnum3671); 
 
             			newLeafNode(lv_name_1_0, grammarAccess.getEnumAccess().getNameIDTerminalRuleCall_1_0()); 
             		
@@ -3958,31 +4173,31 @@ public class InternalFlatBuffersParser extends AbstractInternalAntlrParser {
 
             }
 
-            // ../maxim.zaks.flattBuffers/src-gen/maxim/zaks/parser/antlr/internal/InternalFlatBuffers.g:1625:2: (otherlv_2= ':' ( (lv_type_3_0= rulePrimitiveNumberType ) ) )?
-            int alt23=2;
-            int LA23_0 = input.LA(1);
+            // ../maxim.zaks.flattBuffers/src-gen/maxim/zaks/parser/antlr/internal/InternalFlatBuffers.g:1710:2: (otherlv_2= ':' ( (lv_type_3_0= rulePrimitiveNumberType ) ) )?
+            int alt24=2;
+            int LA24_0 = input.LA(1);
 
-            if ( (LA23_0==28) ) {
-                alt23=1;
+            if ( (LA24_0==28) ) {
+                alt24=1;
             }
-            switch (alt23) {
+            switch (alt24) {
                 case 1 :
-                    // ../maxim.zaks.flattBuffers/src-gen/maxim/zaks/parser/antlr/internal/InternalFlatBuffers.g:1625:4: otherlv_2= ':' ( (lv_type_3_0= rulePrimitiveNumberType ) )
+                    // ../maxim.zaks.flattBuffers/src-gen/maxim/zaks/parser/antlr/internal/InternalFlatBuffers.g:1710:4: otherlv_2= ':' ( (lv_type_3_0= rulePrimitiveNumberType ) )
                     {
-                    otherlv_2=(Token)match(input,28,FOLLOW_28_in_ruleEnum3475); 
+                    otherlv_2=(Token)match(input,28,FOLLOW_28_in_ruleEnum3689); 
 
                         	newLeafNode(otherlv_2, grammarAccess.getEnumAccess().getColonKeyword_2_0());
                         
-                    // ../maxim.zaks.flattBuffers/src-gen/maxim/zaks/parser/antlr/internal/InternalFlatBuffers.g:1629:1: ( (lv_type_3_0= rulePrimitiveNumberType ) )
-                    // ../maxim.zaks.flattBuffers/src-gen/maxim/zaks/parser/antlr/internal/InternalFlatBuffers.g:1630:1: (lv_type_3_0= rulePrimitiveNumberType )
+                    // ../maxim.zaks.flattBuffers/src-gen/maxim/zaks/parser/antlr/internal/InternalFlatBuffers.g:1714:1: ( (lv_type_3_0= rulePrimitiveNumberType ) )
+                    // ../maxim.zaks.flattBuffers/src-gen/maxim/zaks/parser/antlr/internal/InternalFlatBuffers.g:1715:1: (lv_type_3_0= rulePrimitiveNumberType )
                     {
-                    // ../maxim.zaks.flattBuffers/src-gen/maxim/zaks/parser/antlr/internal/InternalFlatBuffers.g:1630:1: (lv_type_3_0= rulePrimitiveNumberType )
-                    // ../maxim.zaks.flattBuffers/src-gen/maxim/zaks/parser/antlr/internal/InternalFlatBuffers.g:1631:3: lv_type_3_0= rulePrimitiveNumberType
+                    // ../maxim.zaks.flattBuffers/src-gen/maxim/zaks/parser/antlr/internal/InternalFlatBuffers.g:1715:1: (lv_type_3_0= rulePrimitiveNumberType )
+                    // ../maxim.zaks.flattBuffers/src-gen/maxim/zaks/parser/antlr/internal/InternalFlatBuffers.g:1716:3: lv_type_3_0= rulePrimitiveNumberType
                     {
                      
                     	        newCompositeNode(grammarAccess.getEnumAccess().getTypePrimitiveNumberTypeParserRuleCall_2_1_0()); 
                     	    
-                    pushFollow(FOLLOW_rulePrimitiveNumberType_in_ruleEnum3496);
+                    pushFollow(FOLLOW_rulePrimitiveNumberType_in_ruleEnum3710);
                     lv_type_3_0=rulePrimitiveNumberType();
 
                     state._fsp--;
@@ -4010,24 +4225,24 @@ public class InternalFlatBuffersParser extends AbstractInternalAntlrParser {
 
             }
 
-            // ../maxim.zaks.flattBuffers/src-gen/maxim/zaks/parser/antlr/internal/InternalFlatBuffers.g:1647:4: ( (lv_attributes_4_0= ruleFieldAttributes ) )?
-            int alt24=2;
-            int LA24_0 = input.LA(1);
+            // ../maxim.zaks.flattBuffers/src-gen/maxim/zaks/parser/antlr/internal/InternalFlatBuffers.g:1732:4: ( (lv_attributes_4_0= ruleFieldAttributes ) )?
+            int alt25=2;
+            int LA25_0 = input.LA(1);
 
-            if ( (LA24_0==33) ) {
-                alt24=1;
+            if ( (LA25_0==33) ) {
+                alt25=1;
             }
-            switch (alt24) {
+            switch (alt25) {
                 case 1 :
-                    // ../maxim.zaks.flattBuffers/src-gen/maxim/zaks/parser/antlr/internal/InternalFlatBuffers.g:1648:1: (lv_attributes_4_0= ruleFieldAttributes )
+                    // ../maxim.zaks.flattBuffers/src-gen/maxim/zaks/parser/antlr/internal/InternalFlatBuffers.g:1733:1: (lv_attributes_4_0= ruleFieldAttributes )
                     {
-                    // ../maxim.zaks.flattBuffers/src-gen/maxim/zaks/parser/antlr/internal/InternalFlatBuffers.g:1648:1: (lv_attributes_4_0= ruleFieldAttributes )
-                    // ../maxim.zaks.flattBuffers/src-gen/maxim/zaks/parser/antlr/internal/InternalFlatBuffers.g:1649:3: lv_attributes_4_0= ruleFieldAttributes
+                    // ../maxim.zaks.flattBuffers/src-gen/maxim/zaks/parser/antlr/internal/InternalFlatBuffers.g:1733:1: (lv_attributes_4_0= ruleFieldAttributes )
+                    // ../maxim.zaks.flattBuffers/src-gen/maxim/zaks/parser/antlr/internal/InternalFlatBuffers.g:1734:3: lv_attributes_4_0= ruleFieldAttributes
                     {
                      
                     	        newCompositeNode(grammarAccess.getEnumAccess().getAttributesFieldAttributesParserRuleCall_3_0()); 
                     	    
-                    pushFollow(FOLLOW_ruleFieldAttributes_in_ruleEnum3519);
+                    pushFollow(FOLLOW_ruleFieldAttributes_in_ruleEnum3733);
                     lv_attributes_4_0=ruleFieldAttributes();
 
                     state._fsp--;
@@ -4052,20 +4267,20 @@ public class InternalFlatBuffersParser extends AbstractInternalAntlrParser {
 
             }
 
-            otherlv_5=(Token)match(input,26,FOLLOW_26_in_ruleEnum3532); 
+            otherlv_5=(Token)match(input,26,FOLLOW_26_in_ruleEnum3746); 
 
                 	newLeafNode(otherlv_5, grammarAccess.getEnumAccess().getLeftCurlyBracketKeyword_4());
                 
-            // ../maxim.zaks.flattBuffers/src-gen/maxim/zaks/parser/antlr/internal/InternalFlatBuffers.g:1669:1: ( (lv_enumCases_6_0= ruleEnumCase ) )
-            // ../maxim.zaks.flattBuffers/src-gen/maxim/zaks/parser/antlr/internal/InternalFlatBuffers.g:1670:1: (lv_enumCases_6_0= ruleEnumCase )
+            // ../maxim.zaks.flattBuffers/src-gen/maxim/zaks/parser/antlr/internal/InternalFlatBuffers.g:1754:1: ( (lv_enumCases_6_0= ruleEnumCase ) )
+            // ../maxim.zaks.flattBuffers/src-gen/maxim/zaks/parser/antlr/internal/InternalFlatBuffers.g:1755:1: (lv_enumCases_6_0= ruleEnumCase )
             {
-            // ../maxim.zaks.flattBuffers/src-gen/maxim/zaks/parser/antlr/internal/InternalFlatBuffers.g:1670:1: (lv_enumCases_6_0= ruleEnumCase )
-            // ../maxim.zaks.flattBuffers/src-gen/maxim/zaks/parser/antlr/internal/InternalFlatBuffers.g:1671:3: lv_enumCases_6_0= ruleEnumCase
+            // ../maxim.zaks.flattBuffers/src-gen/maxim/zaks/parser/antlr/internal/InternalFlatBuffers.g:1755:1: (lv_enumCases_6_0= ruleEnumCase )
+            // ../maxim.zaks.flattBuffers/src-gen/maxim/zaks/parser/antlr/internal/InternalFlatBuffers.g:1756:3: lv_enumCases_6_0= ruleEnumCase
             {
              
             	        newCompositeNode(grammarAccess.getEnumAccess().getEnumCasesEnumCaseParserRuleCall_5_0()); 
             	    
-            pushFollow(FOLLOW_ruleEnumCase_in_ruleEnum3553);
+            pushFollow(FOLLOW_ruleEnumCase_in_ruleEnum3767);
             lv_enumCases_6_0=ruleEnumCase();
 
             state._fsp--;
@@ -4087,35 +4302,35 @@ public class InternalFlatBuffersParser extends AbstractInternalAntlrParser {
 
             }
 
-            // ../maxim.zaks.flattBuffers/src-gen/maxim/zaks/parser/antlr/internal/InternalFlatBuffers.g:1687:2: (otherlv_7= ',' ( (lv_enumCases_8_0= ruleEnumCase ) ) )*
-            loop25:
+            // ../maxim.zaks.flattBuffers/src-gen/maxim/zaks/parser/antlr/internal/InternalFlatBuffers.g:1772:2: (otherlv_7= ',' ( (lv_enumCases_8_0= ruleEnumCase ) ) )*
+            loop26:
             do {
-                int alt25=2;
-                int LA25_0 = input.LA(1);
+                int alt26=2;
+                int LA26_0 = input.LA(1);
 
-                if ( (LA25_0==34) ) {
-                    alt25=1;
+                if ( (LA26_0==34) ) {
+                    alt26=1;
                 }
 
 
-                switch (alt25) {
+                switch (alt26) {
             	case 1 :
-            	    // ../maxim.zaks.flattBuffers/src-gen/maxim/zaks/parser/antlr/internal/InternalFlatBuffers.g:1687:4: otherlv_7= ',' ( (lv_enumCases_8_0= ruleEnumCase ) )
+            	    // ../maxim.zaks.flattBuffers/src-gen/maxim/zaks/parser/antlr/internal/InternalFlatBuffers.g:1772:4: otherlv_7= ',' ( (lv_enumCases_8_0= ruleEnumCase ) )
             	    {
-            	    otherlv_7=(Token)match(input,34,FOLLOW_34_in_ruleEnum3566); 
+            	    otherlv_7=(Token)match(input,34,FOLLOW_34_in_ruleEnum3780); 
 
             	        	newLeafNode(otherlv_7, grammarAccess.getEnumAccess().getCommaKeyword_6_0());
             	        
-            	    // ../maxim.zaks.flattBuffers/src-gen/maxim/zaks/parser/antlr/internal/InternalFlatBuffers.g:1691:1: ( (lv_enumCases_8_0= ruleEnumCase ) )
-            	    // ../maxim.zaks.flattBuffers/src-gen/maxim/zaks/parser/antlr/internal/InternalFlatBuffers.g:1692:1: (lv_enumCases_8_0= ruleEnumCase )
+            	    // ../maxim.zaks.flattBuffers/src-gen/maxim/zaks/parser/antlr/internal/InternalFlatBuffers.g:1776:1: ( (lv_enumCases_8_0= ruleEnumCase ) )
+            	    // ../maxim.zaks.flattBuffers/src-gen/maxim/zaks/parser/antlr/internal/InternalFlatBuffers.g:1777:1: (lv_enumCases_8_0= ruleEnumCase )
             	    {
-            	    // ../maxim.zaks.flattBuffers/src-gen/maxim/zaks/parser/antlr/internal/InternalFlatBuffers.g:1692:1: (lv_enumCases_8_0= ruleEnumCase )
-            	    // ../maxim.zaks.flattBuffers/src-gen/maxim/zaks/parser/antlr/internal/InternalFlatBuffers.g:1693:3: lv_enumCases_8_0= ruleEnumCase
+            	    // ../maxim.zaks.flattBuffers/src-gen/maxim/zaks/parser/antlr/internal/InternalFlatBuffers.g:1777:1: (lv_enumCases_8_0= ruleEnumCase )
+            	    // ../maxim.zaks.flattBuffers/src-gen/maxim/zaks/parser/antlr/internal/InternalFlatBuffers.g:1778:3: lv_enumCases_8_0= ruleEnumCase
             	    {
             	     
             	    	        newCompositeNode(grammarAccess.getEnumAccess().getEnumCasesEnumCaseParserRuleCall_6_1_0()); 
             	    	    
-            	    pushFollow(FOLLOW_ruleEnumCase_in_ruleEnum3587);
+            	    pushFollow(FOLLOW_ruleEnumCase_in_ruleEnum3801);
             	    lv_enumCases_8_0=ruleEnumCase();
 
             	    state._fsp--;
@@ -4142,11 +4357,11 @@ public class InternalFlatBuffersParser extends AbstractInternalAntlrParser {
             	    break;
 
             	default :
-            	    break loop25;
+            	    break loop26;
                 }
             } while (true);
 
-            otherlv_9=(Token)match(input,27,FOLLOW_27_in_ruleEnum3601); 
+            otherlv_9=(Token)match(input,27,FOLLOW_27_in_ruleEnum3815); 
 
                 	newLeafNode(otherlv_9, grammarAccess.getEnumAccess().getRightCurlyBracketKeyword_7());
                 
@@ -4171,7 +4386,7 @@ public class InternalFlatBuffersParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "entryRuleEnumCase"
-    // ../maxim.zaks.flattBuffers/src-gen/maxim/zaks/parser/antlr/internal/InternalFlatBuffers.g:1721:1: entryRuleEnumCase returns [EObject current=null] : iv_ruleEnumCase= ruleEnumCase EOF ;
+    // ../maxim.zaks.flattBuffers/src-gen/maxim/zaks/parser/antlr/internal/InternalFlatBuffers.g:1806:1: entryRuleEnumCase returns [EObject current=null] : iv_ruleEnumCase= ruleEnumCase EOF ;
     public final EObject entryRuleEnumCase() throws RecognitionException {
         EObject current = null;
 
@@ -4179,17 +4394,17 @@ public class InternalFlatBuffersParser extends AbstractInternalAntlrParser {
 
 
         try {
-            // ../maxim.zaks.flattBuffers/src-gen/maxim/zaks/parser/antlr/internal/InternalFlatBuffers.g:1722:2: (iv_ruleEnumCase= ruleEnumCase EOF )
-            // ../maxim.zaks.flattBuffers/src-gen/maxim/zaks/parser/antlr/internal/InternalFlatBuffers.g:1723:2: iv_ruleEnumCase= ruleEnumCase EOF
+            // ../maxim.zaks.flattBuffers/src-gen/maxim/zaks/parser/antlr/internal/InternalFlatBuffers.g:1807:2: (iv_ruleEnumCase= ruleEnumCase EOF )
+            // ../maxim.zaks.flattBuffers/src-gen/maxim/zaks/parser/antlr/internal/InternalFlatBuffers.g:1808:2: iv_ruleEnumCase= ruleEnumCase EOF
             {
              newCompositeNode(grammarAccess.getEnumCaseRule()); 
-            pushFollow(FOLLOW_ruleEnumCase_in_entryRuleEnumCase3637);
+            pushFollow(FOLLOW_ruleEnumCase_in_entryRuleEnumCase3851);
             iv_ruleEnumCase=ruleEnumCase();
 
             state._fsp--;
 
              current =iv_ruleEnumCase; 
-            match(input,EOF,FOLLOW_EOF_in_entryRuleEnumCase3647); 
+            match(input,EOF,FOLLOW_EOF_in_entryRuleEnumCase3861); 
 
             }
 
@@ -4207,7 +4422,7 @@ public class InternalFlatBuffersParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "ruleEnumCase"
-    // ../maxim.zaks.flattBuffers/src-gen/maxim/zaks/parser/antlr/internal/InternalFlatBuffers.g:1730:1: ruleEnumCase returns [EObject current=null] : ( ( (lv_name_0_0= RULE_ID ) ) (otherlv_1= '=' ( (lv_value_2_0= RULE_INT ) ) )? ) ;
+    // ../maxim.zaks.flattBuffers/src-gen/maxim/zaks/parser/antlr/internal/InternalFlatBuffers.g:1815:1: ruleEnumCase returns [EObject current=null] : ( ( (lv_name_0_0= RULE_ID ) ) (otherlv_1= '=' ( (lv_value_2_0= RULE_INT ) ) )? ) ;
     public final EObject ruleEnumCase() throws RecognitionException {
         EObject current = null;
 
@@ -4218,19 +4433,19 @@ public class InternalFlatBuffersParser extends AbstractInternalAntlrParser {
          enterRule(); 
             
         try {
-            // ../maxim.zaks.flattBuffers/src-gen/maxim/zaks/parser/antlr/internal/InternalFlatBuffers.g:1733:28: ( ( ( (lv_name_0_0= RULE_ID ) ) (otherlv_1= '=' ( (lv_value_2_0= RULE_INT ) ) )? ) )
-            // ../maxim.zaks.flattBuffers/src-gen/maxim/zaks/parser/antlr/internal/InternalFlatBuffers.g:1734:1: ( ( (lv_name_0_0= RULE_ID ) ) (otherlv_1= '=' ( (lv_value_2_0= RULE_INT ) ) )? )
+            // ../maxim.zaks.flattBuffers/src-gen/maxim/zaks/parser/antlr/internal/InternalFlatBuffers.g:1818:28: ( ( ( (lv_name_0_0= RULE_ID ) ) (otherlv_1= '=' ( (lv_value_2_0= RULE_INT ) ) )? ) )
+            // ../maxim.zaks.flattBuffers/src-gen/maxim/zaks/parser/antlr/internal/InternalFlatBuffers.g:1819:1: ( ( (lv_name_0_0= RULE_ID ) ) (otherlv_1= '=' ( (lv_value_2_0= RULE_INT ) ) )? )
             {
-            // ../maxim.zaks.flattBuffers/src-gen/maxim/zaks/parser/antlr/internal/InternalFlatBuffers.g:1734:1: ( ( (lv_name_0_0= RULE_ID ) ) (otherlv_1= '=' ( (lv_value_2_0= RULE_INT ) ) )? )
-            // ../maxim.zaks.flattBuffers/src-gen/maxim/zaks/parser/antlr/internal/InternalFlatBuffers.g:1734:2: ( (lv_name_0_0= RULE_ID ) ) (otherlv_1= '=' ( (lv_value_2_0= RULE_INT ) ) )?
+            // ../maxim.zaks.flattBuffers/src-gen/maxim/zaks/parser/antlr/internal/InternalFlatBuffers.g:1819:1: ( ( (lv_name_0_0= RULE_ID ) ) (otherlv_1= '=' ( (lv_value_2_0= RULE_INT ) ) )? )
+            // ../maxim.zaks.flattBuffers/src-gen/maxim/zaks/parser/antlr/internal/InternalFlatBuffers.g:1819:2: ( (lv_name_0_0= RULE_ID ) ) (otherlv_1= '=' ( (lv_value_2_0= RULE_INT ) ) )?
             {
-            // ../maxim.zaks.flattBuffers/src-gen/maxim/zaks/parser/antlr/internal/InternalFlatBuffers.g:1734:2: ( (lv_name_0_0= RULE_ID ) )
-            // ../maxim.zaks.flattBuffers/src-gen/maxim/zaks/parser/antlr/internal/InternalFlatBuffers.g:1735:1: (lv_name_0_0= RULE_ID )
+            // ../maxim.zaks.flattBuffers/src-gen/maxim/zaks/parser/antlr/internal/InternalFlatBuffers.g:1819:2: ( (lv_name_0_0= RULE_ID ) )
+            // ../maxim.zaks.flattBuffers/src-gen/maxim/zaks/parser/antlr/internal/InternalFlatBuffers.g:1820:1: (lv_name_0_0= RULE_ID )
             {
-            // ../maxim.zaks.flattBuffers/src-gen/maxim/zaks/parser/antlr/internal/InternalFlatBuffers.g:1735:1: (lv_name_0_0= RULE_ID )
-            // ../maxim.zaks.flattBuffers/src-gen/maxim/zaks/parser/antlr/internal/InternalFlatBuffers.g:1736:3: lv_name_0_0= RULE_ID
+            // ../maxim.zaks.flattBuffers/src-gen/maxim/zaks/parser/antlr/internal/InternalFlatBuffers.g:1820:1: (lv_name_0_0= RULE_ID )
+            // ../maxim.zaks.flattBuffers/src-gen/maxim/zaks/parser/antlr/internal/InternalFlatBuffers.g:1821:3: lv_name_0_0= RULE_ID
             {
-            lv_name_0_0=(Token)match(input,RULE_ID,FOLLOW_RULE_ID_in_ruleEnumCase3689); 
+            lv_name_0_0=(Token)match(input,RULE_ID,FOLLOW_RULE_ID_in_ruleEnumCase3903); 
 
             			newLeafNode(lv_name_0_0, grammarAccess.getEnumCaseAccess().getNameIDTerminalRuleCall_0_0()); 
             		
@@ -4250,28 +4465,28 @@ public class InternalFlatBuffersParser extends AbstractInternalAntlrParser {
 
             }
 
-            // ../maxim.zaks.flattBuffers/src-gen/maxim/zaks/parser/antlr/internal/InternalFlatBuffers.g:1752:2: (otherlv_1= '=' ( (lv_value_2_0= RULE_INT ) ) )?
-            int alt26=2;
-            int LA26_0 = input.LA(1);
+            // ../maxim.zaks.flattBuffers/src-gen/maxim/zaks/parser/antlr/internal/InternalFlatBuffers.g:1837:2: (otherlv_1= '=' ( (lv_value_2_0= RULE_INT ) ) )?
+            int alt27=2;
+            int LA27_0 = input.LA(1);
 
-            if ( (LA26_0==30) ) {
-                alt26=1;
+            if ( (LA27_0==30) ) {
+                alt27=1;
             }
-            switch (alt26) {
+            switch (alt27) {
                 case 1 :
-                    // ../maxim.zaks.flattBuffers/src-gen/maxim/zaks/parser/antlr/internal/InternalFlatBuffers.g:1752:4: otherlv_1= '=' ( (lv_value_2_0= RULE_INT ) )
+                    // ../maxim.zaks.flattBuffers/src-gen/maxim/zaks/parser/antlr/internal/InternalFlatBuffers.g:1837:4: otherlv_1= '=' ( (lv_value_2_0= RULE_INT ) )
                     {
-                    otherlv_1=(Token)match(input,30,FOLLOW_30_in_ruleEnumCase3707); 
+                    otherlv_1=(Token)match(input,30,FOLLOW_30_in_ruleEnumCase3921); 
 
                         	newLeafNode(otherlv_1, grammarAccess.getEnumCaseAccess().getEqualsSignKeyword_1_0());
                         
-                    // ../maxim.zaks.flattBuffers/src-gen/maxim/zaks/parser/antlr/internal/InternalFlatBuffers.g:1756:1: ( (lv_value_2_0= RULE_INT ) )
-                    // ../maxim.zaks.flattBuffers/src-gen/maxim/zaks/parser/antlr/internal/InternalFlatBuffers.g:1757:1: (lv_value_2_0= RULE_INT )
+                    // ../maxim.zaks.flattBuffers/src-gen/maxim/zaks/parser/antlr/internal/InternalFlatBuffers.g:1841:1: ( (lv_value_2_0= RULE_INT ) )
+                    // ../maxim.zaks.flattBuffers/src-gen/maxim/zaks/parser/antlr/internal/InternalFlatBuffers.g:1842:1: (lv_value_2_0= RULE_INT )
                     {
-                    // ../maxim.zaks.flattBuffers/src-gen/maxim/zaks/parser/antlr/internal/InternalFlatBuffers.g:1757:1: (lv_value_2_0= RULE_INT )
-                    // ../maxim.zaks.flattBuffers/src-gen/maxim/zaks/parser/antlr/internal/InternalFlatBuffers.g:1758:3: lv_value_2_0= RULE_INT
+                    // ../maxim.zaks.flattBuffers/src-gen/maxim/zaks/parser/antlr/internal/InternalFlatBuffers.g:1842:1: (lv_value_2_0= RULE_INT )
+                    // ../maxim.zaks.flattBuffers/src-gen/maxim/zaks/parser/antlr/internal/InternalFlatBuffers.g:1843:3: lv_value_2_0= RULE_INT
                     {
-                    lv_value_2_0=(Token)match(input,RULE_INT,FOLLOW_RULE_INT_in_ruleEnumCase3724); 
+                    lv_value_2_0=(Token)match(input,RULE_INT,FOLLOW_RULE_INT_in_ruleEnumCase3938); 
 
                     			newLeafNode(lv_value_2_0, grammarAccess.getEnumCaseAccess().getValueINTTerminalRuleCall_1_1_0()); 
                     		
@@ -4318,7 +4533,7 @@ public class InternalFlatBuffersParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "entryRuleUnion"
-    // ../maxim.zaks.flattBuffers/src-gen/maxim/zaks/parser/antlr/internal/InternalFlatBuffers.g:1782:1: entryRuleUnion returns [EObject current=null] : iv_ruleUnion= ruleUnion EOF ;
+    // ../maxim.zaks.flattBuffers/src-gen/maxim/zaks/parser/antlr/internal/InternalFlatBuffers.g:1867:1: entryRuleUnion returns [EObject current=null] : iv_ruleUnion= ruleUnion EOF ;
     public final EObject entryRuleUnion() throws RecognitionException {
         EObject current = null;
 
@@ -4326,17 +4541,17 @@ public class InternalFlatBuffersParser extends AbstractInternalAntlrParser {
 
 
         try {
-            // ../maxim.zaks.flattBuffers/src-gen/maxim/zaks/parser/antlr/internal/InternalFlatBuffers.g:1783:2: (iv_ruleUnion= ruleUnion EOF )
-            // ../maxim.zaks.flattBuffers/src-gen/maxim/zaks/parser/antlr/internal/InternalFlatBuffers.g:1784:2: iv_ruleUnion= ruleUnion EOF
+            // ../maxim.zaks.flattBuffers/src-gen/maxim/zaks/parser/antlr/internal/InternalFlatBuffers.g:1868:2: (iv_ruleUnion= ruleUnion EOF )
+            // ../maxim.zaks.flattBuffers/src-gen/maxim/zaks/parser/antlr/internal/InternalFlatBuffers.g:1869:2: iv_ruleUnion= ruleUnion EOF
             {
              newCompositeNode(grammarAccess.getUnionRule()); 
-            pushFollow(FOLLOW_ruleUnion_in_entryRuleUnion3767);
+            pushFollow(FOLLOW_ruleUnion_in_entryRuleUnion3981);
             iv_ruleUnion=ruleUnion();
 
             state._fsp--;
 
              current =iv_ruleUnion; 
-            match(input,EOF,FOLLOW_EOF_in_entryRuleUnion3777); 
+            match(input,EOF,FOLLOW_EOF_in_entryRuleUnion3991); 
 
             }
 
@@ -4354,7 +4569,7 @@ public class InternalFlatBuffersParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "ruleUnion"
-    // ../maxim.zaks.flattBuffers/src-gen/maxim/zaks/parser/antlr/internal/InternalFlatBuffers.g:1791:1: ruleUnion returns [EObject current=null] : (otherlv_0= 'union' ( (lv_name_1_0= RULE_ID ) ) otherlv_2= '{' ( (otherlv_3= RULE_ID ) ) (otherlv_4= ',' ( (otherlv_5= RULE_ID ) ) )* otherlv_6= '}' ) ;
+    // ../maxim.zaks.flattBuffers/src-gen/maxim/zaks/parser/antlr/internal/InternalFlatBuffers.g:1876:1: ruleUnion returns [EObject current=null] : (otherlv_0= 'union' ( (lv_name_1_0= RULE_ID ) ) otherlv_2= '{' ( (otherlv_3= RULE_ID ) ) (otherlv_4= ',' ( (otherlv_5= RULE_ID ) ) )* otherlv_6= '}' ) ;
     public final EObject ruleUnion() throws RecognitionException {
         EObject current = null;
 
@@ -4369,23 +4584,23 @@ public class InternalFlatBuffersParser extends AbstractInternalAntlrParser {
          enterRule(); 
             
         try {
-            // ../maxim.zaks.flattBuffers/src-gen/maxim/zaks/parser/antlr/internal/InternalFlatBuffers.g:1794:28: ( (otherlv_0= 'union' ( (lv_name_1_0= RULE_ID ) ) otherlv_2= '{' ( (otherlv_3= RULE_ID ) ) (otherlv_4= ',' ( (otherlv_5= RULE_ID ) ) )* otherlv_6= '}' ) )
-            // ../maxim.zaks.flattBuffers/src-gen/maxim/zaks/parser/antlr/internal/InternalFlatBuffers.g:1795:1: (otherlv_0= 'union' ( (lv_name_1_0= RULE_ID ) ) otherlv_2= '{' ( (otherlv_3= RULE_ID ) ) (otherlv_4= ',' ( (otherlv_5= RULE_ID ) ) )* otherlv_6= '}' )
+            // ../maxim.zaks.flattBuffers/src-gen/maxim/zaks/parser/antlr/internal/InternalFlatBuffers.g:1879:28: ( (otherlv_0= 'union' ( (lv_name_1_0= RULE_ID ) ) otherlv_2= '{' ( (otherlv_3= RULE_ID ) ) (otherlv_4= ',' ( (otherlv_5= RULE_ID ) ) )* otherlv_6= '}' ) )
+            // ../maxim.zaks.flattBuffers/src-gen/maxim/zaks/parser/antlr/internal/InternalFlatBuffers.g:1880:1: (otherlv_0= 'union' ( (lv_name_1_0= RULE_ID ) ) otherlv_2= '{' ( (otherlv_3= RULE_ID ) ) (otherlv_4= ',' ( (otherlv_5= RULE_ID ) ) )* otherlv_6= '}' )
             {
-            // ../maxim.zaks.flattBuffers/src-gen/maxim/zaks/parser/antlr/internal/InternalFlatBuffers.g:1795:1: (otherlv_0= 'union' ( (lv_name_1_0= RULE_ID ) ) otherlv_2= '{' ( (otherlv_3= RULE_ID ) ) (otherlv_4= ',' ( (otherlv_5= RULE_ID ) ) )* otherlv_6= '}' )
-            // ../maxim.zaks.flattBuffers/src-gen/maxim/zaks/parser/antlr/internal/InternalFlatBuffers.g:1795:3: otherlv_0= 'union' ( (lv_name_1_0= RULE_ID ) ) otherlv_2= '{' ( (otherlv_3= RULE_ID ) ) (otherlv_4= ',' ( (otherlv_5= RULE_ID ) ) )* otherlv_6= '}'
+            // ../maxim.zaks.flattBuffers/src-gen/maxim/zaks/parser/antlr/internal/InternalFlatBuffers.g:1880:1: (otherlv_0= 'union' ( (lv_name_1_0= RULE_ID ) ) otherlv_2= '{' ( (otherlv_3= RULE_ID ) ) (otherlv_4= ',' ( (otherlv_5= RULE_ID ) ) )* otherlv_6= '}' )
+            // ../maxim.zaks.flattBuffers/src-gen/maxim/zaks/parser/antlr/internal/InternalFlatBuffers.g:1880:3: otherlv_0= 'union' ( (lv_name_1_0= RULE_ID ) ) otherlv_2= '{' ( (otherlv_3= RULE_ID ) ) (otherlv_4= ',' ( (otherlv_5= RULE_ID ) ) )* otherlv_6= '}'
             {
-            otherlv_0=(Token)match(input,47,FOLLOW_47_in_ruleUnion3814); 
+            otherlv_0=(Token)match(input,48,FOLLOW_48_in_ruleUnion4028); 
 
                 	newLeafNode(otherlv_0, grammarAccess.getUnionAccess().getUnionKeyword_0());
                 
-            // ../maxim.zaks.flattBuffers/src-gen/maxim/zaks/parser/antlr/internal/InternalFlatBuffers.g:1799:1: ( (lv_name_1_0= RULE_ID ) )
-            // ../maxim.zaks.flattBuffers/src-gen/maxim/zaks/parser/antlr/internal/InternalFlatBuffers.g:1800:1: (lv_name_1_0= RULE_ID )
+            // ../maxim.zaks.flattBuffers/src-gen/maxim/zaks/parser/antlr/internal/InternalFlatBuffers.g:1884:1: ( (lv_name_1_0= RULE_ID ) )
+            // ../maxim.zaks.flattBuffers/src-gen/maxim/zaks/parser/antlr/internal/InternalFlatBuffers.g:1885:1: (lv_name_1_0= RULE_ID )
             {
-            // ../maxim.zaks.flattBuffers/src-gen/maxim/zaks/parser/antlr/internal/InternalFlatBuffers.g:1800:1: (lv_name_1_0= RULE_ID )
-            // ../maxim.zaks.flattBuffers/src-gen/maxim/zaks/parser/antlr/internal/InternalFlatBuffers.g:1801:3: lv_name_1_0= RULE_ID
+            // ../maxim.zaks.flattBuffers/src-gen/maxim/zaks/parser/antlr/internal/InternalFlatBuffers.g:1885:1: (lv_name_1_0= RULE_ID )
+            // ../maxim.zaks.flattBuffers/src-gen/maxim/zaks/parser/antlr/internal/InternalFlatBuffers.g:1886:3: lv_name_1_0= RULE_ID
             {
-            lv_name_1_0=(Token)match(input,RULE_ID,FOLLOW_RULE_ID_in_ruleUnion3831); 
+            lv_name_1_0=(Token)match(input,RULE_ID,FOLLOW_RULE_ID_in_ruleUnion4045); 
 
             			newLeafNode(lv_name_1_0, grammarAccess.getUnionAccess().getNameIDTerminalRuleCall_1_0()); 
             		
@@ -4405,22 +4620,22 @@ public class InternalFlatBuffersParser extends AbstractInternalAntlrParser {
 
             }
 
-            otherlv_2=(Token)match(input,26,FOLLOW_26_in_ruleUnion3848); 
+            otherlv_2=(Token)match(input,26,FOLLOW_26_in_ruleUnion4062); 
 
                 	newLeafNode(otherlv_2, grammarAccess.getUnionAccess().getLeftCurlyBracketKeyword_2());
                 
-            // ../maxim.zaks.flattBuffers/src-gen/maxim/zaks/parser/antlr/internal/InternalFlatBuffers.g:1821:1: ( (otherlv_3= RULE_ID ) )
-            // ../maxim.zaks.flattBuffers/src-gen/maxim/zaks/parser/antlr/internal/InternalFlatBuffers.g:1822:1: (otherlv_3= RULE_ID )
+            // ../maxim.zaks.flattBuffers/src-gen/maxim/zaks/parser/antlr/internal/InternalFlatBuffers.g:1906:1: ( (otherlv_3= RULE_ID ) )
+            // ../maxim.zaks.flattBuffers/src-gen/maxim/zaks/parser/antlr/internal/InternalFlatBuffers.g:1907:1: (otherlv_3= RULE_ID )
             {
-            // ../maxim.zaks.flattBuffers/src-gen/maxim/zaks/parser/antlr/internal/InternalFlatBuffers.g:1822:1: (otherlv_3= RULE_ID )
-            // ../maxim.zaks.flattBuffers/src-gen/maxim/zaks/parser/antlr/internal/InternalFlatBuffers.g:1823:3: otherlv_3= RULE_ID
+            // ../maxim.zaks.flattBuffers/src-gen/maxim/zaks/parser/antlr/internal/InternalFlatBuffers.g:1907:1: (otherlv_3= RULE_ID )
+            // ../maxim.zaks.flattBuffers/src-gen/maxim/zaks/parser/antlr/internal/InternalFlatBuffers.g:1908:3: otherlv_3= RULE_ID
             {
 
             			if (current==null) {
             	            current = createModelElement(grammarAccess.getUnionRule());
             	        }
                     
-            otherlv_3=(Token)match(input,RULE_ID,FOLLOW_RULE_ID_in_ruleUnion3868); 
+            otherlv_3=(Token)match(input,RULE_ID,FOLLOW_RULE_ID_in_ruleUnion4082); 
 
             		newLeafNode(otherlv_3, grammarAccess.getUnionAccess().getUnionCasesTableCrossReference_3_0()); 
             	
@@ -4430,37 +4645,37 @@ public class InternalFlatBuffersParser extends AbstractInternalAntlrParser {
 
             }
 
-            // ../maxim.zaks.flattBuffers/src-gen/maxim/zaks/parser/antlr/internal/InternalFlatBuffers.g:1834:2: (otherlv_4= ',' ( (otherlv_5= RULE_ID ) ) )*
-            loop27:
+            // ../maxim.zaks.flattBuffers/src-gen/maxim/zaks/parser/antlr/internal/InternalFlatBuffers.g:1919:2: (otherlv_4= ',' ( (otherlv_5= RULE_ID ) ) )*
+            loop28:
             do {
-                int alt27=2;
-                int LA27_0 = input.LA(1);
+                int alt28=2;
+                int LA28_0 = input.LA(1);
 
-                if ( (LA27_0==34) ) {
-                    alt27=1;
+                if ( (LA28_0==34) ) {
+                    alt28=1;
                 }
 
 
-                switch (alt27) {
+                switch (alt28) {
             	case 1 :
-            	    // ../maxim.zaks.flattBuffers/src-gen/maxim/zaks/parser/antlr/internal/InternalFlatBuffers.g:1834:4: otherlv_4= ',' ( (otherlv_5= RULE_ID ) )
+            	    // ../maxim.zaks.flattBuffers/src-gen/maxim/zaks/parser/antlr/internal/InternalFlatBuffers.g:1919:4: otherlv_4= ',' ( (otherlv_5= RULE_ID ) )
             	    {
-            	    otherlv_4=(Token)match(input,34,FOLLOW_34_in_ruleUnion3881); 
+            	    otherlv_4=(Token)match(input,34,FOLLOW_34_in_ruleUnion4095); 
 
             	        	newLeafNode(otherlv_4, grammarAccess.getUnionAccess().getCommaKeyword_4_0());
             	        
-            	    // ../maxim.zaks.flattBuffers/src-gen/maxim/zaks/parser/antlr/internal/InternalFlatBuffers.g:1838:1: ( (otherlv_5= RULE_ID ) )
-            	    // ../maxim.zaks.flattBuffers/src-gen/maxim/zaks/parser/antlr/internal/InternalFlatBuffers.g:1839:1: (otherlv_5= RULE_ID )
+            	    // ../maxim.zaks.flattBuffers/src-gen/maxim/zaks/parser/antlr/internal/InternalFlatBuffers.g:1923:1: ( (otherlv_5= RULE_ID ) )
+            	    // ../maxim.zaks.flattBuffers/src-gen/maxim/zaks/parser/antlr/internal/InternalFlatBuffers.g:1924:1: (otherlv_5= RULE_ID )
             	    {
-            	    // ../maxim.zaks.flattBuffers/src-gen/maxim/zaks/parser/antlr/internal/InternalFlatBuffers.g:1839:1: (otherlv_5= RULE_ID )
-            	    // ../maxim.zaks.flattBuffers/src-gen/maxim/zaks/parser/antlr/internal/InternalFlatBuffers.g:1840:3: otherlv_5= RULE_ID
+            	    // ../maxim.zaks.flattBuffers/src-gen/maxim/zaks/parser/antlr/internal/InternalFlatBuffers.g:1924:1: (otherlv_5= RULE_ID )
+            	    // ../maxim.zaks.flattBuffers/src-gen/maxim/zaks/parser/antlr/internal/InternalFlatBuffers.g:1925:3: otherlv_5= RULE_ID
             	    {
 
             	    			if (current==null) {
             	    	            current = createModelElement(grammarAccess.getUnionRule());
             	    	        }
             	            
-            	    otherlv_5=(Token)match(input,RULE_ID,FOLLOW_RULE_ID_in_ruleUnion3901); 
+            	    otherlv_5=(Token)match(input,RULE_ID,FOLLOW_RULE_ID_in_ruleUnion4115); 
 
             	    		newLeafNode(otherlv_5, grammarAccess.getUnionAccess().getUnionCasesTableCrossReference_4_1_0()); 
             	    	
@@ -4475,11 +4690,11 @@ public class InternalFlatBuffersParser extends AbstractInternalAntlrParser {
             	    break;
 
             	default :
-            	    break loop27;
+            	    break loop28;
                 }
             } while (true);
 
-            otherlv_6=(Token)match(input,27,FOLLOW_27_in_ruleUnion3915); 
+            otherlv_6=(Token)match(input,27,FOLLOW_27_in_ruleUnion4129); 
 
                 	newLeafNode(otherlv_6, grammarAccess.getUnionAccess().getRightCurlyBracketKeyword_5());
                 
@@ -4504,7 +4719,7 @@ public class InternalFlatBuffersParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "entryRulePrimitiveNumberType"
-    // ../maxim.zaks.flattBuffers/src-gen/maxim/zaks/parser/antlr/internal/InternalFlatBuffers.g:1863:1: entryRulePrimitiveNumberType returns [String current=null] : iv_rulePrimitiveNumberType= rulePrimitiveNumberType EOF ;
+    // ../maxim.zaks.flattBuffers/src-gen/maxim/zaks/parser/antlr/internal/InternalFlatBuffers.g:1948:1: entryRulePrimitiveNumberType returns [String current=null] : iv_rulePrimitiveNumberType= rulePrimitiveNumberType EOF ;
     public final String entryRulePrimitiveNumberType() throws RecognitionException {
         String current = null;
 
@@ -4512,17 +4727,17 @@ public class InternalFlatBuffersParser extends AbstractInternalAntlrParser {
 
 
         try {
-            // ../maxim.zaks.flattBuffers/src-gen/maxim/zaks/parser/antlr/internal/InternalFlatBuffers.g:1864:2: (iv_rulePrimitiveNumberType= rulePrimitiveNumberType EOF )
-            // ../maxim.zaks.flattBuffers/src-gen/maxim/zaks/parser/antlr/internal/InternalFlatBuffers.g:1865:2: iv_rulePrimitiveNumberType= rulePrimitiveNumberType EOF
+            // ../maxim.zaks.flattBuffers/src-gen/maxim/zaks/parser/antlr/internal/InternalFlatBuffers.g:1949:2: (iv_rulePrimitiveNumberType= rulePrimitiveNumberType EOF )
+            // ../maxim.zaks.flattBuffers/src-gen/maxim/zaks/parser/antlr/internal/InternalFlatBuffers.g:1950:2: iv_rulePrimitiveNumberType= rulePrimitiveNumberType EOF
             {
              newCompositeNode(grammarAccess.getPrimitiveNumberTypeRule()); 
-            pushFollow(FOLLOW_rulePrimitiveNumberType_in_entryRulePrimitiveNumberType3952);
+            pushFollow(FOLLOW_rulePrimitiveNumberType_in_entryRulePrimitiveNumberType4166);
             iv_rulePrimitiveNumberType=rulePrimitiveNumberType();
 
             state._fsp--;
 
              current =iv_rulePrimitiveNumberType.getText(); 
-            match(input,EOF,FOLLOW_EOF_in_entryRulePrimitiveNumberType3963); 
+            match(input,EOF,FOLLOW_EOF_in_entryRulePrimitiveNumberType4177); 
 
             }
 
@@ -4540,7 +4755,7 @@ public class InternalFlatBuffersParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "rulePrimitiveNumberType"
-    // ../maxim.zaks.flattBuffers/src-gen/maxim/zaks/parser/antlr/internal/InternalFlatBuffers.g:1872:1: rulePrimitiveNumberType returns [AntlrDatatypeRuleToken current=new AntlrDatatypeRuleToken()] : (kw= 'byte' | kw= 'ubyte' | kw= 'short' | kw= 'ushort' | kw= 'int' | kw= 'uint' | kw= 'long' | kw= 'ulong' ) ;
+    // ../maxim.zaks.flattBuffers/src-gen/maxim/zaks/parser/antlr/internal/InternalFlatBuffers.g:1957:1: rulePrimitiveNumberType returns [AntlrDatatypeRuleToken current=new AntlrDatatypeRuleToken()] : (kw= 'byte' | kw= 'ubyte' | kw= 'short' | kw= 'ushort' | kw= 'int' | kw= 'uint' | kw= 'long' | kw= 'ulong' ) ;
     public final AntlrDatatypeRuleToken rulePrimitiveNumberType() throws RecognitionException {
         AntlrDatatypeRuleToken current = new AntlrDatatypeRuleToken();
 
@@ -4549,64 +4764,64 @@ public class InternalFlatBuffersParser extends AbstractInternalAntlrParser {
          enterRule(); 
             
         try {
-            // ../maxim.zaks.flattBuffers/src-gen/maxim/zaks/parser/antlr/internal/InternalFlatBuffers.g:1875:28: ( (kw= 'byte' | kw= 'ubyte' | kw= 'short' | kw= 'ushort' | kw= 'int' | kw= 'uint' | kw= 'long' | kw= 'ulong' ) )
-            // ../maxim.zaks.flattBuffers/src-gen/maxim/zaks/parser/antlr/internal/InternalFlatBuffers.g:1876:1: (kw= 'byte' | kw= 'ubyte' | kw= 'short' | kw= 'ushort' | kw= 'int' | kw= 'uint' | kw= 'long' | kw= 'ulong' )
+            // ../maxim.zaks.flattBuffers/src-gen/maxim/zaks/parser/antlr/internal/InternalFlatBuffers.g:1960:28: ( (kw= 'byte' | kw= 'ubyte' | kw= 'short' | kw= 'ushort' | kw= 'int' | kw= 'uint' | kw= 'long' | kw= 'ulong' ) )
+            // ../maxim.zaks.flattBuffers/src-gen/maxim/zaks/parser/antlr/internal/InternalFlatBuffers.g:1961:1: (kw= 'byte' | kw= 'ubyte' | kw= 'short' | kw= 'ushort' | kw= 'int' | kw= 'uint' | kw= 'long' | kw= 'ulong' )
             {
-            // ../maxim.zaks.flattBuffers/src-gen/maxim/zaks/parser/antlr/internal/InternalFlatBuffers.g:1876:1: (kw= 'byte' | kw= 'ubyte' | kw= 'short' | kw= 'ushort' | kw= 'int' | kw= 'uint' | kw= 'long' | kw= 'ulong' )
-            int alt28=8;
+            // ../maxim.zaks.flattBuffers/src-gen/maxim/zaks/parser/antlr/internal/InternalFlatBuffers.g:1961:1: (kw= 'byte' | kw= 'ubyte' | kw= 'short' | kw= 'ushort' | kw= 'int' | kw= 'uint' | kw= 'long' | kw= 'ulong' )
+            int alt29=8;
             switch ( input.LA(1) ) {
-            case 48:
-                {
-                alt28=1;
-                }
-                break;
             case 49:
                 {
-                alt28=2;
+                alt29=1;
                 }
                 break;
             case 50:
                 {
-                alt28=3;
+                alt29=2;
                 }
                 break;
             case 51:
                 {
-                alt28=4;
+                alt29=3;
                 }
                 break;
             case 52:
                 {
-                alt28=5;
+                alt29=4;
                 }
                 break;
             case 53:
                 {
-                alt28=6;
+                alt29=5;
                 }
                 break;
             case 54:
                 {
-                alt28=7;
+                alt29=6;
                 }
                 break;
             case 55:
                 {
-                alt28=8;
+                alt29=7;
+                }
+                break;
+            case 56:
+                {
+                alt29=8;
                 }
                 break;
             default:
                 NoViableAltException nvae =
-                    new NoViableAltException("", 28, 0, input);
+                    new NoViableAltException("", 29, 0, input);
 
                 throw nvae;
             }
 
-            switch (alt28) {
+            switch (alt29) {
                 case 1 :
-                    // ../maxim.zaks.flattBuffers/src-gen/maxim/zaks/parser/antlr/internal/InternalFlatBuffers.g:1877:2: kw= 'byte'
+                    // ../maxim.zaks.flattBuffers/src-gen/maxim/zaks/parser/antlr/internal/InternalFlatBuffers.g:1962:2: kw= 'byte'
                     {
-                    kw=(Token)match(input,48,FOLLOW_48_in_rulePrimitiveNumberType4001); 
+                    kw=(Token)match(input,49,FOLLOW_49_in_rulePrimitiveNumberType4215); 
 
                             current.merge(kw);
                             newLeafNode(kw, grammarAccess.getPrimitiveNumberTypeAccess().getByteKeyword_0()); 
@@ -4615,9 +4830,9 @@ public class InternalFlatBuffersParser extends AbstractInternalAntlrParser {
                     }
                     break;
                 case 2 :
-                    // ../maxim.zaks.flattBuffers/src-gen/maxim/zaks/parser/antlr/internal/InternalFlatBuffers.g:1884:2: kw= 'ubyte'
+                    // ../maxim.zaks.flattBuffers/src-gen/maxim/zaks/parser/antlr/internal/InternalFlatBuffers.g:1969:2: kw= 'ubyte'
                     {
-                    kw=(Token)match(input,49,FOLLOW_49_in_rulePrimitiveNumberType4020); 
+                    kw=(Token)match(input,50,FOLLOW_50_in_rulePrimitiveNumberType4234); 
 
                             current.merge(kw);
                             newLeafNode(kw, grammarAccess.getPrimitiveNumberTypeAccess().getUbyteKeyword_1()); 
@@ -4626,9 +4841,9 @@ public class InternalFlatBuffersParser extends AbstractInternalAntlrParser {
                     }
                     break;
                 case 3 :
-                    // ../maxim.zaks.flattBuffers/src-gen/maxim/zaks/parser/antlr/internal/InternalFlatBuffers.g:1891:2: kw= 'short'
+                    // ../maxim.zaks.flattBuffers/src-gen/maxim/zaks/parser/antlr/internal/InternalFlatBuffers.g:1976:2: kw= 'short'
                     {
-                    kw=(Token)match(input,50,FOLLOW_50_in_rulePrimitiveNumberType4039); 
+                    kw=(Token)match(input,51,FOLLOW_51_in_rulePrimitiveNumberType4253); 
 
                             current.merge(kw);
                             newLeafNode(kw, grammarAccess.getPrimitiveNumberTypeAccess().getShortKeyword_2()); 
@@ -4637,9 +4852,9 @@ public class InternalFlatBuffersParser extends AbstractInternalAntlrParser {
                     }
                     break;
                 case 4 :
-                    // ../maxim.zaks.flattBuffers/src-gen/maxim/zaks/parser/antlr/internal/InternalFlatBuffers.g:1898:2: kw= 'ushort'
+                    // ../maxim.zaks.flattBuffers/src-gen/maxim/zaks/parser/antlr/internal/InternalFlatBuffers.g:1983:2: kw= 'ushort'
                     {
-                    kw=(Token)match(input,51,FOLLOW_51_in_rulePrimitiveNumberType4058); 
+                    kw=(Token)match(input,52,FOLLOW_52_in_rulePrimitiveNumberType4272); 
 
                             current.merge(kw);
                             newLeafNode(kw, grammarAccess.getPrimitiveNumberTypeAccess().getUshortKeyword_3()); 
@@ -4648,9 +4863,9 @@ public class InternalFlatBuffersParser extends AbstractInternalAntlrParser {
                     }
                     break;
                 case 5 :
-                    // ../maxim.zaks.flattBuffers/src-gen/maxim/zaks/parser/antlr/internal/InternalFlatBuffers.g:1905:2: kw= 'int'
+                    // ../maxim.zaks.flattBuffers/src-gen/maxim/zaks/parser/antlr/internal/InternalFlatBuffers.g:1990:2: kw= 'int'
                     {
-                    kw=(Token)match(input,52,FOLLOW_52_in_rulePrimitiveNumberType4077); 
+                    kw=(Token)match(input,53,FOLLOW_53_in_rulePrimitiveNumberType4291); 
 
                             current.merge(kw);
                             newLeafNode(kw, grammarAccess.getPrimitiveNumberTypeAccess().getIntKeyword_4()); 
@@ -4659,9 +4874,9 @@ public class InternalFlatBuffersParser extends AbstractInternalAntlrParser {
                     }
                     break;
                 case 6 :
-                    // ../maxim.zaks.flattBuffers/src-gen/maxim/zaks/parser/antlr/internal/InternalFlatBuffers.g:1912:2: kw= 'uint'
+                    // ../maxim.zaks.flattBuffers/src-gen/maxim/zaks/parser/antlr/internal/InternalFlatBuffers.g:1997:2: kw= 'uint'
                     {
-                    kw=(Token)match(input,53,FOLLOW_53_in_rulePrimitiveNumberType4096); 
+                    kw=(Token)match(input,54,FOLLOW_54_in_rulePrimitiveNumberType4310); 
 
                             current.merge(kw);
                             newLeafNode(kw, grammarAccess.getPrimitiveNumberTypeAccess().getUintKeyword_5()); 
@@ -4670,9 +4885,9 @@ public class InternalFlatBuffersParser extends AbstractInternalAntlrParser {
                     }
                     break;
                 case 7 :
-                    // ../maxim.zaks.flattBuffers/src-gen/maxim/zaks/parser/antlr/internal/InternalFlatBuffers.g:1919:2: kw= 'long'
+                    // ../maxim.zaks.flattBuffers/src-gen/maxim/zaks/parser/antlr/internal/InternalFlatBuffers.g:2004:2: kw= 'long'
                     {
-                    kw=(Token)match(input,54,FOLLOW_54_in_rulePrimitiveNumberType4115); 
+                    kw=(Token)match(input,55,FOLLOW_55_in_rulePrimitiveNumberType4329); 
 
                             current.merge(kw);
                             newLeafNode(kw, grammarAccess.getPrimitiveNumberTypeAccess().getLongKeyword_6()); 
@@ -4681,9 +4896,9 @@ public class InternalFlatBuffersParser extends AbstractInternalAntlrParser {
                     }
                     break;
                 case 8 :
-                    // ../maxim.zaks.flattBuffers/src-gen/maxim/zaks/parser/antlr/internal/InternalFlatBuffers.g:1926:2: kw= 'ulong'
+                    // ../maxim.zaks.flattBuffers/src-gen/maxim/zaks/parser/antlr/internal/InternalFlatBuffers.g:2011:2: kw= 'ulong'
                     {
-                    kw=(Token)match(input,55,FOLLOW_55_in_rulePrimitiveNumberType4134); 
+                    kw=(Token)match(input,56,FOLLOW_56_in_rulePrimitiveNumberType4348); 
 
                             current.merge(kw);
                             newLeafNode(kw, grammarAccess.getPrimitiveNumberTypeAccess().getUlongKeyword_7()); 
@@ -4712,7 +4927,7 @@ public class InternalFlatBuffersParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "entryRuleQualifiedName"
-    // ../maxim.zaks.flattBuffers/src-gen/maxim/zaks/parser/antlr/internal/InternalFlatBuffers.g:1939:1: entryRuleQualifiedName returns [String current=null] : iv_ruleQualifiedName= ruleQualifiedName EOF ;
+    // ../maxim.zaks.flattBuffers/src-gen/maxim/zaks/parser/antlr/internal/InternalFlatBuffers.g:2024:1: entryRuleQualifiedName returns [String current=null] : iv_ruleQualifiedName= ruleQualifiedName EOF ;
     public final String entryRuleQualifiedName() throws RecognitionException {
         String current = null;
 
@@ -4720,17 +4935,17 @@ public class InternalFlatBuffersParser extends AbstractInternalAntlrParser {
 
 
         try {
-            // ../maxim.zaks.flattBuffers/src-gen/maxim/zaks/parser/antlr/internal/InternalFlatBuffers.g:1940:2: (iv_ruleQualifiedName= ruleQualifiedName EOF )
-            // ../maxim.zaks.flattBuffers/src-gen/maxim/zaks/parser/antlr/internal/InternalFlatBuffers.g:1941:2: iv_ruleQualifiedName= ruleQualifiedName EOF
+            // ../maxim.zaks.flattBuffers/src-gen/maxim/zaks/parser/antlr/internal/InternalFlatBuffers.g:2025:2: (iv_ruleQualifiedName= ruleQualifiedName EOF )
+            // ../maxim.zaks.flattBuffers/src-gen/maxim/zaks/parser/antlr/internal/InternalFlatBuffers.g:2026:2: iv_ruleQualifiedName= ruleQualifiedName EOF
             {
              newCompositeNode(grammarAccess.getQualifiedNameRule()); 
-            pushFollow(FOLLOW_ruleQualifiedName_in_entryRuleQualifiedName4175);
+            pushFollow(FOLLOW_ruleQualifiedName_in_entryRuleQualifiedName4389);
             iv_ruleQualifiedName=ruleQualifiedName();
 
             state._fsp--;
 
              current =iv_ruleQualifiedName.getText(); 
-            match(input,EOF,FOLLOW_EOF_in_entryRuleQualifiedName4186); 
+            match(input,EOF,FOLLOW_EOF_in_entryRuleQualifiedName4400); 
 
             }
 
@@ -4748,7 +4963,7 @@ public class InternalFlatBuffersParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "ruleQualifiedName"
-    // ../maxim.zaks.flattBuffers/src-gen/maxim/zaks/parser/antlr/internal/InternalFlatBuffers.g:1948:1: ruleQualifiedName returns [AntlrDatatypeRuleToken current=new AntlrDatatypeRuleToken()] : (this_ValidID_0= ruleValidID (kw= '.' this_ValidID_2= ruleValidID )* ) ;
+    // ../maxim.zaks.flattBuffers/src-gen/maxim/zaks/parser/antlr/internal/InternalFlatBuffers.g:2033:1: ruleQualifiedName returns [AntlrDatatypeRuleToken current=new AntlrDatatypeRuleToken()] : (this_ValidID_0= ruleValidID (kw= '.' this_ValidID_2= ruleValidID )* ) ;
     public final AntlrDatatypeRuleToken ruleQualifiedName() throws RecognitionException {
         AntlrDatatypeRuleToken current = new AntlrDatatypeRuleToken();
 
@@ -4761,16 +4976,16 @@ public class InternalFlatBuffersParser extends AbstractInternalAntlrParser {
          enterRule(); 
             
         try {
-            // ../maxim.zaks.flattBuffers/src-gen/maxim/zaks/parser/antlr/internal/InternalFlatBuffers.g:1951:28: ( (this_ValidID_0= ruleValidID (kw= '.' this_ValidID_2= ruleValidID )* ) )
-            // ../maxim.zaks.flattBuffers/src-gen/maxim/zaks/parser/antlr/internal/InternalFlatBuffers.g:1952:1: (this_ValidID_0= ruleValidID (kw= '.' this_ValidID_2= ruleValidID )* )
+            // ../maxim.zaks.flattBuffers/src-gen/maxim/zaks/parser/antlr/internal/InternalFlatBuffers.g:2036:28: ( (this_ValidID_0= ruleValidID (kw= '.' this_ValidID_2= ruleValidID )* ) )
+            // ../maxim.zaks.flattBuffers/src-gen/maxim/zaks/parser/antlr/internal/InternalFlatBuffers.g:2037:1: (this_ValidID_0= ruleValidID (kw= '.' this_ValidID_2= ruleValidID )* )
             {
-            // ../maxim.zaks.flattBuffers/src-gen/maxim/zaks/parser/antlr/internal/InternalFlatBuffers.g:1952:1: (this_ValidID_0= ruleValidID (kw= '.' this_ValidID_2= ruleValidID )* )
-            // ../maxim.zaks.flattBuffers/src-gen/maxim/zaks/parser/antlr/internal/InternalFlatBuffers.g:1953:5: this_ValidID_0= ruleValidID (kw= '.' this_ValidID_2= ruleValidID )*
+            // ../maxim.zaks.flattBuffers/src-gen/maxim/zaks/parser/antlr/internal/InternalFlatBuffers.g:2037:1: (this_ValidID_0= ruleValidID (kw= '.' this_ValidID_2= ruleValidID )* )
+            // ../maxim.zaks.flattBuffers/src-gen/maxim/zaks/parser/antlr/internal/InternalFlatBuffers.g:2038:5: this_ValidID_0= ruleValidID (kw= '.' this_ValidID_2= ruleValidID )*
             {
              
                     newCompositeNode(grammarAccess.getQualifiedNameAccess().getValidIDParserRuleCall_0()); 
                 
-            pushFollow(FOLLOW_ruleValidID_in_ruleQualifiedName4233);
+            pushFollow(FOLLOW_ruleValidID_in_ruleQualifiedName4447);
             this_ValidID_0=ruleValidID();
 
             state._fsp--;
@@ -4781,22 +4996,22 @@ public class InternalFlatBuffersParser extends AbstractInternalAntlrParser {
              
                     afterParserOrEnumRuleCall();
                 
-            // ../maxim.zaks.flattBuffers/src-gen/maxim/zaks/parser/antlr/internal/InternalFlatBuffers.g:1963:1: (kw= '.' this_ValidID_2= ruleValidID )*
-            loop29:
+            // ../maxim.zaks.flattBuffers/src-gen/maxim/zaks/parser/antlr/internal/InternalFlatBuffers.g:2048:1: (kw= '.' this_ValidID_2= ruleValidID )*
+            loop30:
             do {
-                int alt29=2;
-                int LA29_0 = input.LA(1);
+                int alt30=2;
+                int LA30_0 = input.LA(1);
 
-                if ( (LA29_0==56) ) {
-                    alt29=1;
+                if ( (LA30_0==40) ) {
+                    alt30=1;
                 }
 
 
-                switch (alt29) {
+                switch (alt30) {
             	case 1 :
-            	    // ../maxim.zaks.flattBuffers/src-gen/maxim/zaks/parser/antlr/internal/InternalFlatBuffers.g:1964:2: kw= '.' this_ValidID_2= ruleValidID
+            	    // ../maxim.zaks.flattBuffers/src-gen/maxim/zaks/parser/antlr/internal/InternalFlatBuffers.g:2049:2: kw= '.' this_ValidID_2= ruleValidID
             	    {
-            	    kw=(Token)match(input,56,FOLLOW_56_in_ruleQualifiedName4252); 
+            	    kw=(Token)match(input,40,FOLLOW_40_in_ruleQualifiedName4466); 
 
             	            current.merge(kw);
             	            newLeafNode(kw, grammarAccess.getQualifiedNameAccess().getFullStopKeyword_1_0()); 
@@ -4804,7 +5019,7 @@ public class InternalFlatBuffersParser extends AbstractInternalAntlrParser {
             	     
             	            newCompositeNode(grammarAccess.getQualifiedNameAccess().getValidIDParserRuleCall_1_1()); 
             	        
-            	    pushFollow(FOLLOW_ruleValidID_in_ruleQualifiedName4274);
+            	    pushFollow(FOLLOW_ruleValidID_in_ruleQualifiedName4488);
             	    this_ValidID_2=ruleValidID();
 
             	    state._fsp--;
@@ -4820,7 +5035,7 @@ public class InternalFlatBuffersParser extends AbstractInternalAntlrParser {
             	    break;
 
             	default :
-            	    break loop29;
+            	    break loop30;
                 }
             } while (true);
 
@@ -4845,7 +5060,7 @@ public class InternalFlatBuffersParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "entryRuleValidID"
-    // ../maxim.zaks.flattBuffers/src-gen/maxim/zaks/parser/antlr/internal/InternalFlatBuffers.g:1988:1: entryRuleValidID returns [String current=null] : iv_ruleValidID= ruleValidID EOF ;
+    // ../maxim.zaks.flattBuffers/src-gen/maxim/zaks/parser/antlr/internal/InternalFlatBuffers.g:2073:1: entryRuleValidID returns [String current=null] : iv_ruleValidID= ruleValidID EOF ;
     public final String entryRuleValidID() throws RecognitionException {
         String current = null;
 
@@ -4853,17 +5068,17 @@ public class InternalFlatBuffersParser extends AbstractInternalAntlrParser {
 
 
         try {
-            // ../maxim.zaks.flattBuffers/src-gen/maxim/zaks/parser/antlr/internal/InternalFlatBuffers.g:1989:2: (iv_ruleValidID= ruleValidID EOF )
-            // ../maxim.zaks.flattBuffers/src-gen/maxim/zaks/parser/antlr/internal/InternalFlatBuffers.g:1990:2: iv_ruleValidID= ruleValidID EOF
+            // ../maxim.zaks.flattBuffers/src-gen/maxim/zaks/parser/antlr/internal/InternalFlatBuffers.g:2074:2: (iv_ruleValidID= ruleValidID EOF )
+            // ../maxim.zaks.flattBuffers/src-gen/maxim/zaks/parser/antlr/internal/InternalFlatBuffers.g:2075:2: iv_ruleValidID= ruleValidID EOF
             {
              newCompositeNode(grammarAccess.getValidIDRule()); 
-            pushFollow(FOLLOW_ruleValidID_in_entryRuleValidID4322);
+            pushFollow(FOLLOW_ruleValidID_in_entryRuleValidID4536);
             iv_ruleValidID=ruleValidID();
 
             state._fsp--;
 
              current =iv_ruleValidID.getText(); 
-            match(input,EOF,FOLLOW_EOF_in_entryRuleValidID4333); 
+            match(input,EOF,FOLLOW_EOF_in_entryRuleValidID4547); 
 
             }
 
@@ -4881,7 +5096,7 @@ public class InternalFlatBuffersParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "ruleValidID"
-    // ../maxim.zaks.flattBuffers/src-gen/maxim/zaks/parser/antlr/internal/InternalFlatBuffers.g:1997:1: ruleValidID returns [AntlrDatatypeRuleToken current=new AntlrDatatypeRuleToken()] : (this_HASH_ATTRIBUTE_0= RULE_HASH_ATTRIBUTE | this_ID_ATTRIBUTE_1= RULE_ID_ATTRIBUTE | this_REQUIRED_ATTRIBUTE_2= RULE_REQUIRED_ATTRIBUTE | this_KEY_ATTRIBUTE_3= RULE_KEY_ATTRIBUTE | this_DEPRECTED_ATTRIBUTE_4= RULE_DEPRECTED_ATTRIBUTE | this_ID_5= RULE_ID ) ;
+    // ../maxim.zaks.flattBuffers/src-gen/maxim/zaks/parser/antlr/internal/InternalFlatBuffers.g:2082:1: ruleValidID returns [AntlrDatatypeRuleToken current=new AntlrDatatypeRuleToken()] : (this_HASH_ATTRIBUTE_0= RULE_HASH_ATTRIBUTE | this_ID_ATTRIBUTE_1= RULE_ID_ATTRIBUTE | this_REQUIRED_ATTRIBUTE_2= RULE_REQUIRED_ATTRIBUTE | this_KEY_ATTRIBUTE_3= RULE_KEY_ATTRIBUTE | this_DEPRECTED_ATTRIBUTE_4= RULE_DEPRECTED_ATTRIBUTE | this_ID_5= RULE_ID ) ;
     public final AntlrDatatypeRuleToken ruleValidID() throws RecognitionException {
         AntlrDatatypeRuleToken current = new AntlrDatatypeRuleToken();
 
@@ -4895,54 +5110,54 @@ public class InternalFlatBuffersParser extends AbstractInternalAntlrParser {
          enterRule(); 
             
         try {
-            // ../maxim.zaks.flattBuffers/src-gen/maxim/zaks/parser/antlr/internal/InternalFlatBuffers.g:2000:28: ( (this_HASH_ATTRIBUTE_0= RULE_HASH_ATTRIBUTE | this_ID_ATTRIBUTE_1= RULE_ID_ATTRIBUTE | this_REQUIRED_ATTRIBUTE_2= RULE_REQUIRED_ATTRIBUTE | this_KEY_ATTRIBUTE_3= RULE_KEY_ATTRIBUTE | this_DEPRECTED_ATTRIBUTE_4= RULE_DEPRECTED_ATTRIBUTE | this_ID_5= RULE_ID ) )
-            // ../maxim.zaks.flattBuffers/src-gen/maxim/zaks/parser/antlr/internal/InternalFlatBuffers.g:2001:1: (this_HASH_ATTRIBUTE_0= RULE_HASH_ATTRIBUTE | this_ID_ATTRIBUTE_1= RULE_ID_ATTRIBUTE | this_REQUIRED_ATTRIBUTE_2= RULE_REQUIRED_ATTRIBUTE | this_KEY_ATTRIBUTE_3= RULE_KEY_ATTRIBUTE | this_DEPRECTED_ATTRIBUTE_4= RULE_DEPRECTED_ATTRIBUTE | this_ID_5= RULE_ID )
+            // ../maxim.zaks.flattBuffers/src-gen/maxim/zaks/parser/antlr/internal/InternalFlatBuffers.g:2085:28: ( (this_HASH_ATTRIBUTE_0= RULE_HASH_ATTRIBUTE | this_ID_ATTRIBUTE_1= RULE_ID_ATTRIBUTE | this_REQUIRED_ATTRIBUTE_2= RULE_REQUIRED_ATTRIBUTE | this_KEY_ATTRIBUTE_3= RULE_KEY_ATTRIBUTE | this_DEPRECTED_ATTRIBUTE_4= RULE_DEPRECTED_ATTRIBUTE | this_ID_5= RULE_ID ) )
+            // ../maxim.zaks.flattBuffers/src-gen/maxim/zaks/parser/antlr/internal/InternalFlatBuffers.g:2086:1: (this_HASH_ATTRIBUTE_0= RULE_HASH_ATTRIBUTE | this_ID_ATTRIBUTE_1= RULE_ID_ATTRIBUTE | this_REQUIRED_ATTRIBUTE_2= RULE_REQUIRED_ATTRIBUTE | this_KEY_ATTRIBUTE_3= RULE_KEY_ATTRIBUTE | this_DEPRECTED_ATTRIBUTE_4= RULE_DEPRECTED_ATTRIBUTE | this_ID_5= RULE_ID )
             {
-            // ../maxim.zaks.flattBuffers/src-gen/maxim/zaks/parser/antlr/internal/InternalFlatBuffers.g:2001:1: (this_HASH_ATTRIBUTE_0= RULE_HASH_ATTRIBUTE | this_ID_ATTRIBUTE_1= RULE_ID_ATTRIBUTE | this_REQUIRED_ATTRIBUTE_2= RULE_REQUIRED_ATTRIBUTE | this_KEY_ATTRIBUTE_3= RULE_KEY_ATTRIBUTE | this_DEPRECTED_ATTRIBUTE_4= RULE_DEPRECTED_ATTRIBUTE | this_ID_5= RULE_ID )
-            int alt30=6;
+            // ../maxim.zaks.flattBuffers/src-gen/maxim/zaks/parser/antlr/internal/InternalFlatBuffers.g:2086:1: (this_HASH_ATTRIBUTE_0= RULE_HASH_ATTRIBUTE | this_ID_ATTRIBUTE_1= RULE_ID_ATTRIBUTE | this_REQUIRED_ATTRIBUTE_2= RULE_REQUIRED_ATTRIBUTE | this_KEY_ATTRIBUTE_3= RULE_KEY_ATTRIBUTE | this_DEPRECTED_ATTRIBUTE_4= RULE_DEPRECTED_ATTRIBUTE | this_ID_5= RULE_ID )
+            int alt31=6;
             switch ( input.LA(1) ) {
             case RULE_HASH_ATTRIBUTE:
                 {
-                alt30=1;
+                alt31=1;
                 }
                 break;
             case RULE_ID_ATTRIBUTE:
                 {
-                alt30=2;
+                alt31=2;
                 }
                 break;
             case RULE_REQUIRED_ATTRIBUTE:
                 {
-                alt30=3;
+                alt31=3;
                 }
                 break;
             case RULE_KEY_ATTRIBUTE:
                 {
-                alt30=4;
+                alt31=4;
                 }
                 break;
             case RULE_DEPRECTED_ATTRIBUTE:
                 {
-                alt30=5;
+                alt31=5;
                 }
                 break;
             case RULE_ID:
                 {
-                alt30=6;
+                alt31=6;
                 }
                 break;
             default:
                 NoViableAltException nvae =
-                    new NoViableAltException("", 30, 0, input);
+                    new NoViableAltException("", 31, 0, input);
 
                 throw nvae;
             }
 
-            switch (alt30) {
+            switch (alt31) {
                 case 1 :
-                    // ../maxim.zaks.flattBuffers/src-gen/maxim/zaks/parser/antlr/internal/InternalFlatBuffers.g:2001:6: this_HASH_ATTRIBUTE_0= RULE_HASH_ATTRIBUTE
+                    // ../maxim.zaks.flattBuffers/src-gen/maxim/zaks/parser/antlr/internal/InternalFlatBuffers.g:2086:6: this_HASH_ATTRIBUTE_0= RULE_HASH_ATTRIBUTE
                     {
-                    this_HASH_ATTRIBUTE_0=(Token)match(input,RULE_HASH_ATTRIBUTE,FOLLOW_RULE_HASH_ATTRIBUTE_in_ruleValidID4373); 
+                    this_HASH_ATTRIBUTE_0=(Token)match(input,RULE_HASH_ATTRIBUTE,FOLLOW_RULE_HASH_ATTRIBUTE_in_ruleValidID4587); 
 
                     		current.merge(this_HASH_ATTRIBUTE_0);
                         
@@ -4953,9 +5168,9 @@ public class InternalFlatBuffersParser extends AbstractInternalAntlrParser {
                     }
                     break;
                 case 2 :
-                    // ../maxim.zaks.flattBuffers/src-gen/maxim/zaks/parser/antlr/internal/InternalFlatBuffers.g:2009:10: this_ID_ATTRIBUTE_1= RULE_ID_ATTRIBUTE
+                    // ../maxim.zaks.flattBuffers/src-gen/maxim/zaks/parser/antlr/internal/InternalFlatBuffers.g:2094:10: this_ID_ATTRIBUTE_1= RULE_ID_ATTRIBUTE
                     {
-                    this_ID_ATTRIBUTE_1=(Token)match(input,RULE_ID_ATTRIBUTE,FOLLOW_RULE_ID_ATTRIBUTE_in_ruleValidID4399); 
+                    this_ID_ATTRIBUTE_1=(Token)match(input,RULE_ID_ATTRIBUTE,FOLLOW_RULE_ID_ATTRIBUTE_in_ruleValidID4613); 
 
                     		current.merge(this_ID_ATTRIBUTE_1);
                         
@@ -4966,9 +5181,9 @@ public class InternalFlatBuffersParser extends AbstractInternalAntlrParser {
                     }
                     break;
                 case 3 :
-                    // ../maxim.zaks.flattBuffers/src-gen/maxim/zaks/parser/antlr/internal/InternalFlatBuffers.g:2017:10: this_REQUIRED_ATTRIBUTE_2= RULE_REQUIRED_ATTRIBUTE
+                    // ../maxim.zaks.flattBuffers/src-gen/maxim/zaks/parser/antlr/internal/InternalFlatBuffers.g:2102:10: this_REQUIRED_ATTRIBUTE_2= RULE_REQUIRED_ATTRIBUTE
                     {
-                    this_REQUIRED_ATTRIBUTE_2=(Token)match(input,RULE_REQUIRED_ATTRIBUTE,FOLLOW_RULE_REQUIRED_ATTRIBUTE_in_ruleValidID4425); 
+                    this_REQUIRED_ATTRIBUTE_2=(Token)match(input,RULE_REQUIRED_ATTRIBUTE,FOLLOW_RULE_REQUIRED_ATTRIBUTE_in_ruleValidID4639); 
 
                     		current.merge(this_REQUIRED_ATTRIBUTE_2);
                         
@@ -4979,9 +5194,9 @@ public class InternalFlatBuffersParser extends AbstractInternalAntlrParser {
                     }
                     break;
                 case 4 :
-                    // ../maxim.zaks.flattBuffers/src-gen/maxim/zaks/parser/antlr/internal/InternalFlatBuffers.g:2025:10: this_KEY_ATTRIBUTE_3= RULE_KEY_ATTRIBUTE
+                    // ../maxim.zaks.flattBuffers/src-gen/maxim/zaks/parser/antlr/internal/InternalFlatBuffers.g:2110:10: this_KEY_ATTRIBUTE_3= RULE_KEY_ATTRIBUTE
                     {
-                    this_KEY_ATTRIBUTE_3=(Token)match(input,RULE_KEY_ATTRIBUTE,FOLLOW_RULE_KEY_ATTRIBUTE_in_ruleValidID4451); 
+                    this_KEY_ATTRIBUTE_3=(Token)match(input,RULE_KEY_ATTRIBUTE,FOLLOW_RULE_KEY_ATTRIBUTE_in_ruleValidID4665); 
 
                     		current.merge(this_KEY_ATTRIBUTE_3);
                         
@@ -4992,9 +5207,9 @@ public class InternalFlatBuffersParser extends AbstractInternalAntlrParser {
                     }
                     break;
                 case 5 :
-                    // ../maxim.zaks.flattBuffers/src-gen/maxim/zaks/parser/antlr/internal/InternalFlatBuffers.g:2033:10: this_DEPRECTED_ATTRIBUTE_4= RULE_DEPRECTED_ATTRIBUTE
+                    // ../maxim.zaks.flattBuffers/src-gen/maxim/zaks/parser/antlr/internal/InternalFlatBuffers.g:2118:10: this_DEPRECTED_ATTRIBUTE_4= RULE_DEPRECTED_ATTRIBUTE
                     {
-                    this_DEPRECTED_ATTRIBUTE_4=(Token)match(input,RULE_DEPRECTED_ATTRIBUTE,FOLLOW_RULE_DEPRECTED_ATTRIBUTE_in_ruleValidID4477); 
+                    this_DEPRECTED_ATTRIBUTE_4=(Token)match(input,RULE_DEPRECTED_ATTRIBUTE,FOLLOW_RULE_DEPRECTED_ATTRIBUTE_in_ruleValidID4691); 
 
                     		current.merge(this_DEPRECTED_ATTRIBUTE_4);
                         
@@ -5005,9 +5220,9 @@ public class InternalFlatBuffersParser extends AbstractInternalAntlrParser {
                     }
                     break;
                 case 6 :
-                    // ../maxim.zaks.flattBuffers/src-gen/maxim/zaks/parser/antlr/internal/InternalFlatBuffers.g:2041:10: this_ID_5= RULE_ID
+                    // ../maxim.zaks.flattBuffers/src-gen/maxim/zaks/parser/antlr/internal/InternalFlatBuffers.g:2126:10: this_ID_5= RULE_ID
                     {
-                    this_ID_5=(Token)match(input,RULE_ID,FOLLOW_RULE_ID_in_ruleValidID4503); 
+                    this_ID_5=(Token)match(input,RULE_ID,FOLLOW_RULE_ID_in_ruleValidID4717); 
 
                     		current.merge(this_ID_5);
                         
@@ -5038,7 +5253,7 @@ public class InternalFlatBuffersParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "entryRuleNumber"
-    // ../maxim.zaks.flattBuffers/src-gen/maxim/zaks/parser/antlr/internal/InternalFlatBuffers.g:2056:1: entryRuleNumber returns [String current=null] : iv_ruleNumber= ruleNumber EOF ;
+    // ../maxim.zaks.flattBuffers/src-gen/maxim/zaks/parser/antlr/internal/InternalFlatBuffers.g:2141:1: entryRuleNumber returns [String current=null] : iv_ruleNumber= ruleNumber EOF ;
     public final String entryRuleNumber() throws RecognitionException {
         String current = null;
 
@@ -5049,17 +5264,17 @@ public class InternalFlatBuffersParser extends AbstractInternalAntlrParser {
         		HiddenTokens myHiddenTokenState = ((XtextTokenStream)input).setHiddenTokens();
         	
         try {
-            // ../maxim.zaks.flattBuffers/src-gen/maxim/zaks/parser/antlr/internal/InternalFlatBuffers.g:2060:2: (iv_ruleNumber= ruleNumber EOF )
-            // ../maxim.zaks.flattBuffers/src-gen/maxim/zaks/parser/antlr/internal/InternalFlatBuffers.g:2061:2: iv_ruleNumber= ruleNumber EOF
+            // ../maxim.zaks.flattBuffers/src-gen/maxim/zaks/parser/antlr/internal/InternalFlatBuffers.g:2145:2: (iv_ruleNumber= ruleNumber EOF )
+            // ../maxim.zaks.flattBuffers/src-gen/maxim/zaks/parser/antlr/internal/InternalFlatBuffers.g:2146:2: iv_ruleNumber= ruleNumber EOF
             {
              newCompositeNode(grammarAccess.getNumberRule()); 
-            pushFollow(FOLLOW_ruleNumber_in_entryRuleNumber4555);
+            pushFollow(FOLLOW_ruleNumber_in_entryRuleNumber4769);
             iv_ruleNumber=ruleNumber();
 
             state._fsp--;
 
              current =iv_ruleNumber.getText(); 
-            match(input,EOF,FOLLOW_EOF_in_entryRuleNumber4566); 
+            match(input,EOF,FOLLOW_EOF_in_entryRuleNumber4780); 
 
             }
 
@@ -5080,7 +5295,7 @@ public class InternalFlatBuffersParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "ruleNumber"
-    // ../maxim.zaks.flattBuffers/src-gen/maxim/zaks/parser/antlr/internal/InternalFlatBuffers.g:2071:1: ruleNumber returns [AntlrDatatypeRuleToken current=new AntlrDatatypeRuleToken()] : (this_HEX_0= RULE_HEX | ( (this_INT_1= RULE_INT | this_DECIMAL_2= RULE_DECIMAL ) (kw= '.' (this_INT_4= RULE_INT | this_DECIMAL_5= RULE_DECIMAL ) )? ) ) ;
+    // ../maxim.zaks.flattBuffers/src-gen/maxim/zaks/parser/antlr/internal/InternalFlatBuffers.g:2156:1: ruleNumber returns [AntlrDatatypeRuleToken current=new AntlrDatatypeRuleToken()] : (this_HEX_0= RULE_HEX | ( (this_INT_1= RULE_INT | this_DECIMAL_2= RULE_DECIMAL ) (kw= '.' (this_INT_4= RULE_INT | this_DECIMAL_5= RULE_DECIMAL ) )? ) ) ;
     public final AntlrDatatypeRuleToken ruleNumber() throws RecognitionException {
         AntlrDatatypeRuleToken current = new AntlrDatatypeRuleToken();
 
@@ -5095,30 +5310,30 @@ public class InternalFlatBuffersParser extends AbstractInternalAntlrParser {
         		HiddenTokens myHiddenTokenState = ((XtextTokenStream)input).setHiddenTokens();
             
         try {
-            // ../maxim.zaks.flattBuffers/src-gen/maxim/zaks/parser/antlr/internal/InternalFlatBuffers.g:2075:28: ( (this_HEX_0= RULE_HEX | ( (this_INT_1= RULE_INT | this_DECIMAL_2= RULE_DECIMAL ) (kw= '.' (this_INT_4= RULE_INT | this_DECIMAL_5= RULE_DECIMAL ) )? ) ) )
-            // ../maxim.zaks.flattBuffers/src-gen/maxim/zaks/parser/antlr/internal/InternalFlatBuffers.g:2076:1: (this_HEX_0= RULE_HEX | ( (this_INT_1= RULE_INT | this_DECIMAL_2= RULE_DECIMAL ) (kw= '.' (this_INT_4= RULE_INT | this_DECIMAL_5= RULE_DECIMAL ) )? ) )
+            // ../maxim.zaks.flattBuffers/src-gen/maxim/zaks/parser/antlr/internal/InternalFlatBuffers.g:2160:28: ( (this_HEX_0= RULE_HEX | ( (this_INT_1= RULE_INT | this_DECIMAL_2= RULE_DECIMAL ) (kw= '.' (this_INT_4= RULE_INT | this_DECIMAL_5= RULE_DECIMAL ) )? ) ) )
+            // ../maxim.zaks.flattBuffers/src-gen/maxim/zaks/parser/antlr/internal/InternalFlatBuffers.g:2161:1: (this_HEX_0= RULE_HEX | ( (this_INT_1= RULE_INT | this_DECIMAL_2= RULE_DECIMAL ) (kw= '.' (this_INT_4= RULE_INT | this_DECIMAL_5= RULE_DECIMAL ) )? ) )
             {
-            // ../maxim.zaks.flattBuffers/src-gen/maxim/zaks/parser/antlr/internal/InternalFlatBuffers.g:2076:1: (this_HEX_0= RULE_HEX | ( (this_INT_1= RULE_INT | this_DECIMAL_2= RULE_DECIMAL ) (kw= '.' (this_INT_4= RULE_INT | this_DECIMAL_5= RULE_DECIMAL ) )? ) )
-            int alt34=2;
-            int LA34_0 = input.LA(1);
+            // ../maxim.zaks.flattBuffers/src-gen/maxim/zaks/parser/antlr/internal/InternalFlatBuffers.g:2161:1: (this_HEX_0= RULE_HEX | ( (this_INT_1= RULE_INT | this_DECIMAL_2= RULE_DECIMAL ) (kw= '.' (this_INT_4= RULE_INT | this_DECIMAL_5= RULE_DECIMAL ) )? ) )
+            int alt35=2;
+            int LA35_0 = input.LA(1);
 
-            if ( (LA34_0==RULE_HEX) ) {
-                alt34=1;
+            if ( (LA35_0==RULE_HEX) ) {
+                alt35=1;
             }
-            else if ( (LA34_0==RULE_INT||LA34_0==RULE_DECIMAL) ) {
-                alt34=2;
+            else if ( (LA35_0==RULE_INT||LA35_0==RULE_DECIMAL) ) {
+                alt35=2;
             }
             else {
                 NoViableAltException nvae =
-                    new NoViableAltException("", 34, 0, input);
+                    new NoViableAltException("", 35, 0, input);
 
                 throw nvae;
             }
-            switch (alt34) {
+            switch (alt35) {
                 case 1 :
-                    // ../maxim.zaks.flattBuffers/src-gen/maxim/zaks/parser/antlr/internal/InternalFlatBuffers.g:2076:6: this_HEX_0= RULE_HEX
+                    // ../maxim.zaks.flattBuffers/src-gen/maxim/zaks/parser/antlr/internal/InternalFlatBuffers.g:2161:6: this_HEX_0= RULE_HEX
                     {
-                    this_HEX_0=(Token)match(input,RULE_HEX,FOLLOW_RULE_HEX_in_ruleNumber4610); 
+                    this_HEX_0=(Token)match(input,RULE_HEX,FOLLOW_RULE_HEX_in_ruleNumber4824); 
 
                     		current.merge(this_HEX_0);
                         
@@ -5129,32 +5344,32 @@ public class InternalFlatBuffersParser extends AbstractInternalAntlrParser {
                     }
                     break;
                 case 2 :
-                    // ../maxim.zaks.flattBuffers/src-gen/maxim/zaks/parser/antlr/internal/InternalFlatBuffers.g:2084:6: ( (this_INT_1= RULE_INT | this_DECIMAL_2= RULE_DECIMAL ) (kw= '.' (this_INT_4= RULE_INT | this_DECIMAL_5= RULE_DECIMAL ) )? )
+                    // ../maxim.zaks.flattBuffers/src-gen/maxim/zaks/parser/antlr/internal/InternalFlatBuffers.g:2169:6: ( (this_INT_1= RULE_INT | this_DECIMAL_2= RULE_DECIMAL ) (kw= '.' (this_INT_4= RULE_INT | this_DECIMAL_5= RULE_DECIMAL ) )? )
                     {
-                    // ../maxim.zaks.flattBuffers/src-gen/maxim/zaks/parser/antlr/internal/InternalFlatBuffers.g:2084:6: ( (this_INT_1= RULE_INT | this_DECIMAL_2= RULE_DECIMAL ) (kw= '.' (this_INT_4= RULE_INT | this_DECIMAL_5= RULE_DECIMAL ) )? )
-                    // ../maxim.zaks.flattBuffers/src-gen/maxim/zaks/parser/antlr/internal/InternalFlatBuffers.g:2084:7: (this_INT_1= RULE_INT | this_DECIMAL_2= RULE_DECIMAL ) (kw= '.' (this_INT_4= RULE_INT | this_DECIMAL_5= RULE_DECIMAL ) )?
+                    // ../maxim.zaks.flattBuffers/src-gen/maxim/zaks/parser/antlr/internal/InternalFlatBuffers.g:2169:6: ( (this_INT_1= RULE_INT | this_DECIMAL_2= RULE_DECIMAL ) (kw= '.' (this_INT_4= RULE_INT | this_DECIMAL_5= RULE_DECIMAL ) )? )
+                    // ../maxim.zaks.flattBuffers/src-gen/maxim/zaks/parser/antlr/internal/InternalFlatBuffers.g:2169:7: (this_INT_1= RULE_INT | this_DECIMAL_2= RULE_DECIMAL ) (kw= '.' (this_INT_4= RULE_INT | this_DECIMAL_5= RULE_DECIMAL ) )?
                     {
-                    // ../maxim.zaks.flattBuffers/src-gen/maxim/zaks/parser/antlr/internal/InternalFlatBuffers.g:2084:7: (this_INT_1= RULE_INT | this_DECIMAL_2= RULE_DECIMAL )
-                    int alt31=2;
-                    int LA31_0 = input.LA(1);
+                    // ../maxim.zaks.flattBuffers/src-gen/maxim/zaks/parser/antlr/internal/InternalFlatBuffers.g:2169:7: (this_INT_1= RULE_INT | this_DECIMAL_2= RULE_DECIMAL )
+                    int alt32=2;
+                    int LA32_0 = input.LA(1);
 
-                    if ( (LA31_0==RULE_INT) ) {
-                        alt31=1;
+                    if ( (LA32_0==RULE_INT) ) {
+                        alt32=1;
                     }
-                    else if ( (LA31_0==RULE_DECIMAL) ) {
-                        alt31=2;
+                    else if ( (LA32_0==RULE_DECIMAL) ) {
+                        alt32=2;
                     }
                     else {
                         NoViableAltException nvae =
-                            new NoViableAltException("", 31, 0, input);
+                            new NoViableAltException("", 32, 0, input);
 
                         throw nvae;
                     }
-                    switch (alt31) {
+                    switch (alt32) {
                         case 1 :
-                            // ../maxim.zaks.flattBuffers/src-gen/maxim/zaks/parser/antlr/internal/InternalFlatBuffers.g:2084:12: this_INT_1= RULE_INT
+                            // ../maxim.zaks.flattBuffers/src-gen/maxim/zaks/parser/antlr/internal/InternalFlatBuffers.g:2169:12: this_INT_1= RULE_INT
                             {
-                            this_INT_1=(Token)match(input,RULE_INT,FOLLOW_RULE_INT_in_ruleNumber4638); 
+                            this_INT_1=(Token)match(input,RULE_INT,FOLLOW_RULE_INT_in_ruleNumber4852); 
 
                             		current.merge(this_INT_1);
                                 
@@ -5165,9 +5380,9 @@ public class InternalFlatBuffersParser extends AbstractInternalAntlrParser {
                             }
                             break;
                         case 2 :
-                            // ../maxim.zaks.flattBuffers/src-gen/maxim/zaks/parser/antlr/internal/InternalFlatBuffers.g:2092:10: this_DECIMAL_2= RULE_DECIMAL
+                            // ../maxim.zaks.flattBuffers/src-gen/maxim/zaks/parser/antlr/internal/InternalFlatBuffers.g:2177:10: this_DECIMAL_2= RULE_DECIMAL
                             {
-                            this_DECIMAL_2=(Token)match(input,RULE_DECIMAL,FOLLOW_RULE_DECIMAL_in_ruleNumber4664); 
+                            this_DECIMAL_2=(Token)match(input,RULE_DECIMAL,FOLLOW_RULE_DECIMAL_in_ruleNumber4878); 
 
                             		current.merge(this_DECIMAL_2);
                                 
@@ -5180,43 +5395,43 @@ public class InternalFlatBuffersParser extends AbstractInternalAntlrParser {
 
                     }
 
-                    // ../maxim.zaks.flattBuffers/src-gen/maxim/zaks/parser/antlr/internal/InternalFlatBuffers.g:2099:2: (kw= '.' (this_INT_4= RULE_INT | this_DECIMAL_5= RULE_DECIMAL ) )?
-                    int alt33=2;
-                    int LA33_0 = input.LA(1);
+                    // ../maxim.zaks.flattBuffers/src-gen/maxim/zaks/parser/antlr/internal/InternalFlatBuffers.g:2184:2: (kw= '.' (this_INT_4= RULE_INT | this_DECIMAL_5= RULE_DECIMAL ) )?
+                    int alt34=2;
+                    int LA34_0 = input.LA(1);
 
-                    if ( (LA33_0==56) ) {
-                        alt33=1;
+                    if ( (LA34_0==40) ) {
+                        alt34=1;
                     }
-                    switch (alt33) {
+                    switch (alt34) {
                         case 1 :
-                            // ../maxim.zaks.flattBuffers/src-gen/maxim/zaks/parser/antlr/internal/InternalFlatBuffers.g:2100:2: kw= '.' (this_INT_4= RULE_INT | this_DECIMAL_5= RULE_DECIMAL )
+                            // ../maxim.zaks.flattBuffers/src-gen/maxim/zaks/parser/antlr/internal/InternalFlatBuffers.g:2185:2: kw= '.' (this_INT_4= RULE_INT | this_DECIMAL_5= RULE_DECIMAL )
                             {
-                            kw=(Token)match(input,56,FOLLOW_56_in_ruleNumber4684); 
+                            kw=(Token)match(input,40,FOLLOW_40_in_ruleNumber4898); 
 
                                     current.merge(kw);
                                     newLeafNode(kw, grammarAccess.getNumberAccess().getFullStopKeyword_1_1_0()); 
                                 
-                            // ../maxim.zaks.flattBuffers/src-gen/maxim/zaks/parser/antlr/internal/InternalFlatBuffers.g:2105:1: (this_INT_4= RULE_INT | this_DECIMAL_5= RULE_DECIMAL )
-                            int alt32=2;
-                            int LA32_0 = input.LA(1);
+                            // ../maxim.zaks.flattBuffers/src-gen/maxim/zaks/parser/antlr/internal/InternalFlatBuffers.g:2190:1: (this_INT_4= RULE_INT | this_DECIMAL_5= RULE_DECIMAL )
+                            int alt33=2;
+                            int LA33_0 = input.LA(1);
 
-                            if ( (LA32_0==RULE_INT) ) {
-                                alt32=1;
+                            if ( (LA33_0==RULE_INT) ) {
+                                alt33=1;
                             }
-                            else if ( (LA32_0==RULE_DECIMAL) ) {
-                                alt32=2;
+                            else if ( (LA33_0==RULE_DECIMAL) ) {
+                                alt33=2;
                             }
                             else {
                                 NoViableAltException nvae =
-                                    new NoViableAltException("", 32, 0, input);
+                                    new NoViableAltException("", 33, 0, input);
 
                                 throw nvae;
                             }
-                            switch (alt32) {
+                            switch (alt33) {
                                 case 1 :
-                                    // ../maxim.zaks.flattBuffers/src-gen/maxim/zaks/parser/antlr/internal/InternalFlatBuffers.g:2105:6: this_INT_4= RULE_INT
+                                    // ../maxim.zaks.flattBuffers/src-gen/maxim/zaks/parser/antlr/internal/InternalFlatBuffers.g:2190:6: this_INT_4= RULE_INT
                                     {
-                                    this_INT_4=(Token)match(input,RULE_INT,FOLLOW_RULE_INT_in_ruleNumber4700); 
+                                    this_INT_4=(Token)match(input,RULE_INT,FOLLOW_RULE_INT_in_ruleNumber4914); 
 
                                     		current.merge(this_INT_4);
                                         
@@ -5227,9 +5442,9 @@ public class InternalFlatBuffersParser extends AbstractInternalAntlrParser {
                                     }
                                     break;
                                 case 2 :
-                                    // ../maxim.zaks.flattBuffers/src-gen/maxim/zaks/parser/antlr/internal/InternalFlatBuffers.g:2113:10: this_DECIMAL_5= RULE_DECIMAL
+                                    // ../maxim.zaks.flattBuffers/src-gen/maxim/zaks/parser/antlr/internal/InternalFlatBuffers.g:2198:10: this_DECIMAL_5= RULE_DECIMAL
                                     {
-                                    this_DECIMAL_5=(Token)match(input,RULE_DECIMAL,FOLLOW_RULE_DECIMAL_in_ruleNumber4726); 
+                                    this_DECIMAL_5=(Token)match(input,RULE_DECIMAL,FOLLOW_RULE_DECIMAL_in_ruleNumber4940); 
 
                                     		current.merge(this_DECIMAL_5);
                                         
@@ -5283,12 +5498,12 @@ public class InternalFlatBuffersParser extends AbstractInternalAntlrParser {
 
     public static final BitSet FOLLOW_ruleSchema_in_entryRuleSchema75 = new BitSet(new long[]{0x0000000000000000L});
     public static final BitSet FOLLOW_EOF_in_entryRuleSchema85 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleInclude_in_ruleSchema131 = new BitSet(new long[]{0x0000C00023F40000L});
-    public static final BitSet FOLLOW_ruleNamespace_in_ruleSchema153 = new BitSet(new long[]{0x0000C00022F40000L});
-    public static final BitSet FOLLOW_ruleFileIdentifier_in_ruleSchema175 = new BitSet(new long[]{0x0000C00022F40000L});
-    public static final BitSet FOLLOW_ruleFileExtension_in_ruleSchema197 = new BitSet(new long[]{0x0000C00022F40000L});
-    public static final BitSet FOLLOW_ruleCustomAttributes_in_ruleSchema219 = new BitSet(new long[]{0x0000C00022F40000L});
-    public static final BitSet FOLLOW_ruleDefinition_in_ruleSchema241 = new BitSet(new long[]{0x0000C00022F40000L});
+    public static final BitSet FOLLOW_ruleInclude_in_ruleSchema131 = new BitSet(new long[]{0x0001800023F40000L});
+    public static final BitSet FOLLOW_ruleNamespace_in_ruleSchema153 = new BitSet(new long[]{0x0001800022F40000L});
+    public static final BitSet FOLLOW_ruleFileIdentifier_in_ruleSchema175 = new BitSet(new long[]{0x0001800022F40000L});
+    public static final BitSet FOLLOW_ruleFileExtension_in_ruleSchema197 = new BitSet(new long[]{0x0001800022F40000L});
+    public static final BitSet FOLLOW_ruleCustomAttributes_in_ruleSchema219 = new BitSet(new long[]{0x0001800022F40000L});
+    public static final BitSet FOLLOW_ruleDefinition_in_ruleSchema241 = new BitSet(new long[]{0x0001800022F40000L});
     public static final BitSet FOLLOW_ruleRootType_in_ruleSchema263 = new BitSet(new long[]{0x0000000000000002L});
     public static final BitSet FOLLOW_ruleRootType_in_entryRuleRootType299 = new BitSet(new long[]{0x0000000000000000L});
     public static final BitSet FOLLOW_EOF_in_entryRuleRootType309 = new BitSet(new long[]{0x0000000000000002L});
@@ -5337,7 +5552,7 @@ public class InternalFlatBuffersParser extends AbstractInternalAntlrParser {
     public static final BitSet FOLLOW_ruleStructFields_in_entryRuleStructFields1362 = new BitSet(new long[]{0x0000000000000000L});
     public static final BitSet FOLLOW_EOF_in_entryRuleStructFields1372 = new BitSet(new long[]{0x0000000000000002L});
     public static final BitSet FOLLOW_RULE_ID_in_ruleStructFields1414 = new BitSet(new long[]{0x0000000010000000L});
-    public static final BitSet FOLLOW_28_in_ruleStructFields1431 = new BitSet(new long[]{0x00FF1C0000000010L});
+    public static final BitSet FOLLOW_28_in_ruleStructFields1431 = new BitSet(new long[]{0x01FE380000000010L});
     public static final BitSet FOLLOW_rulePrimitiveWithoutString_in_ruleStructFields1453 = new BitSet(new long[]{0x0000000000080000L});
     public static final BitSet FOLLOW_RULE_ID_in_ruleStructFields1479 = new BitSet(new long[]{0x0000000000080000L});
     public static final BitSet FOLLOW_19_in_ruleStructFields1492 = new BitSet(new long[]{0x0000000000000002L});
@@ -5352,7 +5567,7 @@ public class InternalFlatBuffersParser extends AbstractInternalAntlrParser {
     public static final BitSet FOLLOW_ruleFields_in_entryRuleFields1701 = new BitSet(new long[]{0x0000000000000000L});
     public static final BitSet FOLLOW_EOF_in_entryRuleFields1711 = new BitSet(new long[]{0x0000000000000002L});
     public static final BitSet FOLLOW_ruleValidID_in_ruleFields1757 = new BitSet(new long[]{0x0000000010000000L});
-    public static final BitSet FOLLOW_28_in_ruleFields1769 = new BitSet(new long[]{0x00FF3D0000000010L});
+    public static final BitSet FOLLOW_28_in_ruleFields1769 = new BitSet(new long[]{0x01FE7A0000000ED0L});
     public static final BitSet FOLLOW_ruleType_in_ruleFields1790 = new BitSet(new long[]{0x0000000240080000L});
     public static final BitSet FOLLOW_30_in_ruleFields1803 = new BitSet(new long[]{0x0000000180003110L});
     public static final BitSet FOLLOW_ruleValue_in_ruleFields1824 = new BitSet(new long[]{0x0000000200080000L});
@@ -5399,77 +5614,85 @@ public class InternalFlatBuffersParser extends AbstractInternalAntlrParser {
     public static final BitSet FOLLOW_rulePrimitive_in_ruleType2890 = new BitSet(new long[]{0x0000000000000002L});
     public static final BitSet FOLLOW_ruleVector_in_ruleType2917 = new BitSet(new long[]{0x0000000000000002L});
     public static final BitSet FOLLOW_RULE_ID_in_ruleType2943 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleVector_in_entryRuleVector2985 = new BitSet(new long[]{0x0000000000000000L});
-    public static final BitSet FOLLOW_EOF_in_entryRuleVector2995 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_40_in_ruleVector3036 = new BitSet(new long[]{0x00FF3D0000000010L});
-    public static final BitSet FOLLOW_ruleType_in_ruleVector3057 = new BitSet(new long[]{0x0000020000000000L});
-    public static final BitSet FOLLOW_41_in_ruleVector3069 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rulePrimitiveWithoutString_in_entryRulePrimitiveWithoutString3110 = new BitSet(new long[]{0x0000000000000000L});
-    public static final BitSet FOLLOW_EOF_in_entryRulePrimitiveWithoutString3121 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_42_in_rulePrimitiveWithoutString3159 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_43_in_rulePrimitiveWithoutString3178 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_44_in_rulePrimitiveWithoutString3197 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rulePrimitiveNumberType_in_rulePrimitiveWithoutString3225 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rulePrimitive_in_entryRulePrimitive3271 = new BitSet(new long[]{0x0000000000000000L});
-    public static final BitSet FOLLOW_EOF_in_entryRulePrimitive3282 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_45_in_rulePrimitive3320 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rulePrimitiveWithoutString_in_rulePrimitive3348 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleEnum_in_entryRuleEnum3393 = new BitSet(new long[]{0x0000000000000000L});
-    public static final BitSet FOLLOW_EOF_in_entryRuleEnum3403 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_46_in_ruleEnum3440 = new BitSet(new long[]{0x0000000000000010L});
-    public static final BitSet FOLLOW_RULE_ID_in_ruleEnum3457 = new BitSet(new long[]{0x0000000214000000L});
-    public static final BitSet FOLLOW_28_in_ruleEnum3475 = new BitSet(new long[]{0x00FF1C0000000000L});
-    public static final BitSet FOLLOW_rulePrimitiveNumberType_in_ruleEnum3496 = new BitSet(new long[]{0x0000000204000000L});
-    public static final BitSet FOLLOW_ruleFieldAttributes_in_ruleEnum3519 = new BitSet(new long[]{0x0000000004000000L});
-    public static final BitSet FOLLOW_26_in_ruleEnum3532 = new BitSet(new long[]{0x0000000000000010L});
-    public static final BitSet FOLLOW_ruleEnumCase_in_ruleEnum3553 = new BitSet(new long[]{0x0000000408000000L});
-    public static final BitSet FOLLOW_34_in_ruleEnum3566 = new BitSet(new long[]{0x0000000000000010L});
-    public static final BitSet FOLLOW_ruleEnumCase_in_ruleEnum3587 = new BitSet(new long[]{0x0000000408000000L});
-    public static final BitSet FOLLOW_27_in_ruleEnum3601 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleEnumCase_in_entryRuleEnumCase3637 = new BitSet(new long[]{0x0000000000000000L});
-    public static final BitSet FOLLOW_EOF_in_entryRuleEnumCase3647 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_RULE_ID_in_ruleEnumCase3689 = new BitSet(new long[]{0x0000000040000002L});
-    public static final BitSet FOLLOW_30_in_ruleEnumCase3707 = new BitSet(new long[]{0x0000000000000100L});
-    public static final BitSet FOLLOW_RULE_INT_in_ruleEnumCase3724 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleUnion_in_entryRuleUnion3767 = new BitSet(new long[]{0x0000000000000000L});
-    public static final BitSet FOLLOW_EOF_in_entryRuleUnion3777 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_47_in_ruleUnion3814 = new BitSet(new long[]{0x0000000000000010L});
-    public static final BitSet FOLLOW_RULE_ID_in_ruleUnion3831 = new BitSet(new long[]{0x0000000004000000L});
-    public static final BitSet FOLLOW_26_in_ruleUnion3848 = new BitSet(new long[]{0x0000000000000010L});
-    public static final BitSet FOLLOW_RULE_ID_in_ruleUnion3868 = new BitSet(new long[]{0x0000000408000000L});
-    public static final BitSet FOLLOW_34_in_ruleUnion3881 = new BitSet(new long[]{0x0000000000000010L});
-    public static final BitSet FOLLOW_RULE_ID_in_ruleUnion3901 = new BitSet(new long[]{0x0000000408000000L});
-    public static final BitSet FOLLOW_27_in_ruleUnion3915 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rulePrimitiveNumberType_in_entryRulePrimitiveNumberType3952 = new BitSet(new long[]{0x0000000000000000L});
-    public static final BitSet FOLLOW_EOF_in_entryRulePrimitiveNumberType3963 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_48_in_rulePrimitiveNumberType4001 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_49_in_rulePrimitiveNumberType4020 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_50_in_rulePrimitiveNumberType4039 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_51_in_rulePrimitiveNumberType4058 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_52_in_rulePrimitiveNumberType4077 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_53_in_rulePrimitiveNumberType4096 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_54_in_rulePrimitiveNumberType4115 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_55_in_rulePrimitiveNumberType4134 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleQualifiedName_in_entryRuleQualifiedName4175 = new BitSet(new long[]{0x0000000000000000L});
-    public static final BitSet FOLLOW_EOF_in_entryRuleQualifiedName4186 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleValidID_in_ruleQualifiedName4233 = new BitSet(new long[]{0x0100000000000002L});
-    public static final BitSet FOLLOW_56_in_ruleQualifiedName4252 = new BitSet(new long[]{0x0000000000000ED0L});
-    public static final BitSet FOLLOW_ruleValidID_in_ruleQualifiedName4274 = new BitSet(new long[]{0x0100000000000002L});
-    public static final BitSet FOLLOW_ruleValidID_in_entryRuleValidID4322 = new BitSet(new long[]{0x0000000000000000L});
-    public static final BitSet FOLLOW_EOF_in_entryRuleValidID4333 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_RULE_HASH_ATTRIBUTE_in_ruleValidID4373 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_RULE_ID_ATTRIBUTE_in_ruleValidID4399 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_RULE_REQUIRED_ATTRIBUTE_in_ruleValidID4425 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_RULE_KEY_ATTRIBUTE_in_ruleValidID4451 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_RULE_DEPRECTED_ATTRIBUTE_in_ruleValidID4477 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_RULE_ID_in_ruleValidID4503 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleNumber_in_entryRuleNumber4555 = new BitSet(new long[]{0x0000000000000000L});
-    public static final BitSet FOLLOW_EOF_in_entryRuleNumber4566 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_RULE_HEX_in_ruleNumber4610 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_RULE_INT_in_ruleNumber4638 = new BitSet(new long[]{0x0100000000000002L});
-    public static final BitSet FOLLOW_RULE_DECIMAL_in_ruleNumber4664 = new BitSet(new long[]{0x0100000000000002L});
-    public static final BitSet FOLLOW_56_in_ruleNumber4684 = new BitSet(new long[]{0x0000000000002100L});
-    public static final BitSet FOLLOW_RULE_INT_in_ruleNumber4700 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_RULE_DECIMAL_in_ruleNumber4726 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleQualifiedType_in_ruleType2970 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleQualifiedType_in_entryRuleQualifiedType3007 = new BitSet(new long[]{0x0000000000000000L});
+    public static final BitSet FOLLOW_EOF_in_entryRuleQualifiedType3018 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleValidID_in_ruleQualifiedType3065 = new BitSet(new long[]{0x0000010000000000L});
+    public static final BitSet FOLLOW_40_in_ruleQualifiedType3083 = new BitSet(new long[]{0x0000000000000ED0L});
+    public static final BitSet FOLLOW_ruleValidID_in_ruleQualifiedType3105 = new BitSet(new long[]{0x0000010000000002L});
+    public static final BitSet FOLLOW_40_in_ruleQualifiedType3124 = new BitSet(new long[]{0x0000000000000ED0L});
+    public static final BitSet FOLLOW_ruleValidID_in_ruleQualifiedType3146 = new BitSet(new long[]{0x0000010000000002L});
+    public static final BitSet FOLLOW_ruleVector_in_entryRuleVector3199 = new BitSet(new long[]{0x0000000000000000L});
+    public static final BitSet FOLLOW_EOF_in_entryRuleVector3209 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_41_in_ruleVector3250 = new BitSet(new long[]{0x01FE7A0000000ED0L});
+    public static final BitSet FOLLOW_ruleType_in_ruleVector3271 = new BitSet(new long[]{0x0000040000000000L});
+    public static final BitSet FOLLOW_42_in_ruleVector3283 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rulePrimitiveWithoutString_in_entryRulePrimitiveWithoutString3324 = new BitSet(new long[]{0x0000000000000000L});
+    public static final BitSet FOLLOW_EOF_in_entryRulePrimitiveWithoutString3335 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_43_in_rulePrimitiveWithoutString3373 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_44_in_rulePrimitiveWithoutString3392 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_45_in_rulePrimitiveWithoutString3411 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rulePrimitiveNumberType_in_rulePrimitiveWithoutString3439 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rulePrimitive_in_entryRulePrimitive3485 = new BitSet(new long[]{0x0000000000000000L});
+    public static final BitSet FOLLOW_EOF_in_entryRulePrimitive3496 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_46_in_rulePrimitive3534 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rulePrimitiveWithoutString_in_rulePrimitive3562 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleEnum_in_entryRuleEnum3607 = new BitSet(new long[]{0x0000000000000000L});
+    public static final BitSet FOLLOW_EOF_in_entryRuleEnum3617 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_47_in_ruleEnum3654 = new BitSet(new long[]{0x0000000000000010L});
+    public static final BitSet FOLLOW_RULE_ID_in_ruleEnum3671 = new BitSet(new long[]{0x0000000214000000L});
+    public static final BitSet FOLLOW_28_in_ruleEnum3689 = new BitSet(new long[]{0x01FE380000000000L});
+    public static final BitSet FOLLOW_rulePrimitiveNumberType_in_ruleEnum3710 = new BitSet(new long[]{0x0000000204000000L});
+    public static final BitSet FOLLOW_ruleFieldAttributes_in_ruleEnum3733 = new BitSet(new long[]{0x0000000004000000L});
+    public static final BitSet FOLLOW_26_in_ruleEnum3746 = new BitSet(new long[]{0x0000000000000010L});
+    public static final BitSet FOLLOW_ruleEnumCase_in_ruleEnum3767 = new BitSet(new long[]{0x0000000408000000L});
+    public static final BitSet FOLLOW_34_in_ruleEnum3780 = new BitSet(new long[]{0x0000000000000010L});
+    public static final BitSet FOLLOW_ruleEnumCase_in_ruleEnum3801 = new BitSet(new long[]{0x0000000408000000L});
+    public static final BitSet FOLLOW_27_in_ruleEnum3815 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleEnumCase_in_entryRuleEnumCase3851 = new BitSet(new long[]{0x0000000000000000L});
+    public static final BitSet FOLLOW_EOF_in_entryRuleEnumCase3861 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_RULE_ID_in_ruleEnumCase3903 = new BitSet(new long[]{0x0000000040000002L});
+    public static final BitSet FOLLOW_30_in_ruleEnumCase3921 = new BitSet(new long[]{0x0000000000000100L});
+    public static final BitSet FOLLOW_RULE_INT_in_ruleEnumCase3938 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleUnion_in_entryRuleUnion3981 = new BitSet(new long[]{0x0000000000000000L});
+    public static final BitSet FOLLOW_EOF_in_entryRuleUnion3991 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_48_in_ruleUnion4028 = new BitSet(new long[]{0x0000000000000010L});
+    public static final BitSet FOLLOW_RULE_ID_in_ruleUnion4045 = new BitSet(new long[]{0x0000000004000000L});
+    public static final BitSet FOLLOW_26_in_ruleUnion4062 = new BitSet(new long[]{0x0000000000000010L});
+    public static final BitSet FOLLOW_RULE_ID_in_ruleUnion4082 = new BitSet(new long[]{0x0000000408000000L});
+    public static final BitSet FOLLOW_34_in_ruleUnion4095 = new BitSet(new long[]{0x0000000000000010L});
+    public static final BitSet FOLLOW_RULE_ID_in_ruleUnion4115 = new BitSet(new long[]{0x0000000408000000L});
+    public static final BitSet FOLLOW_27_in_ruleUnion4129 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rulePrimitiveNumberType_in_entryRulePrimitiveNumberType4166 = new BitSet(new long[]{0x0000000000000000L});
+    public static final BitSet FOLLOW_EOF_in_entryRulePrimitiveNumberType4177 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_49_in_rulePrimitiveNumberType4215 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_50_in_rulePrimitiveNumberType4234 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_51_in_rulePrimitiveNumberType4253 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_52_in_rulePrimitiveNumberType4272 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_53_in_rulePrimitiveNumberType4291 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_54_in_rulePrimitiveNumberType4310 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_55_in_rulePrimitiveNumberType4329 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_56_in_rulePrimitiveNumberType4348 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleQualifiedName_in_entryRuleQualifiedName4389 = new BitSet(new long[]{0x0000000000000000L});
+    public static final BitSet FOLLOW_EOF_in_entryRuleQualifiedName4400 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleValidID_in_ruleQualifiedName4447 = new BitSet(new long[]{0x0000010000000002L});
+    public static final BitSet FOLLOW_40_in_ruleQualifiedName4466 = new BitSet(new long[]{0x0000000000000ED0L});
+    public static final BitSet FOLLOW_ruleValidID_in_ruleQualifiedName4488 = new BitSet(new long[]{0x0000010000000002L});
+    public static final BitSet FOLLOW_ruleValidID_in_entryRuleValidID4536 = new BitSet(new long[]{0x0000000000000000L});
+    public static final BitSet FOLLOW_EOF_in_entryRuleValidID4547 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_RULE_HASH_ATTRIBUTE_in_ruleValidID4587 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_RULE_ID_ATTRIBUTE_in_ruleValidID4613 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_RULE_REQUIRED_ATTRIBUTE_in_ruleValidID4639 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_RULE_KEY_ATTRIBUTE_in_ruleValidID4665 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_RULE_DEPRECTED_ATTRIBUTE_in_ruleValidID4691 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_RULE_ID_in_ruleValidID4717 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleNumber_in_entryRuleNumber4769 = new BitSet(new long[]{0x0000000000000000L});
+    public static final BitSet FOLLOW_EOF_in_entryRuleNumber4780 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_RULE_HEX_in_ruleNumber4824 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_RULE_INT_in_ruleNumber4852 = new BitSet(new long[]{0x0000010000000002L});
+    public static final BitSet FOLLOW_RULE_DECIMAL_in_ruleNumber4878 = new BitSet(new long[]{0x0000010000000002L});
+    public static final BitSet FOLLOW_40_in_ruleNumber4898 = new BitSet(new long[]{0x0000000000002100L});
+    public static final BitSet FOLLOW_RULE_INT_in_ruleNumber4914 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_RULE_DECIMAL_in_ruleNumber4940 = new BitSet(new long[]{0x0000000000000002L});
 
 }

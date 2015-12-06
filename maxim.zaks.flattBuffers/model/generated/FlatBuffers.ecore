@@ -85,6 +85,7 @@
     <eStructuralFeatures xsi:type="ecore:EReference" name="vectorType" eType="#//Vector"
         containment="true"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="defType" eType="#//Definition"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="qualifiedType" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="Vector">
     <eStructuralFeatures xsi:type="ecore:EReference" name="type" eType="#//Type" containment="true"/>

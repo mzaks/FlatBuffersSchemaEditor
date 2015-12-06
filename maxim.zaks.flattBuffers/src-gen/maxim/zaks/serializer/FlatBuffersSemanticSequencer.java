@@ -245,7 +245,7 @@ public class FlatBuffersSemanticSequencer extends AbstractDelegatingSemanticSequ
 	
 	/**
 	 * Constraint:
-	 *     (primType=Primitive | vectorType=Vector | defType=[Definition|ID])
+	 *     (primType=Primitive | vectorType=Vector | defType=[Definition|ID] | qualifiedType=QualifiedType)
 	 */
 	protected void sequence_Type(EObject context, Type semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);

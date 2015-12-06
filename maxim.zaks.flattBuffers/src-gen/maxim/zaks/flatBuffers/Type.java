@@ -16,6 +16,7 @@ import org.eclipse.emf.ecore.EObject;
  *   <li>{@link maxim.zaks.flatBuffers.Type#getPrimType <em>Prim Type</em>}</li>
  *   <li>{@link maxim.zaks.flatBuffers.Type#getVectorType <em>Vector Type</em>}</li>
  *   <li>{@link maxim.zaks.flatBuffers.Type#getDefType <em>Def Type</em>}</li>
+ *   <li>{@link maxim.zaks.flatBuffers.Type#getQualifiedType <em>Qualified Type</em>}</li>
  * </ul>
  *
  * @see maxim.zaks.flatBuffers.FlatBuffersPackage#getType()
@@ -101,5 +102,31 @@ public interface Type extends EObject
    * @generated
    */
   void setDefType(Definition value);
+
+  /**
+   * Returns the value of the '<em><b>Qualified Type</b></em>' attribute.
+   * <!-- begin-user-doc -->
+   * <p>
+   * If the meaning of the '<em>Qualified Type</em>' attribute isn't clear,
+   * there really should be more of a description here...
+   * </p>
+   * <!-- end-user-doc -->
+   * @return the value of the '<em>Qualified Type</em>' attribute.
+   * @see #setQualifiedType(String)
+   * @see maxim.zaks.flatBuffers.FlatBuffersPackage#getType_QualifiedType()
+   * @model
+   * @generated
+   */
+  String getQualifiedType();
+
+  /**
+   * Sets the value of the '{@link maxim.zaks.flatBuffers.Type#getQualifiedType <em>Qualified Type</em>}' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @param value the new value of the '<em>Qualified Type</em>' attribute.
+   * @see #getQualifiedType()
+   * @generated
+   */
+  void setQualifiedType(String value);
 
 } // Type

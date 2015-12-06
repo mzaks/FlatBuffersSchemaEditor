@@ -70,6 +70,8 @@ public class FlatBuffersParser extends AbstractContentAssistParser {
 					put(grammarAccess.getAttributeNameAccess().getGroup_7(), "rule__AttributeName__Group_7__0");
 					put(grammarAccess.getAttributeNameAccess().getGroup_9(), "rule__AttributeName__Group_9__0");
 					put(grammarAccess.getAttributeNameAccess().getGroup_9_1(), "rule__AttributeName__Group_9_1__0");
+					put(grammarAccess.getQualifiedTypeAccess().getGroup(), "rule__QualifiedType__Group__0");
+					put(grammarAccess.getQualifiedTypeAccess().getGroup_3(), "rule__QualifiedType__Group_3__0");
 					put(grammarAccess.getVectorAccess().getGroup(), "rule__Vector__Group__0");
 					put(grammarAccess.getEnumAccess().getGroup(), "rule__Enum__Group__0");
 					put(grammarAccess.getEnumAccess().getGroup_2(), "rule__Enum__Group_2__0");
@@ -130,6 +132,7 @@ public class FlatBuffersParser extends AbstractContentAssistParser {
 					put(grammarAccess.getTypeAccess().getPrimTypeAssignment_0(), "rule__Type__PrimTypeAssignment_0");
 					put(grammarAccess.getTypeAccess().getVectorTypeAssignment_1(), "rule__Type__VectorTypeAssignment_1");
 					put(grammarAccess.getTypeAccess().getDefTypeAssignment_2(), "rule__Type__DefTypeAssignment_2");
+					put(grammarAccess.getTypeAccess().getQualifiedTypeAssignment_3(), "rule__Type__QualifiedTypeAssignment_3");
 					put(grammarAccess.getVectorAccess().getTypeAssignment_1(), "rule__Vector__TypeAssignment_1");
 					put(grammarAccess.getEnumAccess().getNameAssignment_1(), "rule__Enum__NameAssignment_1");
 					put(grammarAccess.getEnumAccess().getTypeAssignment_2_1(), "rule__Enum__TypeAssignment_2_1");

@@ -1430,8 +1430,93 @@ ruleType returns [EObject current=null]
 	}
 
 )
+)
+    |(
+(
+		{ 
+	        newCompositeNode(grammarAccess.getTypeAccess().getQualifiedTypeQualifiedTypeParserRuleCall_3_0()); 
+	    }
+		lv_qualifiedType_3_0=ruleQualifiedType		{
+	        if ($current==null) {
+	            $current = createModelElementForParent(grammarAccess.getTypeRule());
+	        }
+       		set(
+       			$current, 
+       			"qualifiedType",
+        		lv_qualifiedType_3_0, 
+        		"QualifiedType");
+	        afterParserOrEnumRuleCall();
+	    }
+
+)
 ))
 ;
+
+
+
+
+
+// Entry rule entryRuleQualifiedType
+entryRuleQualifiedType returns [String current=null] 
+	:
+	{ newCompositeNode(grammarAccess.getQualifiedTypeRule()); } 
+	 iv_ruleQualifiedType=ruleQualifiedType 
+	 { $current=$iv_ruleQualifiedType.current.getText(); }  
+	 EOF 
+;
+
+// Rule QualifiedType
+ruleQualifiedType returns [AntlrDatatypeRuleToken current=new AntlrDatatypeRuleToken()] 
+    @init { enterRule(); 
+    }
+    @after { leaveRule(); }:
+(
+    { 
+        newCompositeNode(grammarAccess.getQualifiedTypeAccess().getValidIDParserRuleCall_0()); 
+    }
+    this_ValidID_0=ruleValidID    {
+		$current.merge(this_ValidID_0);
+    }
+
+    { 
+        afterParserOrEnumRuleCall();
+    }
+
+	kw='.' 
+    {
+        $current.merge(kw);
+        newLeafNode(kw, grammarAccess.getQualifiedTypeAccess().getFullStopKeyword_1()); 
+    }
+
+    { 
+        newCompositeNode(grammarAccess.getQualifiedTypeAccess().getValidIDParserRuleCall_2()); 
+    }
+    this_ValidID_2=ruleValidID    {
+		$current.merge(this_ValidID_2);
+    }
+
+    { 
+        afterParserOrEnumRuleCall();
+    }
+(
+	kw='.' 
+    {
+        $current.merge(kw);
+        newLeafNode(kw, grammarAccess.getQualifiedTypeAccess().getFullStopKeyword_3_0()); 
+    }
+
+    { 
+        newCompositeNode(grammarAccess.getQualifiedTypeAccess().getValidIDParserRuleCall_3_1()); 
+    }
+    this_ValidID_4=ruleValidID    {
+		$current.merge(this_ValidID_4);
+    }
+
+    { 
+        afterParserOrEnumRuleCall();
+    }
+)*)
+    ;
 
 
 

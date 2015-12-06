@@ -86,8 +86,13 @@ AttributeName:
 
 
 Type:
-	( primType=Primitive | vectorType=Vector |  defType=[Definition])
+	( primType=Primitive | vectorType=Vector |  defType=[Definition] | qualifiedType=QualifiedType) 
 ;
+
+QualifiedType:
+	ValidID '.' ValidID ('.' ValidID)*
+;
+
 
 Vector hidden():
 	'[' type=Type ']'

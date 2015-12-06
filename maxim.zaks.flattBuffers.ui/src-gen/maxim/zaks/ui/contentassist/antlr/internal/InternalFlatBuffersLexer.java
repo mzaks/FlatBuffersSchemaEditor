@@ -665,10 +665,10 @@ public class InternalFlatBuffersLexer extends Lexer {
         try {
             int _type = T__46;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../maxim.zaks.flattBuffers.ui/src-gen/maxim/zaks/ui/contentassist/antlr/internal/InternalFlatBuffers.g:39:7: ( '[' )
-            // ../maxim.zaks.flattBuffers.ui/src-gen/maxim/zaks/ui/contentassist/antlr/internal/InternalFlatBuffers.g:39:9: '['
+            // ../maxim.zaks.flattBuffers.ui/src-gen/maxim/zaks/ui/contentassist/antlr/internal/InternalFlatBuffers.g:39:7: ( '.' )
+            // ../maxim.zaks.flattBuffers.ui/src-gen/maxim/zaks/ui/contentassist/antlr/internal/InternalFlatBuffers.g:39:9: '.'
             {
-            match('['); 
+            match('.'); 
 
             }
 
@@ -685,10 +685,10 @@ public class InternalFlatBuffersLexer extends Lexer {
         try {
             int _type = T__47;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../maxim.zaks.flattBuffers.ui/src-gen/maxim/zaks/ui/contentassist/antlr/internal/InternalFlatBuffers.g:40:7: ( ']' )
-            // ../maxim.zaks.flattBuffers.ui/src-gen/maxim/zaks/ui/contentassist/antlr/internal/InternalFlatBuffers.g:40:9: ']'
+            // ../maxim.zaks.flattBuffers.ui/src-gen/maxim/zaks/ui/contentassist/antlr/internal/InternalFlatBuffers.g:40:7: ( '[' )
+            // ../maxim.zaks.flattBuffers.ui/src-gen/maxim/zaks/ui/contentassist/antlr/internal/InternalFlatBuffers.g:40:9: '['
             {
-            match(']'); 
+            match('['); 
 
             }
 
@@ -705,11 +705,10 @@ public class InternalFlatBuffersLexer extends Lexer {
         try {
             int _type = T__48;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../maxim.zaks.flattBuffers.ui/src-gen/maxim/zaks/ui/contentassist/antlr/internal/InternalFlatBuffers.g:41:7: ( 'enum' )
-            // ../maxim.zaks.flattBuffers.ui/src-gen/maxim/zaks/ui/contentassist/antlr/internal/InternalFlatBuffers.g:41:9: 'enum'
+            // ../maxim.zaks.flattBuffers.ui/src-gen/maxim/zaks/ui/contentassist/antlr/internal/InternalFlatBuffers.g:41:7: ( ']' )
+            // ../maxim.zaks.flattBuffers.ui/src-gen/maxim/zaks/ui/contentassist/antlr/internal/InternalFlatBuffers.g:41:9: ']'
             {
-            match("enum"); 
-
+            match(']'); 
 
             }
 
@@ -726,10 +725,10 @@ public class InternalFlatBuffersLexer extends Lexer {
         try {
             int _type = T__49;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../maxim.zaks.flattBuffers.ui/src-gen/maxim/zaks/ui/contentassist/antlr/internal/InternalFlatBuffers.g:42:7: ( 'union' )
-            // ../maxim.zaks.flattBuffers.ui/src-gen/maxim/zaks/ui/contentassist/antlr/internal/InternalFlatBuffers.g:42:9: 'union'
+            // ../maxim.zaks.flattBuffers.ui/src-gen/maxim/zaks/ui/contentassist/antlr/internal/InternalFlatBuffers.g:42:7: ( 'enum' )
+            // ../maxim.zaks.flattBuffers.ui/src-gen/maxim/zaks/ui/contentassist/antlr/internal/InternalFlatBuffers.g:42:9: 'enum'
             {
-            match("union"); 
+            match("enum"); 
 
 
             }
@@ -747,10 +746,11 @@ public class InternalFlatBuffersLexer extends Lexer {
         try {
             int _type = T__50;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../maxim.zaks.flattBuffers.ui/src-gen/maxim/zaks/ui/contentassist/antlr/internal/InternalFlatBuffers.g:43:7: ( '.' )
-            // ../maxim.zaks.flattBuffers.ui/src-gen/maxim/zaks/ui/contentassist/antlr/internal/InternalFlatBuffers.g:43:9: '.'
+            // ../maxim.zaks.flattBuffers.ui/src-gen/maxim/zaks/ui/contentassist/antlr/internal/InternalFlatBuffers.g:43:7: ( 'union' )
+            // ../maxim.zaks.flattBuffers.ui/src-gen/maxim/zaks/ui/contentassist/antlr/internal/InternalFlatBuffers.g:43:9: 'union'
             {
-            match('.'); 
+            match("union"); 
+
 
             }
 
@@ -893,8 +893,8 @@ public class InternalFlatBuffersLexer extends Lexer {
         try {
             int _type = RULE_ID_ATTRIBUTE;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../maxim.zaks.flattBuffers.ui/src-gen/maxim/zaks/ui/contentassist/antlr/internal/InternalFlatBuffers.g:5569:19: ( 'id' )
-            // ../maxim.zaks.flattBuffers.ui/src-gen/maxim/zaks/ui/contentassist/antlr/internal/InternalFlatBuffers.g:5569:21: 'id'
+            // ../maxim.zaks.flattBuffers.ui/src-gen/maxim/zaks/ui/contentassist/antlr/internal/InternalFlatBuffers.g:5806:19: ( 'id' )
+            // ../maxim.zaks.flattBuffers.ui/src-gen/maxim/zaks/ui/contentassist/antlr/internal/InternalFlatBuffers.g:5806:21: 'id'
             {
             match("id"); 
 
@@ -914,8 +914,8 @@ public class InternalFlatBuffersLexer extends Lexer {
         try {
             int _type = RULE_DEPRECTED_ATTRIBUTE;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../maxim.zaks.flattBuffers.ui/src-gen/maxim/zaks/ui/contentassist/antlr/internal/InternalFlatBuffers.g:5571:26: ( 'deprecated' )
-            // ../maxim.zaks.flattBuffers.ui/src-gen/maxim/zaks/ui/contentassist/antlr/internal/InternalFlatBuffers.g:5571:28: 'deprecated'
+            // ../maxim.zaks.flattBuffers.ui/src-gen/maxim/zaks/ui/contentassist/antlr/internal/InternalFlatBuffers.g:5808:26: ( 'deprecated' )
+            // ../maxim.zaks.flattBuffers.ui/src-gen/maxim/zaks/ui/contentassist/antlr/internal/InternalFlatBuffers.g:5808:28: 'deprecated'
             {
             match("deprecated"); 
 
@@ -935,8 +935,8 @@ public class InternalFlatBuffersLexer extends Lexer {
         try {
             int _type = RULE_REQUIRED_ATTRIBUTE;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../maxim.zaks.flattBuffers.ui/src-gen/maxim/zaks/ui/contentassist/antlr/internal/InternalFlatBuffers.g:5573:25: ( 'required' )
-            // ../maxim.zaks.flattBuffers.ui/src-gen/maxim/zaks/ui/contentassist/antlr/internal/InternalFlatBuffers.g:5573:27: 'required'
+            // ../maxim.zaks.flattBuffers.ui/src-gen/maxim/zaks/ui/contentassist/antlr/internal/InternalFlatBuffers.g:5810:25: ( 'required' )
+            // ../maxim.zaks.flattBuffers.ui/src-gen/maxim/zaks/ui/contentassist/antlr/internal/InternalFlatBuffers.g:5810:27: 'required'
             {
             match("required"); 
 
@@ -956,8 +956,8 @@ public class InternalFlatBuffersLexer extends Lexer {
         try {
             int _type = RULE_KEY_ATTRIBUTE;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../maxim.zaks.flattBuffers.ui/src-gen/maxim/zaks/ui/contentassist/antlr/internal/InternalFlatBuffers.g:5575:20: ( 'key' )
-            // ../maxim.zaks.flattBuffers.ui/src-gen/maxim/zaks/ui/contentassist/antlr/internal/InternalFlatBuffers.g:5575:22: 'key'
+            // ../maxim.zaks.flattBuffers.ui/src-gen/maxim/zaks/ui/contentassist/antlr/internal/InternalFlatBuffers.g:5812:20: ( 'key' )
+            // ../maxim.zaks.flattBuffers.ui/src-gen/maxim/zaks/ui/contentassist/antlr/internal/InternalFlatBuffers.g:5812:22: 'key'
             {
             match("key"); 
 
@@ -977,8 +977,8 @@ public class InternalFlatBuffersLexer extends Lexer {
         try {
             int _type = RULE_HASH_ATTRIBUTE;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../maxim.zaks.flattBuffers.ui/src-gen/maxim/zaks/ui/contentassist/antlr/internal/InternalFlatBuffers.g:5577:21: ( 'hash' )
-            // ../maxim.zaks.flattBuffers.ui/src-gen/maxim/zaks/ui/contentassist/antlr/internal/InternalFlatBuffers.g:5577:23: 'hash'
+            // ../maxim.zaks.flattBuffers.ui/src-gen/maxim/zaks/ui/contentassist/antlr/internal/InternalFlatBuffers.g:5814:21: ( 'hash' )
+            // ../maxim.zaks.flattBuffers.ui/src-gen/maxim/zaks/ui/contentassist/antlr/internal/InternalFlatBuffers.g:5814:23: 'hash'
             {
             match("hash"); 
 
@@ -998,10 +998,10 @@ public class InternalFlatBuffersLexer extends Lexer {
         try {
             int _type = RULE_HEX;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../maxim.zaks.flattBuffers.ui/src-gen/maxim/zaks/ui/contentassist/antlr/internal/InternalFlatBuffers.g:5579:10: ( ( '0x' | '0X' ) ( '0' .. '9' | 'a' .. 'f' | 'A' .. 'F' | '_' )+ ( '#' ( ( 'b' | 'B' ) ( 'i' | 'I' ) | ( 'l' | 'L' ) ) )? )
-            // ../maxim.zaks.flattBuffers.ui/src-gen/maxim/zaks/ui/contentassist/antlr/internal/InternalFlatBuffers.g:5579:12: ( '0x' | '0X' ) ( '0' .. '9' | 'a' .. 'f' | 'A' .. 'F' | '_' )+ ( '#' ( ( 'b' | 'B' ) ( 'i' | 'I' ) | ( 'l' | 'L' ) ) )?
+            // ../maxim.zaks.flattBuffers.ui/src-gen/maxim/zaks/ui/contentassist/antlr/internal/InternalFlatBuffers.g:5816:10: ( ( '0x' | '0X' ) ( '0' .. '9' | 'a' .. 'f' | 'A' .. 'F' | '_' )+ ( '#' ( ( 'b' | 'B' ) ( 'i' | 'I' ) | ( 'l' | 'L' ) ) )? )
+            // ../maxim.zaks.flattBuffers.ui/src-gen/maxim/zaks/ui/contentassist/antlr/internal/InternalFlatBuffers.g:5816:12: ( '0x' | '0X' ) ( '0' .. '9' | 'a' .. 'f' | 'A' .. 'F' | '_' )+ ( '#' ( ( 'b' | 'B' ) ( 'i' | 'I' ) | ( 'l' | 'L' ) ) )?
             {
-            // ../maxim.zaks.flattBuffers.ui/src-gen/maxim/zaks/ui/contentassist/antlr/internal/InternalFlatBuffers.g:5579:12: ( '0x' | '0X' )
+            // ../maxim.zaks.flattBuffers.ui/src-gen/maxim/zaks/ui/contentassist/antlr/internal/InternalFlatBuffers.g:5816:12: ( '0x' | '0X' )
             int alt1=2;
             int LA1_0 = input.LA(1);
 
@@ -1029,7 +1029,7 @@ public class InternalFlatBuffersLexer extends Lexer {
             }
             switch (alt1) {
                 case 1 :
-                    // ../maxim.zaks.flattBuffers.ui/src-gen/maxim/zaks/ui/contentassist/antlr/internal/InternalFlatBuffers.g:5579:13: '0x'
+                    // ../maxim.zaks.flattBuffers.ui/src-gen/maxim/zaks/ui/contentassist/antlr/internal/InternalFlatBuffers.g:5816:13: '0x'
                     {
                     match("0x"); 
 
@@ -1037,7 +1037,7 @@ public class InternalFlatBuffersLexer extends Lexer {
                     }
                     break;
                 case 2 :
-                    // ../maxim.zaks.flattBuffers.ui/src-gen/maxim/zaks/ui/contentassist/antlr/internal/InternalFlatBuffers.g:5579:18: '0X'
+                    // ../maxim.zaks.flattBuffers.ui/src-gen/maxim/zaks/ui/contentassist/antlr/internal/InternalFlatBuffers.g:5816:18: '0X'
                     {
                     match("0X"); 
 
@@ -1047,7 +1047,7 @@ public class InternalFlatBuffersLexer extends Lexer {
 
             }
 
-            // ../maxim.zaks.flattBuffers.ui/src-gen/maxim/zaks/ui/contentassist/antlr/internal/InternalFlatBuffers.g:5579:24: ( '0' .. '9' | 'a' .. 'f' | 'A' .. 'F' | '_' )+
+            // ../maxim.zaks.flattBuffers.ui/src-gen/maxim/zaks/ui/contentassist/antlr/internal/InternalFlatBuffers.g:5816:24: ( '0' .. '9' | 'a' .. 'f' | 'A' .. 'F' | '_' )+
             int cnt2=0;
             loop2:
             do {
@@ -1085,7 +1085,7 @@ public class InternalFlatBuffersLexer extends Lexer {
                 cnt2++;
             } while (true);
 
-            // ../maxim.zaks.flattBuffers.ui/src-gen/maxim/zaks/ui/contentassist/antlr/internal/InternalFlatBuffers.g:5579:58: ( '#' ( ( 'b' | 'B' ) ( 'i' | 'I' ) | ( 'l' | 'L' ) ) )?
+            // ../maxim.zaks.flattBuffers.ui/src-gen/maxim/zaks/ui/contentassist/antlr/internal/InternalFlatBuffers.g:5816:58: ( '#' ( ( 'b' | 'B' ) ( 'i' | 'I' ) | ( 'l' | 'L' ) ) )?
             int alt4=2;
             int LA4_0 = input.LA(1);
 
@@ -1094,10 +1094,10 @@ public class InternalFlatBuffersLexer extends Lexer {
             }
             switch (alt4) {
                 case 1 :
-                    // ../maxim.zaks.flattBuffers.ui/src-gen/maxim/zaks/ui/contentassist/antlr/internal/InternalFlatBuffers.g:5579:59: '#' ( ( 'b' | 'B' ) ( 'i' | 'I' ) | ( 'l' | 'L' ) )
+                    // ../maxim.zaks.flattBuffers.ui/src-gen/maxim/zaks/ui/contentassist/antlr/internal/InternalFlatBuffers.g:5816:59: '#' ( ( 'b' | 'B' ) ( 'i' | 'I' ) | ( 'l' | 'L' ) )
                     {
                     match('#'); 
-                    // ../maxim.zaks.flattBuffers.ui/src-gen/maxim/zaks/ui/contentassist/antlr/internal/InternalFlatBuffers.g:5579:63: ( ( 'b' | 'B' ) ( 'i' | 'I' ) | ( 'l' | 'L' ) )
+                    // ../maxim.zaks.flattBuffers.ui/src-gen/maxim/zaks/ui/contentassist/antlr/internal/InternalFlatBuffers.g:5816:63: ( ( 'b' | 'B' ) ( 'i' | 'I' ) | ( 'l' | 'L' ) )
                     int alt3=2;
                     int LA3_0 = input.LA(1);
 
@@ -1115,7 +1115,7 @@ public class InternalFlatBuffersLexer extends Lexer {
                     }
                     switch (alt3) {
                         case 1 :
-                            // ../maxim.zaks.flattBuffers.ui/src-gen/maxim/zaks/ui/contentassist/antlr/internal/InternalFlatBuffers.g:5579:64: ( 'b' | 'B' ) ( 'i' | 'I' )
+                            // ../maxim.zaks.flattBuffers.ui/src-gen/maxim/zaks/ui/contentassist/antlr/internal/InternalFlatBuffers.g:5816:64: ( 'b' | 'B' ) ( 'i' | 'I' )
                             {
                             if ( input.LA(1)=='B'||input.LA(1)=='b' ) {
                                 input.consume();
@@ -1139,7 +1139,7 @@ public class InternalFlatBuffersLexer extends Lexer {
                             }
                             break;
                         case 2 :
-                            // ../maxim.zaks.flattBuffers.ui/src-gen/maxim/zaks/ui/contentassist/antlr/internal/InternalFlatBuffers.g:5579:84: ( 'l' | 'L' )
+                            // ../maxim.zaks.flattBuffers.ui/src-gen/maxim/zaks/ui/contentassist/antlr/internal/InternalFlatBuffers.g:5816:84: ( 'l' | 'L' )
                             {
                             if ( input.LA(1)=='L'||input.LA(1)=='l' ) {
                                 input.consume();
@@ -1178,11 +1178,11 @@ public class InternalFlatBuffersLexer extends Lexer {
         try {
             int _type = RULE_INT;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../maxim.zaks.flattBuffers.ui/src-gen/maxim/zaks/ui/contentassist/antlr/internal/InternalFlatBuffers.g:5581:10: ( '0' .. '9' ( '0' .. '9' | '_' )* )
-            // ../maxim.zaks.flattBuffers.ui/src-gen/maxim/zaks/ui/contentassist/antlr/internal/InternalFlatBuffers.g:5581:12: '0' .. '9' ( '0' .. '9' | '_' )*
+            // ../maxim.zaks.flattBuffers.ui/src-gen/maxim/zaks/ui/contentassist/antlr/internal/InternalFlatBuffers.g:5818:10: ( '0' .. '9' ( '0' .. '9' | '_' )* )
+            // ../maxim.zaks.flattBuffers.ui/src-gen/maxim/zaks/ui/contentassist/antlr/internal/InternalFlatBuffers.g:5818:12: '0' .. '9' ( '0' .. '9' | '_' )*
             {
             matchRange('0','9'); 
-            // ../maxim.zaks.flattBuffers.ui/src-gen/maxim/zaks/ui/contentassist/antlr/internal/InternalFlatBuffers.g:5581:21: ( '0' .. '9' | '_' )*
+            // ../maxim.zaks.flattBuffers.ui/src-gen/maxim/zaks/ui/contentassist/antlr/internal/InternalFlatBuffers.g:5818:21: ( '0' .. '9' | '_' )*
             loop5:
             do {
                 int alt5=2;
@@ -1231,10 +1231,10 @@ public class InternalFlatBuffersLexer extends Lexer {
         try {
             int _type = RULE_DECIMAL;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../maxim.zaks.flattBuffers.ui/src-gen/maxim/zaks/ui/contentassist/antlr/internal/InternalFlatBuffers.g:5583:14: ( ( '-' )? RULE_INT ( ( 'e' | 'E' ) ( '+' | '-' )? RULE_INT )? ( ( 'b' | 'B' ) ( 'i' | 'I' | 'd' | 'D' ) | ( 'l' | 'L' | 'd' | 'D' | 'f' | 'F' ) )? )
-            // ../maxim.zaks.flattBuffers.ui/src-gen/maxim/zaks/ui/contentassist/antlr/internal/InternalFlatBuffers.g:5583:16: ( '-' )? RULE_INT ( ( 'e' | 'E' ) ( '+' | '-' )? RULE_INT )? ( ( 'b' | 'B' ) ( 'i' | 'I' | 'd' | 'D' ) | ( 'l' | 'L' | 'd' | 'D' | 'f' | 'F' ) )?
+            // ../maxim.zaks.flattBuffers.ui/src-gen/maxim/zaks/ui/contentassist/antlr/internal/InternalFlatBuffers.g:5820:14: ( ( '-' )? RULE_INT ( ( 'e' | 'E' ) ( '+' | '-' )? RULE_INT )? ( ( 'b' | 'B' ) ( 'i' | 'I' | 'd' | 'D' ) | ( 'l' | 'L' | 'd' | 'D' | 'f' | 'F' ) )? )
+            // ../maxim.zaks.flattBuffers.ui/src-gen/maxim/zaks/ui/contentassist/antlr/internal/InternalFlatBuffers.g:5820:16: ( '-' )? RULE_INT ( ( 'e' | 'E' ) ( '+' | '-' )? RULE_INT )? ( ( 'b' | 'B' ) ( 'i' | 'I' | 'd' | 'D' ) | ( 'l' | 'L' | 'd' | 'D' | 'f' | 'F' ) )?
             {
-            // ../maxim.zaks.flattBuffers.ui/src-gen/maxim/zaks/ui/contentassist/antlr/internal/InternalFlatBuffers.g:5583:16: ( '-' )?
+            // ../maxim.zaks.flattBuffers.ui/src-gen/maxim/zaks/ui/contentassist/antlr/internal/InternalFlatBuffers.g:5820:16: ( '-' )?
             int alt6=2;
             int LA6_0 = input.LA(1);
 
@@ -1243,7 +1243,7 @@ public class InternalFlatBuffersLexer extends Lexer {
             }
             switch (alt6) {
                 case 1 :
-                    // ../maxim.zaks.flattBuffers.ui/src-gen/maxim/zaks/ui/contentassist/antlr/internal/InternalFlatBuffers.g:5583:16: '-'
+                    // ../maxim.zaks.flattBuffers.ui/src-gen/maxim/zaks/ui/contentassist/antlr/internal/InternalFlatBuffers.g:5820:16: '-'
                     {
                     match('-'); 
 
@@ -1253,7 +1253,7 @@ public class InternalFlatBuffersLexer extends Lexer {
             }
 
             mRULE_INT(); 
-            // ../maxim.zaks.flattBuffers.ui/src-gen/maxim/zaks/ui/contentassist/antlr/internal/InternalFlatBuffers.g:5583:30: ( ( 'e' | 'E' ) ( '+' | '-' )? RULE_INT )?
+            // ../maxim.zaks.flattBuffers.ui/src-gen/maxim/zaks/ui/contentassist/antlr/internal/InternalFlatBuffers.g:5820:30: ( ( 'e' | 'E' ) ( '+' | '-' )? RULE_INT )?
             int alt8=2;
             int LA8_0 = input.LA(1);
 
@@ -1262,7 +1262,7 @@ public class InternalFlatBuffersLexer extends Lexer {
             }
             switch (alt8) {
                 case 1 :
-                    // ../maxim.zaks.flattBuffers.ui/src-gen/maxim/zaks/ui/contentassist/antlr/internal/InternalFlatBuffers.g:5583:31: ( 'e' | 'E' ) ( '+' | '-' )? RULE_INT
+                    // ../maxim.zaks.flattBuffers.ui/src-gen/maxim/zaks/ui/contentassist/antlr/internal/InternalFlatBuffers.g:5820:31: ( 'e' | 'E' ) ( '+' | '-' )? RULE_INT
                     {
                     if ( input.LA(1)=='E'||input.LA(1)=='e' ) {
                         input.consume();
@@ -1273,7 +1273,7 @@ public class InternalFlatBuffersLexer extends Lexer {
                         recover(mse);
                         throw mse;}
 
-                    // ../maxim.zaks.flattBuffers.ui/src-gen/maxim/zaks/ui/contentassist/antlr/internal/InternalFlatBuffers.g:5583:41: ( '+' | '-' )?
+                    // ../maxim.zaks.flattBuffers.ui/src-gen/maxim/zaks/ui/contentassist/antlr/internal/InternalFlatBuffers.g:5820:41: ( '+' | '-' )?
                     int alt7=2;
                     int LA7_0 = input.LA(1);
 
@@ -1306,7 +1306,7 @@ public class InternalFlatBuffersLexer extends Lexer {
 
             }
 
-            // ../maxim.zaks.flattBuffers.ui/src-gen/maxim/zaks/ui/contentassist/antlr/internal/InternalFlatBuffers.g:5583:63: ( ( 'b' | 'B' ) ( 'i' | 'I' | 'd' | 'D' ) | ( 'l' | 'L' | 'd' | 'D' | 'f' | 'F' ) )?
+            // ../maxim.zaks.flattBuffers.ui/src-gen/maxim/zaks/ui/contentassist/antlr/internal/InternalFlatBuffers.g:5820:63: ( ( 'b' | 'B' ) ( 'i' | 'I' | 'd' | 'D' ) | ( 'l' | 'L' | 'd' | 'D' | 'f' | 'F' ) )?
             int alt9=3;
             int LA9_0 = input.LA(1);
 
@@ -1318,7 +1318,7 @@ public class InternalFlatBuffersLexer extends Lexer {
             }
             switch (alt9) {
                 case 1 :
-                    // ../maxim.zaks.flattBuffers.ui/src-gen/maxim/zaks/ui/contentassist/antlr/internal/InternalFlatBuffers.g:5583:64: ( 'b' | 'B' ) ( 'i' | 'I' | 'd' | 'D' )
+                    // ../maxim.zaks.flattBuffers.ui/src-gen/maxim/zaks/ui/contentassist/antlr/internal/InternalFlatBuffers.g:5820:64: ( 'b' | 'B' ) ( 'i' | 'I' | 'd' | 'D' )
                     {
                     if ( input.LA(1)=='B'||input.LA(1)=='b' ) {
                         input.consume();
@@ -1342,7 +1342,7 @@ public class InternalFlatBuffersLexer extends Lexer {
                     }
                     break;
                 case 2 :
-                    // ../maxim.zaks.flattBuffers.ui/src-gen/maxim/zaks/ui/contentassist/antlr/internal/InternalFlatBuffers.g:5583:92: ( 'l' | 'L' | 'd' | 'D' | 'f' | 'F' )
+                    // ../maxim.zaks.flattBuffers.ui/src-gen/maxim/zaks/ui/contentassist/antlr/internal/InternalFlatBuffers.g:5820:92: ( 'l' | 'L' | 'd' | 'D' | 'f' | 'F' )
                     {
                     if ( input.LA(1)=='D'||input.LA(1)=='F'||input.LA(1)=='L'||input.LA(1)=='d'||input.LA(1)=='f'||input.LA(1)=='l' ) {
                         input.consume();
@@ -1375,10 +1375,10 @@ public class InternalFlatBuffersLexer extends Lexer {
         try {
             int _type = RULE_ID;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../maxim.zaks.flattBuffers.ui/src-gen/maxim/zaks/ui/contentassist/antlr/internal/InternalFlatBuffers.g:5585:9: ( ( '^' )? ( 'a' .. 'z' | 'A' .. 'Z' | '_' ) ( 'a' .. 'z' | 'A' .. 'Z' | '_' | '0' .. '9' )* )
-            // ../maxim.zaks.flattBuffers.ui/src-gen/maxim/zaks/ui/contentassist/antlr/internal/InternalFlatBuffers.g:5585:11: ( '^' )? ( 'a' .. 'z' | 'A' .. 'Z' | '_' ) ( 'a' .. 'z' | 'A' .. 'Z' | '_' | '0' .. '9' )*
+            // ../maxim.zaks.flattBuffers.ui/src-gen/maxim/zaks/ui/contentassist/antlr/internal/InternalFlatBuffers.g:5822:9: ( ( '^' )? ( 'a' .. 'z' | 'A' .. 'Z' | '_' ) ( 'a' .. 'z' | 'A' .. 'Z' | '_' | '0' .. '9' )* )
+            // ../maxim.zaks.flattBuffers.ui/src-gen/maxim/zaks/ui/contentassist/antlr/internal/InternalFlatBuffers.g:5822:11: ( '^' )? ( 'a' .. 'z' | 'A' .. 'Z' | '_' ) ( 'a' .. 'z' | 'A' .. 'Z' | '_' | '0' .. '9' )*
             {
-            // ../maxim.zaks.flattBuffers.ui/src-gen/maxim/zaks/ui/contentassist/antlr/internal/InternalFlatBuffers.g:5585:11: ( '^' )?
+            // ../maxim.zaks.flattBuffers.ui/src-gen/maxim/zaks/ui/contentassist/antlr/internal/InternalFlatBuffers.g:5822:11: ( '^' )?
             int alt10=2;
             int LA10_0 = input.LA(1);
 
@@ -1387,7 +1387,7 @@ public class InternalFlatBuffersLexer extends Lexer {
             }
             switch (alt10) {
                 case 1 :
-                    // ../maxim.zaks.flattBuffers.ui/src-gen/maxim/zaks/ui/contentassist/antlr/internal/InternalFlatBuffers.g:5585:11: '^'
+                    // ../maxim.zaks.flattBuffers.ui/src-gen/maxim/zaks/ui/contentassist/antlr/internal/InternalFlatBuffers.g:5822:11: '^'
                     {
                     match('^'); 
 
@@ -1405,7 +1405,7 @@ public class InternalFlatBuffersLexer extends Lexer {
                 recover(mse);
                 throw mse;}
 
-            // ../maxim.zaks.flattBuffers.ui/src-gen/maxim/zaks/ui/contentassist/antlr/internal/InternalFlatBuffers.g:5585:40: ( 'a' .. 'z' | 'A' .. 'Z' | '_' | '0' .. '9' )*
+            // ../maxim.zaks.flattBuffers.ui/src-gen/maxim/zaks/ui/contentassist/antlr/internal/InternalFlatBuffers.g:5822:40: ( 'a' .. 'z' | 'A' .. 'Z' | '_' | '0' .. '9' )*
             loop11:
             do {
                 int alt11=2;
@@ -1454,10 +1454,10 @@ public class InternalFlatBuffersLexer extends Lexer {
         try {
             int _type = RULE_STRING;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../maxim.zaks.flattBuffers.ui/src-gen/maxim/zaks/ui/contentassist/antlr/internal/InternalFlatBuffers.g:5587:13: ( ( '\"' ( '\\\\' . | ~ ( ( '\\\\' | '\"' ) ) )* '\"' | '\\'' ( '\\\\' . | ~ ( ( '\\\\' | '\\'' ) ) )* '\\'' ) )
-            // ../maxim.zaks.flattBuffers.ui/src-gen/maxim/zaks/ui/contentassist/antlr/internal/InternalFlatBuffers.g:5587:15: ( '\"' ( '\\\\' . | ~ ( ( '\\\\' | '\"' ) ) )* '\"' | '\\'' ( '\\\\' . | ~ ( ( '\\\\' | '\\'' ) ) )* '\\'' )
+            // ../maxim.zaks.flattBuffers.ui/src-gen/maxim/zaks/ui/contentassist/antlr/internal/InternalFlatBuffers.g:5824:13: ( ( '\"' ( '\\\\' . | ~ ( ( '\\\\' | '\"' ) ) )* '\"' | '\\'' ( '\\\\' . | ~ ( ( '\\\\' | '\\'' ) ) )* '\\'' ) )
+            // ../maxim.zaks.flattBuffers.ui/src-gen/maxim/zaks/ui/contentassist/antlr/internal/InternalFlatBuffers.g:5824:15: ( '\"' ( '\\\\' . | ~ ( ( '\\\\' | '\"' ) ) )* '\"' | '\\'' ( '\\\\' . | ~ ( ( '\\\\' | '\\'' ) ) )* '\\'' )
             {
-            // ../maxim.zaks.flattBuffers.ui/src-gen/maxim/zaks/ui/contentassist/antlr/internal/InternalFlatBuffers.g:5587:15: ( '\"' ( '\\\\' . | ~ ( ( '\\\\' | '\"' ) ) )* '\"' | '\\'' ( '\\\\' . | ~ ( ( '\\\\' | '\\'' ) ) )* '\\'' )
+            // ../maxim.zaks.flattBuffers.ui/src-gen/maxim/zaks/ui/contentassist/antlr/internal/InternalFlatBuffers.g:5824:15: ( '\"' ( '\\\\' . | ~ ( ( '\\\\' | '\"' ) ) )* '\"' | '\\'' ( '\\\\' . | ~ ( ( '\\\\' | '\\'' ) ) )* '\\'' )
             int alt14=2;
             int LA14_0 = input.LA(1);
 
@@ -1475,10 +1475,10 @@ public class InternalFlatBuffersLexer extends Lexer {
             }
             switch (alt14) {
                 case 1 :
-                    // ../maxim.zaks.flattBuffers.ui/src-gen/maxim/zaks/ui/contentassist/antlr/internal/InternalFlatBuffers.g:5587:16: '\"' ( '\\\\' . | ~ ( ( '\\\\' | '\"' ) ) )* '\"'
+                    // ../maxim.zaks.flattBuffers.ui/src-gen/maxim/zaks/ui/contentassist/antlr/internal/InternalFlatBuffers.g:5824:16: '\"' ( '\\\\' . | ~ ( ( '\\\\' | '\"' ) ) )* '\"'
                     {
                     match('\"'); 
-                    // ../maxim.zaks.flattBuffers.ui/src-gen/maxim/zaks/ui/contentassist/antlr/internal/InternalFlatBuffers.g:5587:20: ( '\\\\' . | ~ ( ( '\\\\' | '\"' ) ) )*
+                    // ../maxim.zaks.flattBuffers.ui/src-gen/maxim/zaks/ui/contentassist/antlr/internal/InternalFlatBuffers.g:5824:20: ( '\\\\' . | ~ ( ( '\\\\' | '\"' ) ) )*
                     loop12:
                     do {
                         int alt12=3;
@@ -1494,7 +1494,7 @@ public class InternalFlatBuffersLexer extends Lexer {
 
                         switch (alt12) {
                     	case 1 :
-                    	    // ../maxim.zaks.flattBuffers.ui/src-gen/maxim/zaks/ui/contentassist/antlr/internal/InternalFlatBuffers.g:5587:21: '\\\\' .
+                    	    // ../maxim.zaks.flattBuffers.ui/src-gen/maxim/zaks/ui/contentassist/antlr/internal/InternalFlatBuffers.g:5824:21: '\\\\' .
                     	    {
                     	    match('\\'); 
                     	    matchAny(); 
@@ -1502,7 +1502,7 @@ public class InternalFlatBuffersLexer extends Lexer {
                     	    }
                     	    break;
                     	case 2 :
-                    	    // ../maxim.zaks.flattBuffers.ui/src-gen/maxim/zaks/ui/contentassist/antlr/internal/InternalFlatBuffers.g:5587:28: ~ ( ( '\\\\' | '\"' ) )
+                    	    // ../maxim.zaks.flattBuffers.ui/src-gen/maxim/zaks/ui/contentassist/antlr/internal/InternalFlatBuffers.g:5824:28: ~ ( ( '\\\\' | '\"' ) )
                     	    {
                     	    if ( (input.LA(1)>='\u0000' && input.LA(1)<='!')||(input.LA(1)>='#' && input.LA(1)<='[')||(input.LA(1)>=']' && input.LA(1)<='\uFFFF') ) {
                     	        input.consume();
@@ -1527,10 +1527,10 @@ public class InternalFlatBuffersLexer extends Lexer {
                     }
                     break;
                 case 2 :
-                    // ../maxim.zaks.flattBuffers.ui/src-gen/maxim/zaks/ui/contentassist/antlr/internal/InternalFlatBuffers.g:5587:48: '\\'' ( '\\\\' . | ~ ( ( '\\\\' | '\\'' ) ) )* '\\''
+                    // ../maxim.zaks.flattBuffers.ui/src-gen/maxim/zaks/ui/contentassist/antlr/internal/InternalFlatBuffers.g:5824:48: '\\'' ( '\\\\' . | ~ ( ( '\\\\' | '\\'' ) ) )* '\\''
                     {
                     match('\''); 
-                    // ../maxim.zaks.flattBuffers.ui/src-gen/maxim/zaks/ui/contentassist/antlr/internal/InternalFlatBuffers.g:5587:53: ( '\\\\' . | ~ ( ( '\\\\' | '\\'' ) ) )*
+                    // ../maxim.zaks.flattBuffers.ui/src-gen/maxim/zaks/ui/contentassist/antlr/internal/InternalFlatBuffers.g:5824:53: ( '\\\\' . | ~ ( ( '\\\\' | '\\'' ) ) )*
                     loop13:
                     do {
                         int alt13=3;
@@ -1546,7 +1546,7 @@ public class InternalFlatBuffersLexer extends Lexer {
 
                         switch (alt13) {
                     	case 1 :
-                    	    // ../maxim.zaks.flattBuffers.ui/src-gen/maxim/zaks/ui/contentassist/antlr/internal/InternalFlatBuffers.g:5587:54: '\\\\' .
+                    	    // ../maxim.zaks.flattBuffers.ui/src-gen/maxim/zaks/ui/contentassist/antlr/internal/InternalFlatBuffers.g:5824:54: '\\\\' .
                     	    {
                     	    match('\\'); 
                     	    matchAny(); 
@@ -1554,7 +1554,7 @@ public class InternalFlatBuffersLexer extends Lexer {
                     	    }
                     	    break;
                     	case 2 :
-                    	    // ../maxim.zaks.flattBuffers.ui/src-gen/maxim/zaks/ui/contentassist/antlr/internal/InternalFlatBuffers.g:5587:61: ~ ( ( '\\\\' | '\\'' ) )
+                    	    // ../maxim.zaks.flattBuffers.ui/src-gen/maxim/zaks/ui/contentassist/antlr/internal/InternalFlatBuffers.g:5824:61: ~ ( ( '\\\\' | '\\'' ) )
                     	    {
                     	    if ( (input.LA(1)>='\u0000' && input.LA(1)<='&')||(input.LA(1)>='(' && input.LA(1)<='[')||(input.LA(1)>=']' && input.LA(1)<='\uFFFF') ) {
                     	        input.consume();
@@ -1597,12 +1597,12 @@ public class InternalFlatBuffersLexer extends Lexer {
         try {
             int _type = RULE_ML_COMMENT;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../maxim.zaks.flattBuffers.ui/src-gen/maxim/zaks/ui/contentassist/antlr/internal/InternalFlatBuffers.g:5589:17: ( '/*' ( options {greedy=false; } : . )* '*/' )
-            // ../maxim.zaks.flattBuffers.ui/src-gen/maxim/zaks/ui/contentassist/antlr/internal/InternalFlatBuffers.g:5589:19: '/*' ( options {greedy=false; } : . )* '*/'
+            // ../maxim.zaks.flattBuffers.ui/src-gen/maxim/zaks/ui/contentassist/antlr/internal/InternalFlatBuffers.g:5826:17: ( '/*' ( options {greedy=false; } : . )* '*/' )
+            // ../maxim.zaks.flattBuffers.ui/src-gen/maxim/zaks/ui/contentassist/antlr/internal/InternalFlatBuffers.g:5826:19: '/*' ( options {greedy=false; } : . )* '*/'
             {
             match("/*"); 
 
-            // ../maxim.zaks.flattBuffers.ui/src-gen/maxim/zaks/ui/contentassist/antlr/internal/InternalFlatBuffers.g:5589:24: ( options {greedy=false; } : . )*
+            // ../maxim.zaks.flattBuffers.ui/src-gen/maxim/zaks/ui/contentassist/antlr/internal/InternalFlatBuffers.g:5826:24: ( options {greedy=false; } : . )*
             loop15:
             do {
                 int alt15=2;
@@ -1627,7 +1627,7 @@ public class InternalFlatBuffersLexer extends Lexer {
 
                 switch (alt15) {
             	case 1 :
-            	    // ../maxim.zaks.flattBuffers.ui/src-gen/maxim/zaks/ui/contentassist/antlr/internal/InternalFlatBuffers.g:5589:52: .
+            	    // ../maxim.zaks.flattBuffers.ui/src-gen/maxim/zaks/ui/contentassist/antlr/internal/InternalFlatBuffers.g:5826:52: .
             	    {
             	    matchAny(); 
 
@@ -1657,12 +1657,12 @@ public class InternalFlatBuffersLexer extends Lexer {
         try {
             int _type = RULE_SL_COMMENT;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../maxim.zaks.flattBuffers.ui/src-gen/maxim/zaks/ui/contentassist/antlr/internal/InternalFlatBuffers.g:5591:17: ( '//' (~ ( ( '\\n' | '\\r' ) ) )* ( ( '\\r' )? '\\n' )? )
-            // ../maxim.zaks.flattBuffers.ui/src-gen/maxim/zaks/ui/contentassist/antlr/internal/InternalFlatBuffers.g:5591:19: '//' (~ ( ( '\\n' | '\\r' ) ) )* ( ( '\\r' )? '\\n' )?
+            // ../maxim.zaks.flattBuffers.ui/src-gen/maxim/zaks/ui/contentassist/antlr/internal/InternalFlatBuffers.g:5828:17: ( '//' (~ ( ( '\\n' | '\\r' ) ) )* ( ( '\\r' )? '\\n' )? )
+            // ../maxim.zaks.flattBuffers.ui/src-gen/maxim/zaks/ui/contentassist/antlr/internal/InternalFlatBuffers.g:5828:19: '//' (~ ( ( '\\n' | '\\r' ) ) )* ( ( '\\r' )? '\\n' )?
             {
             match("//"); 
 
-            // ../maxim.zaks.flattBuffers.ui/src-gen/maxim/zaks/ui/contentassist/antlr/internal/InternalFlatBuffers.g:5591:24: (~ ( ( '\\n' | '\\r' ) ) )*
+            // ../maxim.zaks.flattBuffers.ui/src-gen/maxim/zaks/ui/contentassist/antlr/internal/InternalFlatBuffers.g:5828:24: (~ ( ( '\\n' | '\\r' ) ) )*
             loop16:
             do {
                 int alt16=2;
@@ -1675,7 +1675,7 @@ public class InternalFlatBuffersLexer extends Lexer {
 
                 switch (alt16) {
             	case 1 :
-            	    // ../maxim.zaks.flattBuffers.ui/src-gen/maxim/zaks/ui/contentassist/antlr/internal/InternalFlatBuffers.g:5591:24: ~ ( ( '\\n' | '\\r' ) )
+            	    // ../maxim.zaks.flattBuffers.ui/src-gen/maxim/zaks/ui/contentassist/antlr/internal/InternalFlatBuffers.g:5828:24: ~ ( ( '\\n' | '\\r' ) )
             	    {
             	    if ( (input.LA(1)>='\u0000' && input.LA(1)<='\t')||(input.LA(1)>='\u000B' && input.LA(1)<='\f')||(input.LA(1)>='\u000E' && input.LA(1)<='\uFFFF') ) {
             	        input.consume();
@@ -1695,7 +1695,7 @@ public class InternalFlatBuffersLexer extends Lexer {
                 }
             } while (true);
 
-            // ../maxim.zaks.flattBuffers.ui/src-gen/maxim/zaks/ui/contentassist/antlr/internal/InternalFlatBuffers.g:5591:40: ( ( '\\r' )? '\\n' )?
+            // ../maxim.zaks.flattBuffers.ui/src-gen/maxim/zaks/ui/contentassist/antlr/internal/InternalFlatBuffers.g:5828:40: ( ( '\\r' )? '\\n' )?
             int alt18=2;
             int LA18_0 = input.LA(1);
 
@@ -1704,9 +1704,9 @@ public class InternalFlatBuffersLexer extends Lexer {
             }
             switch (alt18) {
                 case 1 :
-                    // ../maxim.zaks.flattBuffers.ui/src-gen/maxim/zaks/ui/contentassist/antlr/internal/InternalFlatBuffers.g:5591:41: ( '\\r' )? '\\n'
+                    // ../maxim.zaks.flattBuffers.ui/src-gen/maxim/zaks/ui/contentassist/antlr/internal/InternalFlatBuffers.g:5828:41: ( '\\r' )? '\\n'
                     {
-                    // ../maxim.zaks.flattBuffers.ui/src-gen/maxim/zaks/ui/contentassist/antlr/internal/InternalFlatBuffers.g:5591:41: ( '\\r' )?
+                    // ../maxim.zaks.flattBuffers.ui/src-gen/maxim/zaks/ui/contentassist/antlr/internal/InternalFlatBuffers.g:5828:41: ( '\\r' )?
                     int alt17=2;
                     int LA17_0 = input.LA(1);
 
@@ -1715,7 +1715,7 @@ public class InternalFlatBuffersLexer extends Lexer {
                     }
                     switch (alt17) {
                         case 1 :
-                            // ../maxim.zaks.flattBuffers.ui/src-gen/maxim/zaks/ui/contentassist/antlr/internal/InternalFlatBuffers.g:5591:41: '\\r'
+                            // ../maxim.zaks.flattBuffers.ui/src-gen/maxim/zaks/ui/contentassist/antlr/internal/InternalFlatBuffers.g:5828:41: '\\r'
                             {
                             match('\r'); 
 
@@ -1747,10 +1747,10 @@ public class InternalFlatBuffersLexer extends Lexer {
         try {
             int _type = RULE_WS;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../maxim.zaks.flattBuffers.ui/src-gen/maxim/zaks/ui/contentassist/antlr/internal/InternalFlatBuffers.g:5593:9: ( ( ' ' | '\\t' | '\\r' | '\\n' )+ )
-            // ../maxim.zaks.flattBuffers.ui/src-gen/maxim/zaks/ui/contentassist/antlr/internal/InternalFlatBuffers.g:5593:11: ( ' ' | '\\t' | '\\r' | '\\n' )+
+            // ../maxim.zaks.flattBuffers.ui/src-gen/maxim/zaks/ui/contentassist/antlr/internal/InternalFlatBuffers.g:5830:9: ( ( ' ' | '\\t' | '\\r' | '\\n' )+ )
+            // ../maxim.zaks.flattBuffers.ui/src-gen/maxim/zaks/ui/contentassist/antlr/internal/InternalFlatBuffers.g:5830:11: ( ' ' | '\\t' | '\\r' | '\\n' )+
             {
-            // ../maxim.zaks.flattBuffers.ui/src-gen/maxim/zaks/ui/contentassist/antlr/internal/InternalFlatBuffers.g:5593:11: ( ' ' | '\\t' | '\\r' | '\\n' )+
+            // ../maxim.zaks.flattBuffers.ui/src-gen/maxim/zaks/ui/contentassist/antlr/internal/InternalFlatBuffers.g:5830:11: ( ' ' | '\\t' | '\\r' | '\\n' )+
             int cnt19=0;
             loop19:
             do {
@@ -1804,8 +1804,8 @@ public class InternalFlatBuffersLexer extends Lexer {
         try {
             int _type = RULE_ANY_OTHER;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../maxim.zaks.flattBuffers.ui/src-gen/maxim/zaks/ui/contentassist/antlr/internal/InternalFlatBuffers.g:5595:16: ( . )
-            // ../maxim.zaks.flattBuffers.ui/src-gen/maxim/zaks/ui/contentassist/antlr/internal/InternalFlatBuffers.g:5595:18: .
+            // ../maxim.zaks.flattBuffers.ui/src-gen/maxim/zaks/ui/contentassist/antlr/internal/InternalFlatBuffers.g:5832:16: ( . )
+            // ../maxim.zaks.flattBuffers.ui/src-gen/maxim/zaks/ui/contentassist/antlr/internal/InternalFlatBuffers.g:5832:18: .
             {
             matchAny(); 
 
@@ -2203,19 +2203,19 @@ public class InternalFlatBuffersLexer extends Lexer {
 
     protected DFA20 dfa20 = new DFA20(this);
     static final String DFA20_eotS =
-        "\1\uffff\10\50\1\uffff\2\50\3\uffff\1\50\6\uffff\1\50\1\uffff\3\50\2\121\2\44\1\uffff\3\44\2\uffff\3\50\1\uffff\16\50\1\151\3\50\1\uffff\3\50\3\uffff\2\50\6\uffff\1\50\1\uffff\3\50\1\uffff\1\121\6\uffff\20\50\1\u0087\1\50\1\uffff\12\50\1\u0093\1\50\1\u0095\1\u0096\14\50\1\u00a3\2\50\1\uffff\1\50\1\u00a7\6\50\1\u00ae\1\u00af\1\50\1\uffff\1\u00b1\2\uffff\1\50\1\u00b3\1\50\1\u00b6\5\50\1\u00bc\1\u00bd\1\50\1\uffff\1\u00bf\1\u00c0\1\50\1\uffff\5\50\1\u00c7\2\uffff\1\50\1\uffff\1\50\1\uffff\2\50\1\uffff\1\50\1\u00cd\1\50\1\u00cf\1\u00d0\2\uffff\1\u00d1\2\uffff\6\50\1\uffff\5\50\1\uffff\1\50\3\uffff\1\u00de\13\50\1\uffff\1\50\1\u00eb\4\50\1\u00f0\4\50\1\u00f5\1\uffff\1\u00f6\1\u00f7\2\50\1\uffff\3\50\1\u00fd\3\uffff\4\50\1\u0102\1\uffff\4\50\1\uffff\7\50\1\u010e\1\50\1\u0110\1\u0111\1\uffff\1\50\2\uffff\1\50\1\u0114\1\uffff";
+        "\1\uffff\10\50\1\uffff\2\50\3\uffff\1\50\7\uffff\4\50\2\121\2\44\1\uffff\3\44\2\uffff\3\50\1\uffff\16\50\1\151\3\50\1\uffff\3\50\3\uffff\2\50\7\uffff\4\50\1\uffff\1\121\6\uffff\20\50\1\u0087\1\50\1\uffff\12\50\1\u0093\1\50\1\u0095\1\u0096\14\50\1\u00a3\2\50\1\uffff\1\50\1\u00a7\6\50\1\u00ae\1\u00af\1\50\1\uffff\1\u00b1\2\uffff\1\50\1\u00b3\1\50\1\u00b6\5\50\1\u00bc\1\u00bd\1\50\1\uffff\1\u00bf\1\u00c0\1\50\1\uffff\5\50\1\u00c7\2\uffff\1\50\1\uffff\1\50\1\uffff\2\50\1\uffff\1\50\1\u00cd\1\50\1\u00cf\1\u00d0\2\uffff\1\u00d1\2\uffff\6\50\1\uffff\5\50\1\uffff\1\50\3\uffff\1\u00de\13\50\1\uffff\1\50\1\u00eb\4\50\1\u00f0\4\50\1\u00f5\1\uffff\1\u00f6\1\u00f7\2\50\1\uffff\3\50\1\u00fd\3\uffff\4\50\1\u0102\1\uffff\4\50\1\uffff\7\50\1\u010e\1\50\1\u0110\1\u0111\1\uffff\1\50\2\uffff\1\50\1\u0114\1\uffff";
     static final String DFA20_eofS =
         "\u0115\uffff";
     static final String DFA20_minS =
-        "\1\0\1\151\1\141\1\145\1\150\1\142\1\144\1\157\1\145\1\uffff\1\164\1\141\3\uffff\1\141\6\uffff\1\156\1\uffff\1\162\1\145\1\141\3\60\1\101\1\uffff\2\0\1\52\2\uffff\1\157\2\164\1\uffff\1\157\2\154\1\162\1\165\1\160\1\162\1\157\1\171\1\150\1\156\1\157\1\151\1\143\1\60\1\156\1\157\1\161\1\uffff\1\164\1\155\1\163\3\uffff\1\142\1\165\6\uffff\1\165\1\uffff\1\151\1\171\1\163\1\uffff\1\60\6\uffff\1\154\1\145\1\137\1\141\1\145\1\163\1\143\1\142\1\162\1\151\1\162\1\164\1\157\1\164\1\156\1\157\1\60\1\154\1\uffff\1\147\1\164\1\165\1\162\1\145\1\164\1\154\1\145\1\155\1\147\1\60\1\150\2\60\1\146\1\164\1\137\2\145\1\154\1\145\1\156\1\143\1\164\1\145\1\162\1\60\1\147\1\156\1\uffff\1\165\1\60\1\137\2\151\1\163\2\145\2\60\1\151\1\uffff\1\60\2\uffff\1\154\1\60\1\145\1\60\1\137\1\145\1\143\1\147\1\164\2\60\1\164\1\uffff\2\60\1\144\1\uffff\1\164\1\162\1\142\1\160\1\144\1\60\2\uffff\1\156\1\uffff\1\141\1\uffff\1\144\1\170\1\uffff\1\141\1\60\1\141\2\60\2\uffff\1\60\2\uffff\1\145\1\171\1\145\1\165\1\141\1\137\1\uffff\1\141\1\147\1\145\1\164\1\154\1\uffff\1\164\3\uffff\1\60\1\160\1\144\1\164\1\143\1\146\1\154\1\163\1\156\1\145\1\151\1\145\1\uffff\1\145\1\60\2\145\1\154\1\137\1\60\1\164\1\156\1\147\1\144\1\60\1\uffff\2\60\1\141\1\157\1\uffff\1\151\1\163\1\156\1\60\3\uffff\1\164\1\162\1\146\1\151\1\60\1\uffff\1\142\1\144\1\151\1\157\1\uffff\1\165\2\145\1\156\1\146\2\162\1\60\1\146\2\60\1\uffff\1\145\2\uffff\1\162\1\60\1\uffff";
+        "\1\0\1\151\1\141\1\145\1\150\1\142\1\144\1\157\1\145\1\uffff\1\164\1\141\3\uffff\1\141\7\uffff\1\156\1\162\1\145\1\141\3\60\1\101\1\uffff\2\0\1\52\2\uffff\1\157\2\164\1\uffff\1\157\2\154\1\162\1\165\1\160\1\162\1\157\1\171\1\150\1\156\1\157\1\151\1\143\1\60\1\156\1\157\1\161\1\uffff\1\164\1\155\1\163\3\uffff\1\142\1\165\7\uffff\1\165\1\151\1\171\1\163\1\uffff\1\60\6\uffff\1\154\1\145\1\137\1\141\1\145\1\163\1\143\1\142\1\162\1\151\1\162\1\164\1\157\1\164\1\156\1\157\1\60\1\154\1\uffff\1\147\1\164\1\165\1\162\1\145\1\164\1\154\1\145\1\155\1\147\1\60\1\150\2\60\1\146\1\164\1\137\2\145\1\154\1\145\1\156\1\143\1\164\1\145\1\162\1\60\1\147\1\156\1\uffff\1\165\1\60\1\137\2\151\1\163\2\145\2\60\1\151\1\uffff\1\60\2\uffff\1\154\1\60\1\145\1\60\1\137\1\145\1\143\1\147\1\164\2\60\1\164\1\uffff\2\60\1\144\1\uffff\1\164\1\162\1\142\1\160\1\144\1\60\2\uffff\1\156\1\uffff\1\141\1\uffff\1\144\1\170\1\uffff\1\141\1\60\1\141\2\60\2\uffff\1\60\2\uffff\1\145\1\171\1\145\1\165\1\141\1\137\1\uffff\1\141\1\147\1\145\1\164\1\154\1\uffff\1\164\3\uffff\1\60\1\160\1\144\1\164\1\143\1\146\1\154\1\163\1\156\1\145\1\151\1\145\1\uffff\1\145\1\60\2\145\1\154\1\137\1\60\1\164\1\156\1\147\1\144\1\60\1\uffff\2\60\1\141\1\157\1\uffff\1\151\1\163\1\156\1\60\3\uffff\1\164\1\162\1\146\1\151\1\60\1\uffff\1\142\1\144\1\151\1\157\1\uffff\1\165\2\145\1\156\1\146\2\162\1\60\1\146\2\60\1\uffff\1\145\2\uffff\1\162\1\60\1\uffff";
     static final String DFA20_maxS =
-        "\1\uffff\1\171\2\157\1\164\1\163\1\156\2\157\1\uffff\1\164\1\145\3\uffff\1\162\6\uffff\1\156\1\uffff\1\162\1\145\1\141\1\170\1\154\1\71\1\172\1\uffff\2\uffff\1\57\2\uffff\1\157\2\164\1\uffff\1\157\2\154\1\162\1\165\1\160\1\162\1\157\1\171\1\150\1\156\1\157\1\151\1\164\1\172\1\156\1\157\1\161\1\uffff\1\164\1\155\1\163\3\uffff\1\142\1\165\6\uffff\1\165\1\uffff\1\151\1\171\1\163\1\uffff\1\154\6\uffff\1\154\1\145\1\137\1\141\1\145\1\163\1\143\1\142\1\162\1\165\1\162\1\164\1\157\1\164\1\156\1\157\1\172\1\154\1\uffff\1\147\1\164\1\165\1\162\1\145\1\164\1\154\1\145\1\155\1\147\1\172\1\150\2\172\1\146\1\164\1\137\2\145\1\154\1\145\1\156\1\143\1\164\1\145\1\162\1\172\1\147\1\156\1\uffff\1\165\1\172\1\137\2\151\1\163\2\145\2\172\1\151\1\uffff\1\172\2\uffff\1\154\1\172\1\151\1\172\1\137\1\145\1\143\1\147\1\164\2\172\1\164\1\uffff\2\172\1\144\1\uffff\1\164\1\162\1\142\1\160\1\144\1\172\2\uffff\1\156\1\uffff\1\141\1\uffff\1\144\1\170\1\uffff\1\141\1\172\1\141\2\172\2\uffff\1\172\2\uffff\1\145\1\171\1\145\1\165\1\141\1\137\1\uffff\1\141\1\147\1\145\1\164\1\154\1\uffff\1\164\3\uffff\1\172\1\160\1\144\1\164\1\143\1\146\1\154\1\163\1\156\1\145\1\151\1\145\1\uffff\1\145\1\172\2\145\1\154\1\137\1\172\1\164\1\156\1\147\1\144\1\172\1\uffff\2\172\1\141\1\157\1\uffff\1\151\1\163\1\156\1\172\3\uffff\1\164\1\162\1\146\1\151\1\172\1\uffff\1\142\1\144\1\151\1\157\1\uffff\1\165\2\145\1\156\1\146\2\162\1\172\1\146\2\172\1\uffff\1\145\2\uffff\1\162\1\172\1\uffff";
+        "\1\uffff\1\171\2\157\1\164\1\163\1\156\2\157\1\uffff\1\164\1\145\3\uffff\1\162\7\uffff\1\156\1\162\1\145\1\141\1\170\1\154\1\71\1\172\1\uffff\2\uffff\1\57\2\uffff\1\157\2\164\1\uffff\1\157\2\154\1\162\1\165\1\160\1\162\1\157\1\171\1\150\1\156\1\157\1\151\1\164\1\172\1\156\1\157\1\161\1\uffff\1\164\1\155\1\163\3\uffff\1\142\1\165\7\uffff\1\165\1\151\1\171\1\163\1\uffff\1\154\6\uffff\1\154\1\145\1\137\1\141\1\145\1\163\1\143\1\142\1\162\1\165\1\162\1\164\1\157\1\164\1\156\1\157\1\172\1\154\1\uffff\1\147\1\164\1\165\1\162\1\145\1\164\1\154\1\145\1\155\1\147\1\172\1\150\2\172\1\146\1\164\1\137\2\145\1\154\1\145\1\156\1\143\1\164\1\145\1\162\1\172\1\147\1\156\1\uffff\1\165\1\172\1\137\2\151\1\163\2\145\2\172\1\151\1\uffff\1\172\2\uffff\1\154\1\172\1\151\1\172\1\137\1\145\1\143\1\147\1\164\2\172\1\164\1\uffff\2\172\1\144\1\uffff\1\164\1\162\1\142\1\160\1\144\1\172\2\uffff\1\156\1\uffff\1\141\1\uffff\1\144\1\170\1\uffff\1\141\1\172\1\141\2\172\2\uffff\1\172\2\uffff\1\145\1\171\1\145\1\165\1\141\1\137\1\uffff\1\141\1\147\1\145\1\164\1\154\1\uffff\1\164\3\uffff\1\172\1\160\1\144\1\164\1\143\1\146\1\154\1\163\1\156\1\145\1\151\1\145\1\uffff\1\145\1\172\2\145\1\154\1\137\1\172\1\164\1\156\1\147\1\144\1\172\1\uffff\2\172\1\141\1\157\1\uffff\1\151\1\163\1\156\1\172\3\uffff\1\164\1\162\1\146\1\151\1\172\1\uffff\1\142\1\144\1\151\1\157\1\uffff\1\165\2\145\1\156\1\146\2\162\1\172\1\146\2\172\1\uffff\1\145\2\uffff\1\162\1\172\1\uffff";
     static final String DFA20_acceptS =
-        "\11\uffff\1\16\2\uffff\1\25\1\26\1\27\1\uffff\1\31\1\32\1\33\1\34\1\35\1\36\1\uffff\1\41\7\uffff\1\60\3\uffff\1\64\1\65\3\uffff\1\60\22\uffff\1\16\3\uffff\1\25\1\26\1\27\2\uffff\1\31\1\32\1\33\1\34\1\35\1\36\1\uffff\1\41\3\uffff\1\55\1\uffff\1\56\1\57\1\61\1\62\1\63\1\64\22\uffff\1\50\35\uffff\1\11\13\uffff\1\53\1\uffff\1\1\1\5\14\uffff\1\12\3\uffff\1\13\6\uffff\1\43\1\37\1\uffff\1\54\1\uffff\1\2\2\uffff\1\42\5\uffff\1\7\1\6\1\uffff\1\14\1\40\6\uffff\1\30\5\uffff\1\3\1\uffff\1\4\1\24\1\10\14\uffff\1\23\14\uffff\1\52\4\uffff\1\46\4\uffff\1\15\1\17\1\22\5\uffff\1\51\4\uffff\1\45\13\uffff\1\21\1\uffff\1\44\1\20\2\uffff\1\47";
+        "\11\uffff\1\16\2\uffff\1\25\1\26\1\27\1\uffff\1\31\1\32\1\33\1\34\1\35\1\36\1\37\10\uffff\1\60\3\uffff\1\64\1\65\3\uffff\1\60\22\uffff\1\16\3\uffff\1\25\1\26\1\27\2\uffff\1\31\1\32\1\33\1\34\1\35\1\36\1\37\4\uffff\1\55\1\uffff\1\56\1\57\1\61\1\62\1\63\1\64\22\uffff\1\50\35\uffff\1\11\13\uffff\1\53\1\uffff\1\1\1\5\14\uffff\1\12\3\uffff\1\13\6\uffff\1\43\1\40\1\uffff\1\54\1\uffff\1\2\2\uffff\1\42\5\uffff\1\7\1\6\1\uffff\1\14\1\41\6\uffff\1\30\5\uffff\1\3\1\uffff\1\4\1\24\1\10\14\uffff\1\23\14\uffff\1\52\4\uffff\1\46\4\uffff\1\15\1\17\1\22\5\uffff\1\51\4\uffff\1\45\13\uffff\1\21\1\uffff\1\44\1\20\2\uffff\1\47";
     static final String DFA20_specialS =
         "\1\1\37\uffff\1\2\1\0\u00f3\uffff}>";
     static final String[] DFA20_transitionS = {
-            "\11\44\2\43\2\44\1\43\22\44\1\43\1\44\1\40\4\44\1\41\1\21\1\22\2\44\1\23\1\35\1\27\1\42\1\33\11\34\1\16\1\11\1\44\1\20\3\44\32\37\1\24\1\44\1\25\1\36\1\37\1\44\1\12\1\1\1\37\1\3\1\26\1\2\1\37\1\32\1\6\1\37\1\31\1\7\1\37\1\13\1\30\2\37\1\10\1\4\1\17\1\5\5\37\1\14\1\44\1\15\uff82\44",
+            "\11\44\2\43\2\44\1\43\22\44\1\43\1\44\1\40\4\44\1\41\1\21\1\22\2\44\1\23\1\35\1\24\1\42\1\33\11\34\1\16\1\11\1\44\1\20\3\44\32\37\1\25\1\44\1\26\1\36\1\37\1\44\1\12\1\1\1\37\1\3\1\27\1\2\1\37\1\32\1\6\1\37\1\31\1\7\1\37\1\13\1\30\2\37\1\10\1\4\1\17\1\5\5\37\1\14\1\44\1\15\uff82\44",
             "\1\47\5\uffff\1\45\11\uffff\1\46",
             "\1\53\7\uffff\1\52\2\uffff\1\51\2\uffff\1\54",
             "\1\56\11\uffff\1\55",
@@ -2237,8 +2237,8 @@ public class InternalFlatBuffersLexer extends Lexer {
             "",
             "",
             "",
-            "\1\112",
             "",
+            "\1\113",
             "\1\114",
             "\1\115",
             "\1\116",
@@ -2289,8 +2289,8 @@ public class InternalFlatBuffersLexer extends Lexer {
             "",
             "",
             "",
-            "\1\162",
             "",
+            "\1\162",
             "\1\163",
             "\1\164",
             "\1\165",
@@ -2582,13 +2582,13 @@ public class InternalFlatBuffersLexer extends Lexer {
 
                         else if ( (LA20_0==',') ) {s = 19;}
 
-                        else if ( (LA20_0=='[') ) {s = 20;}
+                        else if ( (LA20_0=='.') ) {s = 20;}
 
-                        else if ( (LA20_0==']') ) {s = 21;}
+                        else if ( (LA20_0=='[') ) {s = 21;}
 
-                        else if ( (LA20_0=='e') ) {s = 22;}
+                        else if ( (LA20_0==']') ) {s = 22;}
 
-                        else if ( (LA20_0=='.') ) {s = 23;}
+                        else if ( (LA20_0=='e') ) {s = 23;}
 
                         else if ( (LA20_0=='o') ) {s = 24;}
 

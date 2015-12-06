@@ -539,10 +539,10 @@ public class InternalFlatBuffersLexer extends Lexer {
         try {
             int _type = T__40;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../maxim.zaks.flattBuffers/src-gen/maxim/zaks/parser/antlr/internal/InternalFlatBuffers.g:33:7: ( '[' )
-            // ../maxim.zaks.flattBuffers/src-gen/maxim/zaks/parser/antlr/internal/InternalFlatBuffers.g:33:9: '['
+            // ../maxim.zaks.flattBuffers/src-gen/maxim/zaks/parser/antlr/internal/InternalFlatBuffers.g:33:7: ( '.' )
+            // ../maxim.zaks.flattBuffers/src-gen/maxim/zaks/parser/antlr/internal/InternalFlatBuffers.g:33:9: '.'
             {
-            match('['); 
+            match('.'); 
 
             }
 
@@ -559,10 +559,10 @@ public class InternalFlatBuffersLexer extends Lexer {
         try {
             int _type = T__41;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../maxim.zaks.flattBuffers/src-gen/maxim/zaks/parser/antlr/internal/InternalFlatBuffers.g:34:7: ( ']' )
-            // ../maxim.zaks.flattBuffers/src-gen/maxim/zaks/parser/antlr/internal/InternalFlatBuffers.g:34:9: ']'
+            // ../maxim.zaks.flattBuffers/src-gen/maxim/zaks/parser/antlr/internal/InternalFlatBuffers.g:34:7: ( '[' )
+            // ../maxim.zaks.flattBuffers/src-gen/maxim/zaks/parser/antlr/internal/InternalFlatBuffers.g:34:9: '['
             {
-            match(']'); 
+            match('['); 
 
             }
 
@@ -579,11 +579,10 @@ public class InternalFlatBuffersLexer extends Lexer {
         try {
             int _type = T__42;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../maxim.zaks.flattBuffers/src-gen/maxim/zaks/parser/antlr/internal/InternalFlatBuffers.g:35:7: ( 'bool' )
-            // ../maxim.zaks.flattBuffers/src-gen/maxim/zaks/parser/antlr/internal/InternalFlatBuffers.g:35:9: 'bool'
+            // ../maxim.zaks.flattBuffers/src-gen/maxim/zaks/parser/antlr/internal/InternalFlatBuffers.g:35:7: ( ']' )
+            // ../maxim.zaks.flattBuffers/src-gen/maxim/zaks/parser/antlr/internal/InternalFlatBuffers.g:35:9: ']'
             {
-            match("bool"); 
-
+            match(']'); 
 
             }
 
@@ -600,10 +599,10 @@ public class InternalFlatBuffersLexer extends Lexer {
         try {
             int _type = T__43;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../maxim.zaks.flattBuffers/src-gen/maxim/zaks/parser/antlr/internal/InternalFlatBuffers.g:36:7: ( 'float' )
-            // ../maxim.zaks.flattBuffers/src-gen/maxim/zaks/parser/antlr/internal/InternalFlatBuffers.g:36:9: 'float'
+            // ../maxim.zaks.flattBuffers/src-gen/maxim/zaks/parser/antlr/internal/InternalFlatBuffers.g:36:7: ( 'bool' )
+            // ../maxim.zaks.flattBuffers/src-gen/maxim/zaks/parser/antlr/internal/InternalFlatBuffers.g:36:9: 'bool'
             {
-            match("float"); 
+            match("bool"); 
 
 
             }
@@ -621,10 +620,10 @@ public class InternalFlatBuffersLexer extends Lexer {
         try {
             int _type = T__44;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../maxim.zaks.flattBuffers/src-gen/maxim/zaks/parser/antlr/internal/InternalFlatBuffers.g:37:7: ( 'double' )
-            // ../maxim.zaks.flattBuffers/src-gen/maxim/zaks/parser/antlr/internal/InternalFlatBuffers.g:37:9: 'double'
+            // ../maxim.zaks.flattBuffers/src-gen/maxim/zaks/parser/antlr/internal/InternalFlatBuffers.g:37:7: ( 'float' )
+            // ../maxim.zaks.flattBuffers/src-gen/maxim/zaks/parser/antlr/internal/InternalFlatBuffers.g:37:9: 'float'
             {
-            match("double"); 
+            match("float"); 
 
 
             }
@@ -642,10 +641,10 @@ public class InternalFlatBuffersLexer extends Lexer {
         try {
             int _type = T__45;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../maxim.zaks.flattBuffers/src-gen/maxim/zaks/parser/antlr/internal/InternalFlatBuffers.g:38:7: ( 'string' )
-            // ../maxim.zaks.flattBuffers/src-gen/maxim/zaks/parser/antlr/internal/InternalFlatBuffers.g:38:9: 'string'
+            // ../maxim.zaks.flattBuffers/src-gen/maxim/zaks/parser/antlr/internal/InternalFlatBuffers.g:38:7: ( 'double' )
+            // ../maxim.zaks.flattBuffers/src-gen/maxim/zaks/parser/antlr/internal/InternalFlatBuffers.g:38:9: 'double'
             {
-            match("string"); 
+            match("double"); 
 
 
             }
@@ -663,10 +662,10 @@ public class InternalFlatBuffersLexer extends Lexer {
         try {
             int _type = T__46;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../maxim.zaks.flattBuffers/src-gen/maxim/zaks/parser/antlr/internal/InternalFlatBuffers.g:39:7: ( 'enum' )
-            // ../maxim.zaks.flattBuffers/src-gen/maxim/zaks/parser/antlr/internal/InternalFlatBuffers.g:39:9: 'enum'
+            // ../maxim.zaks.flattBuffers/src-gen/maxim/zaks/parser/antlr/internal/InternalFlatBuffers.g:39:7: ( 'string' )
+            // ../maxim.zaks.flattBuffers/src-gen/maxim/zaks/parser/antlr/internal/InternalFlatBuffers.g:39:9: 'string'
             {
-            match("enum"); 
+            match("string"); 
 
 
             }
@@ -684,10 +683,10 @@ public class InternalFlatBuffersLexer extends Lexer {
         try {
             int _type = T__47;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../maxim.zaks.flattBuffers/src-gen/maxim/zaks/parser/antlr/internal/InternalFlatBuffers.g:40:7: ( 'union' )
-            // ../maxim.zaks.flattBuffers/src-gen/maxim/zaks/parser/antlr/internal/InternalFlatBuffers.g:40:9: 'union'
+            // ../maxim.zaks.flattBuffers/src-gen/maxim/zaks/parser/antlr/internal/InternalFlatBuffers.g:40:7: ( 'enum' )
+            // ../maxim.zaks.flattBuffers/src-gen/maxim/zaks/parser/antlr/internal/InternalFlatBuffers.g:40:9: 'enum'
             {
-            match("union"); 
+            match("enum"); 
 
 
             }
@@ -705,10 +704,10 @@ public class InternalFlatBuffersLexer extends Lexer {
         try {
             int _type = T__48;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../maxim.zaks.flattBuffers/src-gen/maxim/zaks/parser/antlr/internal/InternalFlatBuffers.g:41:7: ( 'byte' )
-            // ../maxim.zaks.flattBuffers/src-gen/maxim/zaks/parser/antlr/internal/InternalFlatBuffers.g:41:9: 'byte'
+            // ../maxim.zaks.flattBuffers/src-gen/maxim/zaks/parser/antlr/internal/InternalFlatBuffers.g:41:7: ( 'union' )
+            // ../maxim.zaks.flattBuffers/src-gen/maxim/zaks/parser/antlr/internal/InternalFlatBuffers.g:41:9: 'union'
             {
-            match("byte"); 
+            match("union"); 
 
 
             }
@@ -726,10 +725,10 @@ public class InternalFlatBuffersLexer extends Lexer {
         try {
             int _type = T__49;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../maxim.zaks.flattBuffers/src-gen/maxim/zaks/parser/antlr/internal/InternalFlatBuffers.g:42:7: ( 'ubyte' )
-            // ../maxim.zaks.flattBuffers/src-gen/maxim/zaks/parser/antlr/internal/InternalFlatBuffers.g:42:9: 'ubyte'
+            // ../maxim.zaks.flattBuffers/src-gen/maxim/zaks/parser/antlr/internal/InternalFlatBuffers.g:42:7: ( 'byte' )
+            // ../maxim.zaks.flattBuffers/src-gen/maxim/zaks/parser/antlr/internal/InternalFlatBuffers.g:42:9: 'byte'
             {
-            match("ubyte"); 
+            match("byte"); 
 
 
             }
@@ -747,10 +746,10 @@ public class InternalFlatBuffersLexer extends Lexer {
         try {
             int _type = T__50;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../maxim.zaks.flattBuffers/src-gen/maxim/zaks/parser/antlr/internal/InternalFlatBuffers.g:43:7: ( 'short' )
-            // ../maxim.zaks.flattBuffers/src-gen/maxim/zaks/parser/antlr/internal/InternalFlatBuffers.g:43:9: 'short'
+            // ../maxim.zaks.flattBuffers/src-gen/maxim/zaks/parser/antlr/internal/InternalFlatBuffers.g:43:7: ( 'ubyte' )
+            // ../maxim.zaks.flattBuffers/src-gen/maxim/zaks/parser/antlr/internal/InternalFlatBuffers.g:43:9: 'ubyte'
             {
-            match("short"); 
+            match("ubyte"); 
 
 
             }
@@ -768,10 +767,10 @@ public class InternalFlatBuffersLexer extends Lexer {
         try {
             int _type = T__51;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../maxim.zaks.flattBuffers/src-gen/maxim/zaks/parser/antlr/internal/InternalFlatBuffers.g:44:7: ( 'ushort' )
-            // ../maxim.zaks.flattBuffers/src-gen/maxim/zaks/parser/antlr/internal/InternalFlatBuffers.g:44:9: 'ushort'
+            // ../maxim.zaks.flattBuffers/src-gen/maxim/zaks/parser/antlr/internal/InternalFlatBuffers.g:44:7: ( 'short' )
+            // ../maxim.zaks.flattBuffers/src-gen/maxim/zaks/parser/antlr/internal/InternalFlatBuffers.g:44:9: 'short'
             {
-            match("ushort"); 
+            match("short"); 
 
 
             }
@@ -789,10 +788,10 @@ public class InternalFlatBuffersLexer extends Lexer {
         try {
             int _type = T__52;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../maxim.zaks.flattBuffers/src-gen/maxim/zaks/parser/antlr/internal/InternalFlatBuffers.g:45:7: ( 'int' )
-            // ../maxim.zaks.flattBuffers/src-gen/maxim/zaks/parser/antlr/internal/InternalFlatBuffers.g:45:9: 'int'
+            // ../maxim.zaks.flattBuffers/src-gen/maxim/zaks/parser/antlr/internal/InternalFlatBuffers.g:45:7: ( 'ushort' )
+            // ../maxim.zaks.flattBuffers/src-gen/maxim/zaks/parser/antlr/internal/InternalFlatBuffers.g:45:9: 'ushort'
             {
-            match("int"); 
+            match("ushort"); 
 
 
             }
@@ -810,10 +809,10 @@ public class InternalFlatBuffersLexer extends Lexer {
         try {
             int _type = T__53;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../maxim.zaks.flattBuffers/src-gen/maxim/zaks/parser/antlr/internal/InternalFlatBuffers.g:46:7: ( 'uint' )
-            // ../maxim.zaks.flattBuffers/src-gen/maxim/zaks/parser/antlr/internal/InternalFlatBuffers.g:46:9: 'uint'
+            // ../maxim.zaks.flattBuffers/src-gen/maxim/zaks/parser/antlr/internal/InternalFlatBuffers.g:46:7: ( 'int' )
+            // ../maxim.zaks.flattBuffers/src-gen/maxim/zaks/parser/antlr/internal/InternalFlatBuffers.g:46:9: 'int'
             {
-            match("uint"); 
+            match("int"); 
 
 
             }
@@ -831,10 +830,10 @@ public class InternalFlatBuffersLexer extends Lexer {
         try {
             int _type = T__54;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../maxim.zaks.flattBuffers/src-gen/maxim/zaks/parser/antlr/internal/InternalFlatBuffers.g:47:7: ( 'long' )
-            // ../maxim.zaks.flattBuffers/src-gen/maxim/zaks/parser/antlr/internal/InternalFlatBuffers.g:47:9: 'long'
+            // ../maxim.zaks.flattBuffers/src-gen/maxim/zaks/parser/antlr/internal/InternalFlatBuffers.g:47:7: ( 'uint' )
+            // ../maxim.zaks.flattBuffers/src-gen/maxim/zaks/parser/antlr/internal/InternalFlatBuffers.g:47:9: 'uint'
             {
-            match("long"); 
+            match("uint"); 
 
 
             }
@@ -852,10 +851,10 @@ public class InternalFlatBuffersLexer extends Lexer {
         try {
             int _type = T__55;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../maxim.zaks.flattBuffers/src-gen/maxim/zaks/parser/antlr/internal/InternalFlatBuffers.g:48:7: ( 'ulong' )
-            // ../maxim.zaks.flattBuffers/src-gen/maxim/zaks/parser/antlr/internal/InternalFlatBuffers.g:48:9: 'ulong'
+            // ../maxim.zaks.flattBuffers/src-gen/maxim/zaks/parser/antlr/internal/InternalFlatBuffers.g:48:7: ( 'long' )
+            // ../maxim.zaks.flattBuffers/src-gen/maxim/zaks/parser/antlr/internal/InternalFlatBuffers.g:48:9: 'long'
             {
-            match("ulong"); 
+            match("long"); 
 
 
             }
@@ -873,10 +872,11 @@ public class InternalFlatBuffersLexer extends Lexer {
         try {
             int _type = T__56;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../maxim.zaks.flattBuffers/src-gen/maxim/zaks/parser/antlr/internal/InternalFlatBuffers.g:49:7: ( '.' )
-            // ../maxim.zaks.flattBuffers/src-gen/maxim/zaks/parser/antlr/internal/InternalFlatBuffers.g:49:9: '.'
+            // ../maxim.zaks.flattBuffers/src-gen/maxim/zaks/parser/antlr/internal/InternalFlatBuffers.g:49:7: ( 'ulong' )
+            // ../maxim.zaks.flattBuffers/src-gen/maxim/zaks/parser/antlr/internal/InternalFlatBuffers.g:49:9: 'ulong'
             {
-            match('.'); 
+            match("ulong"); 
+
 
             }
 
@@ -893,8 +893,8 @@ public class InternalFlatBuffersLexer extends Lexer {
         try {
             int _type = RULE_ID_ATTRIBUTE;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../maxim.zaks.flattBuffers/src-gen/maxim/zaks/parser/antlr/internal/InternalFlatBuffers.g:2130:19: ( 'id' )
-            // ../maxim.zaks.flattBuffers/src-gen/maxim/zaks/parser/antlr/internal/InternalFlatBuffers.g:2130:21: 'id'
+            // ../maxim.zaks.flattBuffers/src-gen/maxim/zaks/parser/antlr/internal/InternalFlatBuffers.g:2215:19: ( 'id' )
+            // ../maxim.zaks.flattBuffers/src-gen/maxim/zaks/parser/antlr/internal/InternalFlatBuffers.g:2215:21: 'id'
             {
             match("id"); 
 
@@ -914,8 +914,8 @@ public class InternalFlatBuffersLexer extends Lexer {
         try {
             int _type = RULE_DEPRECTED_ATTRIBUTE;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../maxim.zaks.flattBuffers/src-gen/maxim/zaks/parser/antlr/internal/InternalFlatBuffers.g:2132:26: ( 'deprecated' )
-            // ../maxim.zaks.flattBuffers/src-gen/maxim/zaks/parser/antlr/internal/InternalFlatBuffers.g:2132:28: 'deprecated'
+            // ../maxim.zaks.flattBuffers/src-gen/maxim/zaks/parser/antlr/internal/InternalFlatBuffers.g:2217:26: ( 'deprecated' )
+            // ../maxim.zaks.flattBuffers/src-gen/maxim/zaks/parser/antlr/internal/InternalFlatBuffers.g:2217:28: 'deprecated'
             {
             match("deprecated"); 
 
@@ -935,8 +935,8 @@ public class InternalFlatBuffersLexer extends Lexer {
         try {
             int _type = RULE_REQUIRED_ATTRIBUTE;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../maxim.zaks.flattBuffers/src-gen/maxim/zaks/parser/antlr/internal/InternalFlatBuffers.g:2134:25: ( 'required' )
-            // ../maxim.zaks.flattBuffers/src-gen/maxim/zaks/parser/antlr/internal/InternalFlatBuffers.g:2134:27: 'required'
+            // ../maxim.zaks.flattBuffers/src-gen/maxim/zaks/parser/antlr/internal/InternalFlatBuffers.g:2219:25: ( 'required' )
+            // ../maxim.zaks.flattBuffers/src-gen/maxim/zaks/parser/antlr/internal/InternalFlatBuffers.g:2219:27: 'required'
             {
             match("required"); 
 
@@ -956,8 +956,8 @@ public class InternalFlatBuffersLexer extends Lexer {
         try {
             int _type = RULE_KEY_ATTRIBUTE;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../maxim.zaks.flattBuffers/src-gen/maxim/zaks/parser/antlr/internal/InternalFlatBuffers.g:2136:20: ( 'key' )
-            // ../maxim.zaks.flattBuffers/src-gen/maxim/zaks/parser/antlr/internal/InternalFlatBuffers.g:2136:22: 'key'
+            // ../maxim.zaks.flattBuffers/src-gen/maxim/zaks/parser/antlr/internal/InternalFlatBuffers.g:2221:20: ( 'key' )
+            // ../maxim.zaks.flattBuffers/src-gen/maxim/zaks/parser/antlr/internal/InternalFlatBuffers.g:2221:22: 'key'
             {
             match("key"); 
 
@@ -977,8 +977,8 @@ public class InternalFlatBuffersLexer extends Lexer {
         try {
             int _type = RULE_HASH_ATTRIBUTE;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../maxim.zaks.flattBuffers/src-gen/maxim/zaks/parser/antlr/internal/InternalFlatBuffers.g:2138:21: ( 'hash' )
-            // ../maxim.zaks.flattBuffers/src-gen/maxim/zaks/parser/antlr/internal/InternalFlatBuffers.g:2138:23: 'hash'
+            // ../maxim.zaks.flattBuffers/src-gen/maxim/zaks/parser/antlr/internal/InternalFlatBuffers.g:2223:21: ( 'hash' )
+            // ../maxim.zaks.flattBuffers/src-gen/maxim/zaks/parser/antlr/internal/InternalFlatBuffers.g:2223:23: 'hash'
             {
             match("hash"); 
 
@@ -998,10 +998,10 @@ public class InternalFlatBuffersLexer extends Lexer {
         try {
             int _type = RULE_HEX;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../maxim.zaks.flattBuffers/src-gen/maxim/zaks/parser/antlr/internal/InternalFlatBuffers.g:2140:10: ( ( '0x' | '0X' ) ( '0' .. '9' | 'a' .. 'f' | 'A' .. 'F' | '_' )+ ( '#' ( ( 'b' | 'B' ) ( 'i' | 'I' ) | ( 'l' | 'L' ) ) )? )
-            // ../maxim.zaks.flattBuffers/src-gen/maxim/zaks/parser/antlr/internal/InternalFlatBuffers.g:2140:12: ( '0x' | '0X' ) ( '0' .. '9' | 'a' .. 'f' | 'A' .. 'F' | '_' )+ ( '#' ( ( 'b' | 'B' ) ( 'i' | 'I' ) | ( 'l' | 'L' ) ) )?
+            // ../maxim.zaks.flattBuffers/src-gen/maxim/zaks/parser/antlr/internal/InternalFlatBuffers.g:2225:10: ( ( '0x' | '0X' ) ( '0' .. '9' | 'a' .. 'f' | 'A' .. 'F' | '_' )+ ( '#' ( ( 'b' | 'B' ) ( 'i' | 'I' ) | ( 'l' | 'L' ) ) )? )
+            // ../maxim.zaks.flattBuffers/src-gen/maxim/zaks/parser/antlr/internal/InternalFlatBuffers.g:2225:12: ( '0x' | '0X' ) ( '0' .. '9' | 'a' .. 'f' | 'A' .. 'F' | '_' )+ ( '#' ( ( 'b' | 'B' ) ( 'i' | 'I' ) | ( 'l' | 'L' ) ) )?
             {
-            // ../maxim.zaks.flattBuffers/src-gen/maxim/zaks/parser/antlr/internal/InternalFlatBuffers.g:2140:12: ( '0x' | '0X' )
+            // ../maxim.zaks.flattBuffers/src-gen/maxim/zaks/parser/antlr/internal/InternalFlatBuffers.g:2225:12: ( '0x' | '0X' )
             int alt1=2;
             int LA1_0 = input.LA(1);
 
@@ -1029,7 +1029,7 @@ public class InternalFlatBuffersLexer extends Lexer {
             }
             switch (alt1) {
                 case 1 :
-                    // ../maxim.zaks.flattBuffers/src-gen/maxim/zaks/parser/antlr/internal/InternalFlatBuffers.g:2140:13: '0x'
+                    // ../maxim.zaks.flattBuffers/src-gen/maxim/zaks/parser/antlr/internal/InternalFlatBuffers.g:2225:13: '0x'
                     {
                     match("0x"); 
 
@@ -1037,7 +1037,7 @@ public class InternalFlatBuffersLexer extends Lexer {
                     }
                     break;
                 case 2 :
-                    // ../maxim.zaks.flattBuffers/src-gen/maxim/zaks/parser/antlr/internal/InternalFlatBuffers.g:2140:18: '0X'
+                    // ../maxim.zaks.flattBuffers/src-gen/maxim/zaks/parser/antlr/internal/InternalFlatBuffers.g:2225:18: '0X'
                     {
                     match("0X"); 
 
@@ -1047,7 +1047,7 @@ public class InternalFlatBuffersLexer extends Lexer {
 
             }
 
-            // ../maxim.zaks.flattBuffers/src-gen/maxim/zaks/parser/antlr/internal/InternalFlatBuffers.g:2140:24: ( '0' .. '9' | 'a' .. 'f' | 'A' .. 'F' | '_' )+
+            // ../maxim.zaks.flattBuffers/src-gen/maxim/zaks/parser/antlr/internal/InternalFlatBuffers.g:2225:24: ( '0' .. '9' | 'a' .. 'f' | 'A' .. 'F' | '_' )+
             int cnt2=0;
             loop2:
             do {
@@ -1085,7 +1085,7 @@ public class InternalFlatBuffersLexer extends Lexer {
                 cnt2++;
             } while (true);
 
-            // ../maxim.zaks.flattBuffers/src-gen/maxim/zaks/parser/antlr/internal/InternalFlatBuffers.g:2140:58: ( '#' ( ( 'b' | 'B' ) ( 'i' | 'I' ) | ( 'l' | 'L' ) ) )?
+            // ../maxim.zaks.flattBuffers/src-gen/maxim/zaks/parser/antlr/internal/InternalFlatBuffers.g:2225:58: ( '#' ( ( 'b' | 'B' ) ( 'i' | 'I' ) | ( 'l' | 'L' ) ) )?
             int alt4=2;
             int LA4_0 = input.LA(1);
 
@@ -1094,10 +1094,10 @@ public class InternalFlatBuffersLexer extends Lexer {
             }
             switch (alt4) {
                 case 1 :
-                    // ../maxim.zaks.flattBuffers/src-gen/maxim/zaks/parser/antlr/internal/InternalFlatBuffers.g:2140:59: '#' ( ( 'b' | 'B' ) ( 'i' | 'I' ) | ( 'l' | 'L' ) )
+                    // ../maxim.zaks.flattBuffers/src-gen/maxim/zaks/parser/antlr/internal/InternalFlatBuffers.g:2225:59: '#' ( ( 'b' | 'B' ) ( 'i' | 'I' ) | ( 'l' | 'L' ) )
                     {
                     match('#'); 
-                    // ../maxim.zaks.flattBuffers/src-gen/maxim/zaks/parser/antlr/internal/InternalFlatBuffers.g:2140:63: ( ( 'b' | 'B' ) ( 'i' | 'I' ) | ( 'l' | 'L' ) )
+                    // ../maxim.zaks.flattBuffers/src-gen/maxim/zaks/parser/antlr/internal/InternalFlatBuffers.g:2225:63: ( ( 'b' | 'B' ) ( 'i' | 'I' ) | ( 'l' | 'L' ) )
                     int alt3=2;
                     int LA3_0 = input.LA(1);
 
@@ -1115,7 +1115,7 @@ public class InternalFlatBuffersLexer extends Lexer {
                     }
                     switch (alt3) {
                         case 1 :
-                            // ../maxim.zaks.flattBuffers/src-gen/maxim/zaks/parser/antlr/internal/InternalFlatBuffers.g:2140:64: ( 'b' | 'B' ) ( 'i' | 'I' )
+                            // ../maxim.zaks.flattBuffers/src-gen/maxim/zaks/parser/antlr/internal/InternalFlatBuffers.g:2225:64: ( 'b' | 'B' ) ( 'i' | 'I' )
                             {
                             if ( input.LA(1)=='B'||input.LA(1)=='b' ) {
                                 input.consume();
@@ -1139,7 +1139,7 @@ public class InternalFlatBuffersLexer extends Lexer {
                             }
                             break;
                         case 2 :
-                            // ../maxim.zaks.flattBuffers/src-gen/maxim/zaks/parser/antlr/internal/InternalFlatBuffers.g:2140:84: ( 'l' | 'L' )
+                            // ../maxim.zaks.flattBuffers/src-gen/maxim/zaks/parser/antlr/internal/InternalFlatBuffers.g:2225:84: ( 'l' | 'L' )
                             {
                             if ( input.LA(1)=='L'||input.LA(1)=='l' ) {
                                 input.consume();
@@ -1178,11 +1178,11 @@ public class InternalFlatBuffersLexer extends Lexer {
         try {
             int _type = RULE_INT;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../maxim.zaks.flattBuffers/src-gen/maxim/zaks/parser/antlr/internal/InternalFlatBuffers.g:2142:10: ( '0' .. '9' ( '0' .. '9' | '_' )* )
-            // ../maxim.zaks.flattBuffers/src-gen/maxim/zaks/parser/antlr/internal/InternalFlatBuffers.g:2142:12: '0' .. '9' ( '0' .. '9' | '_' )*
+            // ../maxim.zaks.flattBuffers/src-gen/maxim/zaks/parser/antlr/internal/InternalFlatBuffers.g:2227:10: ( '0' .. '9' ( '0' .. '9' | '_' )* )
+            // ../maxim.zaks.flattBuffers/src-gen/maxim/zaks/parser/antlr/internal/InternalFlatBuffers.g:2227:12: '0' .. '9' ( '0' .. '9' | '_' )*
             {
             matchRange('0','9'); 
-            // ../maxim.zaks.flattBuffers/src-gen/maxim/zaks/parser/antlr/internal/InternalFlatBuffers.g:2142:21: ( '0' .. '9' | '_' )*
+            // ../maxim.zaks.flattBuffers/src-gen/maxim/zaks/parser/antlr/internal/InternalFlatBuffers.g:2227:21: ( '0' .. '9' | '_' )*
             loop5:
             do {
                 int alt5=2;
@@ -1231,10 +1231,10 @@ public class InternalFlatBuffersLexer extends Lexer {
         try {
             int _type = RULE_DECIMAL;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../maxim.zaks.flattBuffers/src-gen/maxim/zaks/parser/antlr/internal/InternalFlatBuffers.g:2144:14: ( ( '-' )? RULE_INT ( ( 'e' | 'E' ) ( '+' | '-' )? RULE_INT )? ( ( 'b' | 'B' ) ( 'i' | 'I' | 'd' | 'D' ) | ( 'l' | 'L' | 'd' | 'D' | 'f' | 'F' ) )? )
-            // ../maxim.zaks.flattBuffers/src-gen/maxim/zaks/parser/antlr/internal/InternalFlatBuffers.g:2144:16: ( '-' )? RULE_INT ( ( 'e' | 'E' ) ( '+' | '-' )? RULE_INT )? ( ( 'b' | 'B' ) ( 'i' | 'I' | 'd' | 'D' ) | ( 'l' | 'L' | 'd' | 'D' | 'f' | 'F' ) )?
+            // ../maxim.zaks.flattBuffers/src-gen/maxim/zaks/parser/antlr/internal/InternalFlatBuffers.g:2229:14: ( ( '-' )? RULE_INT ( ( 'e' | 'E' ) ( '+' | '-' )? RULE_INT )? ( ( 'b' | 'B' ) ( 'i' | 'I' | 'd' | 'D' ) | ( 'l' | 'L' | 'd' | 'D' | 'f' | 'F' ) )? )
+            // ../maxim.zaks.flattBuffers/src-gen/maxim/zaks/parser/antlr/internal/InternalFlatBuffers.g:2229:16: ( '-' )? RULE_INT ( ( 'e' | 'E' ) ( '+' | '-' )? RULE_INT )? ( ( 'b' | 'B' ) ( 'i' | 'I' | 'd' | 'D' ) | ( 'l' | 'L' | 'd' | 'D' | 'f' | 'F' ) )?
             {
-            // ../maxim.zaks.flattBuffers/src-gen/maxim/zaks/parser/antlr/internal/InternalFlatBuffers.g:2144:16: ( '-' )?
+            // ../maxim.zaks.flattBuffers/src-gen/maxim/zaks/parser/antlr/internal/InternalFlatBuffers.g:2229:16: ( '-' )?
             int alt6=2;
             int LA6_0 = input.LA(1);
 
@@ -1243,7 +1243,7 @@ public class InternalFlatBuffersLexer extends Lexer {
             }
             switch (alt6) {
                 case 1 :
-                    // ../maxim.zaks.flattBuffers/src-gen/maxim/zaks/parser/antlr/internal/InternalFlatBuffers.g:2144:16: '-'
+                    // ../maxim.zaks.flattBuffers/src-gen/maxim/zaks/parser/antlr/internal/InternalFlatBuffers.g:2229:16: '-'
                     {
                     match('-'); 
 
@@ -1253,7 +1253,7 @@ public class InternalFlatBuffersLexer extends Lexer {
             }
 
             mRULE_INT(); 
-            // ../maxim.zaks.flattBuffers/src-gen/maxim/zaks/parser/antlr/internal/InternalFlatBuffers.g:2144:30: ( ( 'e' | 'E' ) ( '+' | '-' )? RULE_INT )?
+            // ../maxim.zaks.flattBuffers/src-gen/maxim/zaks/parser/antlr/internal/InternalFlatBuffers.g:2229:30: ( ( 'e' | 'E' ) ( '+' | '-' )? RULE_INT )?
             int alt8=2;
             int LA8_0 = input.LA(1);
 
@@ -1262,7 +1262,7 @@ public class InternalFlatBuffersLexer extends Lexer {
             }
             switch (alt8) {
                 case 1 :
-                    // ../maxim.zaks.flattBuffers/src-gen/maxim/zaks/parser/antlr/internal/InternalFlatBuffers.g:2144:31: ( 'e' | 'E' ) ( '+' | '-' )? RULE_INT
+                    // ../maxim.zaks.flattBuffers/src-gen/maxim/zaks/parser/antlr/internal/InternalFlatBuffers.g:2229:31: ( 'e' | 'E' ) ( '+' | '-' )? RULE_INT
                     {
                     if ( input.LA(1)=='E'||input.LA(1)=='e' ) {
                         input.consume();
@@ -1273,7 +1273,7 @@ public class InternalFlatBuffersLexer extends Lexer {
                         recover(mse);
                         throw mse;}
 
-                    // ../maxim.zaks.flattBuffers/src-gen/maxim/zaks/parser/antlr/internal/InternalFlatBuffers.g:2144:41: ( '+' | '-' )?
+                    // ../maxim.zaks.flattBuffers/src-gen/maxim/zaks/parser/antlr/internal/InternalFlatBuffers.g:2229:41: ( '+' | '-' )?
                     int alt7=2;
                     int LA7_0 = input.LA(1);
 
@@ -1306,7 +1306,7 @@ public class InternalFlatBuffersLexer extends Lexer {
 
             }
 
-            // ../maxim.zaks.flattBuffers/src-gen/maxim/zaks/parser/antlr/internal/InternalFlatBuffers.g:2144:63: ( ( 'b' | 'B' ) ( 'i' | 'I' | 'd' | 'D' ) | ( 'l' | 'L' | 'd' | 'D' | 'f' | 'F' ) )?
+            // ../maxim.zaks.flattBuffers/src-gen/maxim/zaks/parser/antlr/internal/InternalFlatBuffers.g:2229:63: ( ( 'b' | 'B' ) ( 'i' | 'I' | 'd' | 'D' ) | ( 'l' | 'L' | 'd' | 'D' | 'f' | 'F' ) )?
             int alt9=3;
             int LA9_0 = input.LA(1);
 
@@ -1318,7 +1318,7 @@ public class InternalFlatBuffersLexer extends Lexer {
             }
             switch (alt9) {
                 case 1 :
-                    // ../maxim.zaks.flattBuffers/src-gen/maxim/zaks/parser/antlr/internal/InternalFlatBuffers.g:2144:64: ( 'b' | 'B' ) ( 'i' | 'I' | 'd' | 'D' )
+                    // ../maxim.zaks.flattBuffers/src-gen/maxim/zaks/parser/antlr/internal/InternalFlatBuffers.g:2229:64: ( 'b' | 'B' ) ( 'i' | 'I' | 'd' | 'D' )
                     {
                     if ( input.LA(1)=='B'||input.LA(1)=='b' ) {
                         input.consume();
@@ -1342,7 +1342,7 @@ public class InternalFlatBuffersLexer extends Lexer {
                     }
                     break;
                 case 2 :
-                    // ../maxim.zaks.flattBuffers/src-gen/maxim/zaks/parser/antlr/internal/InternalFlatBuffers.g:2144:92: ( 'l' | 'L' | 'd' | 'D' | 'f' | 'F' )
+                    // ../maxim.zaks.flattBuffers/src-gen/maxim/zaks/parser/antlr/internal/InternalFlatBuffers.g:2229:92: ( 'l' | 'L' | 'd' | 'D' | 'f' | 'F' )
                     {
                     if ( input.LA(1)=='D'||input.LA(1)=='F'||input.LA(1)=='L'||input.LA(1)=='d'||input.LA(1)=='f'||input.LA(1)=='l' ) {
                         input.consume();
@@ -1375,10 +1375,10 @@ public class InternalFlatBuffersLexer extends Lexer {
         try {
             int _type = RULE_ID;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../maxim.zaks.flattBuffers/src-gen/maxim/zaks/parser/antlr/internal/InternalFlatBuffers.g:2146:9: ( ( '^' )? ( 'a' .. 'z' | 'A' .. 'Z' | '_' ) ( 'a' .. 'z' | 'A' .. 'Z' | '_' | '0' .. '9' )* )
-            // ../maxim.zaks.flattBuffers/src-gen/maxim/zaks/parser/antlr/internal/InternalFlatBuffers.g:2146:11: ( '^' )? ( 'a' .. 'z' | 'A' .. 'Z' | '_' ) ( 'a' .. 'z' | 'A' .. 'Z' | '_' | '0' .. '9' )*
+            // ../maxim.zaks.flattBuffers/src-gen/maxim/zaks/parser/antlr/internal/InternalFlatBuffers.g:2231:9: ( ( '^' )? ( 'a' .. 'z' | 'A' .. 'Z' | '_' ) ( 'a' .. 'z' | 'A' .. 'Z' | '_' | '0' .. '9' )* )
+            // ../maxim.zaks.flattBuffers/src-gen/maxim/zaks/parser/antlr/internal/InternalFlatBuffers.g:2231:11: ( '^' )? ( 'a' .. 'z' | 'A' .. 'Z' | '_' ) ( 'a' .. 'z' | 'A' .. 'Z' | '_' | '0' .. '9' )*
             {
-            // ../maxim.zaks.flattBuffers/src-gen/maxim/zaks/parser/antlr/internal/InternalFlatBuffers.g:2146:11: ( '^' )?
+            // ../maxim.zaks.flattBuffers/src-gen/maxim/zaks/parser/antlr/internal/InternalFlatBuffers.g:2231:11: ( '^' )?
             int alt10=2;
             int LA10_0 = input.LA(1);
 
@@ -1387,7 +1387,7 @@ public class InternalFlatBuffersLexer extends Lexer {
             }
             switch (alt10) {
                 case 1 :
-                    // ../maxim.zaks.flattBuffers/src-gen/maxim/zaks/parser/antlr/internal/InternalFlatBuffers.g:2146:11: '^'
+                    // ../maxim.zaks.flattBuffers/src-gen/maxim/zaks/parser/antlr/internal/InternalFlatBuffers.g:2231:11: '^'
                     {
                     match('^'); 
 
@@ -1405,7 +1405,7 @@ public class InternalFlatBuffersLexer extends Lexer {
                 recover(mse);
                 throw mse;}
 
-            // ../maxim.zaks.flattBuffers/src-gen/maxim/zaks/parser/antlr/internal/InternalFlatBuffers.g:2146:40: ( 'a' .. 'z' | 'A' .. 'Z' | '_' | '0' .. '9' )*
+            // ../maxim.zaks.flattBuffers/src-gen/maxim/zaks/parser/antlr/internal/InternalFlatBuffers.g:2231:40: ( 'a' .. 'z' | 'A' .. 'Z' | '_' | '0' .. '9' )*
             loop11:
             do {
                 int alt11=2;
@@ -1454,10 +1454,10 @@ public class InternalFlatBuffersLexer extends Lexer {
         try {
             int _type = RULE_STRING;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../maxim.zaks.flattBuffers/src-gen/maxim/zaks/parser/antlr/internal/InternalFlatBuffers.g:2148:13: ( ( '\"' ( '\\\\' . | ~ ( ( '\\\\' | '\"' ) ) )* '\"' | '\\'' ( '\\\\' . | ~ ( ( '\\\\' | '\\'' ) ) )* '\\'' ) )
-            // ../maxim.zaks.flattBuffers/src-gen/maxim/zaks/parser/antlr/internal/InternalFlatBuffers.g:2148:15: ( '\"' ( '\\\\' . | ~ ( ( '\\\\' | '\"' ) ) )* '\"' | '\\'' ( '\\\\' . | ~ ( ( '\\\\' | '\\'' ) ) )* '\\'' )
+            // ../maxim.zaks.flattBuffers/src-gen/maxim/zaks/parser/antlr/internal/InternalFlatBuffers.g:2233:13: ( ( '\"' ( '\\\\' . | ~ ( ( '\\\\' | '\"' ) ) )* '\"' | '\\'' ( '\\\\' . | ~ ( ( '\\\\' | '\\'' ) ) )* '\\'' ) )
+            // ../maxim.zaks.flattBuffers/src-gen/maxim/zaks/parser/antlr/internal/InternalFlatBuffers.g:2233:15: ( '\"' ( '\\\\' . | ~ ( ( '\\\\' | '\"' ) ) )* '\"' | '\\'' ( '\\\\' . | ~ ( ( '\\\\' | '\\'' ) ) )* '\\'' )
             {
-            // ../maxim.zaks.flattBuffers/src-gen/maxim/zaks/parser/antlr/internal/InternalFlatBuffers.g:2148:15: ( '\"' ( '\\\\' . | ~ ( ( '\\\\' | '\"' ) ) )* '\"' | '\\'' ( '\\\\' . | ~ ( ( '\\\\' | '\\'' ) ) )* '\\'' )
+            // ../maxim.zaks.flattBuffers/src-gen/maxim/zaks/parser/antlr/internal/InternalFlatBuffers.g:2233:15: ( '\"' ( '\\\\' . | ~ ( ( '\\\\' | '\"' ) ) )* '\"' | '\\'' ( '\\\\' . | ~ ( ( '\\\\' | '\\'' ) ) )* '\\'' )
             int alt14=2;
             int LA14_0 = input.LA(1);
 
@@ -1475,10 +1475,10 @@ public class InternalFlatBuffersLexer extends Lexer {
             }
             switch (alt14) {
                 case 1 :
-                    // ../maxim.zaks.flattBuffers/src-gen/maxim/zaks/parser/antlr/internal/InternalFlatBuffers.g:2148:16: '\"' ( '\\\\' . | ~ ( ( '\\\\' | '\"' ) ) )* '\"'
+                    // ../maxim.zaks.flattBuffers/src-gen/maxim/zaks/parser/antlr/internal/InternalFlatBuffers.g:2233:16: '\"' ( '\\\\' . | ~ ( ( '\\\\' | '\"' ) ) )* '\"'
                     {
                     match('\"'); 
-                    // ../maxim.zaks.flattBuffers/src-gen/maxim/zaks/parser/antlr/internal/InternalFlatBuffers.g:2148:20: ( '\\\\' . | ~ ( ( '\\\\' | '\"' ) ) )*
+                    // ../maxim.zaks.flattBuffers/src-gen/maxim/zaks/parser/antlr/internal/InternalFlatBuffers.g:2233:20: ( '\\\\' . | ~ ( ( '\\\\' | '\"' ) ) )*
                     loop12:
                     do {
                         int alt12=3;
@@ -1494,7 +1494,7 @@ public class InternalFlatBuffersLexer extends Lexer {
 
                         switch (alt12) {
                     	case 1 :
-                    	    // ../maxim.zaks.flattBuffers/src-gen/maxim/zaks/parser/antlr/internal/InternalFlatBuffers.g:2148:21: '\\\\' .
+                    	    // ../maxim.zaks.flattBuffers/src-gen/maxim/zaks/parser/antlr/internal/InternalFlatBuffers.g:2233:21: '\\\\' .
                     	    {
                     	    match('\\'); 
                     	    matchAny(); 
@@ -1502,7 +1502,7 @@ public class InternalFlatBuffersLexer extends Lexer {
                     	    }
                     	    break;
                     	case 2 :
-                    	    // ../maxim.zaks.flattBuffers/src-gen/maxim/zaks/parser/antlr/internal/InternalFlatBuffers.g:2148:28: ~ ( ( '\\\\' | '\"' ) )
+                    	    // ../maxim.zaks.flattBuffers/src-gen/maxim/zaks/parser/antlr/internal/InternalFlatBuffers.g:2233:28: ~ ( ( '\\\\' | '\"' ) )
                     	    {
                     	    if ( (input.LA(1)>='\u0000' && input.LA(1)<='!')||(input.LA(1)>='#' && input.LA(1)<='[')||(input.LA(1)>=']' && input.LA(1)<='\uFFFF') ) {
                     	        input.consume();
@@ -1527,10 +1527,10 @@ public class InternalFlatBuffersLexer extends Lexer {
                     }
                     break;
                 case 2 :
-                    // ../maxim.zaks.flattBuffers/src-gen/maxim/zaks/parser/antlr/internal/InternalFlatBuffers.g:2148:48: '\\'' ( '\\\\' . | ~ ( ( '\\\\' | '\\'' ) ) )* '\\''
+                    // ../maxim.zaks.flattBuffers/src-gen/maxim/zaks/parser/antlr/internal/InternalFlatBuffers.g:2233:48: '\\'' ( '\\\\' . | ~ ( ( '\\\\' | '\\'' ) ) )* '\\''
                     {
                     match('\''); 
-                    // ../maxim.zaks.flattBuffers/src-gen/maxim/zaks/parser/antlr/internal/InternalFlatBuffers.g:2148:53: ( '\\\\' . | ~ ( ( '\\\\' | '\\'' ) ) )*
+                    // ../maxim.zaks.flattBuffers/src-gen/maxim/zaks/parser/antlr/internal/InternalFlatBuffers.g:2233:53: ( '\\\\' . | ~ ( ( '\\\\' | '\\'' ) ) )*
                     loop13:
                     do {
                         int alt13=3;
@@ -1546,7 +1546,7 @@ public class InternalFlatBuffersLexer extends Lexer {
 
                         switch (alt13) {
                     	case 1 :
-                    	    // ../maxim.zaks.flattBuffers/src-gen/maxim/zaks/parser/antlr/internal/InternalFlatBuffers.g:2148:54: '\\\\' .
+                    	    // ../maxim.zaks.flattBuffers/src-gen/maxim/zaks/parser/antlr/internal/InternalFlatBuffers.g:2233:54: '\\\\' .
                     	    {
                     	    match('\\'); 
                     	    matchAny(); 
@@ -1554,7 +1554,7 @@ public class InternalFlatBuffersLexer extends Lexer {
                     	    }
                     	    break;
                     	case 2 :
-                    	    // ../maxim.zaks.flattBuffers/src-gen/maxim/zaks/parser/antlr/internal/InternalFlatBuffers.g:2148:61: ~ ( ( '\\\\' | '\\'' ) )
+                    	    // ../maxim.zaks.flattBuffers/src-gen/maxim/zaks/parser/antlr/internal/InternalFlatBuffers.g:2233:61: ~ ( ( '\\\\' | '\\'' ) )
                     	    {
                     	    if ( (input.LA(1)>='\u0000' && input.LA(1)<='&')||(input.LA(1)>='(' && input.LA(1)<='[')||(input.LA(1)>=']' && input.LA(1)<='\uFFFF') ) {
                     	        input.consume();
@@ -1597,12 +1597,12 @@ public class InternalFlatBuffersLexer extends Lexer {
         try {
             int _type = RULE_ML_COMMENT;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../maxim.zaks.flattBuffers/src-gen/maxim/zaks/parser/antlr/internal/InternalFlatBuffers.g:2150:17: ( '/*' ( options {greedy=false; } : . )* '*/' )
-            // ../maxim.zaks.flattBuffers/src-gen/maxim/zaks/parser/antlr/internal/InternalFlatBuffers.g:2150:19: '/*' ( options {greedy=false; } : . )* '*/'
+            // ../maxim.zaks.flattBuffers/src-gen/maxim/zaks/parser/antlr/internal/InternalFlatBuffers.g:2235:17: ( '/*' ( options {greedy=false; } : . )* '*/' )
+            // ../maxim.zaks.flattBuffers/src-gen/maxim/zaks/parser/antlr/internal/InternalFlatBuffers.g:2235:19: '/*' ( options {greedy=false; } : . )* '*/'
             {
             match("/*"); 
 
-            // ../maxim.zaks.flattBuffers/src-gen/maxim/zaks/parser/antlr/internal/InternalFlatBuffers.g:2150:24: ( options {greedy=false; } : . )*
+            // ../maxim.zaks.flattBuffers/src-gen/maxim/zaks/parser/antlr/internal/InternalFlatBuffers.g:2235:24: ( options {greedy=false; } : . )*
             loop15:
             do {
                 int alt15=2;
@@ -1627,7 +1627,7 @@ public class InternalFlatBuffersLexer extends Lexer {
 
                 switch (alt15) {
             	case 1 :
-            	    // ../maxim.zaks.flattBuffers/src-gen/maxim/zaks/parser/antlr/internal/InternalFlatBuffers.g:2150:52: .
+            	    // ../maxim.zaks.flattBuffers/src-gen/maxim/zaks/parser/antlr/internal/InternalFlatBuffers.g:2235:52: .
             	    {
             	    matchAny(); 
 
@@ -1657,12 +1657,12 @@ public class InternalFlatBuffersLexer extends Lexer {
         try {
             int _type = RULE_SL_COMMENT;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../maxim.zaks.flattBuffers/src-gen/maxim/zaks/parser/antlr/internal/InternalFlatBuffers.g:2152:17: ( '//' (~ ( ( '\\n' | '\\r' ) ) )* ( ( '\\r' )? '\\n' )? )
-            // ../maxim.zaks.flattBuffers/src-gen/maxim/zaks/parser/antlr/internal/InternalFlatBuffers.g:2152:19: '//' (~ ( ( '\\n' | '\\r' ) ) )* ( ( '\\r' )? '\\n' )?
+            // ../maxim.zaks.flattBuffers/src-gen/maxim/zaks/parser/antlr/internal/InternalFlatBuffers.g:2237:17: ( '//' (~ ( ( '\\n' | '\\r' ) ) )* ( ( '\\r' )? '\\n' )? )
+            // ../maxim.zaks.flattBuffers/src-gen/maxim/zaks/parser/antlr/internal/InternalFlatBuffers.g:2237:19: '//' (~ ( ( '\\n' | '\\r' ) ) )* ( ( '\\r' )? '\\n' )?
             {
             match("//"); 
 
-            // ../maxim.zaks.flattBuffers/src-gen/maxim/zaks/parser/antlr/internal/InternalFlatBuffers.g:2152:24: (~ ( ( '\\n' | '\\r' ) ) )*
+            // ../maxim.zaks.flattBuffers/src-gen/maxim/zaks/parser/antlr/internal/InternalFlatBuffers.g:2237:24: (~ ( ( '\\n' | '\\r' ) ) )*
             loop16:
             do {
                 int alt16=2;
@@ -1675,7 +1675,7 @@ public class InternalFlatBuffersLexer extends Lexer {
 
                 switch (alt16) {
             	case 1 :
-            	    // ../maxim.zaks.flattBuffers/src-gen/maxim/zaks/parser/antlr/internal/InternalFlatBuffers.g:2152:24: ~ ( ( '\\n' | '\\r' ) )
+            	    // ../maxim.zaks.flattBuffers/src-gen/maxim/zaks/parser/antlr/internal/InternalFlatBuffers.g:2237:24: ~ ( ( '\\n' | '\\r' ) )
             	    {
             	    if ( (input.LA(1)>='\u0000' && input.LA(1)<='\t')||(input.LA(1)>='\u000B' && input.LA(1)<='\f')||(input.LA(1)>='\u000E' && input.LA(1)<='\uFFFF') ) {
             	        input.consume();
@@ -1695,7 +1695,7 @@ public class InternalFlatBuffersLexer extends Lexer {
                 }
             } while (true);
 
-            // ../maxim.zaks.flattBuffers/src-gen/maxim/zaks/parser/antlr/internal/InternalFlatBuffers.g:2152:40: ( ( '\\r' )? '\\n' )?
+            // ../maxim.zaks.flattBuffers/src-gen/maxim/zaks/parser/antlr/internal/InternalFlatBuffers.g:2237:40: ( ( '\\r' )? '\\n' )?
             int alt18=2;
             int LA18_0 = input.LA(1);
 
@@ -1704,9 +1704,9 @@ public class InternalFlatBuffersLexer extends Lexer {
             }
             switch (alt18) {
                 case 1 :
-                    // ../maxim.zaks.flattBuffers/src-gen/maxim/zaks/parser/antlr/internal/InternalFlatBuffers.g:2152:41: ( '\\r' )? '\\n'
+                    // ../maxim.zaks.flattBuffers/src-gen/maxim/zaks/parser/antlr/internal/InternalFlatBuffers.g:2237:41: ( '\\r' )? '\\n'
                     {
-                    // ../maxim.zaks.flattBuffers/src-gen/maxim/zaks/parser/antlr/internal/InternalFlatBuffers.g:2152:41: ( '\\r' )?
+                    // ../maxim.zaks.flattBuffers/src-gen/maxim/zaks/parser/antlr/internal/InternalFlatBuffers.g:2237:41: ( '\\r' )?
                     int alt17=2;
                     int LA17_0 = input.LA(1);
 
@@ -1715,7 +1715,7 @@ public class InternalFlatBuffersLexer extends Lexer {
                     }
                     switch (alt17) {
                         case 1 :
-                            // ../maxim.zaks.flattBuffers/src-gen/maxim/zaks/parser/antlr/internal/InternalFlatBuffers.g:2152:41: '\\r'
+                            // ../maxim.zaks.flattBuffers/src-gen/maxim/zaks/parser/antlr/internal/InternalFlatBuffers.g:2237:41: '\\r'
                             {
                             match('\r'); 
 
@@ -1747,10 +1747,10 @@ public class InternalFlatBuffersLexer extends Lexer {
         try {
             int _type = RULE_WS;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../maxim.zaks.flattBuffers/src-gen/maxim/zaks/parser/antlr/internal/InternalFlatBuffers.g:2154:9: ( ( ' ' | '\\t' | '\\r' | '\\n' )+ )
-            // ../maxim.zaks.flattBuffers/src-gen/maxim/zaks/parser/antlr/internal/InternalFlatBuffers.g:2154:11: ( ' ' | '\\t' | '\\r' | '\\n' )+
+            // ../maxim.zaks.flattBuffers/src-gen/maxim/zaks/parser/antlr/internal/InternalFlatBuffers.g:2239:9: ( ( ' ' | '\\t' | '\\r' | '\\n' )+ )
+            // ../maxim.zaks.flattBuffers/src-gen/maxim/zaks/parser/antlr/internal/InternalFlatBuffers.g:2239:11: ( ' ' | '\\t' | '\\r' | '\\n' )+
             {
-            // ../maxim.zaks.flattBuffers/src-gen/maxim/zaks/parser/antlr/internal/InternalFlatBuffers.g:2154:11: ( ' ' | '\\t' | '\\r' | '\\n' )+
+            // ../maxim.zaks.flattBuffers/src-gen/maxim/zaks/parser/antlr/internal/InternalFlatBuffers.g:2239:11: ( ' ' | '\\t' | '\\r' | '\\n' )+
             int cnt19=0;
             loop19:
             do {
@@ -1804,8 +1804,8 @@ public class InternalFlatBuffersLexer extends Lexer {
         try {
             int _type = RULE_ANY_OTHER;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../maxim.zaks.flattBuffers/src-gen/maxim/zaks/parser/antlr/internal/InternalFlatBuffers.g:2156:16: ( . )
-            // ../maxim.zaks.flattBuffers/src-gen/maxim/zaks/parser/antlr/internal/InternalFlatBuffers.g:2156:18: .
+            // ../maxim.zaks.flattBuffers/src-gen/maxim/zaks/parser/antlr/internal/InternalFlatBuffers.g:2241:16: ( . )
+            // ../maxim.zaks.flattBuffers/src-gen/maxim/zaks/parser/antlr/internal/InternalFlatBuffers.g:2241:18: .
             {
             matchAny(); 
 
@@ -2203,19 +2203,19 @@ public class InternalFlatBuffersLexer extends Lexer {
 
     protected DFA20 dfa20 = new DFA20(this);
     static final String DFA20_eotS =
-        "\1\uffff\1\47\1\uffff\5\47\3\uffff\1\47\4\uffff\2\47\2\uffff\4\47\1\uffff\2\47\2\121\2\44\1\uffff\3\44\2\uffff\2\47\2\uffff\10\47\1\142\2\47\3\uffff\2\47\4\uffff\4\47\2\uffff\11\47\1\uffff\2\47\1\uffff\1\121\6\uffff\12\47\1\u0080\1\uffff\21\47\1\u0093\13\47\1\uffff\4\47\1\u00a3\2\47\1\u00a6\1\u00a7\2\47\1\u00aa\3\47\1\u00ae\1\47\1\u00b0\1\uffff\1\u00b1\4\47\1\u00b7\1\47\1\u00b9\5\47\1\u00bf\1\u00c0\1\uffff\2\47\2\uffff\2\47\1\uffff\1\u00c5\1\u00c6\1\47\1\uffff\1\u00c8\2\uffff\5\47\1\uffff\1\47\1\uffff\3\47\1\u00d2\1\u00d3\2\uffff\2\47\1\u00d6\1\47\2\uffff\1\u00d8\1\uffff\10\47\1\u00e1\2\uffff\2\47\1\uffff\1\47\1\uffff\1\47\1\u00e6\6\47\1\uffff\3\47\1\u00f0\1\uffff\1\u00f1\3\47\1\u00f5\2\47\1\u00f8\1\47\2\uffff\3\47\1\uffff\2\47\1\uffff\1\u00ff\2\47\1\u0102\2\47\1\uffff\2\47\1\uffff\7\47\1\u010e\1\47\1\u0110\1\u0111\1\uffff\1\47\2\uffff\1\47\1\u0114\1\uffff";
+        "\1\uffff\1\47\1\uffff\5\47\3\uffff\1\47\4\uffff\2\47\3\uffff\6\47\2\121\2\44\1\uffff\3\44\2\uffff\2\47\2\uffff\10\47\1\142\2\47\3\uffff\2\47\4\uffff\4\47\3\uffff\13\47\1\uffff\1\121\6\uffff\12\47\1\u0080\1\uffff\21\47\1\u0093\13\47\1\uffff\4\47\1\u00a3\2\47\1\u00a6\1\u00a7\2\47\1\u00aa\3\47\1\u00ae\1\47\1\u00b0\1\uffff\1\u00b1\4\47\1\u00b7\1\47\1\u00b9\5\47\1\u00bf\1\u00c0\1\uffff\2\47\2\uffff\2\47\1\uffff\1\u00c5\1\u00c6\1\47\1\uffff\1\u00c8\2\uffff\5\47\1\uffff\1\47\1\uffff\3\47\1\u00d2\1\u00d3\2\uffff\2\47\1\u00d6\1\47\2\uffff\1\u00d8\1\uffff\10\47\1\u00e1\2\uffff\2\47\1\uffff\1\47\1\uffff\1\47\1\u00e6\6\47\1\uffff\3\47\1\u00f0\1\uffff\1\u00f1\3\47\1\u00f5\2\47\1\u00f8\1\47\2\uffff\3\47\1\uffff\2\47\1\uffff\1\u00ff\2\47\1\u0102\2\47\1\uffff\2\47\1\uffff\7\47\1\u010e\1\47\1\u0110\1\u0111\1\uffff\1\47\2\uffff\1\47\1\u0114\1\uffff";
     static final String DFA20_eofS =
         "\u0115\uffff";
     static final String DFA20_minS =
-        "\1\0\1\145\1\uffff\1\164\2\141\1\144\1\150\3\uffff\1\141\4\uffff\1\162\1\151\2\uffff\1\145\1\156\1\142\1\157\1\uffff\1\145\1\141\3\60\1\101\1\uffff\2\0\1\52\2\uffff\1\157\1\161\2\uffff\1\164\2\154\1\162\1\157\1\155\1\163\1\143\1\60\1\162\1\157\3\uffff\1\142\1\165\4\uffff\1\151\1\164\1\157\1\164\2\uffff\1\165\1\160\1\165\1\151\1\171\1\150\1\156\1\157\1\156\1\uffff\1\171\1\163\1\uffff\1\60\6\uffff\1\164\1\165\1\162\1\145\1\163\1\143\1\141\1\145\1\164\1\154\1\60\1\uffff\1\151\1\162\1\154\1\145\1\147\1\137\1\154\1\145\1\142\1\162\1\155\1\157\1\164\1\157\1\164\1\156\1\147\1\60\1\150\1\137\2\151\1\137\2\145\1\164\1\163\1\145\1\165\1\uffff\1\143\1\156\1\164\1\145\1\60\1\151\1\146\2\60\1\154\1\145\1\60\1\156\1\145\1\162\1\60\1\147\1\60\1\uffff\1\60\1\164\1\162\1\142\1\145\1\60\1\137\1\60\1\160\2\144\1\164\1\147\2\60\1\uffff\1\156\1\154\2\uffff\1\145\1\143\1\uffff\2\60\1\164\1\uffff\1\60\2\uffff\1\171\1\145\1\165\1\144\1\170\1\uffff\1\141\1\uffff\1\141\1\137\1\145\2\60\2\uffff\2\141\1\60\1\141\2\uffff\1\60\1\uffff\1\160\1\144\1\164\1\145\1\164\1\154\1\143\1\146\1\60\2\uffff\1\154\1\147\1\uffff\1\164\1\uffff\1\145\1\60\1\145\1\156\1\145\1\151\1\145\1\154\1\uffff\1\137\1\163\1\145\1\60\1\uffff\1\60\1\164\1\156\1\147\1\60\1\141\1\157\1\60\1\144\2\uffff\1\151\1\163\1\156\1\uffff\1\164\1\162\1\uffff\1\60\1\146\1\151\1\60\1\142\1\144\1\uffff\1\151\1\157\1\uffff\1\165\2\145\1\156\1\146\2\162\1\60\1\146\2\60\1\uffff\1\145\2\uffff\1\162\1\60\1\uffff";
+        "\1\0\1\145\1\uffff\1\164\2\141\1\144\1\150\3\uffff\1\141\4\uffff\1\162\1\151\3\uffff\1\145\1\156\1\142\1\157\1\145\1\141\3\60\1\101\1\uffff\2\0\1\52\2\uffff\1\157\1\161\2\uffff\1\164\2\154\1\162\1\157\1\155\1\163\1\143\1\60\1\162\1\157\3\uffff\1\142\1\165\4\uffff\1\151\1\164\1\157\1\164\3\uffff\1\165\1\160\1\165\1\151\1\171\1\150\1\156\1\157\1\156\1\171\1\163\1\uffff\1\60\6\uffff\1\164\1\165\1\162\1\145\1\163\1\143\1\141\1\145\1\164\1\154\1\60\1\uffff\1\151\1\162\1\154\1\145\1\147\1\137\1\154\1\145\1\142\1\162\1\155\1\157\1\164\1\157\1\164\1\156\1\147\1\60\1\150\1\137\2\151\1\137\2\145\1\164\1\163\1\145\1\165\1\uffff\1\143\1\156\1\164\1\145\1\60\1\151\1\146\2\60\1\154\1\145\1\60\1\156\1\145\1\162\1\60\1\147\1\60\1\uffff\1\60\1\164\1\162\1\142\1\145\1\60\1\137\1\60\1\160\2\144\1\164\1\147\2\60\1\uffff\1\156\1\154\2\uffff\1\145\1\143\1\uffff\2\60\1\164\1\uffff\1\60\2\uffff\1\171\1\145\1\165\1\144\1\170\1\uffff\1\141\1\uffff\1\141\1\137\1\145\2\60\2\uffff\2\141\1\60\1\141\2\uffff\1\60\1\uffff\1\160\1\144\1\164\1\145\1\164\1\154\1\143\1\146\1\60\2\uffff\1\154\1\147\1\uffff\1\164\1\uffff\1\145\1\60\1\145\1\156\1\145\1\151\1\145\1\154\1\uffff\1\137\1\163\1\145\1\60\1\uffff\1\60\1\164\1\156\1\147\1\60\1\141\1\157\1\60\1\144\2\uffff\1\151\1\163\1\156\1\uffff\1\164\1\162\1\uffff\1\60\1\146\1\151\1\60\1\142\1\144\1\uffff\1\151\1\157\1\uffff\1\165\2\145\1\156\1\146\2\162\1\60\1\146\2\60\1\uffff\1\145\2\uffff\1\162\1\60\1\uffff";
     static final String DFA20_maxS =
-        "\1\uffff\1\157\1\uffff\1\164\1\157\1\145\1\156\1\164\3\uffff\1\162\4\uffff\1\162\1\171\2\uffff\1\157\1\156\1\163\1\157\1\uffff\1\145\1\141\1\170\1\154\1\71\1\172\1\uffff\2\uffff\1\57\2\uffff\1\157\1\161\2\uffff\1\164\2\154\1\162\1\157\1\155\1\163\1\164\1\172\1\162\1\157\3\uffff\1\142\1\165\4\uffff\1\151\1\164\1\157\1\164\2\uffff\1\165\1\160\1\165\1\151\1\171\1\150\1\156\1\157\1\156\1\uffff\1\171\1\163\1\uffff\1\154\6\uffff\1\164\1\165\1\162\1\145\1\163\1\143\1\141\1\145\1\164\1\154\1\172\1\uffff\1\165\1\162\1\154\1\145\1\147\1\137\1\154\1\145\1\142\1\162\1\155\1\157\1\164\1\157\1\164\1\156\1\147\1\172\1\150\1\137\2\151\1\137\2\145\1\164\1\163\1\145\1\165\1\uffff\1\143\1\156\1\164\1\145\1\172\1\151\1\146\2\172\1\154\1\145\1\172\1\156\1\145\1\162\1\172\1\147\1\172\1\uffff\1\172\1\164\1\162\1\142\1\151\1\172\1\137\1\172\1\160\2\144\1\164\1\147\2\172\1\uffff\1\156\1\154\2\uffff\1\145\1\143\1\uffff\2\172\1\164\1\uffff\1\172\2\uffff\1\171\1\145\1\165\1\144\1\170\1\uffff\1\141\1\uffff\1\141\1\137\1\145\2\172\2\uffff\2\141\1\172\1\141\2\uffff\1\172\1\uffff\1\160\1\144\1\164\1\145\1\164\1\154\1\143\1\146\1\172\2\uffff\1\154\1\147\1\uffff\1\164\1\uffff\1\145\1\172\1\145\1\156\1\145\1\151\1\145\1\154\1\uffff\1\137\1\163\1\145\1\172\1\uffff\1\172\1\164\1\156\1\147\1\172\1\141\1\157\1\172\1\144\2\uffff\1\151\1\163\1\156\1\uffff\1\164\1\162\1\uffff\1\172\1\146\1\151\1\172\1\142\1\144\1\uffff\1\151\1\157\1\uffff\1\165\2\145\1\156\1\146\2\162\1\172\1\146\2\172\1\uffff\1\145\2\uffff\1\162\1\172\1\uffff";
+        "\1\uffff\1\157\1\uffff\1\164\1\157\1\145\1\156\1\164\3\uffff\1\162\4\uffff\1\162\1\171\3\uffff\1\157\1\156\1\163\1\157\1\145\1\141\1\170\1\154\1\71\1\172\1\uffff\2\uffff\1\57\2\uffff\1\157\1\161\2\uffff\1\164\2\154\1\162\1\157\1\155\1\163\1\164\1\172\1\162\1\157\3\uffff\1\142\1\165\4\uffff\1\151\1\164\1\157\1\164\3\uffff\1\165\1\160\1\165\1\151\1\171\1\150\1\156\1\157\1\156\1\171\1\163\1\uffff\1\154\6\uffff\1\164\1\165\1\162\1\145\1\163\1\143\1\141\1\145\1\164\1\154\1\172\1\uffff\1\165\1\162\1\154\1\145\1\147\1\137\1\154\1\145\1\142\1\162\1\155\1\157\1\164\1\157\1\164\1\156\1\147\1\172\1\150\1\137\2\151\1\137\2\145\1\164\1\163\1\145\1\165\1\uffff\1\143\1\156\1\164\1\145\1\172\1\151\1\146\2\172\1\154\1\145\1\172\1\156\1\145\1\162\1\172\1\147\1\172\1\uffff\1\172\1\164\1\162\1\142\1\151\1\172\1\137\1\172\1\160\2\144\1\164\1\147\2\172\1\uffff\1\156\1\154\2\uffff\1\145\1\143\1\uffff\2\172\1\164\1\uffff\1\172\2\uffff\1\171\1\145\1\165\1\144\1\170\1\uffff\1\141\1\uffff\1\141\1\137\1\145\2\172\2\uffff\2\141\1\172\1\141\2\uffff\1\172\1\uffff\1\160\1\144\1\164\1\145\1\164\1\154\1\143\1\146\1\172\2\uffff\1\154\1\147\1\uffff\1\164\1\uffff\1\145\1\172\1\145\1\156\1\145\1\151\1\145\1\154\1\uffff\1\137\1\163\1\145\1\172\1\uffff\1\172\1\164\1\156\1\147\1\172\1\141\1\157\1\172\1\144\2\uffff\1\151\1\163\1\156\1\uffff\1\164\1\162\1\uffff\1\172\1\146\1\151\1\172\1\142\1\144\1\uffff\1\151\1\157\1\uffff\1\165\2\145\1\156\1\146\2\162\1\172\1\146\2\172\1\uffff\1\145\2\uffff\1\162\1\172\1\uffff";
     static final String DFA20_acceptS =
-        "\2\uffff\1\2\5\uffff\1\11\1\12\1\13\1\uffff\1\15\1\20\1\21\1\22\2\uffff\1\27\1\30\4\uffff\1\47\6\uffff\1\60\3\uffff\1\64\1\65\2\uffff\1\60\1\2\13\uffff\1\11\1\12\1\13\2\uffff\1\15\1\20\1\21\1\22\4\uffff\1\27\1\30\11\uffff\1\47\2\uffff\1\55\1\uffff\1\56\1\57\1\61\1\62\1\63\1\64\13\uffff\1\50\35\uffff\1\43\22\uffff\1\53\17\uffff\1\17\2\uffff\1\31\1\37\2\uffff\1\35\3\uffff\1\44\1\uffff\1\45\1\54\5\uffff\1\16\1\uffff\1\32\5\uffff\1\41\1\14\4\uffff\1\36\1\40\1\uffff\1\46\11\uffff\1\10\1\34\2\uffff\1\33\1\uffff\1\42\10\uffff\1\7\4\uffff\1\52\11\uffff\1\1\1\3\3\uffff\1\6\2\uffff\1\25\6\uffff\1\51\2\uffff\1\24\13\uffff\1\5\1\uffff\1\23\1\4\2\uffff\1\26";
+        "\2\uffff\1\2\5\uffff\1\11\1\12\1\13\1\uffff\1\15\1\20\1\21\1\22\2\uffff\1\27\1\30\1\31\12\uffff\1\60\3\uffff\1\64\1\65\2\uffff\1\60\1\2\13\uffff\1\11\1\12\1\13\2\uffff\1\15\1\20\1\21\1\22\4\uffff\1\27\1\30\1\31\13\uffff\1\55\1\uffff\1\56\1\57\1\61\1\62\1\63\1\64\13\uffff\1\50\35\uffff\1\44\22\uffff\1\53\17\uffff\1\17\2\uffff\1\32\1\40\2\uffff\1\36\3\uffff\1\45\1\uffff\1\46\1\54\5\uffff\1\16\1\uffff\1\33\5\uffff\1\42\1\14\4\uffff\1\37\1\41\1\uffff\1\47\11\uffff\1\10\1\35\2\uffff\1\34\1\uffff\1\43\10\uffff\1\7\4\uffff\1\52\11\uffff\1\1\1\3\3\uffff\1\6\2\uffff\1\25\6\uffff\1\51\2\uffff\1\24\13\uffff\1\5\1\uffff\1\23\1\4\2\uffff\1\26";
     static final String DFA20_specialS =
-        "\1\0\37\uffff\1\2\1\1\u00f3\uffff}>";
+        "\1\1\37\uffff\1\2\1\0\u00f3\uffff}>";
     static final String[] DFA20_transitionS = {
-            "\11\44\2\43\2\44\1\43\22\44\1\43\1\44\1\40\4\44\1\41\1\15\1\17\2\44\1\16\1\35\1\30\1\42\1\33\11\34\1\12\1\2\1\44\1\14\3\44\32\37\1\22\1\44\1\23\1\36\1\37\1\44\1\3\1\21\1\37\1\24\1\25\1\4\1\37\1\32\1\6\1\37\1\31\1\27\1\37\1\5\1\20\2\37\1\1\1\7\1\13\1\26\5\37\1\10\1\44\1\11\uff82\44",
+            "\11\44\2\43\2\44\1\43\22\44\1\43\1\44\1\40\4\44\1\41\1\15\1\17\2\44\1\16\1\35\1\22\1\42\1\33\11\34\1\12\1\2\1\44\1\14\3\44\32\37\1\23\1\44\1\24\1\36\1\37\1\44\1\3\1\21\1\37\1\25\1\26\1\4\1\37\1\32\1\6\1\37\1\31\1\30\1\37\1\5\1\20\2\37\1\1\1\7\1\13\1\27\5\37\1\10\1\44\1\11\uff82\44",
             "\1\46\11\uffff\1\45",
             "",
             "\1\51",
@@ -2235,11 +2235,11 @@ public class InternalFlatBuffersLexer extends Lexer {
             "\1\76\5\uffff\1\77\11\uffff\1\100",
             "",
             "",
-            "\1\104\11\uffff\1\103",
-            "\1\105",
-            "\1\107\6\uffff\1\111\2\uffff\1\112\1\uffff\1\106\4\uffff\1\110",
-            "\1\113",
             "",
+            "\1\105\11\uffff\1\104",
+            "\1\106",
+            "\1\110\6\uffff\1\112\2\uffff\1\113\1\uffff\1\107\4\uffff\1\111",
+            "\1\114",
             "\1\115",
             "\1\116",
             "\12\120\10\uffff\1\122\1\uffff\3\122\5\uffff\1\122\13\uffff\1\117\6\uffff\1\120\2\uffff\1\122\1\uffff\3\122\5\uffff\1\122\13\uffff\1\117",
@@ -2282,6 +2282,7 @@ public class InternalFlatBuffersLexer extends Lexer {
             "\1\152",
             "",
             "",
+            "",
             "\1\153",
             "\1\154",
             "\1\155",
@@ -2291,7 +2292,6 @@ public class InternalFlatBuffersLexer extends Lexer {
             "\1\161",
             "\1\162",
             "\1\163",
-            "",
             "\1\164",
             "\1\165",
             "",
@@ -2531,6 +2531,16 @@ public class InternalFlatBuffersLexer extends Lexer {
         	int _s = s;
             switch ( s ) {
                     case 0 : 
+                        int LA20_33 = input.LA(1);
+
+                        s = -1;
+                        if ( ((LA20_33>='\u0000' && LA20_33<='\uFFFF')) ) {s = 83;}
+
+                        else s = 36;
+
+                        if ( s>=0 ) return s;
+                        break;
+                    case 1 : 
                         int LA20_0 = input.LA(1);
 
                         s = -1;
@@ -2568,19 +2578,19 @@ public class InternalFlatBuffersLexer extends Lexer {
 
                         else if ( (LA20_0=='b') ) {s = 17;}
 
-                        else if ( (LA20_0=='[') ) {s = 18;}
+                        else if ( (LA20_0=='.') ) {s = 18;}
 
-                        else if ( (LA20_0==']') ) {s = 19;}
+                        else if ( (LA20_0=='[') ) {s = 19;}
 
-                        else if ( (LA20_0=='d') ) {s = 20;}
+                        else if ( (LA20_0==']') ) {s = 20;}
 
-                        else if ( (LA20_0=='e') ) {s = 21;}
+                        else if ( (LA20_0=='d') ) {s = 21;}
 
-                        else if ( (LA20_0=='u') ) {s = 22;}
+                        else if ( (LA20_0=='e') ) {s = 22;}
 
-                        else if ( (LA20_0=='l') ) {s = 23;}
+                        else if ( (LA20_0=='u') ) {s = 23;}
 
-                        else if ( (LA20_0=='.') ) {s = 24;}
+                        else if ( (LA20_0=='l') ) {s = 24;}
 
                         else if ( (LA20_0=='k') ) {s = 25;}
 
@@ -2605,16 +2615,6 @@ public class InternalFlatBuffersLexer extends Lexer {
                         else if ( ((LA20_0>='\t' && LA20_0<='\n')||LA20_0=='\r'||LA20_0==' ') ) {s = 35;}
 
                         else if ( ((LA20_0>='\u0000' && LA20_0<='\b')||(LA20_0>='\u000B' && LA20_0<='\f')||(LA20_0>='\u000E' && LA20_0<='\u001F')||LA20_0=='!'||(LA20_0>='#' && LA20_0<='&')||(LA20_0>='*' && LA20_0<='+')||LA20_0=='<'||(LA20_0>='>' && LA20_0<='@')||LA20_0=='\\'||LA20_0=='`'||LA20_0=='|'||(LA20_0>='~' && LA20_0<='\uFFFF')) ) {s = 36;}
-
-                        if ( s>=0 ) return s;
-                        break;
-                    case 1 : 
-                        int LA20_33 = input.LA(1);
-
-                        s = -1;
-                        if ( ((LA20_33>='\u0000' && LA20_33<='\uFFFF')) ) {s = 83;}
-
-                        else s = 36;
 
                         if ( s>=0 ) return s;
                         break;

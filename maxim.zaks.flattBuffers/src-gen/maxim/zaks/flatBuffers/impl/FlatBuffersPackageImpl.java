@@ -813,6 +813,16 @@ public class FlatBuffersPackageImpl extends EPackageImpl implements FlatBuffersP
    * <!-- end-user-doc -->
    * @generated
    */
+  public EAttribute getType_QualifiedType()
+  {
+    return (EAttribute)typeEClass.getEStructuralFeatures().get(3);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
   public EClass getVector()
   {
     return vectorEClass;
@@ -1019,6 +1029,7 @@ public class FlatBuffersPackageImpl extends EPackageImpl implements FlatBuffersP
     createEAttribute(typeEClass, TYPE__PRIM_TYPE);
     createEReference(typeEClass, TYPE__VECTOR_TYPE);
     createEReference(typeEClass, TYPE__DEF_TYPE);
+    createEAttribute(typeEClass, TYPE__QUALIFIED_TYPE);
 
     vectorEClass = createEClass(VECTOR);
     createEReference(vectorEClass, VECTOR__TYPE);
@@ -1142,6 +1153,7 @@ public class FlatBuffersPackageImpl extends EPackageImpl implements FlatBuffersP
     initEAttribute(getType_PrimType(), ecorePackage.getEString(), "primType", null, 0, 1, Type.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
     initEReference(getType_VectorType(), this.getVector(), null, "vectorType", null, 0, 1, Type.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
     initEReference(getType_DefType(), this.getDefinition(), null, "defType", null, 0, 1, Type.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEAttribute(getType_QualifiedType(), ecorePackage.getEString(), "qualifiedType", null, 0, 1, Type.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
     initEClass(vectorEClass, Vector.class, "Vector", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
     initEReference(getVector_Type(), this.getType(), null, "type", null, 0, 1, Vector.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);

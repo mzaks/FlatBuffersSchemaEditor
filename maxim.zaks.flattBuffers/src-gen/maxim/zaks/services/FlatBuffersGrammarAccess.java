@@ -780,12 +780,14 @@ public class FlatBuffersGrammarAccess extends AbstractGrammarElementFinder {
 		private final Assignment cDefTypeAssignment_2 = (Assignment)cAlternatives.eContents().get(2);
 		private final CrossReference cDefTypeDefinitionCrossReference_2_0 = (CrossReference)cDefTypeAssignment_2.eContents().get(0);
 		private final RuleCall cDefTypeDefinitionIDTerminalRuleCall_2_0_1 = (RuleCall)cDefTypeDefinitionCrossReference_2_0.eContents().get(1);
+		private final Assignment cQualifiedTypeAssignment_3 = (Assignment)cAlternatives.eContents().get(3);
+		private final RuleCall cQualifiedTypeQualifiedTypeParserRuleCall_3_0 = (RuleCall)cQualifiedTypeAssignment_3.eContents().get(0);
 		
 		//Type:
-		//	primType=Primitive | vectorType=Vector | defType=[Definition];
+		//	primType=Primitive | vectorType=Vector | defType=[Definition] | qualifiedType=QualifiedType;
 		@Override public ParserRule getRule() { return rule; }
 
-		//primType=Primitive | vectorType=Vector | defType=[Definition]
+		//primType=Primitive | vectorType=Vector | defType=[Definition] | qualifiedType=QualifiedType
 		public Alternatives getAlternatives() { return cAlternatives; }
 
 		//primType=Primitive
@@ -808,6 +810,48 @@ public class FlatBuffersGrammarAccess extends AbstractGrammarElementFinder {
 
 		//ID
 		public RuleCall getDefTypeDefinitionIDTerminalRuleCall_2_0_1() { return cDefTypeDefinitionIDTerminalRuleCall_2_0_1; }
+
+		//qualifiedType=QualifiedType
+		public Assignment getQualifiedTypeAssignment_3() { return cQualifiedTypeAssignment_3; }
+
+		//QualifiedType
+		public RuleCall getQualifiedTypeQualifiedTypeParserRuleCall_3_0() { return cQualifiedTypeQualifiedTypeParserRuleCall_3_0; }
+	}
+
+	public class QualifiedTypeElements extends AbstractParserRuleElementFinder {
+		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "QualifiedType");
+		private final Group cGroup = (Group)rule.eContents().get(1);
+		private final RuleCall cValidIDParserRuleCall_0 = (RuleCall)cGroup.eContents().get(0);
+		private final Keyword cFullStopKeyword_1 = (Keyword)cGroup.eContents().get(1);
+		private final RuleCall cValidIDParserRuleCall_2 = (RuleCall)cGroup.eContents().get(2);
+		private final Group cGroup_3 = (Group)cGroup.eContents().get(3);
+		private final Keyword cFullStopKeyword_3_0 = (Keyword)cGroup_3.eContents().get(0);
+		private final RuleCall cValidIDParserRuleCall_3_1 = (RuleCall)cGroup_3.eContents().get(1);
+		
+		//QualifiedType:
+		//	ValidID "." ValidID ("." ValidID)*;
+		@Override public ParserRule getRule() { return rule; }
+
+		//ValidID "." ValidID ("." ValidID)*
+		public Group getGroup() { return cGroup; }
+
+		//ValidID
+		public RuleCall getValidIDParserRuleCall_0() { return cValidIDParserRuleCall_0; }
+
+		//"."
+		public Keyword getFullStopKeyword_1() { return cFullStopKeyword_1; }
+
+		//ValidID
+		public RuleCall getValidIDParserRuleCall_2() { return cValidIDParserRuleCall_2; }
+
+		//("." ValidID)*
+		public Group getGroup_3() { return cGroup_3; }
+
+		//"."
+		public Keyword getFullStopKeyword_3_0() { return cFullStopKeyword_3_0; }
+
+		//ValidID
+		public RuleCall getValidIDParserRuleCall_3_1() { return cValidIDParserRuleCall_3_1; }
 	}
 
 	public class VectorElements extends AbstractParserRuleElementFinder {
@@ -1245,6 +1289,7 @@ public class FlatBuffersGrammarAccess extends AbstractGrammarElementFinder {
 	private final FieldAttributesElements pFieldAttributes;
 	private final AttributeNameElements pAttributeName;
 	private final TypeElements pType;
+	private final QualifiedTypeElements pQualifiedType;
 	private final VectorElements pVector;
 	private final PrimitiveWithoutStringElements pPrimitiveWithoutString;
 	private final PrimitiveElements pPrimitive;
@@ -1289,6 +1334,7 @@ public class FlatBuffersGrammarAccess extends AbstractGrammarElementFinder {
 		this.pFieldAttributes = new FieldAttributesElements();
 		this.pAttributeName = new AttributeNameElements();
 		this.pType = new TypeElements();
+		this.pQualifiedType = new QualifiedTypeElements();
 		this.pVector = new VectorElements();
 		this.pPrimitiveWithoutString = new PrimitiveWithoutStringElements();
 		this.pPrimitive = new PrimitiveElements();
@@ -1491,13 +1537,23 @@ public class FlatBuffersGrammarAccess extends AbstractGrammarElementFinder {
 	}
 
 	//Type:
-	//	primType=Primitive | vectorType=Vector | defType=[Definition];
+	//	primType=Primitive | vectorType=Vector | defType=[Definition] | qualifiedType=QualifiedType;
 	public TypeElements getTypeAccess() {
 		return pType;
 	}
 	
 	public ParserRule getTypeRule() {
 		return getTypeAccess().getRule();
+	}
+
+	//QualifiedType:
+	//	ValidID "." ValidID ("." ValidID)*;
+	public QualifiedTypeElements getQualifiedTypeAccess() {
+		return pQualifiedType;
+	}
+	
+	public ParserRule getQualifiedTypeRule() {
+		return getQualifiedTypeAccess().getRule();
 	}
 
 	//Vector hidden():

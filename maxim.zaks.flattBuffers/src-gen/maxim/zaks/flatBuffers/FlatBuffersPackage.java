@@ -727,13 +727,22 @@ public interface FlatBuffersPackage extends EPackage
   int TYPE__DEF_TYPE = 2;
 
   /**
+   * The feature id for the '<em><b>Qualified Type</b></em>' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int TYPE__QUALIFIED_TYPE = 3;
+
+  /**
    * The number of structural features of the '<em>Type</em>' class.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
    * @ordered
    */
-  int TYPE_FEATURE_COUNT = 3;
+  int TYPE_FEATURE_COUNT = 4;
 
   /**
    * The meta object id for the '{@link maxim.zaks.flatBuffers.impl.VectorImpl <em>Vector</em>}' class.
@@ -1530,6 +1539,17 @@ public interface FlatBuffersPackage extends EPackage
   EReference getType_DefType();
 
   /**
+   * Returns the meta object for the attribute '{@link maxim.zaks.flatBuffers.Type#getQualifiedType <em>Qualified Type</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the attribute '<em>Qualified Type</em>'.
+   * @see maxim.zaks.flatBuffers.Type#getQualifiedType()
+   * @see #getType()
+   * @generated
+   */
+  EAttribute getType_QualifiedType();
+
+  /**
    * Returns the meta object for class '{@link maxim.zaks.flatBuffers.Vector <em>Vector</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
@@ -2166,6 +2186,14 @@ public interface FlatBuffersPackage extends EPackage
      * @generated
      */
     EReference TYPE__DEF_TYPE = eINSTANCE.getType_DefType();
+
+    /**
+     * The meta object literal for the '<em><b>Qualified Type</b></em>' attribute feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EAttribute TYPE__QUALIFIED_TYPE = eINSTANCE.getType_QualifiedType();
 
     /**
      * The meta object literal for the '{@link maxim.zaks.flatBuffers.impl.VectorImpl <em>Vector</em>}' class.
