@@ -16,19 +16,25 @@ class CSharpGenerator {
 		fileIdentifier = schema.fileIdentifier
 		'''
 			«IF nameSpace!=null»
-			namespace «nameSpace» {
+			namespace «nameSpace».Eager {
 			«ENDIF»	
 			
 			using FlatBuffers;
 			
-			«FOR table : schema.tables»
-			«table.tableStructReader»
+			«FOR definition : schema.definitions»
+			«definition.definitionReader»
 			«ENDFOR»
 			
 			«IF nameSpace!=null»
 			}
 			«ENDIF»
 		'''
+	}
+	
+	def definitionReader(Definition definition) {
+		switch definition{
+			Table case definition: definition.tableStructReader
+		}
 	}
 	
 	def tableStructReader(Table table) '''
@@ -93,10 +99,10 @@ class CSharpGenerator {
 				obj.«field.name» =  o«index» != 0 ? obj.bb.«field.type.primType.converPrimitiveTypeGetter»(o«index» + obj.bb_pos) : («field.type.primType.converPrimitiveType»)«field.defaultValueString»;
 				'''
 			}
-		} else if(field.type.tableType != null){
+		} else if(field.type.defType != null){
 			'''	
 				int o«index» = obj.__offset(4 + 2*«index»); 
-				obj.«field.name» =  o«index» != 0 ? «field.type.tableType.type.name»._Make(obj.bb, obj.__indirect(o«index» + obj.bb_pos)) : null;
+				obj.«field.name» =  o«index» != 0 ? «field.type.defType.name»._Make(obj.bb, obj.__indirect(o«index» + obj.bb_pos)) : null;
 				'''
 		} else if(field.type.vectorType != null){
 			val LengthStatement = '''
@@ -104,9 +110,9 @@ class CSharpGenerator {
 				 int length«index» = o«index» != 0 ? obj.__vector_len(o«index») : 0;
 				 obj.«field.name» = new «field.type.vectorType.generateVectorType»[length«index»];
 			'''
-			if(field.type.vectorType.primType != null){
+			if(field.type.vectorType.type.primType != null){
 				
-				if(field.type.vectorType.primType.equals("string")){
+				if(field.type.vectorType.type.primType.equals("string")){
 					return LengthStatement + '''
 					for (int j = length«index»-1; j >=0; j-- ){
 						obj.«field.name»[j] = obj.__string(obj.__vector(o«index») + j * 4);
@@ -115,14 +121,14 @@ class CSharpGenerator {
 				}else {
 					return LengthStatement + '''
 					for (int j = length«index»-1; j >=0; j-- ){
-						obj.«field.name»[j] = obj.bb.«field.type.vectorType.primType.converPrimitiveTypeGetter»(obj.__vector(o«index») + j * 4);
+						obj.«field.name»[j] = obj.bb.«field.type.vectorType.type.primType.converPrimitiveTypeGetter»(obj.__vector(o«index») + j * 4);
 					}
 					'''
 				}
 			} else {
 				return LengthStatement + '''
 				for (int j = length«index»-1; j >=0; j-- ){
-					obj.«field.name»[j] = «field.type.vectorType.tableType.type.name»._Make(obj.bb, obj.__indirect(obj.__vector(o«index») + j * 4));
+					obj.«field.name»[j] = «field.type.vectorType.type.defType.name»._Make(obj.bb, obj.__indirect(obj.__vector(o«index») + j * 4));
 				}
 				'''
 			}
@@ -169,8 +175,8 @@ class CSharpGenerator {
 			'''
 				StringOffset offset«index» = this.«field.name» == null ? default(StringOffset) : builder.CreateString(this.«field.name»);
 			'''
-		} else if(field.type.tableType != null){
-			val typeName = field.type.tableType.type.name
+		} else if(field.type.defType != null){
+			val typeName = field.type.defType.name
 			'''
 				Offset<«typeName»> offset«index» = this.«field.name» == null ? default(Offset<«typeName»>) : this.«field.name»._Build(builder);
 			'''
@@ -187,13 +193,13 @@ class CSharpGenerator {
 	}
 	
 	def buildVector(Vector vector, Fields field, int index){
-		if(vector.primType != null){
-			if(vector.primType != "string"){
-				val length = vector.primType.converPrimitiveTypeToLength
+		if(vector.type.primType != null){
+			if(vector.type.primType != "string"){
+				val length = vector.type.primType.converPrimitiveTypeToLength
 				'''
 				builder.StartVector(«length», this.«field.name».Length, «length»);
 				for (int i = this.«field.name».Length - 1; i >= 0; i--) {
-					builder.«vector.primType.converPrimitiveTypeAdd»(this.«field.name»[i]);
+					builder.«vector.type.primType.converPrimitiveTypeAdd»(this.«field.name»[i]);
 				} 
 				offset«index» = builder.EndVector();
 				'''
@@ -211,8 +217,8 @@ class CSharpGenerator {
 				'''
 			}
 			
-		} else if(vector.tableType != null){
-				val typeName = vector.tableType.type.name
+		} else if(vector.type.defType != null){
+				val typeName = vector.type.defType.name
 				'''
 				Offset<«typeName»>[] data = new Offset<«typeName»>[this.«field.name».Length];
 				for (int i = this.«field.name».Length - 1; i >= 0; i--) {
@@ -260,18 +266,18 @@ class CSharpGenerator {
 	def generateFieldType(Type fieldType) {
 		if(fieldType.primType != null){
 			'''«fieldType.primType.converPrimitiveType»'''
-		} else if(fieldType.tableType != null) {
-			'''«fieldType.tableType.type.name»'''
+		} else if(fieldType.defType != null) {
+			'''«fieldType.defType.name»'''
 		} else if(fieldType.vectorType != null) {
 			'''«fieldType.vectorType.generateVectorType»[]'''
 		}
 	}
 	
 	def generateVectorType(Vector vectorType){
-		if(vectorType.primType != null){
-			'''«vectorType.primType.converPrimitiveType»'''
-		}else if(vectorType.tableType != null){
-			'''«vectorType.tableType.type.name»'''
+		if(vectorType.type.primType != null){
+			'''«vectorType.type.primType.converPrimitiveType»'''
+		}else if(vectorType.type.defType != null){
+			'''«vectorType.type.defType.name»'''
 		}
 	}
 	

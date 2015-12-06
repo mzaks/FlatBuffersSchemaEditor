@@ -1,13 +1,14 @@
 package maxim.zaks.generator;
 
 import com.google.common.base.Objects;
+import maxim.zaks.flatBuffers.Definition;
 import maxim.zaks.flatBuffers.Fields;
 import maxim.zaks.flatBuffers.Namespace;
 import maxim.zaks.flatBuffers.RootType;
 import maxim.zaks.flatBuffers.Schema;
 import maxim.zaks.flatBuffers.Table;
-import maxim.zaks.flatBuffers.TableType;
 import maxim.zaks.flatBuffers.Type;
+import maxim.zaks.flatBuffers.Value;
 import maxim.zaks.flatBuffers.Vector;
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.xtend2.lib.StringConcatenation;
@@ -45,7 +46,7 @@ public class CSharpGenerator {
         if (_notEquals) {
           _builder.append("namespace ");
           _builder.append(this.nameSpace, "");
-          _builder.append(" {");
+          _builder.append(".Eager {");
           _builder.newLineIfNotEmpty();
         }
       }
@@ -54,10 +55,10 @@ public class CSharpGenerator {
       _builder.newLine();
       _builder.newLine();
       {
-        EList<Table> _tables = schema.getTables();
-        for(final Table table : _tables) {
-          CharSequence _tableStructReader = this.tableStructReader(table);
-          _builder.append(_tableStructReader, "");
+        EList<Definition> _definitions = schema.getDefinitions();
+        for(final Definition definition : _definitions) {
+          CharSequence _definitionReader = this.definitionReader(definition);
+          _builder.append(_definitionReader, "");
           _builder.newLineIfNotEmpty();
         }
       }
@@ -72,6 +73,20 @@ public class CSharpGenerator {
       _xblockexpression = _builder;
     }
     return _xblockexpression;
+  }
+  
+  public CharSequence definitionReader(final Definition definition) {
+    CharSequence _switchResult = null;
+    boolean _matched = false;
+    if (!_matched) {
+      if (definition instanceof Table) {
+        if (Objects.equal(definition, ((Table)definition))) {
+          _matched=true;
+          _switchResult = this.tableStructReader(((Table)definition));
+        }
+      }
+    }
+    return _switchResult;
   }
   
   public CharSequence tableStructReader(final Table table) {
@@ -282,7 +297,7 @@ public class CSharpGenerator {
         CharSequence _converPrimitiveType = this.converPrimitiveType(_primType_3);
         _builder_1.append(_converPrimitiveType, "");
         _builder_1.append(")");
-        String _defaultValueString = this.defaultValueString(field);
+        Object _defaultValueString = this.defaultValueString(field);
         _builder_1.append(_defaultValueString, "");
         _builder_1.append(";");
         _builder_1.newLineIfNotEmpty();
@@ -292,8 +307,8 @@ public class CSharpGenerator {
     } else {
       CharSequence _xifexpression_2 = null;
       Type _type_4 = field.getType();
-      TableType _tableType = _type_4.getTableType();
-      boolean _notEquals_1 = (!Objects.equal(_tableType, null));
+      Definition _defType = _type_4.getDefType();
+      boolean _notEquals_1 = (!Objects.equal(_defType, null));
       if (_notEquals_1) {
         StringConcatenation _builder_2 = new StringConcatenation();
         _builder_2.append("int o");
@@ -309,9 +324,8 @@ public class CSharpGenerator {
         _builder_2.append(index, "");
         _builder_2.append(" != 0 ? ");
         Type _type_5 = field.getType();
-        TableType _tableType_1 = _type_5.getTableType();
-        Table _type_6 = _tableType_1.getType();
-        String _name_3 = _type_6.getName();
+        Definition _defType_1 = _type_5.getDefType();
+        String _name_3 = _defType_1.getName();
         _builder_2.append(_name_3, "");
         _builder_2.append("._Make(obj.bb, obj.__indirect(o");
         _builder_2.append(index, "");
@@ -319,8 +333,8 @@ public class CSharpGenerator {
         _builder_2.newLineIfNotEmpty();
         _xifexpression_2 = _builder_2;
       } else {
-        Type _type_7 = field.getType();
-        Vector _vectorType = _type_7.getVectorType();
+        Type _type_6 = field.getType();
+        Vector _vectorType = _type_6.getVectorType();
         boolean _notEquals_2 = (!Objects.equal(_vectorType, null));
         if (_notEquals_2) {
           StringConcatenation _builder_3 = new StringConcatenation();
@@ -342,8 +356,8 @@ public class CSharpGenerator {
           String _name_4 = field.getName();
           _builder_3.append(_name_4, "");
           _builder_3.append(" = new ");
-          Type _type_8 = field.getType();
-          Vector _vectorType_1 = _type_8.getVectorType();
+          Type _type_7 = field.getType();
+          Vector _vectorType_1 = _type_7.getVectorType();
           CharSequence _generateVectorType = this.generateVectorType(_vectorType_1);
           _builder_3.append(_generateVectorType, "");
           _builder_3.append("[length");
@@ -351,14 +365,16 @@ public class CSharpGenerator {
           _builder_3.append("];");
           _builder_3.newLineIfNotEmpty();
           final String LengthStatement = _builder_3.toString();
-          Type _type_9 = field.getType();
-          Vector _vectorType_2 = _type_9.getVectorType();
-          String _primType_4 = _vectorType_2.getPrimType();
+          Type _type_8 = field.getType();
+          Vector _vectorType_2 = _type_8.getVectorType();
+          Type _type_9 = _vectorType_2.getType();
+          String _primType_4 = _type_9.getPrimType();
           boolean _notEquals_3 = (!Objects.equal(_primType_4, null));
           if (_notEquals_3) {
             Type _type_10 = field.getType();
             Vector _vectorType_3 = _type_10.getVectorType();
-            String _primType_5 = _vectorType_3.getPrimType();
+            Type _type_11 = _vectorType_3.getType();
+            String _primType_5 = _type_11.getPrimType();
             boolean _equals_1 = _primType_5.equals("string");
             if (_equals_1) {
               StringConcatenation _builder_4 = new StringConcatenation();
@@ -388,9 +404,10 @@ public class CSharpGenerator {
               String _name_6 = field.getName();
               _builder_5.append(_name_6, "\t");
               _builder_5.append("[j] = obj.bb.");
-              Type _type_11 = field.getType();
-              Vector _vectorType_4 = _type_11.getVectorType();
-              String _primType_6 = _vectorType_4.getPrimType();
+              Type _type_12 = field.getType();
+              Vector _vectorType_4 = _type_12.getVectorType();
+              Type _type_13 = _vectorType_4.getType();
+              String _primType_6 = _type_13.getPrimType();
               CharSequence _converPrimitiveTypeGetter_1 = this.converPrimitiveTypeGetter(_primType_6);
               _builder_5.append(_converPrimitiveTypeGetter_1, "\t");
               _builder_5.append("(obj.__vector(o");
@@ -412,11 +429,11 @@ public class CSharpGenerator {
             String _name_7 = field.getName();
             _builder_6.append(_name_7, "\t");
             _builder_6.append("[j] = ");
-            Type _type_12 = field.getType();
-            Vector _vectorType_5 = _type_12.getVectorType();
-            TableType _tableType_2 = _vectorType_5.getTableType();
-            Table _type_13 = _tableType_2.getType();
-            String _name_8 = _type_13.getName();
+            Type _type_14 = field.getType();
+            Vector _vectorType_5 = _type_14.getVectorType();
+            Type _type_15 = _vectorType_5.getType();
+            Definition _defType_2 = _type_15.getDefType();
+            String _name_8 = _defType_2.getName();
             _builder_6.append(_name_8, "\t");
             _builder_6.append("._Make(obj.bb, obj.__indirect(obj.__vector(o");
             _builder_6.append(index, "\t");
@@ -568,15 +585,14 @@ public class CSharpGenerator {
     } else {
       CharSequence _xifexpression_1 = null;
       Type _type_2 = field.getType();
-      TableType _tableType = _type_2.getTableType();
-      boolean _notEquals_1 = (!Objects.equal(_tableType, null));
+      Definition _defType = _type_2.getDefType();
+      boolean _notEquals_1 = (!Objects.equal(_defType, null));
       if (_notEquals_1) {
         CharSequence _xblockexpression = null;
         {
           Type _type_3 = field.getType();
-          TableType _tableType_1 = _type_3.getTableType();
-          Table _type_4 = _tableType_1.getType();
-          final String typeName = _type_4.getName();
+          Definition _defType_1 = _type_3.getDefType();
+          final String typeName = _defType_1.getName();
           StringConcatenation _builder_1 = new StringConcatenation();
           _builder_1.append("Offset<");
           _builder_1.append(typeName, "");
@@ -637,16 +653,19 @@ public class CSharpGenerator {
   
   public CharSequence buildVector(final Vector vector, final Fields field, final int index) {
     CharSequence _xifexpression = null;
-    String _primType = vector.getPrimType();
+    Type _type = vector.getType();
+    String _primType = _type.getPrimType();
     boolean _notEquals = (!Objects.equal(_primType, null));
     if (_notEquals) {
       CharSequence _xifexpression_1 = null;
-      String _primType_1 = vector.getPrimType();
+      Type _type_1 = vector.getType();
+      String _primType_1 = _type_1.getPrimType();
       boolean _notEquals_1 = (!Objects.equal(_primType_1, "string"));
       if (_notEquals_1) {
         CharSequence _xblockexpression = null;
         {
-          String _primType_2 = vector.getPrimType();
+          Type _type_2 = vector.getType();
+          String _primType_2 = _type_2.getPrimType();
           final CharSequence length = this.converPrimitiveTypeToLength(_primType_2);
           StringConcatenation _builder = new StringConcatenation();
           _builder.append("builder.StartVector(");
@@ -665,7 +684,8 @@ public class CSharpGenerator {
           _builder.newLineIfNotEmpty();
           _builder.append("\t");
           _builder.append("builder.");
-          String _primType_3 = vector.getPrimType();
+          Type _type_3 = vector.getType();
+          String _primType_3 = _type_3.getPrimType();
           CharSequence _converPrimitiveTypeAdd = this.converPrimitiveTypeAdd(_primType_3);
           _builder.append(_converPrimitiveTypeAdd, "\t");
           _builder.append("(this.");
@@ -723,14 +743,15 @@ public class CSharpGenerator {
       _xifexpression = _xifexpression_1;
     } else {
       CharSequence _xifexpression_2 = null;
-      TableType _tableType = vector.getTableType();
-      boolean _notEquals_2 = (!Objects.equal(_tableType, null));
+      Type _type_2 = vector.getType();
+      Definition _defType = _type_2.getDefType();
+      boolean _notEquals_2 = (!Objects.equal(_defType, null));
       if (_notEquals_2) {
         CharSequence _xblockexpression_1 = null;
         {
-          TableType _tableType_1 = vector.getTableType();
-          Table _type = _tableType_1.getType();
-          final String typeName = _type.getName();
+          Type _type_3 = vector.getType();
+          Definition _defType_1 = _type_3.getDefType();
+          final String typeName = _defType_1.getName();
           StringConcatenation _builder_1 = new StringConcatenation();
           _builder_1.append("Offset<");
           _builder_1.append(typeName, "");
@@ -816,7 +837,7 @@ public class CSharpGenerator {
         CharSequence _converPrimitiveType = this.converPrimitiveType(_primType_3);
         _builder_1.append(_converPrimitiveType, "");
         _builder_1.append(")");
-        String _defaultValueString = this.defaultValueString(field);
+        Object _defaultValueString = this.defaultValueString(field);
         _builder_1.append(_defaultValueString, "");
         _builder_1.append(");");
         _builder_1.newLineIfNotEmpty();
@@ -836,8 +857,8 @@ public class CSharpGenerator {
     return _xifexpression;
   }
   
-  public String defaultValueString(final Fields field) {
-    String _defaultValue = field.getDefaultValue();
+  public Object defaultValueString(final Fields field) {
+    Value _defaultValue = field.getDefaultValue();
     boolean _equals = Objects.equal(_defaultValue, null);
     if (_equals) {
       Type _type = field.getType();
@@ -864,13 +885,12 @@ public class CSharpGenerator {
       _xifexpression = _builder;
     } else {
       CharSequence _xifexpression_1 = null;
-      TableType _tableType = fieldType.getTableType();
-      boolean _notEquals_1 = (!Objects.equal(_tableType, null));
+      Definition _defType = fieldType.getDefType();
+      boolean _notEquals_1 = (!Objects.equal(_defType, null));
       if (_notEquals_1) {
         StringConcatenation _builder_1 = new StringConcatenation();
-        TableType _tableType_1 = fieldType.getTableType();
-        Table _type = _tableType_1.getType();
-        String _name = _type.getName();
+        Definition _defType_1 = fieldType.getDefType();
+        String _name = _defType_1.getName();
         _builder_1.append(_name, "");
         _xifexpression_1 = _builder_1;
       } else {
@@ -894,23 +914,26 @@ public class CSharpGenerator {
   
   public CharSequence generateVectorType(final Vector vectorType) {
     CharSequence _xifexpression = null;
-    String _primType = vectorType.getPrimType();
+    Type _type = vectorType.getType();
+    String _primType = _type.getPrimType();
     boolean _notEquals = (!Objects.equal(_primType, null));
     if (_notEquals) {
       StringConcatenation _builder = new StringConcatenation();
-      String _primType_1 = vectorType.getPrimType();
+      Type _type_1 = vectorType.getType();
+      String _primType_1 = _type_1.getPrimType();
       CharSequence _converPrimitiveType = this.converPrimitiveType(_primType_1);
       _builder.append(_converPrimitiveType, "");
       _xifexpression = _builder;
     } else {
       CharSequence _xifexpression_1 = null;
-      TableType _tableType = vectorType.getTableType();
-      boolean _notEquals_1 = (!Objects.equal(_tableType, null));
+      Type _type_2 = vectorType.getType();
+      Definition _defType = _type_2.getDefType();
+      boolean _notEquals_1 = (!Objects.equal(_defType, null));
       if (_notEquals_1) {
         StringConcatenation _builder_1 = new StringConcatenation();
-        TableType _tableType_1 = vectorType.getTableType();
-        Table _type = _tableType_1.getType();
-        String _name = _type.getName();
+        Type _type_3 = vectorType.getType();
+        Definition _defType_1 = _type_3.getDefType();
+        String _name = _defType_1.getName();
         _builder_1.append(_name, "");
         _xifexpression_1 = _builder_1;
       }

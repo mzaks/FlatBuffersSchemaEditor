@@ -26,9 +26,73 @@ public class FlatBuffersSyntacticSequencer extends AbstractSyntacticSequencer {
 	
 	@Override
 	protected String getUnassignedRuleCallToken(EObject semanticObject, RuleCall ruleCall, INode node) {
+		if(ruleCall.getRule() == grammarAccess.getDEPRECTED_ATTRIBUTERule())
+			return getDEPRECTED_ATTRIBUTEToken(semanticObject, ruleCall, node);
+		else if(ruleCall.getRule() == grammarAccess.getHASH_ATTRIBUTERule())
+			return getHASH_ATTRIBUTEToken(semanticObject, ruleCall, node);
+		else if(ruleCall.getRule() == grammarAccess.getID_ATTRIBUTERule())
+			return getID_ATTRIBUTEToken(semanticObject, ruleCall, node);
+		else if(ruleCall.getRule() == grammarAccess.getKEY_ATTRIBUTERule())
+			return getKEY_ATTRIBUTEToken(semanticObject, ruleCall, node);
+		else if(ruleCall.getRule() == grammarAccess.getREQUIRED_ATTRIBUTERule())
+			return getREQUIRED_ATTRIBUTEToken(semanticObject, ruleCall, node);
 		return "";
 	}
 	
+	/**
+	 * terminal DEPRECTED_ATTRIBUTE:
+	 * 	'deprecated'
+	 * ;
+	 */
+	protected String getDEPRECTED_ATTRIBUTEToken(EObject semanticObject, RuleCall ruleCall, INode node) {
+		if (node != null)
+			return getTokenText(node);
+		return "deprecated";
+	}
+	
+	/**
+	 * terminal HASH_ATTRIBUTE:
+	 * 	'hash'
+	 * ;
+	 */
+	protected String getHASH_ATTRIBUTEToken(EObject semanticObject, RuleCall ruleCall, INode node) {
+		if (node != null)
+			return getTokenText(node);
+		return "hash";
+	}
+	
+	/**
+	 * terminal ID_ATTRIBUTE:
+	 * 	'id'
+	 * ;
+	 */
+	protected String getID_ATTRIBUTEToken(EObject semanticObject, RuleCall ruleCall, INode node) {
+		if (node != null)
+			return getTokenText(node);
+		return "id";
+	}
+	
+	/**
+	 * terminal KEY_ATTRIBUTE:
+	 * 	'key'
+	 * ;
+	 */
+	protected String getKEY_ATTRIBUTEToken(EObject semanticObject, RuleCall ruleCall, INode node) {
+		if (node != null)
+			return getTokenText(node);
+		return "key";
+	}
+	
+	/**
+	 * terminal REQUIRED_ATTRIBUTE:
+	 * 	'required'
+	 * ;
+	 */
+	protected String getREQUIRED_ATTRIBUTEToken(EObject semanticObject, RuleCall ruleCall, INode node) {
+		if (node != null)
+			return getTokenText(node);
+		return "required";
+	}
 	
 	@Override
 	protected void emitUnassignedTokens(EObject semanticObject, ISynTransition transition, INode fromNode, INode toNode) {

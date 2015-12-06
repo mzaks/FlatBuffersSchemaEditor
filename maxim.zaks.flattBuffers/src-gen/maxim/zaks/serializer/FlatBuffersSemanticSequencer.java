@@ -7,15 +7,19 @@ import com.google.inject.Inject;
 import com.google.inject.Provider;
 import maxim.zaks.flatBuffers.AttributeName;
 import maxim.zaks.flatBuffers.CustomAttributes;
+import maxim.zaks.flatBuffers.EnumCase;
 import maxim.zaks.flatBuffers.FieldAttributes;
 import maxim.zaks.flatBuffers.Fields;
 import maxim.zaks.flatBuffers.FlatBuffersPackage;
 import maxim.zaks.flatBuffers.Namespace;
 import maxim.zaks.flatBuffers.RootType;
 import maxim.zaks.flatBuffers.Schema;
+import maxim.zaks.flatBuffers.Struct;
+import maxim.zaks.flatBuffers.StructFields;
 import maxim.zaks.flatBuffers.Table;
-import maxim.zaks.flatBuffers.TableType;
 import maxim.zaks.flatBuffers.Type;
+import maxim.zaks.flatBuffers.Union;
+import maxim.zaks.flatBuffers.Value;
 import maxim.zaks.flatBuffers.Vector;
 import maxim.zaks.services.FlatBuffersGrammarAccess;
 import org.eclipse.emf.ecore.EObject;
@@ -45,6 +49,12 @@ public class FlatBuffersSemanticSequencer extends AbstractDelegatingSemanticSequ
 			case FlatBuffersPackage.CUSTOM_ATTRIBUTES:
 				sequence_CustomAttributes(context, (CustomAttributes) semanticObject); 
 				return; 
+			case FlatBuffersPackage.ENUM:
+				sequence_Enum(context, (maxim.zaks.flatBuffers.Enum) semanticObject); 
+				return; 
+			case FlatBuffersPackage.ENUM_CASE:
+				sequence_EnumCase(context, (EnumCase) semanticObject); 
+				return; 
 			case FlatBuffersPackage.FIELD_ATTRIBUTES:
 				sequence_FieldAttributes(context, (FieldAttributes) semanticObject); 
 				return; 
@@ -60,14 +70,23 @@ public class FlatBuffersSemanticSequencer extends AbstractDelegatingSemanticSequ
 			case FlatBuffersPackage.SCHEMA:
 				sequence_Schema(context, (Schema) semanticObject); 
 				return; 
+			case FlatBuffersPackage.STRUCT:
+				sequence_Struct(context, (Struct) semanticObject); 
+				return; 
+			case FlatBuffersPackage.STRUCT_FIELDS:
+				sequence_StructFields(context, (StructFields) semanticObject); 
+				return; 
 			case FlatBuffersPackage.TABLE:
 				sequence_Table(context, (Table) semanticObject); 
 				return; 
-			case FlatBuffersPackage.TABLE_TYPE:
-				sequence_TableType(context, (TableType) semanticObject); 
-				return; 
 			case FlatBuffersPackage.TYPE:
 				sequence_Type(context, (Type) semanticObject); 
+				return; 
+			case FlatBuffersPackage.UNION:
+				sequence_Union(context, (Union) semanticObject); 
+				return; 
+			case FlatBuffersPackage.VALUE:
+				sequence_Value(context, (Value) semanticObject); 
 				return; 
 			case FlatBuffersPackage.VECTOR:
 				sequence_Vector(context, (Vector) semanticObject); 
@@ -78,7 +97,18 @@ public class FlatBuffersSemanticSequencer extends AbstractDelegatingSemanticSequ
 	
 	/**
 	 * Constraint:
-	 *     (deprectated?='deprecated' | customName=[CustomAttributes|ID])
+	 *     (
+	 *         deprectated?=DEPRECTED_ATTRIBUTE | 
+	 *         (hasAttributeId?=ID_ATTRIBUTE attributeId=INT) | 
+	 *         required?=REQUIRED_ATTRIBUTE | 
+	 *         original_order?='original_order' | 
+	 *         (hasAlignSize?='force_align' alignSize=INT) | 
+	 *         (hasHash?=HASH_ATTRIBUTE hashKey=STRING) | 
+	 *         bit_flags?='bit_flags' | 
+	 *         (hasNestedTableName?='nested_flatbuffer' nestedTableName=STRING) | 
+	 *         key?=KEY_ATTRIBUTE | 
+	 *         (customName=[CustomAttributes|ID] (intValue=INT | stringValue=STRING)?)
+	 *     )
 	 */
 	protected void sequence_AttributeName(EObject context, AttributeName semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);
@@ -87,7 +117,7 @@ public class FlatBuffersSemanticSequencer extends AbstractDelegatingSemanticSequ
 	
 	/**
 	 * Constraint:
-	 *     name=ID
+	 *     name=STRING
 	 */
 	protected void sequence_CustomAttributes(EObject context, CustomAttributes semanticObject) {
 		if(errorAcceptor != null) {
@@ -96,14 +126,32 @@ public class FlatBuffersSemanticSequencer extends AbstractDelegatingSemanticSequ
 		}
 		INodesForEObjectProvider nodes = createNodeProvider(semanticObject);
 		SequenceFeeder feeder = createSequencerFeeder(semanticObject, nodes);
-		feeder.accept(grammarAccess.getCustomAttributesAccess().getNameIDTerminalRuleCall_2_0(), semanticObject.getName());
+		feeder.accept(grammarAccess.getCustomAttributesAccess().getNameSTRINGTerminalRuleCall_1_0(), semanticObject.getName());
 		feeder.finish();
 	}
 	
 	
 	/**
 	 * Constraint:
-	 *     (attributeList='(' atributeName+=AttributeName*)
+	 *     (name=ID value=INT?)
+	 */
+	protected void sequence_EnumCase(EObject context, EnumCase semanticObject) {
+		genericSequencer.createSequence(context, semanticObject);
+	}
+	
+	
+	/**
+	 * Constraint:
+	 *     (name=ID type=PrimitiveNumberType? attributes=FieldAttributes? enumCases+=EnumCase enumCases+=EnumCase*)
+	 */
+	protected void sequence_Enum(EObject context, maxim.zaks.flatBuffers.Enum semanticObject) {
+		genericSequencer.createSequence(context, semanticObject);
+	}
+	
+	
+	/**
+	 * Constraint:
+	 *     (atributeNames+=AttributeName atributeNames+=AttributeName*)
 	 */
 	protected void sequence_FieldAttributes(EObject context, FieldAttributes semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);
@@ -112,7 +160,7 @@ public class FlatBuffersSemanticSequencer extends AbstractDelegatingSemanticSequ
 	
 	/**
 	 * Constraint:
-	 *     (name=ID type=Type defaultValue=Value? attributes=FieldAttributes?)
+	 *     (name=ValidID type=Type defaultValue=Value? attributes=FieldAttributes?)
 	 */
 	protected void sequence_Fields(EObject context, Fields semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);
@@ -157,8 +205,9 @@ public class FlatBuffersSemanticSequencer extends AbstractDelegatingSemanticSequ
 	 *         includes+=Include* 
 	 *         namepsace=Namespace? 
 	 *         fileIdentifier=FileIdentifier? 
+	 *         file_extension=FileExtension? 
 	 *         customAttributes+=CustomAttributes* 
-	 *         tables+=Table* 
+	 *         definitions+=Definition* 
 	 *         rootType=RootType
 	 *     )
 	 */
@@ -169,23 +218,25 @@ public class FlatBuffersSemanticSequencer extends AbstractDelegatingSemanticSequ
 	
 	/**
 	 * Constraint:
-	 *     type=[Table|ID]
+	 *     (name=ID (primType=PrimitiveWithoutString | defType=[Definition|ID]))
 	 */
-	protected void sequence_TableType(EObject context, TableType semanticObject) {
-		if(errorAcceptor != null) {
-			if(transientValues.isValueTransient(semanticObject, FlatBuffersPackage.Literals.TABLE_TYPE__TYPE) == ValueTransient.YES)
-				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, FlatBuffersPackage.Literals.TABLE_TYPE__TYPE));
-		}
-		INodesForEObjectProvider nodes = createNodeProvider(semanticObject);
-		SequenceFeeder feeder = createSequencerFeeder(semanticObject, nodes);
-		feeder.accept(grammarAccess.getTableTypeAccess().getTypeTableIDTerminalRuleCall_0_1(), semanticObject.getType());
-		feeder.finish();
+	protected void sequence_StructFields(EObject context, StructFields semanticObject) {
+		genericSequencer.createSequence(context, semanticObject);
 	}
 	
 	
 	/**
 	 * Constraint:
-	 *     (name=ID fields+=Fields*)
+	 *     (name=ID attributes=FieldAttributes? fields+=StructFields*)
+	 */
+	protected void sequence_Struct(EObject context, Struct semanticObject) {
+		genericSequencer.createSequence(context, semanticObject);
+	}
+	
+	
+	/**
+	 * Constraint:
+	 *     (name=ID attributes=FieldAttributes? fields+=Fields*)
 	 */
 	protected void sequence_Table(EObject context, Table semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);
@@ -194,7 +245,7 @@ public class FlatBuffersSemanticSequencer extends AbstractDelegatingSemanticSequ
 	
 	/**
 	 * Constraint:
-	 *     (primType=Primitive | vectorType=Vector | tableType=TableType)
+	 *     (primType=Primitive | vectorType=Vector | defType=[Definition|ID])
 	 */
 	protected void sequence_Type(EObject context, Type semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);
@@ -203,9 +254,34 @@ public class FlatBuffersSemanticSequencer extends AbstractDelegatingSemanticSequ
 	
 	/**
 	 * Constraint:
-	 *     (primType=Primitive | tableType=TableType)
+	 *     (name=ID unionCases+=[Table|ID] unionCases+=[Table|ID]*)
+	 */
+	protected void sequence_Union(EObject context, Union semanticObject) {
+		genericSequencer.createSequence(context, semanticObject);
+	}
+	
+	
+	/**
+	 * Constraint:
+	 *     (number=Number | isFalse?='false' | isTrue?='true' | enumCase=ID)
+	 */
+	protected void sequence_Value(EObject context, Value semanticObject) {
+		genericSequencer.createSequence(context, semanticObject);
+	}
+	
+	
+	/**
+	 * Constraint:
+	 *     type=Type
 	 */
 	protected void sequence_Vector(EObject context, Vector semanticObject) {
-		genericSequencer.createSequence(context, semanticObject);
+		if(errorAcceptor != null) {
+			if(transientValues.isValueTransient(semanticObject, FlatBuffersPackage.Literals.VECTOR__TYPE) == ValueTransient.YES)
+				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, FlatBuffersPackage.Literals.VECTOR__TYPE));
+		}
+		INodesForEObjectProvider nodes = createNodeProvider(semanticObject);
+		SequenceFeeder feeder = createSequencerFeeder(semanticObject, nodes);
+		feeder.accept(grammarAccess.getVectorAccess().getTypeTypeParserRuleCall_1_0(), semanticObject.getType());
+		feeder.finish();
 	}
 }

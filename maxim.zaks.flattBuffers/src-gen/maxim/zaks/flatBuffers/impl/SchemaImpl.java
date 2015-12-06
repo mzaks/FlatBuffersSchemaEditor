@@ -5,11 +5,11 @@ package maxim.zaks.flatBuffers.impl;
 import java.util.Collection;
 
 import maxim.zaks.flatBuffers.CustomAttributes;
+import maxim.zaks.flatBuffers.Definition;
 import maxim.zaks.flatBuffers.FlatBuffersPackage;
 import maxim.zaks.flatBuffers.Namespace;
 import maxim.zaks.flatBuffers.RootType;
 import maxim.zaks.flatBuffers.Schema;
-import maxim.zaks.flatBuffers.Table;
 
 import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.common.notify.NotificationChain;
@@ -37,8 +37,9 @@ import org.eclipse.emf.ecore.util.InternalEList;
  *   <li>{@link maxim.zaks.flatBuffers.impl.SchemaImpl#getIncludes <em>Includes</em>}</li>
  *   <li>{@link maxim.zaks.flatBuffers.impl.SchemaImpl#getNamepsace <em>Namepsace</em>}</li>
  *   <li>{@link maxim.zaks.flatBuffers.impl.SchemaImpl#getFileIdentifier <em>File Identifier</em>}</li>
+ *   <li>{@link maxim.zaks.flatBuffers.impl.SchemaImpl#getFile_extension <em>File extension</em>}</li>
  *   <li>{@link maxim.zaks.flatBuffers.impl.SchemaImpl#getCustomAttributes <em>Custom Attributes</em>}</li>
- *   <li>{@link maxim.zaks.flatBuffers.impl.SchemaImpl#getTables <em>Tables</em>}</li>
+ *   <li>{@link maxim.zaks.flatBuffers.impl.SchemaImpl#getDefinitions <em>Definitions</em>}</li>
  *   <li>{@link maxim.zaks.flatBuffers.impl.SchemaImpl#getRootType <em>Root Type</em>}</li>
  * </ul>
  *
@@ -87,6 +88,26 @@ public class SchemaImpl extends MinimalEObjectImpl.Container implements Schema
   protected String fileIdentifier = FILE_IDENTIFIER_EDEFAULT;
 
   /**
+   * The default value of the '{@link #getFile_extension() <em>File extension</em>}' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see #getFile_extension()
+   * @generated
+   * @ordered
+   */
+  protected static final String FILE_EXTENSION_EDEFAULT = null;
+
+  /**
+   * The cached value of the '{@link #getFile_extension() <em>File extension</em>}' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see #getFile_extension()
+   * @generated
+   * @ordered
+   */
+  protected String file_extension = FILE_EXTENSION_EDEFAULT;
+
+  /**
    * The cached value of the '{@link #getCustomAttributes() <em>Custom Attributes</em>}' containment reference list.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
@@ -97,14 +118,14 @@ public class SchemaImpl extends MinimalEObjectImpl.Container implements Schema
   protected EList<CustomAttributes> customAttributes;
 
   /**
-   * The cached value of the '{@link #getTables() <em>Tables</em>}' containment reference list.
+   * The cached value of the '{@link #getDefinitions() <em>Definitions</em>}' containment reference list.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @see #getTables()
+   * @see #getDefinitions()
    * @generated
    * @ordered
    */
-  protected EList<Table> tables;
+  protected EList<Definition> definitions;
 
   /**
    * The cached value of the '{@link #getRootType() <em>Root Type</em>}' containment reference.
@@ -227,6 +248,29 @@ public class SchemaImpl extends MinimalEObjectImpl.Container implements Schema
    * <!-- end-user-doc -->
    * @generated
    */
+  public String getFile_extension()
+  {
+    return file_extension;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public void setFile_extension(String newFile_extension)
+  {
+    String oldFile_extension = file_extension;
+    file_extension = newFile_extension;
+    if (eNotificationRequired())
+      eNotify(new ENotificationImpl(this, Notification.SET, FlatBuffersPackage.SCHEMA__FILE_EXTENSION, oldFile_extension, file_extension));
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
   public EList<CustomAttributes> getCustomAttributes()
   {
     if (customAttributes == null)
@@ -241,13 +285,13 @@ public class SchemaImpl extends MinimalEObjectImpl.Container implements Schema
    * <!-- end-user-doc -->
    * @generated
    */
-  public EList<Table> getTables()
+  public EList<Definition> getDefinitions()
   {
-    if (tables == null)
+    if (definitions == null)
     {
-      tables = new EObjectContainmentEList<Table>(Table.class, this, FlatBuffersPackage.SCHEMA__TABLES);
+      definitions = new EObjectContainmentEList<Definition>(Definition.class, this, FlatBuffersPackage.SCHEMA__DEFINITIONS);
     }
-    return tables;
+    return definitions;
   }
 
   /**
@@ -312,8 +356,8 @@ public class SchemaImpl extends MinimalEObjectImpl.Container implements Schema
         return basicSetNamepsace(null, msgs);
       case FlatBuffersPackage.SCHEMA__CUSTOM_ATTRIBUTES:
         return ((InternalEList<?>)getCustomAttributes()).basicRemove(otherEnd, msgs);
-      case FlatBuffersPackage.SCHEMA__TABLES:
-        return ((InternalEList<?>)getTables()).basicRemove(otherEnd, msgs);
+      case FlatBuffersPackage.SCHEMA__DEFINITIONS:
+        return ((InternalEList<?>)getDefinitions()).basicRemove(otherEnd, msgs);
       case FlatBuffersPackage.SCHEMA__ROOT_TYPE:
         return basicSetRootType(null, msgs);
     }
@@ -336,10 +380,12 @@ public class SchemaImpl extends MinimalEObjectImpl.Container implements Schema
         return getNamepsace();
       case FlatBuffersPackage.SCHEMA__FILE_IDENTIFIER:
         return getFileIdentifier();
+      case FlatBuffersPackage.SCHEMA__FILE_EXTENSION:
+        return getFile_extension();
       case FlatBuffersPackage.SCHEMA__CUSTOM_ATTRIBUTES:
         return getCustomAttributes();
-      case FlatBuffersPackage.SCHEMA__TABLES:
-        return getTables();
+      case FlatBuffersPackage.SCHEMA__DEFINITIONS:
+        return getDefinitions();
       case FlatBuffersPackage.SCHEMA__ROOT_TYPE:
         return getRootType();
     }
@@ -367,13 +413,16 @@ public class SchemaImpl extends MinimalEObjectImpl.Container implements Schema
       case FlatBuffersPackage.SCHEMA__FILE_IDENTIFIER:
         setFileIdentifier((String)newValue);
         return;
+      case FlatBuffersPackage.SCHEMA__FILE_EXTENSION:
+        setFile_extension((String)newValue);
+        return;
       case FlatBuffersPackage.SCHEMA__CUSTOM_ATTRIBUTES:
         getCustomAttributes().clear();
         getCustomAttributes().addAll((Collection<? extends CustomAttributes>)newValue);
         return;
-      case FlatBuffersPackage.SCHEMA__TABLES:
-        getTables().clear();
-        getTables().addAll((Collection<? extends Table>)newValue);
+      case FlatBuffersPackage.SCHEMA__DEFINITIONS:
+        getDefinitions().clear();
+        getDefinitions().addAll((Collection<? extends Definition>)newValue);
         return;
       case FlatBuffersPackage.SCHEMA__ROOT_TYPE:
         setRootType((RootType)newValue);
@@ -401,11 +450,14 @@ public class SchemaImpl extends MinimalEObjectImpl.Container implements Schema
       case FlatBuffersPackage.SCHEMA__FILE_IDENTIFIER:
         setFileIdentifier(FILE_IDENTIFIER_EDEFAULT);
         return;
+      case FlatBuffersPackage.SCHEMA__FILE_EXTENSION:
+        setFile_extension(FILE_EXTENSION_EDEFAULT);
+        return;
       case FlatBuffersPackage.SCHEMA__CUSTOM_ATTRIBUTES:
         getCustomAttributes().clear();
         return;
-      case FlatBuffersPackage.SCHEMA__TABLES:
-        getTables().clear();
+      case FlatBuffersPackage.SCHEMA__DEFINITIONS:
+        getDefinitions().clear();
         return;
       case FlatBuffersPackage.SCHEMA__ROOT_TYPE:
         setRootType((RootType)null);
@@ -430,10 +482,12 @@ public class SchemaImpl extends MinimalEObjectImpl.Container implements Schema
         return namepsace != null;
       case FlatBuffersPackage.SCHEMA__FILE_IDENTIFIER:
         return FILE_IDENTIFIER_EDEFAULT == null ? fileIdentifier != null : !FILE_IDENTIFIER_EDEFAULT.equals(fileIdentifier);
+      case FlatBuffersPackage.SCHEMA__FILE_EXTENSION:
+        return FILE_EXTENSION_EDEFAULT == null ? file_extension != null : !FILE_EXTENSION_EDEFAULT.equals(file_extension);
       case FlatBuffersPackage.SCHEMA__CUSTOM_ATTRIBUTES:
         return customAttributes != null && !customAttributes.isEmpty();
-      case FlatBuffersPackage.SCHEMA__TABLES:
-        return tables != null && !tables.isEmpty();
+      case FlatBuffersPackage.SCHEMA__DEFINITIONS:
+        return definitions != null && !definitions.isEmpty();
       case FlatBuffersPackage.SCHEMA__ROOT_TYPE:
         return rootType != null;
     }
@@ -455,6 +509,8 @@ public class SchemaImpl extends MinimalEObjectImpl.Container implements Schema
     result.append(includes);
     result.append(", fileIdentifier: ");
     result.append(fileIdentifier);
+    result.append(", file_extension: ");
+    result.append(file_extension);
     result.append(')');
     return result.toString();
   }

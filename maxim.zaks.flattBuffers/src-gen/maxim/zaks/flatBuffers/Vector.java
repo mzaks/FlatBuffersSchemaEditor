@@ -13,8 +13,7 @@ import org.eclipse.emf.ecore.EObject;
  * The following features are supported:
  * </p>
  * <ul>
- *   <li>{@link maxim.zaks.flatBuffers.Vector#getPrimType <em>Prim Type</em>}</li>
- *   <li>{@link maxim.zaks.flatBuffers.Vector#getTableType <em>Table Type</em>}</li>
+ *   <li>{@link maxim.zaks.flatBuffers.Vector#getType <em>Type</em>}</li>
  * </ul>
  *
  * @see maxim.zaks.flatBuffers.FlatBuffersPackage#getVector()
@@ -24,55 +23,29 @@ import org.eclipse.emf.ecore.EObject;
 public interface Vector extends EObject
 {
   /**
-   * Returns the value of the '<em><b>Prim Type</b></em>' attribute.
+   * Returns the value of the '<em><b>Type</b></em>' containment reference.
    * <!-- begin-user-doc -->
    * <p>
-   * If the meaning of the '<em>Prim Type</em>' attribute isn't clear,
+   * If the meaning of the '<em>Type</em>' containment reference isn't clear,
    * there really should be more of a description here...
    * </p>
    * <!-- end-user-doc -->
-   * @return the value of the '<em>Prim Type</em>' attribute.
-   * @see #setPrimType(String)
-   * @see maxim.zaks.flatBuffers.FlatBuffersPackage#getVector_PrimType()
-   * @model
-   * @generated
-   */
-  String getPrimType();
-
-  /**
-   * Sets the value of the '{@link maxim.zaks.flatBuffers.Vector#getPrimType <em>Prim Type</em>}' attribute.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @param value the new value of the '<em>Prim Type</em>' attribute.
-   * @see #getPrimType()
-   * @generated
-   */
-  void setPrimType(String value);
-
-  /**
-   * Returns the value of the '<em><b>Table Type</b></em>' containment reference.
-   * <!-- begin-user-doc -->
-   * <p>
-   * If the meaning of the '<em>Table Type</em>' containment reference isn't clear,
-   * there really should be more of a description here...
-   * </p>
-   * <!-- end-user-doc -->
-   * @return the value of the '<em>Table Type</em>' containment reference.
-   * @see #setTableType(TableType)
-   * @see maxim.zaks.flatBuffers.FlatBuffersPackage#getVector_TableType()
+   * @return the value of the '<em>Type</em>' containment reference.
+   * @see #setType(Type)
+   * @see maxim.zaks.flatBuffers.FlatBuffersPackage#getVector_Type()
    * @model containment="true"
    * @generated
    */
-  TableType getTableType();
+  Type getType();
 
   /**
-   * Sets the value of the '{@link maxim.zaks.flatBuffers.Vector#getTableType <em>Table Type</em>}' containment reference.
+   * Sets the value of the '{@link maxim.zaks.flatBuffers.Vector#getType <em>Type</em>}' containment reference.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @param value the new value of the '<em>Table Type</em>' containment reference.
-   * @see #getTableType()
+   * @param value the new value of the '<em>Type</em>' containment reference.
+   * @see #getType()
    * @generated
    */
-  void setTableType(TableType value);
+  void setType(Type value);
 
 } // Vector

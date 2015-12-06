@@ -4,6 +4,7 @@ package maxim.zaks.flatBuffers.impl;
 
 import java.util.Collection;
 
+import maxim.zaks.flatBuffers.FieldAttributes;
 import maxim.zaks.flatBuffers.Fields;
 import maxim.zaks.flatBuffers.FlatBuffersPackage;
 import maxim.zaks.flatBuffers.Table;
@@ -17,7 +18,6 @@ import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.InternalEObject;
 
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
-import org.eclipse.emf.ecore.impl.MinimalEObjectImpl;
 
 import org.eclipse.emf.ecore.util.EObjectContainmentEList;
 import org.eclipse.emf.ecore.util.InternalEList;
@@ -30,33 +30,23 @@ import org.eclipse.emf.ecore.util.InternalEList;
  * The following features are implemented:
  * </p>
  * <ul>
- *   <li>{@link maxim.zaks.flatBuffers.impl.TableImpl#getName <em>Name</em>}</li>
+ *   <li>{@link maxim.zaks.flatBuffers.impl.TableImpl#getAttributes <em>Attributes</em>}</li>
  *   <li>{@link maxim.zaks.flatBuffers.impl.TableImpl#getFields <em>Fields</em>}</li>
  * </ul>
  *
  * @generated
  */
-public class TableImpl extends MinimalEObjectImpl.Container implements Table
+public class TableImpl extends DefinitionImpl implements Table
 {
   /**
-   * The default value of the '{@link #getName() <em>Name</em>}' attribute.
+   * The cached value of the '{@link #getAttributes() <em>Attributes</em>}' containment reference.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @see #getName()
+   * @see #getAttributes()
    * @generated
    * @ordered
    */
-  protected static final String NAME_EDEFAULT = null;
-
-  /**
-   * The cached value of the '{@link #getName() <em>Name</em>}' attribute.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @see #getName()
-   * @generated
-   * @ordered
-   */
-  protected String name = NAME_EDEFAULT;
+  protected FieldAttributes attributes;
 
   /**
    * The cached value of the '{@link #getFields() <em>Fields</em>}' containment reference list.
@@ -94,9 +84,9 @@ public class TableImpl extends MinimalEObjectImpl.Container implements Table
    * <!-- end-user-doc -->
    * @generated
    */
-  public String getName()
+  public FieldAttributes getAttributes()
   {
-    return name;
+    return attributes;
   }
 
   /**
@@ -104,12 +94,37 @@ public class TableImpl extends MinimalEObjectImpl.Container implements Table
    * <!-- end-user-doc -->
    * @generated
    */
-  public void setName(String newName)
+  public NotificationChain basicSetAttributes(FieldAttributes newAttributes, NotificationChain msgs)
   {
-    String oldName = name;
-    name = newName;
+    FieldAttributes oldAttributes = attributes;
+    attributes = newAttributes;
     if (eNotificationRequired())
-      eNotify(new ENotificationImpl(this, Notification.SET, FlatBuffersPackage.TABLE__NAME, oldName, name));
+    {
+      ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, FlatBuffersPackage.TABLE__ATTRIBUTES, oldAttributes, newAttributes);
+      if (msgs == null) msgs = notification; else msgs.add(notification);
+    }
+    return msgs;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public void setAttributes(FieldAttributes newAttributes)
+  {
+    if (newAttributes != attributes)
+    {
+      NotificationChain msgs = null;
+      if (attributes != null)
+        msgs = ((InternalEObject)attributes).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - FlatBuffersPackage.TABLE__ATTRIBUTES, null, msgs);
+      if (newAttributes != null)
+        msgs = ((InternalEObject)newAttributes).eInverseAdd(this, EOPPOSITE_FEATURE_BASE - FlatBuffersPackage.TABLE__ATTRIBUTES, null, msgs);
+      msgs = basicSetAttributes(newAttributes, msgs);
+      if (msgs != null) msgs.dispatch();
+    }
+    else if (eNotificationRequired())
+      eNotify(new ENotificationImpl(this, Notification.SET, FlatBuffersPackage.TABLE__ATTRIBUTES, newAttributes, newAttributes));
   }
 
   /**
@@ -136,6 +151,8 @@ public class TableImpl extends MinimalEObjectImpl.Container implements Table
   {
     switch (featureID)
     {
+      case FlatBuffersPackage.TABLE__ATTRIBUTES:
+        return basicSetAttributes(null, msgs);
       case FlatBuffersPackage.TABLE__FIELDS:
         return ((InternalEList<?>)getFields()).basicRemove(otherEnd, msgs);
     }
@@ -152,8 +169,8 @@ public class TableImpl extends MinimalEObjectImpl.Container implements Table
   {
     switch (featureID)
     {
-      case FlatBuffersPackage.TABLE__NAME:
-        return getName();
+      case FlatBuffersPackage.TABLE__ATTRIBUTES:
+        return getAttributes();
       case FlatBuffersPackage.TABLE__FIELDS:
         return getFields();
     }
@@ -171,8 +188,8 @@ public class TableImpl extends MinimalEObjectImpl.Container implements Table
   {
     switch (featureID)
     {
-      case FlatBuffersPackage.TABLE__NAME:
-        setName((String)newValue);
+      case FlatBuffersPackage.TABLE__ATTRIBUTES:
+        setAttributes((FieldAttributes)newValue);
         return;
       case FlatBuffersPackage.TABLE__FIELDS:
         getFields().clear();
@@ -192,8 +209,8 @@ public class TableImpl extends MinimalEObjectImpl.Container implements Table
   {
     switch (featureID)
     {
-      case FlatBuffersPackage.TABLE__NAME:
-        setName(NAME_EDEFAULT);
+      case FlatBuffersPackage.TABLE__ATTRIBUTES:
+        setAttributes((FieldAttributes)null);
         return;
       case FlatBuffersPackage.TABLE__FIELDS:
         getFields().clear();
@@ -212,29 +229,12 @@ public class TableImpl extends MinimalEObjectImpl.Container implements Table
   {
     switch (featureID)
     {
-      case FlatBuffersPackage.TABLE__NAME:
-        return NAME_EDEFAULT == null ? name != null : !NAME_EDEFAULT.equals(name);
+      case FlatBuffersPackage.TABLE__ATTRIBUTES:
+        return attributes != null;
       case FlatBuffersPackage.TABLE__FIELDS:
         return fields != null && !fields.isEmpty();
     }
     return super.eIsSet(featureID);
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  @Override
-  public String toString()
-  {
-    if (eIsProxy()) return super.toString();
-
-    StringBuffer result = new StringBuffer(super.toString());
-    result.append(" (name: ");
-    result.append(name);
-    result.append(')');
-    return result.toString();
   }
 
 } //TableImpl

@@ -15,7 +15,7 @@ import org.eclipse.emf.ecore.EObject;
  * <ul>
  *   <li>{@link maxim.zaks.flatBuffers.Type#getPrimType <em>Prim Type</em>}</li>
  *   <li>{@link maxim.zaks.flatBuffers.Type#getVectorType <em>Vector Type</em>}</li>
- *   <li>{@link maxim.zaks.flatBuffers.Type#getTableType <em>Table Type</em>}</li>
+ *   <li>{@link maxim.zaks.flatBuffers.Type#getDefType <em>Def Type</em>}</li>
  * </ul>
  *
  * @see maxim.zaks.flatBuffers.FlatBuffersPackage#getType()
@@ -77,29 +77,29 @@ public interface Type extends EObject
   void setVectorType(Vector value);
 
   /**
-   * Returns the value of the '<em><b>Table Type</b></em>' containment reference.
+   * Returns the value of the '<em><b>Def Type</b></em>' reference.
    * <!-- begin-user-doc -->
    * <p>
-   * If the meaning of the '<em>Table Type</em>' containment reference isn't clear,
+   * If the meaning of the '<em>Def Type</em>' reference isn't clear,
    * there really should be more of a description here...
    * </p>
    * <!-- end-user-doc -->
-   * @return the value of the '<em>Table Type</em>' containment reference.
-   * @see #setTableType(TableType)
-   * @see maxim.zaks.flatBuffers.FlatBuffersPackage#getType_TableType()
-   * @model containment="true"
+   * @return the value of the '<em>Def Type</em>' reference.
+   * @see #setDefType(Definition)
+   * @see maxim.zaks.flatBuffers.FlatBuffersPackage#getType_DefType()
+   * @model
    * @generated
    */
-  TableType getTableType();
+  Definition getDefType();
 
   /**
-   * Sets the value of the '{@link maxim.zaks.flatBuffers.Type#getTableType <em>Table Type</em>}' containment reference.
+   * Sets the value of the '{@link maxim.zaks.flatBuffers.Type#getDefType <em>Def Type</em>}' reference.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @param value the new value of the '<em>Table Type</em>' containment reference.
-   * @see #getTableType()
+   * @param value the new value of the '<em>Def Type</em>' reference.
+   * @see #getDefType()
    * @generated
    */
-  void setTableType(TableType value);
+  void setDefType(Definition value);
 
 } // Type

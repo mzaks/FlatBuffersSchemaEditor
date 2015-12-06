@@ -59,6 +59,33 @@ public interface FlatBuffersFactory extends EFactory
   Namespace createNamespace();
 
   /**
+   * Returns a new object of class '<em>Definition</em>'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return a new object of class '<em>Definition</em>'.
+   * @generated
+   */
+  Definition createDefinition();
+
+  /**
+   * Returns a new object of class '<em>Struct</em>'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return a new object of class '<em>Struct</em>'.
+   * @generated
+   */
+  Struct createStruct();
+
+  /**
+   * Returns a new object of class '<em>Struct Fields</em>'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return a new object of class '<em>Struct Fields</em>'.
+   * @generated
+   */
+  StructFields createStructFields();
+
+  /**
    * Returns a new object of class '<em>Table</em>'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
@@ -75,6 +102,15 @@ public interface FlatBuffersFactory extends EFactory
    * @generated
    */
   Fields createFields();
+
+  /**
+   * Returns a new object of class '<em>Value</em>'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return a new object of class '<em>Value</em>'.
+   * @generated
+   */
+  Value createValue();
 
   /**
    * Returns a new object of class '<em>Field Attributes</em>'.
@@ -113,13 +149,31 @@ public interface FlatBuffersFactory extends EFactory
   Vector createVector();
 
   /**
-   * Returns a new object of class '<em>Table Type</em>'.
+   * Returns a new object of class '<em>Enum</em>'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @return a new object of class '<em>Table Type</em>'.
+   * @return a new object of class '<em>Enum</em>'.
    * @generated
    */
-  TableType createTableType();
+  Enum createEnum();
+
+  /**
+   * Returns a new object of class '<em>Enum Case</em>'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return a new object of class '<em>Enum Case</em>'.
+   * @generated
+   */
+  EnumCase createEnumCase();
+
+  /**
+   * Returns a new object of class '<em>Union</em>'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return a new object of class '<em>Union</em>'.
+   * @generated
+   */
+  Union createUnion();
 
   /**
    * Returns the package supported by this factory.

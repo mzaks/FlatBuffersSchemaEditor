@@ -2,7 +2,23 @@
  */
 package maxim.zaks.flatBuffers.util;
 
-import maxim.zaks.flatBuffers.*;
+import maxim.zaks.flatBuffers.AttributeName;
+import maxim.zaks.flatBuffers.CustomAttributes;
+import maxim.zaks.flatBuffers.Definition;
+import maxim.zaks.flatBuffers.EnumCase;
+import maxim.zaks.flatBuffers.FieldAttributes;
+import maxim.zaks.flatBuffers.Fields;
+import maxim.zaks.flatBuffers.FlatBuffersPackage;
+import maxim.zaks.flatBuffers.Namespace;
+import maxim.zaks.flatBuffers.RootType;
+import maxim.zaks.flatBuffers.Schema;
+import maxim.zaks.flatBuffers.Struct;
+import maxim.zaks.flatBuffers.StructFields;
+import maxim.zaks.flatBuffers.Table;
+import maxim.zaks.flatBuffers.Type;
+import maxim.zaks.flatBuffers.Union;
+import maxim.zaks.flatBuffers.Value;
+import maxim.zaks.flatBuffers.Vector;
 
 import org.eclipse.emf.common.notify.Adapter;
 import org.eclipse.emf.common.notify.Notifier;
@@ -95,6 +111,21 @@ public class FlatBuffersAdapterFactory extends AdapterFactoryImpl
         return createNamespaceAdapter();
       }
       @Override
+      public Adapter caseDefinition(Definition object)
+      {
+        return createDefinitionAdapter();
+      }
+      @Override
+      public Adapter caseStruct(Struct object)
+      {
+        return createStructAdapter();
+      }
+      @Override
+      public Adapter caseStructFields(StructFields object)
+      {
+        return createStructFieldsAdapter();
+      }
+      @Override
       public Adapter caseTable(Table object)
       {
         return createTableAdapter();
@@ -103,6 +134,11 @@ public class FlatBuffersAdapterFactory extends AdapterFactoryImpl
       public Adapter caseFields(Fields object)
       {
         return createFieldsAdapter();
+      }
+      @Override
+      public Adapter caseValue(Value object)
+      {
+        return createValueAdapter();
       }
       @Override
       public Adapter caseFieldAttributes(FieldAttributes object)
@@ -125,9 +161,19 @@ public class FlatBuffersAdapterFactory extends AdapterFactoryImpl
         return createVectorAdapter();
       }
       @Override
-      public Adapter caseTableType(TableType object)
+      public Adapter caseEnum(maxim.zaks.flatBuffers.Enum object)
       {
-        return createTableTypeAdapter();
+        return createEnumAdapter();
+      }
+      @Override
+      public Adapter caseEnumCase(EnumCase object)
+      {
+        return createEnumCaseAdapter();
+      }
+      @Override
+      public Adapter caseUnion(Union object)
+      {
+        return createUnionAdapter();
       }
       @Override
       public Adapter defaultCase(EObject object)
@@ -212,6 +258,51 @@ public class FlatBuffersAdapterFactory extends AdapterFactoryImpl
   }
 
   /**
+   * Creates a new adapter for an object of class '{@link maxim.zaks.flatBuffers.Definition <em>Definition</em>}'.
+   * <!-- begin-user-doc -->
+   * This default implementation returns null so that we can easily ignore cases;
+   * it's useful to ignore a case when inheritance will catch all the cases anyway.
+   * <!-- end-user-doc -->
+   * @return the new adapter.
+   * @see maxim.zaks.flatBuffers.Definition
+   * @generated
+   */
+  public Adapter createDefinitionAdapter()
+  {
+    return null;
+  }
+
+  /**
+   * Creates a new adapter for an object of class '{@link maxim.zaks.flatBuffers.Struct <em>Struct</em>}'.
+   * <!-- begin-user-doc -->
+   * This default implementation returns null so that we can easily ignore cases;
+   * it's useful to ignore a case when inheritance will catch all the cases anyway.
+   * <!-- end-user-doc -->
+   * @return the new adapter.
+   * @see maxim.zaks.flatBuffers.Struct
+   * @generated
+   */
+  public Adapter createStructAdapter()
+  {
+    return null;
+  }
+
+  /**
+   * Creates a new adapter for an object of class '{@link maxim.zaks.flatBuffers.StructFields <em>Struct Fields</em>}'.
+   * <!-- begin-user-doc -->
+   * This default implementation returns null so that we can easily ignore cases;
+   * it's useful to ignore a case when inheritance will catch all the cases anyway.
+   * <!-- end-user-doc -->
+   * @return the new adapter.
+   * @see maxim.zaks.flatBuffers.StructFields
+   * @generated
+   */
+  public Adapter createStructFieldsAdapter()
+  {
+    return null;
+  }
+
+  /**
    * Creates a new adapter for an object of class '{@link maxim.zaks.flatBuffers.Table <em>Table</em>}'.
    * <!-- begin-user-doc -->
    * This default implementation returns null so that we can easily ignore cases;
@@ -237,6 +328,21 @@ public class FlatBuffersAdapterFactory extends AdapterFactoryImpl
    * @generated
    */
   public Adapter createFieldsAdapter()
+  {
+    return null;
+  }
+
+  /**
+   * Creates a new adapter for an object of class '{@link maxim.zaks.flatBuffers.Value <em>Value</em>}'.
+   * <!-- begin-user-doc -->
+   * This default implementation returns null so that we can easily ignore cases;
+   * it's useful to ignore a case when inheritance will catch all the cases anyway.
+   * <!-- end-user-doc -->
+   * @return the new adapter.
+   * @see maxim.zaks.flatBuffers.Value
+   * @generated
+   */
+  public Adapter createValueAdapter()
   {
     return null;
   }
@@ -302,16 +408,46 @@ public class FlatBuffersAdapterFactory extends AdapterFactoryImpl
   }
 
   /**
-   * Creates a new adapter for an object of class '{@link maxim.zaks.flatBuffers.TableType <em>Table Type</em>}'.
+   * Creates a new adapter for an object of class '{@link maxim.zaks.flatBuffers.Enum <em>Enum</em>}'.
    * <!-- begin-user-doc -->
    * This default implementation returns null so that we can easily ignore cases;
    * it's useful to ignore a case when inheritance will catch all the cases anyway.
    * <!-- end-user-doc -->
    * @return the new adapter.
-   * @see maxim.zaks.flatBuffers.TableType
+   * @see maxim.zaks.flatBuffers.Enum
    * @generated
    */
-  public Adapter createTableTypeAdapter()
+  public Adapter createEnumAdapter()
+  {
+    return null;
+  }
+
+  /**
+   * Creates a new adapter for an object of class '{@link maxim.zaks.flatBuffers.EnumCase <em>Enum Case</em>}'.
+   * <!-- begin-user-doc -->
+   * This default implementation returns null so that we can easily ignore cases;
+   * it's useful to ignore a case when inheritance will catch all the cases anyway.
+   * <!-- end-user-doc -->
+   * @return the new adapter.
+   * @see maxim.zaks.flatBuffers.EnumCase
+   * @generated
+   */
+  public Adapter createEnumCaseAdapter()
+  {
+    return null;
+  }
+
+  /**
+   * Creates a new adapter for an object of class '{@link maxim.zaks.flatBuffers.Union <em>Union</em>}'.
+   * <!-- begin-user-doc -->
+   * This default implementation returns null so that we can easily ignore cases;
+   * it's useful to ignore a case when inheritance will catch all the cases anyway.
+   * <!-- end-user-doc -->
+   * @return the new adapter.
+   * @see maxim.zaks.flatBuffers.Union
+   * @generated
+   */
+  public Adapter createUnionAdapter()
   {
     return null;
   }

@@ -2,49 +2,57 @@
  */
 package maxim.zaks.flatBuffers.impl;
 
+import maxim.zaks.flatBuffers.Definition;
 import maxim.zaks.flatBuffers.FlatBuffersPackage;
-import maxim.zaks.flatBuffers.Table;
-import maxim.zaks.flatBuffers.TableType;
 
 import org.eclipse.emf.common.notify.Notification;
 
 import org.eclipse.emf.ecore.EClass;
-import org.eclipse.emf.ecore.InternalEObject;
 
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.eclipse.emf.ecore.impl.MinimalEObjectImpl;
 
 /**
  * <!-- begin-user-doc -->
- * An implementation of the model object '<em><b>Table Type</b></em>'.
+ * An implementation of the model object '<em><b>Definition</b></em>'.
  * <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
  * </p>
  * <ul>
- *   <li>{@link maxim.zaks.flatBuffers.impl.TableTypeImpl#getType <em>Type</em>}</li>
+ *   <li>{@link maxim.zaks.flatBuffers.impl.DefinitionImpl#getName <em>Name</em>}</li>
  * </ul>
  *
  * @generated
  */
-public class TableTypeImpl extends MinimalEObjectImpl.Container implements TableType
+public class DefinitionImpl extends MinimalEObjectImpl.Container implements Definition
 {
   /**
-   * The cached value of the '{@link #getType() <em>Type</em>}' reference.
+   * The default value of the '{@link #getName() <em>Name</em>}' attribute.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @see #getType()
+   * @see #getName()
    * @generated
    * @ordered
    */
-  protected Table type;
+  protected static final String NAME_EDEFAULT = null;
+
+  /**
+   * The cached value of the '{@link #getName() <em>Name</em>}' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see #getName()
+   * @generated
+   * @ordered
+   */
+  protected String name = NAME_EDEFAULT;
 
   /**
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
    */
-  protected TableTypeImpl()
+  protected DefinitionImpl()
   {
     super();
   }
@@ -57,7 +65,7 @@ public class TableTypeImpl extends MinimalEObjectImpl.Container implements Table
   @Override
   protected EClass eStaticClass()
   {
-    return FlatBuffersPackage.Literals.TABLE_TYPE;
+    return FlatBuffersPackage.Literals.DEFINITION;
   }
 
   /**
@@ -65,19 +73,9 @@ public class TableTypeImpl extends MinimalEObjectImpl.Container implements Table
    * <!-- end-user-doc -->
    * @generated
    */
-  public Table getType()
+  public String getName()
   {
-    if (type != null && type.eIsProxy())
-    {
-      InternalEObject oldType = (InternalEObject)type;
-      type = (Table)eResolveProxy(oldType);
-      if (type != oldType)
-      {
-        if (eNotificationRequired())
-          eNotify(new ENotificationImpl(this, Notification.RESOLVE, FlatBuffersPackage.TABLE_TYPE__TYPE, oldType, type));
-      }
-    }
-    return type;
+    return name;
   }
 
   /**
@@ -85,22 +83,12 @@ public class TableTypeImpl extends MinimalEObjectImpl.Container implements Table
    * <!-- end-user-doc -->
    * @generated
    */
-  public Table basicGetType()
+  public void setName(String newName)
   {
-    return type;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public void setType(Table newType)
-  {
-    Table oldType = type;
-    type = newType;
+    String oldName = name;
+    name = newName;
     if (eNotificationRequired())
-      eNotify(new ENotificationImpl(this, Notification.SET, FlatBuffersPackage.TABLE_TYPE__TYPE, oldType, type));
+      eNotify(new ENotificationImpl(this, Notification.SET, FlatBuffersPackage.DEFINITION__NAME, oldName, name));
   }
 
   /**
@@ -113,9 +101,8 @@ public class TableTypeImpl extends MinimalEObjectImpl.Container implements Table
   {
     switch (featureID)
     {
-      case FlatBuffersPackage.TABLE_TYPE__TYPE:
-        if (resolve) return getType();
-        return basicGetType();
+      case FlatBuffersPackage.DEFINITION__NAME:
+        return getName();
     }
     return super.eGet(featureID, resolve, coreType);
   }
@@ -130,8 +117,8 @@ public class TableTypeImpl extends MinimalEObjectImpl.Container implements Table
   {
     switch (featureID)
     {
-      case FlatBuffersPackage.TABLE_TYPE__TYPE:
-        setType((Table)newValue);
+      case FlatBuffersPackage.DEFINITION__NAME:
+        setName((String)newValue);
         return;
     }
     super.eSet(featureID, newValue);
@@ -147,8 +134,8 @@ public class TableTypeImpl extends MinimalEObjectImpl.Container implements Table
   {
     switch (featureID)
     {
-      case FlatBuffersPackage.TABLE_TYPE__TYPE:
-        setType((Table)null);
+      case FlatBuffersPackage.DEFINITION__NAME:
+        setName(NAME_EDEFAULT);
         return;
     }
     super.eUnset(featureID);
@@ -164,10 +151,27 @@ public class TableTypeImpl extends MinimalEObjectImpl.Container implements Table
   {
     switch (featureID)
     {
-      case FlatBuffersPackage.TABLE_TYPE__TYPE:
-        return type != null;
+      case FlatBuffersPackage.DEFINITION__NAME:
+        return NAME_EDEFAULT == null ? name != null : !NAME_EDEFAULT.equals(name);
     }
     return super.eIsSet(featureID);
   }
 
-} //TableTypeImpl
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  @Override
+  public String toString()
+  {
+    if (eIsProxy()) return super.toString();
+
+    StringBuffer result = new StringBuffer(super.toString());
+    result.append(" (name: ");
+    result.append(name);
+    result.append(')');
+    return result.toString();
+  }
+
+} //DefinitionImpl

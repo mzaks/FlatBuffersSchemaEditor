@@ -4,6 +4,8 @@ package maxim.zaks.flatBuffers.impl;
 
 import maxim.zaks.flatBuffers.AttributeName;
 import maxim.zaks.flatBuffers.CustomAttributes;
+import maxim.zaks.flatBuffers.Definition;
+import maxim.zaks.flatBuffers.EnumCase;
 import maxim.zaks.flatBuffers.FieldAttributes;
 import maxim.zaks.flatBuffers.Fields;
 import maxim.zaks.flatBuffers.FlatBuffersFactory;
@@ -11,9 +13,12 @@ import maxim.zaks.flatBuffers.FlatBuffersPackage;
 import maxim.zaks.flatBuffers.Namespace;
 import maxim.zaks.flatBuffers.RootType;
 import maxim.zaks.flatBuffers.Schema;
+import maxim.zaks.flatBuffers.Struct;
+import maxim.zaks.flatBuffers.StructFields;
 import maxim.zaks.flatBuffers.Table;
-import maxim.zaks.flatBuffers.TableType;
 import maxim.zaks.flatBuffers.Type;
+import maxim.zaks.flatBuffers.Union;
+import maxim.zaks.flatBuffers.Value;
 import maxim.zaks.flatBuffers.Vector;
 
 import org.eclipse.emf.ecore.EAttribute;
@@ -64,6 +69,27 @@ public class FlatBuffersPackageImpl extends EPackageImpl implements FlatBuffersP
    * <!-- end-user-doc -->
    * @generated
    */
+  private EClass definitionEClass = null;
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  private EClass structEClass = null;
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  private EClass structFieldsEClass = null;
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
   private EClass tableEClass = null;
 
   /**
@@ -72,6 +98,13 @@ public class FlatBuffersPackageImpl extends EPackageImpl implements FlatBuffersP
    * @generated
    */
   private EClass fieldsEClass = null;
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  private EClass valueEClass = null;
 
   /**
    * <!-- begin-user-doc -->
@@ -106,7 +139,21 @@ public class FlatBuffersPackageImpl extends EPackageImpl implements FlatBuffersP
    * <!-- end-user-doc -->
    * @generated
    */
-  private EClass tableTypeEClass = null;
+  private EClass enumEClass = null;
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  private EClass enumCaseEClass = null;
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  private EClass unionEClass = null;
 
   /**
    * Creates an instance of the model <b>Package</b>, registered with
@@ -216,9 +263,9 @@ public class FlatBuffersPackageImpl extends EPackageImpl implements FlatBuffersP
    * <!-- end-user-doc -->
    * @generated
    */
-  public EReference getSchema_CustomAttributes()
+  public EAttribute getSchema_File_extension()
   {
-    return (EReference)schemaEClass.getEStructuralFeatures().get(3);
+    return (EAttribute)schemaEClass.getEStructuralFeatures().get(3);
   }
 
   /**
@@ -226,7 +273,7 @@ public class FlatBuffersPackageImpl extends EPackageImpl implements FlatBuffersP
    * <!-- end-user-doc -->
    * @generated
    */
-  public EReference getSchema_Tables()
+  public EReference getSchema_CustomAttributes()
   {
     return (EReference)schemaEClass.getEStructuralFeatures().get(4);
   }
@@ -236,9 +283,19 @@ public class FlatBuffersPackageImpl extends EPackageImpl implements FlatBuffersP
    * <!-- end-user-doc -->
    * @generated
    */
-  public EReference getSchema_RootType()
+  public EReference getSchema_Definitions()
   {
     return (EReference)schemaEClass.getEStructuralFeatures().get(5);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EReference getSchema_RootType()
+  {
+    return (EReference)schemaEClass.getEStructuralFeatures().get(6);
   }
 
   /**
@@ -306,6 +363,96 @@ public class FlatBuffersPackageImpl extends EPackageImpl implements FlatBuffersP
    * <!-- end-user-doc -->
    * @generated
    */
+  public EClass getDefinition()
+  {
+    return definitionEClass;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EAttribute getDefinition_Name()
+  {
+    return (EAttribute)definitionEClass.getEStructuralFeatures().get(0);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EClass getStruct()
+  {
+    return structEClass;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EReference getStruct_Attributes()
+  {
+    return (EReference)structEClass.getEStructuralFeatures().get(0);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EReference getStruct_Fields()
+  {
+    return (EReference)structEClass.getEStructuralFeatures().get(1);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EClass getStructFields()
+  {
+    return structFieldsEClass;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EAttribute getStructFields_Name()
+  {
+    return (EAttribute)structFieldsEClass.getEStructuralFeatures().get(0);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EAttribute getStructFields_PrimType()
+  {
+    return (EAttribute)structFieldsEClass.getEStructuralFeatures().get(1);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EReference getStructFields_DefType()
+  {
+    return (EReference)structFieldsEClass.getEStructuralFeatures().get(2);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
   public EClass getTable()
   {
     return tableEClass;
@@ -316,9 +463,9 @@ public class FlatBuffersPackageImpl extends EPackageImpl implements FlatBuffersP
    * <!-- end-user-doc -->
    * @generated
    */
-  public EAttribute getTable_Name()
+  public EReference getTable_Attributes()
   {
-    return (EAttribute)tableEClass.getEStructuralFeatures().get(0);
+    return (EReference)tableEClass.getEStructuralFeatures().get(0);
   }
 
   /**
@@ -366,9 +513,9 @@ public class FlatBuffersPackageImpl extends EPackageImpl implements FlatBuffersP
    * <!-- end-user-doc -->
    * @generated
    */
-  public EAttribute getFields_DefaultValue()
+  public EReference getFields_DefaultValue()
   {
-    return (EAttribute)fieldsEClass.getEStructuralFeatures().get(2);
+    return (EReference)fieldsEClass.getEStructuralFeatures().get(2);
   }
 
   /**
@@ -386,6 +533,56 @@ public class FlatBuffersPackageImpl extends EPackageImpl implements FlatBuffersP
    * <!-- end-user-doc -->
    * @generated
    */
+  public EClass getValue()
+  {
+    return valueEClass;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EAttribute getValue_Number()
+  {
+    return (EAttribute)valueEClass.getEStructuralFeatures().get(0);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EAttribute getValue_IsFalse()
+  {
+    return (EAttribute)valueEClass.getEStructuralFeatures().get(1);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EAttribute getValue_IsTrue()
+  {
+    return (EAttribute)valueEClass.getEStructuralFeatures().get(2);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EAttribute getValue_EnumCase()
+  {
+    return (EAttribute)valueEClass.getEStructuralFeatures().get(3);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
   public EClass getFieldAttributes()
   {
     return fieldAttributesEClass;
@@ -396,19 +593,9 @@ public class FlatBuffersPackageImpl extends EPackageImpl implements FlatBuffersP
    * <!-- end-user-doc -->
    * @generated
    */
-  public EAttribute getFieldAttributes_AttributeList()
+  public EReference getFieldAttributes_AtributeNames()
   {
-    return (EAttribute)fieldAttributesEClass.getEStructuralFeatures().get(0);
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public EReference getFieldAttributes_AtributeName()
-  {
-    return (EReference)fieldAttributesEClass.getEStructuralFeatures().get(1);
+    return (EReference)fieldAttributesEClass.getEStructuralFeatures().get(0);
   }
 
   /**
@@ -436,9 +623,149 @@ public class FlatBuffersPackageImpl extends EPackageImpl implements FlatBuffersP
    * <!-- end-user-doc -->
    * @generated
    */
+  public EAttribute getAttributeName_HasAttributeId()
+  {
+    return (EAttribute)attributeNameEClass.getEStructuralFeatures().get(1);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EAttribute getAttributeName_AttributeId()
+  {
+    return (EAttribute)attributeNameEClass.getEStructuralFeatures().get(2);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EAttribute getAttributeName_Required()
+  {
+    return (EAttribute)attributeNameEClass.getEStructuralFeatures().get(3);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EAttribute getAttributeName_Original_order()
+  {
+    return (EAttribute)attributeNameEClass.getEStructuralFeatures().get(4);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EAttribute getAttributeName_HasAlignSize()
+  {
+    return (EAttribute)attributeNameEClass.getEStructuralFeatures().get(5);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EAttribute getAttributeName_AlignSize()
+  {
+    return (EAttribute)attributeNameEClass.getEStructuralFeatures().get(6);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EAttribute getAttributeName_HasHash()
+  {
+    return (EAttribute)attributeNameEClass.getEStructuralFeatures().get(7);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EAttribute getAttributeName_HashKey()
+  {
+    return (EAttribute)attributeNameEClass.getEStructuralFeatures().get(8);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EAttribute getAttributeName_Bit_flags()
+  {
+    return (EAttribute)attributeNameEClass.getEStructuralFeatures().get(9);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EAttribute getAttributeName_HasNestedTableName()
+  {
+    return (EAttribute)attributeNameEClass.getEStructuralFeatures().get(10);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EAttribute getAttributeName_NestedTableName()
+  {
+    return (EAttribute)attributeNameEClass.getEStructuralFeatures().get(11);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EAttribute getAttributeName_Key()
+  {
+    return (EAttribute)attributeNameEClass.getEStructuralFeatures().get(12);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
   public EReference getAttributeName_CustomName()
   {
-    return (EReference)attributeNameEClass.getEStructuralFeatures().get(1);
+    return (EReference)attributeNameEClass.getEStructuralFeatures().get(13);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EAttribute getAttributeName_IntValue()
+  {
+    return (EAttribute)attributeNameEClass.getEStructuralFeatures().get(14);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EAttribute getAttributeName_StringValue()
+  {
+    return (EAttribute)attributeNameEClass.getEStructuralFeatures().get(15);
   }
 
   /**
@@ -476,7 +803,7 @@ public class FlatBuffersPackageImpl extends EPackageImpl implements FlatBuffersP
    * <!-- end-user-doc -->
    * @generated
    */
-  public EReference getType_TableType()
+  public EReference getType_DefType()
   {
     return (EReference)typeEClass.getEStructuralFeatures().get(2);
   }
@@ -496,9 +823,9 @@ public class FlatBuffersPackageImpl extends EPackageImpl implements FlatBuffersP
    * <!-- end-user-doc -->
    * @generated
    */
-  public EAttribute getVector_PrimType()
+  public EReference getVector_Type()
   {
-    return (EAttribute)vectorEClass.getEStructuralFeatures().get(0);
+    return (EReference)vectorEClass.getEStructuralFeatures().get(0);
   }
 
   /**
@@ -506,9 +833,9 @@ public class FlatBuffersPackageImpl extends EPackageImpl implements FlatBuffersP
    * <!-- end-user-doc -->
    * @generated
    */
-  public EReference getVector_TableType()
+  public EClass getEnum()
   {
-    return (EReference)vectorEClass.getEStructuralFeatures().get(1);
+    return enumEClass;
   }
 
   /**
@@ -516,9 +843,9 @@ public class FlatBuffersPackageImpl extends EPackageImpl implements FlatBuffersP
    * <!-- end-user-doc -->
    * @generated
    */
-  public EClass getTableType()
+  public EAttribute getEnum_Type()
   {
-    return tableTypeEClass;
+    return (EAttribute)enumEClass.getEStructuralFeatures().get(0);
   }
 
   /**
@@ -526,9 +853,69 @@ public class FlatBuffersPackageImpl extends EPackageImpl implements FlatBuffersP
    * <!-- end-user-doc -->
    * @generated
    */
-  public EReference getTableType_Type()
+  public EReference getEnum_Attributes()
   {
-    return (EReference)tableTypeEClass.getEStructuralFeatures().get(0);
+    return (EReference)enumEClass.getEStructuralFeatures().get(1);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EReference getEnum_EnumCases()
+  {
+    return (EReference)enumEClass.getEStructuralFeatures().get(2);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EClass getEnumCase()
+  {
+    return enumCaseEClass;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EAttribute getEnumCase_Name()
+  {
+    return (EAttribute)enumCaseEClass.getEStructuralFeatures().get(0);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EAttribute getEnumCase_Value()
+  {
+    return (EAttribute)enumCaseEClass.getEStructuralFeatures().get(1);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EClass getUnion()
+  {
+    return unionEClass;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EReference getUnion_UnionCases()
+  {
+    return (EReference)unionEClass.getEStructuralFeatures().get(0);
   }
 
   /**
@@ -565,8 +952,9 @@ public class FlatBuffersPackageImpl extends EPackageImpl implements FlatBuffersP
     createEAttribute(schemaEClass, SCHEMA__INCLUDES);
     createEReference(schemaEClass, SCHEMA__NAMEPSACE);
     createEAttribute(schemaEClass, SCHEMA__FILE_IDENTIFIER);
+    createEAttribute(schemaEClass, SCHEMA__FILE_EXTENSION);
     createEReference(schemaEClass, SCHEMA__CUSTOM_ATTRIBUTES);
-    createEReference(schemaEClass, SCHEMA__TABLES);
+    createEReference(schemaEClass, SCHEMA__DEFINITIONS);
     createEReference(schemaEClass, SCHEMA__ROOT_TYPE);
 
     rootTypeEClass = createEClass(ROOT_TYPE);
@@ -578,35 +966,74 @@ public class FlatBuffersPackageImpl extends EPackageImpl implements FlatBuffersP
     namespaceEClass = createEClass(NAMESPACE);
     createEAttribute(namespaceEClass, NAMESPACE__NAME);
 
+    definitionEClass = createEClass(DEFINITION);
+    createEAttribute(definitionEClass, DEFINITION__NAME);
+
+    structEClass = createEClass(STRUCT);
+    createEReference(structEClass, STRUCT__ATTRIBUTES);
+    createEReference(structEClass, STRUCT__FIELDS);
+
+    structFieldsEClass = createEClass(STRUCT_FIELDS);
+    createEAttribute(structFieldsEClass, STRUCT_FIELDS__NAME);
+    createEAttribute(structFieldsEClass, STRUCT_FIELDS__PRIM_TYPE);
+    createEReference(structFieldsEClass, STRUCT_FIELDS__DEF_TYPE);
+
     tableEClass = createEClass(TABLE);
-    createEAttribute(tableEClass, TABLE__NAME);
+    createEReference(tableEClass, TABLE__ATTRIBUTES);
     createEReference(tableEClass, TABLE__FIELDS);
 
     fieldsEClass = createEClass(FIELDS);
     createEAttribute(fieldsEClass, FIELDS__NAME);
     createEReference(fieldsEClass, FIELDS__TYPE);
-    createEAttribute(fieldsEClass, FIELDS__DEFAULT_VALUE);
+    createEReference(fieldsEClass, FIELDS__DEFAULT_VALUE);
     createEReference(fieldsEClass, FIELDS__ATTRIBUTES);
 
+    valueEClass = createEClass(VALUE);
+    createEAttribute(valueEClass, VALUE__NUMBER);
+    createEAttribute(valueEClass, VALUE__IS_FALSE);
+    createEAttribute(valueEClass, VALUE__IS_TRUE);
+    createEAttribute(valueEClass, VALUE__ENUM_CASE);
+
     fieldAttributesEClass = createEClass(FIELD_ATTRIBUTES);
-    createEAttribute(fieldAttributesEClass, FIELD_ATTRIBUTES__ATTRIBUTE_LIST);
-    createEReference(fieldAttributesEClass, FIELD_ATTRIBUTES__ATRIBUTE_NAME);
+    createEReference(fieldAttributesEClass, FIELD_ATTRIBUTES__ATRIBUTE_NAMES);
 
     attributeNameEClass = createEClass(ATTRIBUTE_NAME);
     createEAttribute(attributeNameEClass, ATTRIBUTE_NAME__DEPRECTATED);
+    createEAttribute(attributeNameEClass, ATTRIBUTE_NAME__HAS_ATTRIBUTE_ID);
+    createEAttribute(attributeNameEClass, ATTRIBUTE_NAME__ATTRIBUTE_ID);
+    createEAttribute(attributeNameEClass, ATTRIBUTE_NAME__REQUIRED);
+    createEAttribute(attributeNameEClass, ATTRIBUTE_NAME__ORIGINAL_ORDER);
+    createEAttribute(attributeNameEClass, ATTRIBUTE_NAME__HAS_ALIGN_SIZE);
+    createEAttribute(attributeNameEClass, ATTRIBUTE_NAME__ALIGN_SIZE);
+    createEAttribute(attributeNameEClass, ATTRIBUTE_NAME__HAS_HASH);
+    createEAttribute(attributeNameEClass, ATTRIBUTE_NAME__HASH_KEY);
+    createEAttribute(attributeNameEClass, ATTRIBUTE_NAME__BIT_FLAGS);
+    createEAttribute(attributeNameEClass, ATTRIBUTE_NAME__HAS_NESTED_TABLE_NAME);
+    createEAttribute(attributeNameEClass, ATTRIBUTE_NAME__NESTED_TABLE_NAME);
+    createEAttribute(attributeNameEClass, ATTRIBUTE_NAME__KEY);
     createEReference(attributeNameEClass, ATTRIBUTE_NAME__CUSTOM_NAME);
+    createEAttribute(attributeNameEClass, ATTRIBUTE_NAME__INT_VALUE);
+    createEAttribute(attributeNameEClass, ATTRIBUTE_NAME__STRING_VALUE);
 
     typeEClass = createEClass(TYPE);
     createEAttribute(typeEClass, TYPE__PRIM_TYPE);
     createEReference(typeEClass, TYPE__VECTOR_TYPE);
-    createEReference(typeEClass, TYPE__TABLE_TYPE);
+    createEReference(typeEClass, TYPE__DEF_TYPE);
 
     vectorEClass = createEClass(VECTOR);
-    createEAttribute(vectorEClass, VECTOR__PRIM_TYPE);
-    createEReference(vectorEClass, VECTOR__TABLE_TYPE);
+    createEReference(vectorEClass, VECTOR__TYPE);
 
-    tableTypeEClass = createEClass(TABLE_TYPE);
-    createEReference(tableTypeEClass, TABLE_TYPE__TYPE);
+    enumEClass = createEClass(ENUM);
+    createEAttribute(enumEClass, ENUM__TYPE);
+    createEReference(enumEClass, ENUM__ATTRIBUTES);
+    createEReference(enumEClass, ENUM__ENUM_CASES);
+
+    enumCaseEClass = createEClass(ENUM_CASE);
+    createEAttribute(enumCaseEClass, ENUM_CASE__NAME);
+    createEAttribute(enumCaseEClass, ENUM_CASE__VALUE);
+
+    unionEClass = createEClass(UNION);
+    createEReference(unionEClass, UNION__UNION_CASES);
   }
 
   /**
@@ -638,14 +1065,19 @@ public class FlatBuffersPackageImpl extends EPackageImpl implements FlatBuffersP
     // Set bounds for type parameters
 
     // Add supertypes to classes
+    structEClass.getESuperTypes().add(this.getDefinition());
+    tableEClass.getESuperTypes().add(this.getDefinition());
+    enumEClass.getESuperTypes().add(this.getDefinition());
+    unionEClass.getESuperTypes().add(this.getDefinition());
 
     // Initialize classes and features; add operations and parameters
     initEClass(schemaEClass, Schema.class, "Schema", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
     initEAttribute(getSchema_Includes(), ecorePackage.getEString(), "includes", null, 0, -1, Schema.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, !IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
     initEReference(getSchema_Namepsace(), this.getNamespace(), null, "namepsace", null, 0, 1, Schema.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
     initEAttribute(getSchema_FileIdentifier(), ecorePackage.getEString(), "fileIdentifier", null, 0, 1, Schema.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEAttribute(getSchema_File_extension(), ecorePackage.getEString(), "file_extension", null, 0, 1, Schema.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
     initEReference(getSchema_CustomAttributes(), this.getCustomAttributes(), null, "customAttributes", null, 0, -1, Schema.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-    initEReference(getSchema_Tables(), this.getTable(), null, "tables", null, 0, -1, Schema.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEReference(getSchema_Definitions(), this.getDefinition(), null, "definitions", null, 0, -1, Schema.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
     initEReference(getSchema_RootType(), this.getRootType(), null, "rootType", null, 0, 1, Schema.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
     initEClass(rootTypeEClass, RootType.class, "RootType", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
@@ -657,35 +1089,74 @@ public class FlatBuffersPackageImpl extends EPackageImpl implements FlatBuffersP
     initEClass(namespaceEClass, Namespace.class, "Namespace", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
     initEAttribute(getNamespace_Name(), ecorePackage.getEString(), "name", null, 0, 1, Namespace.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
+    initEClass(definitionEClass, Definition.class, "Definition", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+    initEAttribute(getDefinition_Name(), ecorePackage.getEString(), "name", null, 0, 1, Definition.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+    initEClass(structEClass, Struct.class, "Struct", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+    initEReference(getStruct_Attributes(), this.getFieldAttributes(), null, "attributes", null, 0, 1, Struct.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEReference(getStruct_Fields(), this.getStructFields(), null, "fields", null, 0, -1, Struct.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+    initEClass(structFieldsEClass, StructFields.class, "StructFields", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+    initEAttribute(getStructFields_Name(), ecorePackage.getEString(), "name", null, 0, 1, StructFields.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEAttribute(getStructFields_PrimType(), ecorePackage.getEString(), "primType", null, 0, 1, StructFields.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEReference(getStructFields_DefType(), this.getDefinition(), null, "defType", null, 0, 1, StructFields.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
     initEClass(tableEClass, Table.class, "Table", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-    initEAttribute(getTable_Name(), ecorePackage.getEString(), "name", null, 0, 1, Table.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEReference(getTable_Attributes(), this.getFieldAttributes(), null, "attributes", null, 0, 1, Table.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
     initEReference(getTable_Fields(), this.getFields(), null, "fields", null, 0, -1, Table.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
     initEClass(fieldsEClass, Fields.class, "Fields", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
     initEAttribute(getFields_Name(), ecorePackage.getEString(), "name", null, 0, 1, Fields.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
     initEReference(getFields_Type(), this.getType(), null, "type", null, 0, 1, Fields.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-    initEAttribute(getFields_DefaultValue(), ecorePackage.getEString(), "defaultValue", null, 0, 1, Fields.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEReference(getFields_DefaultValue(), this.getValue(), null, "defaultValue", null, 0, 1, Fields.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
     initEReference(getFields_Attributes(), this.getFieldAttributes(), null, "attributes", null, 0, 1, Fields.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
+    initEClass(valueEClass, Value.class, "Value", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+    initEAttribute(getValue_Number(), ecorePackage.getEString(), "number", null, 0, 1, Value.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEAttribute(getValue_IsFalse(), ecorePackage.getEBoolean(), "isFalse", null, 0, 1, Value.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEAttribute(getValue_IsTrue(), ecorePackage.getEBoolean(), "isTrue", null, 0, 1, Value.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEAttribute(getValue_EnumCase(), ecorePackage.getEString(), "enumCase", null, 0, 1, Value.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
     initEClass(fieldAttributesEClass, FieldAttributes.class, "FieldAttributes", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-    initEAttribute(getFieldAttributes_AttributeList(), ecorePackage.getEString(), "attributeList", null, 0, 1, FieldAttributes.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-    initEReference(getFieldAttributes_AtributeName(), this.getAttributeName(), null, "atributeName", null, 0, -1, FieldAttributes.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEReference(getFieldAttributes_AtributeNames(), this.getAttributeName(), null, "atributeNames", null, 0, -1, FieldAttributes.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
     initEClass(attributeNameEClass, AttributeName.class, "AttributeName", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
     initEAttribute(getAttributeName_Deprectated(), ecorePackage.getEBoolean(), "deprectated", null, 0, 1, AttributeName.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEAttribute(getAttributeName_HasAttributeId(), ecorePackage.getEBoolean(), "hasAttributeId", null, 0, 1, AttributeName.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEAttribute(getAttributeName_AttributeId(), ecorePackage.getEInt(), "attributeId", null, 0, 1, AttributeName.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEAttribute(getAttributeName_Required(), ecorePackage.getEBoolean(), "required", null, 0, 1, AttributeName.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEAttribute(getAttributeName_Original_order(), ecorePackage.getEBoolean(), "original_order", null, 0, 1, AttributeName.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEAttribute(getAttributeName_HasAlignSize(), ecorePackage.getEBoolean(), "hasAlignSize", null, 0, 1, AttributeName.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEAttribute(getAttributeName_AlignSize(), ecorePackage.getEInt(), "alignSize", null, 0, 1, AttributeName.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEAttribute(getAttributeName_HasHash(), ecorePackage.getEBoolean(), "hasHash", null, 0, 1, AttributeName.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEAttribute(getAttributeName_HashKey(), ecorePackage.getEString(), "hashKey", null, 0, 1, AttributeName.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEAttribute(getAttributeName_Bit_flags(), ecorePackage.getEBoolean(), "bit_flags", null, 0, 1, AttributeName.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEAttribute(getAttributeName_HasNestedTableName(), ecorePackage.getEBoolean(), "hasNestedTableName", null, 0, 1, AttributeName.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEAttribute(getAttributeName_NestedTableName(), ecorePackage.getEString(), "nestedTableName", null, 0, 1, AttributeName.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEAttribute(getAttributeName_Key(), ecorePackage.getEBoolean(), "key", null, 0, 1, AttributeName.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
     initEReference(getAttributeName_CustomName(), this.getCustomAttributes(), null, "customName", null, 0, 1, AttributeName.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEAttribute(getAttributeName_IntValue(), ecorePackage.getEInt(), "intValue", null, 0, 1, AttributeName.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEAttribute(getAttributeName_StringValue(), ecorePackage.getEString(), "stringValue", null, 0, 1, AttributeName.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
     initEClass(typeEClass, Type.class, "Type", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
     initEAttribute(getType_PrimType(), ecorePackage.getEString(), "primType", null, 0, 1, Type.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
     initEReference(getType_VectorType(), this.getVector(), null, "vectorType", null, 0, 1, Type.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-    initEReference(getType_TableType(), this.getTableType(), null, "tableType", null, 0, 1, Type.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEReference(getType_DefType(), this.getDefinition(), null, "defType", null, 0, 1, Type.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
     initEClass(vectorEClass, Vector.class, "Vector", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-    initEAttribute(getVector_PrimType(), ecorePackage.getEString(), "primType", null, 0, 1, Vector.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-    initEReference(getVector_TableType(), this.getTableType(), null, "tableType", null, 0, 1, Vector.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEReference(getVector_Type(), this.getType(), null, "type", null, 0, 1, Vector.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
-    initEClass(tableTypeEClass, TableType.class, "TableType", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-    initEReference(getTableType_Type(), this.getTable(), null, "type", null, 0, 1, TableType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEClass(enumEClass, maxim.zaks.flatBuffers.Enum.class, "Enum", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+    initEAttribute(getEnum_Type(), ecorePackage.getEString(), "type", null, 0, 1, maxim.zaks.flatBuffers.Enum.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEReference(getEnum_Attributes(), this.getFieldAttributes(), null, "attributes", null, 0, 1, maxim.zaks.flatBuffers.Enum.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEReference(getEnum_EnumCases(), this.getEnumCase(), null, "enumCases", null, 0, -1, maxim.zaks.flatBuffers.Enum.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+    initEClass(enumCaseEClass, EnumCase.class, "EnumCase", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+    initEAttribute(getEnumCase_Name(), ecorePackage.getEString(), "name", null, 0, 1, EnumCase.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEAttribute(getEnumCase_Value(), ecorePackage.getEInt(), "value", null, 0, 1, EnumCase.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+    initEClass(unionEClass, Union.class, "Union", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+    initEReference(getUnion_UnionCases(), this.getTable(), null, "unionCases", null, 0, -1, Union.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, !IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
     // Create resource
     createResource(eNS_URI);

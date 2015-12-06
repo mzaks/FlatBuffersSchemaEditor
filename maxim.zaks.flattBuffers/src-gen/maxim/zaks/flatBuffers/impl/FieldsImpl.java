@@ -6,6 +6,7 @@ import maxim.zaks.flatBuffers.FieldAttributes;
 import maxim.zaks.flatBuffers.Fields;
 import maxim.zaks.flatBuffers.FlatBuffersPackage;
 import maxim.zaks.flatBuffers.Type;
+import maxim.zaks.flatBuffers.Value;
 
 import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.common.notify.NotificationChain;
@@ -65,24 +66,14 @@ public class FieldsImpl extends MinimalEObjectImpl.Container implements Fields
   protected Type type;
 
   /**
-   * The default value of the '{@link #getDefaultValue() <em>Default Value</em>}' attribute.
+   * The cached value of the '{@link #getDefaultValue() <em>Default Value</em>}' containment reference.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @see #getDefaultValue()
    * @generated
    * @ordered
    */
-  protected static final String DEFAULT_VALUE_EDEFAULT = null;
-
-  /**
-   * The cached value of the '{@link #getDefaultValue() <em>Default Value</em>}' attribute.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @see #getDefaultValue()
-   * @generated
-   * @ordered
-   */
-  protected String defaultValue = DEFAULT_VALUE_EDEFAULT;
+  protected Value defaultValue;
 
   /**
    * The cached value of the '{@link #getAttributes() <em>Attributes</em>}' containment reference.
@@ -191,7 +182,7 @@ public class FieldsImpl extends MinimalEObjectImpl.Container implements Fields
    * <!-- end-user-doc -->
    * @generated
    */
-  public String getDefaultValue()
+  public Value getDefaultValue()
   {
     return defaultValue;
   }
@@ -201,12 +192,37 @@ public class FieldsImpl extends MinimalEObjectImpl.Container implements Fields
    * <!-- end-user-doc -->
    * @generated
    */
-  public void setDefaultValue(String newDefaultValue)
+  public NotificationChain basicSetDefaultValue(Value newDefaultValue, NotificationChain msgs)
   {
-    String oldDefaultValue = defaultValue;
+    Value oldDefaultValue = defaultValue;
     defaultValue = newDefaultValue;
     if (eNotificationRequired())
-      eNotify(new ENotificationImpl(this, Notification.SET, FlatBuffersPackage.FIELDS__DEFAULT_VALUE, oldDefaultValue, defaultValue));
+    {
+      ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, FlatBuffersPackage.FIELDS__DEFAULT_VALUE, oldDefaultValue, newDefaultValue);
+      if (msgs == null) msgs = notification; else msgs.add(notification);
+    }
+    return msgs;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public void setDefaultValue(Value newDefaultValue)
+  {
+    if (newDefaultValue != defaultValue)
+    {
+      NotificationChain msgs = null;
+      if (defaultValue != null)
+        msgs = ((InternalEObject)defaultValue).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - FlatBuffersPackage.FIELDS__DEFAULT_VALUE, null, msgs);
+      if (newDefaultValue != null)
+        msgs = ((InternalEObject)newDefaultValue).eInverseAdd(this, EOPPOSITE_FEATURE_BASE - FlatBuffersPackage.FIELDS__DEFAULT_VALUE, null, msgs);
+      msgs = basicSetDefaultValue(newDefaultValue, msgs);
+      if (msgs != null) msgs.dispatch();
+    }
+    else if (eNotificationRequired())
+      eNotify(new ENotificationImpl(this, Notification.SET, FlatBuffersPackage.FIELDS__DEFAULT_VALUE, newDefaultValue, newDefaultValue));
   }
 
   /**
@@ -269,6 +285,8 @@ public class FieldsImpl extends MinimalEObjectImpl.Container implements Fields
     {
       case FlatBuffersPackage.FIELDS__TYPE:
         return basicSetType(null, msgs);
+      case FlatBuffersPackage.FIELDS__DEFAULT_VALUE:
+        return basicSetDefaultValue(null, msgs);
       case FlatBuffersPackage.FIELDS__ATTRIBUTES:
         return basicSetAttributes(null, msgs);
     }
@@ -314,7 +332,7 @@ public class FieldsImpl extends MinimalEObjectImpl.Container implements Fields
         setType((Type)newValue);
         return;
       case FlatBuffersPackage.FIELDS__DEFAULT_VALUE:
-        setDefaultValue((String)newValue);
+        setDefaultValue((Value)newValue);
         return;
       case FlatBuffersPackage.FIELDS__ATTRIBUTES:
         setAttributes((FieldAttributes)newValue);
@@ -340,7 +358,7 @@ public class FieldsImpl extends MinimalEObjectImpl.Container implements Fields
         setType((Type)null);
         return;
       case FlatBuffersPackage.FIELDS__DEFAULT_VALUE:
-        setDefaultValue(DEFAULT_VALUE_EDEFAULT);
+        setDefaultValue((Value)null);
         return;
       case FlatBuffersPackage.FIELDS__ATTRIBUTES:
         setAttributes((FieldAttributes)null);
@@ -364,7 +382,7 @@ public class FieldsImpl extends MinimalEObjectImpl.Container implements Fields
       case FlatBuffersPackage.FIELDS__TYPE:
         return type != null;
       case FlatBuffersPackage.FIELDS__DEFAULT_VALUE:
-        return DEFAULT_VALUE_EDEFAULT == null ? defaultValue != null : !DEFAULT_VALUE_EDEFAULT.equals(defaultValue);
+        return defaultValue != null;
       case FlatBuffersPackage.FIELDS__ATTRIBUTES:
         return attributes != null;
     }
@@ -384,8 +402,6 @@ public class FieldsImpl extends MinimalEObjectImpl.Container implements Fields
     StringBuffer result = new StringBuffer(super.toString());
     result.append(" (name: ");
     result.append(name);
-    result.append(", defaultValue: ");
-    result.append(defaultValue);
     result.append(')');
     return result.toString();
   }

@@ -4,8 +4,6 @@ package maxim.zaks.flatBuffers;
 
 import org.eclipse.emf.common.util.EList;
 
-import org.eclipse.emf.ecore.EObject;
-
 /**
  * <!-- begin-user-doc -->
  * A representation of the model object '<em><b>Table</b></em>'.
@@ -15,7 +13,7 @@ import org.eclipse.emf.ecore.EObject;
  * The following features are supported:
  * </p>
  * <ul>
- *   <li>{@link maxim.zaks.flatBuffers.Table#getName <em>Name</em>}</li>
+ *   <li>{@link maxim.zaks.flatBuffers.Table#getAttributes <em>Attributes</em>}</li>
  *   <li>{@link maxim.zaks.flatBuffers.Table#getFields <em>Fields</em>}</li>
  * </ul>
  *
@@ -23,33 +21,33 @@ import org.eclipse.emf.ecore.EObject;
  * @model
  * @generated
  */
-public interface Table extends EObject
+public interface Table extends Definition
 {
   /**
-   * Returns the value of the '<em><b>Name</b></em>' attribute.
+   * Returns the value of the '<em><b>Attributes</b></em>' containment reference.
    * <!-- begin-user-doc -->
    * <p>
-   * If the meaning of the '<em>Name</em>' attribute isn't clear,
+   * If the meaning of the '<em>Attributes</em>' containment reference isn't clear,
    * there really should be more of a description here...
    * </p>
    * <!-- end-user-doc -->
-   * @return the value of the '<em>Name</em>' attribute.
-   * @see #setName(String)
-   * @see maxim.zaks.flatBuffers.FlatBuffersPackage#getTable_Name()
-   * @model
+   * @return the value of the '<em>Attributes</em>' containment reference.
+   * @see #setAttributes(FieldAttributes)
+   * @see maxim.zaks.flatBuffers.FlatBuffersPackage#getTable_Attributes()
+   * @model containment="true"
    * @generated
    */
-  String getName();
+  FieldAttributes getAttributes();
 
   /**
-   * Sets the value of the '{@link maxim.zaks.flatBuffers.Table#getName <em>Name</em>}' attribute.
+   * Sets the value of the '{@link maxim.zaks.flatBuffers.Table#getAttributes <em>Attributes</em>}' containment reference.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @param value the new value of the '<em>Name</em>' attribute.
-   * @see #getName()
+   * @param value the new value of the '<em>Attributes</em>' containment reference.
+   * @see #getAttributes()
    * @generated
    */
-  void setName(String value);
+  void setAttributes(FieldAttributes value);
 
   /**
    * Returns the value of the '<em><b>Fields</b></em>' containment reference list.

@@ -9,11 +9,17 @@ class SwiftGenerator {
 	public def generate(Schema schema){
 		rootTableName = schema.rootType.type.name
 		'''
-			«FOR table : schema.tables»
-			«table.tableStructReader»
+			«FOR definitions : schema.definitions»
+			«definitions.definitionReader»
 			«ENDFOR»
 		'''
 	} 
+	
+	def definitionReader(Definition definition) {
+		switch definition{
+			Table case definition: definition.tableStructReader
+		}
+	}
 	
 	def tableStructReader(Table table) '''
 		public struct «table.name»TableReader {
@@ -53,7 +59,7 @@ class SwiftGenerator {
 				}
 				'''
 			}
-		} else if(field.type.tableType != null) {
+		} else if(field.type.defType != null) {
 			val typeName = field.type.generateFieldType
 			'''	
 				public var «field.name» : «typeName»? {
@@ -69,18 +75,18 @@ class SwiftGenerator {
 	def generateFieldType(Type fieldType) {
 		if(fieldType.primType != null){
 			'''«fieldType.primType.converPrimitiveType»'''
-		} else if(fieldType.tableType != null) {
-			'''«fieldType.tableType.type.name»TableReader'''
+		} else if(fieldType.defType != null) {
+			'''«fieldType.defType.name»TableReader'''
 		} else if(fieldType.vectorType != null) {
 			'''[«fieldType.vectorType.generateVectorType»]'''
 		}
 	}
 	
 	def generateVectorType(Vector vectorType){
-		if(vectorType.primType != null){
-			'''«vectorType.primType.converPrimitiveType»'''
-		}else if(vectorType.tableType != null){
-			'''«vectorType.tableType.type.name»TableReader'''
+		if(vectorType.type.primType != null){
+			'''«vectorType.type.primType.converPrimitiveType»'''
+		}else if(vectorType.type.defType != null){
+			'''«vectorType.type.defType.name»TableReader'''
 		}
 	}
 	

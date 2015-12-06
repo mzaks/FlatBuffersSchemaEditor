@@ -2,12 +2,15 @@ grammar maxim.zaks.FlatBuffers with org.eclipse.xtext.common.Terminals
 
 generate flatBuffers "http://www.zaks.maxim/FlatBuffers"
 
+import "http://www.eclipse.org/emf/2002/Ecore" as ecore
+
 Schema:
 	includes+=Include*
 	namepsace=Namespace?
 	fileIdentifier=FileIdentifier?
+	file_extension=FileExtension?
 	customAttributes+=CustomAttributes*
-	tables+=Table*
+	definitions+=Definition*
 	rootType=RootType
 ;
 
@@ -16,11 +19,15 @@ RootType:
 ;
 
 CustomAttributes:
-	'attribute' '"' name=ID '"' ';'
+	'attribute' name=STRING ';'
 ;
 
 FileIdentifier:
 	'file_identifier' STRING ';'
+;
+
+FileExtension:
+	'file_extension' STRING ';'	
 ;
 
 Namespace:
@@ -30,50 +37,126 @@ Namespace:
 Include:
 	'include' STRING ';'
 ;
+
+Definition: 
+	Table | Struct | Enum | Union
+;
+
+Struct:
+	'struct' name=ID attributes=FieldAttributes? '{'
+	fields+=StructFields*
+	'}'	
+;
+
+StructFields:
+	name=ID ':' (primType=PrimitiveWithoutString | defType=[Definition]) ';'
+;
 	
 Table:
-	'table' name=ID '{'
+	'table' name=ID attributes=FieldAttributes? '{'
 	fields+=Fields*
 	'}';
 
 Fields:
-	name=ID ':' type=Type ('=' defaultValue=Value)? attributes=FieldAttributes? ';'
+	name=ValidID ':' type=Type ('=' defaultValue=Value)? attributes=FieldAttributes? ';'
 ;
 
 Value:
-	Number | 'false' | 'true'
+	number=Number | isFalse?='false' | isTrue?='true' | enumCase=ID
 ;
 
 FieldAttributes:
-	attributeList='(' atributeName+=AttributeName* ')'
+	'(' atributeNames+=AttributeName (',' atributeNames+=AttributeName)* ')'
 ;
 
 AttributeName:
-	(deprectated?='deprecated' | customName=[CustomAttributes])
+	(
+		deprectated?=DEPRECTED_ATTRIBUTE | 
+		hasAttributeId?=ID_ATTRIBUTE ':' attributeId=INT | 
+		required?=REQUIRED_ATTRIBUTE | 
+		original_order?='original_order' |
+		hasAlignSize?='force_align' ':' alignSize = INT |
+		hasHash?=HASH_ATTRIBUTE ':' hashKey = STRING |
+		bit_flags?= 'bit_flags' |
+		hasNestedTableName?='nested_flatbuffer' ':' nestedTableName=STRING |
+		key?=KEY_ATTRIBUTE |
+		customName=[CustomAttributes] (':' (intValue=INT | stringValue=STRING))?
+	)
 ;
 
 
 Type:
-	( primType=Primitive | vectorType=Vector |  tableType=TableType)
+	( primType=Primitive | vectorType=Vector |  defType=[Definition])
 ;
 
-Vector:
-	'[' ( primType=Primitive | tableType=TableType) ']'
+Vector hidden():
+	'[' type=Type ']'
 ;
+
+PrimitiveWithoutString:
+	'bool' | 'float' | 'double' |  PrimitiveNumberType 	
+;
+
 
 Primitive:
-	'bool' | 'byte' | 'ubyte' | 'short' | 'ushort' | 'int' | 'uint' | 'float' | 'long' | 'ulong' | 'double' | 'string' 	
+	'string' | PrimitiveWithoutString 	
 ;
 
-TableType:
-	type = [Table]
+Enum:
+	'enum' name=ID (':' type=PrimitiveNumberType)? attributes=FieldAttributes? '{' enumCases += EnumCase (',' enumCases += EnumCase)* '}'	
+;
+
+EnumCase:
+	name = ID ('=' value=INT)?
+;
+
+Union:
+	'union' name=ID '{'unionCases += [Table] (',' unionCases += [Table])* '}'
+;
+
+PrimitiveNumberType:
+	'byte' | 'ubyte' | 'short' | 'ushort' | 'int' | 'uint' | 'long' | 'ulong'  	
 ;
 
 QualifiedName:
   ValidID ('.' ValidID)*;
-
+  
 ValidID:
-	ID;
+  HASH_ATTRIBUTE | ID_ATTRIBUTE | REQUIRED_ATTRIBUTE | KEY_ATTRIBUTE | DEPRECTED_ATTRIBUTE | ID;
+  
+terminal ID_ATTRIBUTE:
+	'id'
+;
+
+terminal DEPRECTED_ATTRIBUTE:
+	'deprecated'
+;
+
+terminal REQUIRED_ATTRIBUTE:
+	'required'
+;
+
+terminal KEY_ATTRIBUTE:
+	'key'
+;
+  
+terminal HASH_ATTRIBUTE:
+	'hash'
+;
+
 	
 Number hidden():
-	(INT) ('.' (INT))?;
+	HEX | (INT | DECIMAL) ('.' (INT | DECIMAL))?;
+
+terminal HEX:
+	('0x'|'0X') ('0'..'9'|'a'..'f'|'A'..'F'|'_')+ 
+	('#' (('b'|'B')('i'|'I') | ('l'|'L')))?;
+	
+terminal INT returns ecore::EInt:
+	'0'..'9' ('0'..'9'|'_')*; 
+
+terminal DECIMAL:
+	('-')?
+	INT 
+	(('e'|'E') ('+'|'-')? INT)? 
+	(('b'|'B')('i'|'I'|'d'|'D') | ('l'|'L'|'d'|'D'|'f'|'F'))?;

@@ -2,7 +2,23 @@
  */
 package maxim.zaks.flatBuffers.util;
 
-import maxim.zaks.flatBuffers.*;
+import maxim.zaks.flatBuffers.AttributeName;
+import maxim.zaks.flatBuffers.CustomAttributes;
+import maxim.zaks.flatBuffers.Definition;
+import maxim.zaks.flatBuffers.EnumCase;
+import maxim.zaks.flatBuffers.FieldAttributes;
+import maxim.zaks.flatBuffers.Fields;
+import maxim.zaks.flatBuffers.FlatBuffersPackage;
+import maxim.zaks.flatBuffers.Namespace;
+import maxim.zaks.flatBuffers.RootType;
+import maxim.zaks.flatBuffers.Schema;
+import maxim.zaks.flatBuffers.Struct;
+import maxim.zaks.flatBuffers.StructFields;
+import maxim.zaks.flatBuffers.Table;
+import maxim.zaks.flatBuffers.Type;
+import maxim.zaks.flatBuffers.Union;
+import maxim.zaks.flatBuffers.Value;
+import maxim.zaks.flatBuffers.Vector;
 
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EPackage;
@@ -100,10 +116,33 @@ public class FlatBuffersSwitch<T> extends Switch<T>
         if (result == null) result = defaultCase(theEObject);
         return result;
       }
+      case FlatBuffersPackage.DEFINITION:
+      {
+        Definition definition = (Definition)theEObject;
+        T result = caseDefinition(definition);
+        if (result == null) result = defaultCase(theEObject);
+        return result;
+      }
+      case FlatBuffersPackage.STRUCT:
+      {
+        Struct struct = (Struct)theEObject;
+        T result = caseStruct(struct);
+        if (result == null) result = caseDefinition(struct);
+        if (result == null) result = defaultCase(theEObject);
+        return result;
+      }
+      case FlatBuffersPackage.STRUCT_FIELDS:
+      {
+        StructFields structFields = (StructFields)theEObject;
+        T result = caseStructFields(structFields);
+        if (result == null) result = defaultCase(theEObject);
+        return result;
+      }
       case FlatBuffersPackage.TABLE:
       {
         Table table = (Table)theEObject;
         T result = caseTable(table);
+        if (result == null) result = caseDefinition(table);
         if (result == null) result = defaultCase(theEObject);
         return result;
       }
@@ -111,6 +150,13 @@ public class FlatBuffersSwitch<T> extends Switch<T>
       {
         Fields fields = (Fields)theEObject;
         T result = caseFields(fields);
+        if (result == null) result = defaultCase(theEObject);
+        return result;
+      }
+      case FlatBuffersPackage.VALUE:
+      {
+        Value value = (Value)theEObject;
+        T result = caseValue(value);
         if (result == null) result = defaultCase(theEObject);
         return result;
       }
@@ -142,10 +188,26 @@ public class FlatBuffersSwitch<T> extends Switch<T>
         if (result == null) result = defaultCase(theEObject);
         return result;
       }
-      case FlatBuffersPackage.TABLE_TYPE:
+      case FlatBuffersPackage.ENUM:
       {
-        TableType tableType = (TableType)theEObject;
-        T result = caseTableType(tableType);
+        maxim.zaks.flatBuffers.Enum enum_ = (maxim.zaks.flatBuffers.Enum)theEObject;
+        T result = caseEnum(enum_);
+        if (result == null) result = caseDefinition(enum_);
+        if (result == null) result = defaultCase(theEObject);
+        return result;
+      }
+      case FlatBuffersPackage.ENUM_CASE:
+      {
+        EnumCase enumCase = (EnumCase)theEObject;
+        T result = caseEnumCase(enumCase);
+        if (result == null) result = defaultCase(theEObject);
+        return result;
+      }
+      case FlatBuffersPackage.UNION:
+      {
+        Union union = (Union)theEObject;
+        T result = caseUnion(union);
+        if (result == null) result = caseDefinition(union);
         if (result == null) result = defaultCase(theEObject);
         return result;
       }
@@ -218,6 +280,54 @@ public class FlatBuffersSwitch<T> extends Switch<T>
   }
 
   /**
+   * Returns the result of interpreting the object as an instance of '<em>Definition</em>'.
+   * <!-- begin-user-doc -->
+   * This implementation returns null;
+   * returning a non-null result will terminate the switch.
+   * <!-- end-user-doc -->
+   * @param object the target of the switch.
+   * @return the result of interpreting the object as an instance of '<em>Definition</em>'.
+   * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+   * @generated
+   */
+  public T caseDefinition(Definition object)
+  {
+    return null;
+  }
+
+  /**
+   * Returns the result of interpreting the object as an instance of '<em>Struct</em>'.
+   * <!-- begin-user-doc -->
+   * This implementation returns null;
+   * returning a non-null result will terminate the switch.
+   * <!-- end-user-doc -->
+   * @param object the target of the switch.
+   * @return the result of interpreting the object as an instance of '<em>Struct</em>'.
+   * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+   * @generated
+   */
+  public T caseStruct(Struct object)
+  {
+    return null;
+  }
+
+  /**
+   * Returns the result of interpreting the object as an instance of '<em>Struct Fields</em>'.
+   * <!-- begin-user-doc -->
+   * This implementation returns null;
+   * returning a non-null result will terminate the switch.
+   * <!-- end-user-doc -->
+   * @param object the target of the switch.
+   * @return the result of interpreting the object as an instance of '<em>Struct Fields</em>'.
+   * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+   * @generated
+   */
+  public T caseStructFields(StructFields object)
+  {
+    return null;
+  }
+
+  /**
    * Returns the result of interpreting the object as an instance of '<em>Table</em>'.
    * <!-- begin-user-doc -->
    * This implementation returns null;
@@ -245,6 +355,22 @@ public class FlatBuffersSwitch<T> extends Switch<T>
    * @generated
    */
   public T caseFields(Fields object)
+  {
+    return null;
+  }
+
+  /**
+   * Returns the result of interpreting the object as an instance of '<em>Value</em>'.
+   * <!-- begin-user-doc -->
+   * This implementation returns null;
+   * returning a non-null result will terminate the switch.
+   * <!-- end-user-doc -->
+   * @param object the target of the switch.
+   * @return the result of interpreting the object as an instance of '<em>Value</em>'.
+   * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+   * @generated
+   */
+  public T caseValue(Value object)
   {
     return null;
   }
@@ -314,17 +440,49 @@ public class FlatBuffersSwitch<T> extends Switch<T>
   }
 
   /**
-   * Returns the result of interpreting the object as an instance of '<em>Table Type</em>'.
+   * Returns the result of interpreting the object as an instance of '<em>Enum</em>'.
    * <!-- begin-user-doc -->
    * This implementation returns null;
    * returning a non-null result will terminate the switch.
    * <!-- end-user-doc -->
    * @param object the target of the switch.
-   * @return the result of interpreting the object as an instance of '<em>Table Type</em>'.
+   * @return the result of interpreting the object as an instance of '<em>Enum</em>'.
    * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
    * @generated
    */
-  public T caseTableType(TableType object)
+  public T caseEnum(maxim.zaks.flatBuffers.Enum object)
+  {
+    return null;
+  }
+
+  /**
+   * Returns the result of interpreting the object as an instance of '<em>Enum Case</em>'.
+   * <!-- begin-user-doc -->
+   * This implementation returns null;
+   * returning a non-null result will terminate the switch.
+   * <!-- end-user-doc -->
+   * @param object the target of the switch.
+   * @return the result of interpreting the object as an instance of '<em>Enum Case</em>'.
+   * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+   * @generated
+   */
+  public T caseEnumCase(EnumCase object)
+  {
+    return null;
+  }
+
+  /**
+   * Returns the result of interpreting the object as an instance of '<em>Union</em>'.
+   * <!-- begin-user-doc -->
+   * This implementation returns null;
+   * returning a non-null result will terminate the switch.
+   * <!-- end-user-doc -->
+   * @param object the target of the switch.
+   * @return the result of interpreting the object as an instance of '<em>Union</em>'.
+   * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+   * @generated
+   */
+  public T caseUnion(Union object)
   {
     return null;
   }

@@ -2,8 +2,8 @@
  */
 package maxim.zaks.flatBuffers.impl;
 
+import maxim.zaks.flatBuffers.Definition;
 import maxim.zaks.flatBuffers.FlatBuffersPackage;
-import maxim.zaks.flatBuffers.TableType;
 import maxim.zaks.flatBuffers.Type;
 import maxim.zaks.flatBuffers.Vector;
 
@@ -26,7 +26,7 @@ import org.eclipse.emf.ecore.impl.MinimalEObjectImpl;
  * <ul>
  *   <li>{@link maxim.zaks.flatBuffers.impl.TypeImpl#getPrimType <em>Prim Type</em>}</li>
  *   <li>{@link maxim.zaks.flatBuffers.impl.TypeImpl#getVectorType <em>Vector Type</em>}</li>
- *   <li>{@link maxim.zaks.flatBuffers.impl.TypeImpl#getTableType <em>Table Type</em>}</li>
+ *   <li>{@link maxim.zaks.flatBuffers.impl.TypeImpl#getDefType <em>Def Type</em>}</li>
  * </ul>
  *
  * @generated
@@ -64,14 +64,14 @@ public class TypeImpl extends MinimalEObjectImpl.Container implements Type
   protected Vector vectorType;
 
   /**
-   * The cached value of the '{@link #getTableType() <em>Table Type</em>}' containment reference.
+   * The cached value of the '{@link #getDefType() <em>Def Type</em>}' reference.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @see #getTableType()
+   * @see #getDefType()
    * @generated
    * @ordered
    */
-  protected TableType tableType;
+  protected Definition defType;
 
   /**
    * <!-- begin-user-doc -->
@@ -170,9 +170,19 @@ public class TypeImpl extends MinimalEObjectImpl.Container implements Type
    * <!-- end-user-doc -->
    * @generated
    */
-  public TableType getTableType()
+  public Definition getDefType()
   {
-    return tableType;
+    if (defType != null && defType.eIsProxy())
+    {
+      InternalEObject oldDefType = (InternalEObject)defType;
+      defType = (Definition)eResolveProxy(oldDefType);
+      if (defType != oldDefType)
+      {
+        if (eNotificationRequired())
+          eNotify(new ENotificationImpl(this, Notification.RESOLVE, FlatBuffersPackage.TYPE__DEF_TYPE, oldDefType, defType));
+      }
+    }
+    return defType;
   }
 
   /**
@@ -180,37 +190,22 @@ public class TypeImpl extends MinimalEObjectImpl.Container implements Type
    * <!-- end-user-doc -->
    * @generated
    */
-  public NotificationChain basicSetTableType(TableType newTableType, NotificationChain msgs)
+  public Definition basicGetDefType()
   {
-    TableType oldTableType = tableType;
-    tableType = newTableType;
+    return defType;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public void setDefType(Definition newDefType)
+  {
+    Definition oldDefType = defType;
+    defType = newDefType;
     if (eNotificationRequired())
-    {
-      ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, FlatBuffersPackage.TYPE__TABLE_TYPE, oldTableType, newTableType);
-      if (msgs == null) msgs = notification; else msgs.add(notification);
-    }
-    return msgs;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public void setTableType(TableType newTableType)
-  {
-    if (newTableType != tableType)
-    {
-      NotificationChain msgs = null;
-      if (tableType != null)
-        msgs = ((InternalEObject)tableType).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - FlatBuffersPackage.TYPE__TABLE_TYPE, null, msgs);
-      if (newTableType != null)
-        msgs = ((InternalEObject)newTableType).eInverseAdd(this, EOPPOSITE_FEATURE_BASE - FlatBuffersPackage.TYPE__TABLE_TYPE, null, msgs);
-      msgs = basicSetTableType(newTableType, msgs);
-      if (msgs != null) msgs.dispatch();
-    }
-    else if (eNotificationRequired())
-      eNotify(new ENotificationImpl(this, Notification.SET, FlatBuffersPackage.TYPE__TABLE_TYPE, newTableType, newTableType));
+      eNotify(new ENotificationImpl(this, Notification.SET, FlatBuffersPackage.TYPE__DEF_TYPE, oldDefType, defType));
   }
 
   /**
@@ -225,8 +220,6 @@ public class TypeImpl extends MinimalEObjectImpl.Container implements Type
     {
       case FlatBuffersPackage.TYPE__VECTOR_TYPE:
         return basicSetVectorType(null, msgs);
-      case FlatBuffersPackage.TYPE__TABLE_TYPE:
-        return basicSetTableType(null, msgs);
     }
     return super.eInverseRemove(otherEnd, featureID, msgs);
   }
@@ -245,8 +238,9 @@ public class TypeImpl extends MinimalEObjectImpl.Container implements Type
         return getPrimType();
       case FlatBuffersPackage.TYPE__VECTOR_TYPE:
         return getVectorType();
-      case FlatBuffersPackage.TYPE__TABLE_TYPE:
-        return getTableType();
+      case FlatBuffersPackage.TYPE__DEF_TYPE:
+        if (resolve) return getDefType();
+        return basicGetDefType();
     }
     return super.eGet(featureID, resolve, coreType);
   }
@@ -267,8 +261,8 @@ public class TypeImpl extends MinimalEObjectImpl.Container implements Type
       case FlatBuffersPackage.TYPE__VECTOR_TYPE:
         setVectorType((Vector)newValue);
         return;
-      case FlatBuffersPackage.TYPE__TABLE_TYPE:
-        setTableType((TableType)newValue);
+      case FlatBuffersPackage.TYPE__DEF_TYPE:
+        setDefType((Definition)newValue);
         return;
     }
     super.eSet(featureID, newValue);
@@ -290,8 +284,8 @@ public class TypeImpl extends MinimalEObjectImpl.Container implements Type
       case FlatBuffersPackage.TYPE__VECTOR_TYPE:
         setVectorType((Vector)null);
         return;
-      case FlatBuffersPackage.TYPE__TABLE_TYPE:
-        setTableType((TableType)null);
+      case FlatBuffersPackage.TYPE__DEF_TYPE:
+        setDefType((Definition)null);
         return;
     }
     super.eUnset(featureID);
@@ -311,8 +305,8 @@ public class TypeImpl extends MinimalEObjectImpl.Container implements Type
         return PRIM_TYPE_EDEFAULT == null ? primType != null : !PRIM_TYPE_EDEFAULT.equals(primType);
       case FlatBuffersPackage.TYPE__VECTOR_TYPE:
         return vectorType != null;
-      case FlatBuffersPackage.TYPE__TABLE_TYPE:
-        return tableType != null;
+      case FlatBuffersPackage.TYPE__DEF_TYPE:
+        return defType != null;
     }
     return super.eIsSet(featureID);
   }

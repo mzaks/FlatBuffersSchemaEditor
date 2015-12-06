@@ -78,30 +78,30 @@ public interface Fields extends EObject
   void setType(Type value);
 
   /**
-   * Returns the value of the '<em><b>Default Value</b></em>' attribute.
+   * Returns the value of the '<em><b>Default Value</b></em>' containment reference.
    * <!-- begin-user-doc -->
    * <p>
-   * If the meaning of the '<em>Default Value</em>' attribute isn't clear,
+   * If the meaning of the '<em>Default Value</em>' containment reference isn't clear,
    * there really should be more of a description here...
    * </p>
    * <!-- end-user-doc -->
-   * @return the value of the '<em>Default Value</em>' attribute.
-   * @see #setDefaultValue(String)
+   * @return the value of the '<em>Default Value</em>' containment reference.
+   * @see #setDefaultValue(Value)
    * @see maxim.zaks.flatBuffers.FlatBuffersPackage#getFields_DefaultValue()
-   * @model
+   * @model containment="true"
    * @generated
    */
-  String getDefaultValue();
+  Value getDefaultValue();
 
   /**
-   * Sets the value of the '{@link maxim.zaks.flatBuffers.Fields#getDefaultValue <em>Default Value</em>}' attribute.
+   * Sets the value of the '{@link maxim.zaks.flatBuffers.Fields#getDefaultValue <em>Default Value</em>}' containment reference.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @param value the new value of the '<em>Default Value</em>' attribute.
+   * @param value the new value of the '<em>Default Value</em>' containment reference.
    * @see #getDefaultValue()
    * @generated
    */
-  void setDefaultValue(String value);
+  void setDefaultValue(Value value);
 
   /**
    * Returns the value of the '<em><b>Attributes</b></em>' containment reference.

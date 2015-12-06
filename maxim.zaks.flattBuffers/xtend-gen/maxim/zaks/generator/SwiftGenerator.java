@@ -1,11 +1,11 @@
 package maxim.zaks.generator;
 
 import com.google.common.base.Objects;
+import maxim.zaks.flatBuffers.Definition;
 import maxim.zaks.flatBuffers.Fields;
 import maxim.zaks.flatBuffers.RootType;
 import maxim.zaks.flatBuffers.Schema;
 import maxim.zaks.flatBuffers.Table;
-import maxim.zaks.flatBuffers.TableType;
 import maxim.zaks.flatBuffers.Type;
 import maxim.zaks.flatBuffers.Vector;
 import org.eclipse.emf.common.util.EList;
@@ -27,16 +27,30 @@ public class SwiftGenerator {
       this.rootTableName = _name;
       StringConcatenation _builder = new StringConcatenation();
       {
-        EList<Table> _tables = schema.getTables();
-        for(final Table table : _tables) {
-          CharSequence _tableStructReader = this.tableStructReader(table);
-          _builder.append(_tableStructReader, "");
+        EList<Definition> _definitions = schema.getDefinitions();
+        for(final Definition definitions : _definitions) {
+          CharSequence _definitionReader = this.definitionReader(definitions);
+          _builder.append(_definitionReader, "");
           _builder.newLineIfNotEmpty();
         }
       }
       _xblockexpression = _builder;
     }
     return _xblockexpression;
+  }
+  
+  public CharSequence definitionReader(final Definition definition) {
+    CharSequence _switchResult = null;
+    boolean _matched = false;
+    if (!_matched) {
+      if (definition instanceof Table) {
+        if (Objects.equal(definition, ((Table)definition))) {
+          _matched=true;
+          _switchResult = this.tableStructReader(((Table)definition));
+        }
+      }
+    }
+    return _switchResult;
   }
   
   public CharSequence tableStructReader(final Table table) {
@@ -157,8 +171,8 @@ public class SwiftGenerator {
     } else {
       CharSequence _xifexpression_2 = null;
       Type _type_4 = field.getType();
-      TableType _tableType = _type_4.getTableType();
-      boolean _notEquals_1 = (!Objects.equal(_tableType, null));
+      Definition _defType = _type_4.getDefType();
+      boolean _notEquals_1 = (!Objects.equal(_defType, null));
       if (_notEquals_1) {
         CharSequence _xblockexpression = null;
         {
@@ -211,13 +225,12 @@ public class SwiftGenerator {
       _xifexpression = _builder;
     } else {
       CharSequence _xifexpression_1 = null;
-      TableType _tableType = fieldType.getTableType();
-      boolean _notEquals_1 = (!Objects.equal(_tableType, null));
+      Definition _defType = fieldType.getDefType();
+      boolean _notEquals_1 = (!Objects.equal(_defType, null));
       if (_notEquals_1) {
         StringConcatenation _builder_1 = new StringConcatenation();
-        TableType _tableType_1 = fieldType.getTableType();
-        Table _type = _tableType_1.getType();
-        String _name = _type.getName();
+        Definition _defType_1 = fieldType.getDefType();
+        String _name = _defType_1.getName();
         _builder_1.append(_name, "");
         _builder_1.append("TableReader");
         _xifexpression_1 = _builder_1;
@@ -243,23 +256,26 @@ public class SwiftGenerator {
   
   public CharSequence generateVectorType(final Vector vectorType) {
     CharSequence _xifexpression = null;
-    String _primType = vectorType.getPrimType();
+    Type _type = vectorType.getType();
+    String _primType = _type.getPrimType();
     boolean _notEquals = (!Objects.equal(_primType, null));
     if (_notEquals) {
       StringConcatenation _builder = new StringConcatenation();
-      String _primType_1 = vectorType.getPrimType();
+      Type _type_1 = vectorType.getType();
+      String _primType_1 = _type_1.getPrimType();
       CharSequence _converPrimitiveType = this.converPrimitiveType(_primType_1);
       _builder.append(_converPrimitiveType, "");
       _xifexpression = _builder;
     } else {
       CharSequence _xifexpression_1 = null;
-      TableType _tableType = vectorType.getTableType();
-      boolean _notEquals_1 = (!Objects.equal(_tableType, null));
+      Type _type_2 = vectorType.getType();
+      Definition _defType = _type_2.getDefType();
+      boolean _notEquals_1 = (!Objects.equal(_defType, null));
       if (_notEquals_1) {
         StringConcatenation _builder_1 = new StringConcatenation();
-        TableType _tableType_1 = vectorType.getTableType();
-        Table _type = _tableType_1.getType();
-        String _name = _type.getName();
+        Type _type_3 = vectorType.getType();
+        Definition _defType_1 = _type_3.getDefType();
+        String _name = _defType_1.getName();
         _builder_1.append(_name, "");
         _builder_1.append("TableReader");
         _xifexpression_1 = _builder_1;

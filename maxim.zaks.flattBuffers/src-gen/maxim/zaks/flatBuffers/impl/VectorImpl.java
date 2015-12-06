@@ -3,7 +3,7 @@
 package maxim.zaks.flatBuffers.impl;
 
 import maxim.zaks.flatBuffers.FlatBuffersPackage;
-import maxim.zaks.flatBuffers.TableType;
+import maxim.zaks.flatBuffers.Type;
 import maxim.zaks.flatBuffers.Vector;
 
 import org.eclipse.emf.common.notify.Notification;
@@ -23,8 +23,7 @@ import org.eclipse.emf.ecore.impl.MinimalEObjectImpl;
  * The following features are implemented:
  * </p>
  * <ul>
- *   <li>{@link maxim.zaks.flatBuffers.impl.VectorImpl#getPrimType <em>Prim Type</em>}</li>
- *   <li>{@link maxim.zaks.flatBuffers.impl.VectorImpl#getTableType <em>Table Type</em>}</li>
+ *   <li>{@link maxim.zaks.flatBuffers.impl.VectorImpl#getType <em>Type</em>}</li>
  * </ul>
  *
  * @generated
@@ -32,34 +31,14 @@ import org.eclipse.emf.ecore.impl.MinimalEObjectImpl;
 public class VectorImpl extends MinimalEObjectImpl.Container implements Vector
 {
   /**
-   * The default value of the '{@link #getPrimType() <em>Prim Type</em>}' attribute.
+   * The cached value of the '{@link #getType() <em>Type</em>}' containment reference.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @see #getPrimType()
+   * @see #getType()
    * @generated
    * @ordered
    */
-  protected static final String PRIM_TYPE_EDEFAULT = null;
-
-  /**
-   * The cached value of the '{@link #getPrimType() <em>Prim Type</em>}' attribute.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @see #getPrimType()
-   * @generated
-   * @ordered
-   */
-  protected String primType = PRIM_TYPE_EDEFAULT;
-
-  /**
-   * The cached value of the '{@link #getTableType() <em>Table Type</em>}' containment reference.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @see #getTableType()
-   * @generated
-   * @ordered
-   */
-  protected TableType tableType;
+  protected Type type;
 
   /**
    * <!-- begin-user-doc -->
@@ -87,9 +66,9 @@ public class VectorImpl extends MinimalEObjectImpl.Container implements Vector
    * <!-- end-user-doc -->
    * @generated
    */
-  public String getPrimType()
+  public Type getType()
   {
-    return primType;
+    return type;
   }
 
   /**
@@ -97,36 +76,13 @@ public class VectorImpl extends MinimalEObjectImpl.Container implements Vector
    * <!-- end-user-doc -->
    * @generated
    */
-  public void setPrimType(String newPrimType)
+  public NotificationChain basicSetType(Type newType, NotificationChain msgs)
   {
-    String oldPrimType = primType;
-    primType = newPrimType;
-    if (eNotificationRequired())
-      eNotify(new ENotificationImpl(this, Notification.SET, FlatBuffersPackage.VECTOR__PRIM_TYPE, oldPrimType, primType));
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public TableType getTableType()
-  {
-    return tableType;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public NotificationChain basicSetTableType(TableType newTableType, NotificationChain msgs)
-  {
-    TableType oldTableType = tableType;
-    tableType = newTableType;
+    Type oldType = type;
+    type = newType;
     if (eNotificationRequired())
     {
-      ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, FlatBuffersPackage.VECTOR__TABLE_TYPE, oldTableType, newTableType);
+      ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, FlatBuffersPackage.VECTOR__TYPE, oldType, newType);
       if (msgs == null) msgs = notification; else msgs.add(notification);
     }
     return msgs;
@@ -137,20 +93,20 @@ public class VectorImpl extends MinimalEObjectImpl.Container implements Vector
    * <!-- end-user-doc -->
    * @generated
    */
-  public void setTableType(TableType newTableType)
+  public void setType(Type newType)
   {
-    if (newTableType != tableType)
+    if (newType != type)
     {
       NotificationChain msgs = null;
-      if (tableType != null)
-        msgs = ((InternalEObject)tableType).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - FlatBuffersPackage.VECTOR__TABLE_TYPE, null, msgs);
-      if (newTableType != null)
-        msgs = ((InternalEObject)newTableType).eInverseAdd(this, EOPPOSITE_FEATURE_BASE - FlatBuffersPackage.VECTOR__TABLE_TYPE, null, msgs);
-      msgs = basicSetTableType(newTableType, msgs);
+      if (type != null)
+        msgs = ((InternalEObject)type).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - FlatBuffersPackage.VECTOR__TYPE, null, msgs);
+      if (newType != null)
+        msgs = ((InternalEObject)newType).eInverseAdd(this, EOPPOSITE_FEATURE_BASE - FlatBuffersPackage.VECTOR__TYPE, null, msgs);
+      msgs = basicSetType(newType, msgs);
       if (msgs != null) msgs.dispatch();
     }
     else if (eNotificationRequired())
-      eNotify(new ENotificationImpl(this, Notification.SET, FlatBuffersPackage.VECTOR__TABLE_TYPE, newTableType, newTableType));
+      eNotify(new ENotificationImpl(this, Notification.SET, FlatBuffersPackage.VECTOR__TYPE, newType, newType));
   }
 
   /**
@@ -163,8 +119,8 @@ public class VectorImpl extends MinimalEObjectImpl.Container implements Vector
   {
     switch (featureID)
     {
-      case FlatBuffersPackage.VECTOR__TABLE_TYPE:
-        return basicSetTableType(null, msgs);
+      case FlatBuffersPackage.VECTOR__TYPE:
+        return basicSetType(null, msgs);
     }
     return super.eInverseRemove(otherEnd, featureID, msgs);
   }
@@ -179,10 +135,8 @@ public class VectorImpl extends MinimalEObjectImpl.Container implements Vector
   {
     switch (featureID)
     {
-      case FlatBuffersPackage.VECTOR__PRIM_TYPE:
-        return getPrimType();
-      case FlatBuffersPackage.VECTOR__TABLE_TYPE:
-        return getTableType();
+      case FlatBuffersPackage.VECTOR__TYPE:
+        return getType();
     }
     return super.eGet(featureID, resolve, coreType);
   }
@@ -197,11 +151,8 @@ public class VectorImpl extends MinimalEObjectImpl.Container implements Vector
   {
     switch (featureID)
     {
-      case FlatBuffersPackage.VECTOR__PRIM_TYPE:
-        setPrimType((String)newValue);
-        return;
-      case FlatBuffersPackage.VECTOR__TABLE_TYPE:
-        setTableType((TableType)newValue);
+      case FlatBuffersPackage.VECTOR__TYPE:
+        setType((Type)newValue);
         return;
     }
     super.eSet(featureID, newValue);
@@ -217,11 +168,8 @@ public class VectorImpl extends MinimalEObjectImpl.Container implements Vector
   {
     switch (featureID)
     {
-      case FlatBuffersPackage.VECTOR__PRIM_TYPE:
-        setPrimType(PRIM_TYPE_EDEFAULT);
-        return;
-      case FlatBuffersPackage.VECTOR__TABLE_TYPE:
-        setTableType((TableType)null);
+      case FlatBuffersPackage.VECTOR__TYPE:
+        setType((Type)null);
         return;
     }
     super.eUnset(featureID);
@@ -237,29 +185,10 @@ public class VectorImpl extends MinimalEObjectImpl.Container implements Vector
   {
     switch (featureID)
     {
-      case FlatBuffersPackage.VECTOR__PRIM_TYPE:
-        return PRIM_TYPE_EDEFAULT == null ? primType != null : !PRIM_TYPE_EDEFAULT.equals(primType);
-      case FlatBuffersPackage.VECTOR__TABLE_TYPE:
-        return tableType != null;
+      case FlatBuffersPackage.VECTOR__TYPE:
+        return type != null;
     }
     return super.eIsSet(featureID);
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  @Override
-  public String toString()
-  {
-    if (eIsProxy()) return super.toString();
-
-    StringBuffer result = new StringBuffer(super.toString());
-    result.append(" (primType: ");
-    result.append(primType);
-    result.append(')');
-    return result.toString();
   }
 
 } //VectorImpl

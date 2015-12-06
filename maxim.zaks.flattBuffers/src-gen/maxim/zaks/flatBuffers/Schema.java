@@ -18,8 +18,9 @@ import org.eclipse.emf.ecore.EObject;
  *   <li>{@link maxim.zaks.flatBuffers.Schema#getIncludes <em>Includes</em>}</li>
  *   <li>{@link maxim.zaks.flatBuffers.Schema#getNamepsace <em>Namepsace</em>}</li>
  *   <li>{@link maxim.zaks.flatBuffers.Schema#getFileIdentifier <em>File Identifier</em>}</li>
+ *   <li>{@link maxim.zaks.flatBuffers.Schema#getFile_extension <em>File extension</em>}</li>
  *   <li>{@link maxim.zaks.flatBuffers.Schema#getCustomAttributes <em>Custom Attributes</em>}</li>
- *   <li>{@link maxim.zaks.flatBuffers.Schema#getTables <em>Tables</em>}</li>
+ *   <li>{@link maxim.zaks.flatBuffers.Schema#getDefinitions <em>Definitions</em>}</li>
  *   <li>{@link maxim.zaks.flatBuffers.Schema#getRootType <em>Root Type</em>}</li>
  * </ul>
  *
@@ -98,6 +99,32 @@ public interface Schema extends EObject
   void setFileIdentifier(String value);
 
   /**
+   * Returns the value of the '<em><b>File extension</b></em>' attribute.
+   * <!-- begin-user-doc -->
+   * <p>
+   * If the meaning of the '<em>File extension</em>' attribute isn't clear,
+   * there really should be more of a description here...
+   * </p>
+   * <!-- end-user-doc -->
+   * @return the value of the '<em>File extension</em>' attribute.
+   * @see #setFile_extension(String)
+   * @see maxim.zaks.flatBuffers.FlatBuffersPackage#getSchema_File_extension()
+   * @model
+   * @generated
+   */
+  String getFile_extension();
+
+  /**
+   * Sets the value of the '{@link maxim.zaks.flatBuffers.Schema#getFile_extension <em>File extension</em>}' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @param value the new value of the '<em>File extension</em>' attribute.
+   * @see #getFile_extension()
+   * @generated
+   */
+  void setFile_extension(String value);
+
+  /**
    * Returns the value of the '<em><b>Custom Attributes</b></em>' containment reference list.
    * The list contents are of type {@link maxim.zaks.flatBuffers.CustomAttributes}.
    * <!-- begin-user-doc -->
@@ -114,20 +141,20 @@ public interface Schema extends EObject
   EList<CustomAttributes> getCustomAttributes();
 
   /**
-   * Returns the value of the '<em><b>Tables</b></em>' containment reference list.
-   * The list contents are of type {@link maxim.zaks.flatBuffers.Table}.
+   * Returns the value of the '<em><b>Definitions</b></em>' containment reference list.
+   * The list contents are of type {@link maxim.zaks.flatBuffers.Definition}.
    * <!-- begin-user-doc -->
    * <p>
-   * If the meaning of the '<em>Tables</em>' containment reference list isn't clear,
+   * If the meaning of the '<em>Definitions</em>' containment reference list isn't clear,
    * there really should be more of a description here...
    * </p>
    * <!-- end-user-doc -->
-   * @return the value of the '<em>Tables</em>' containment reference list.
-   * @see maxim.zaks.flatBuffers.FlatBuffersPackage#getSchema_Tables()
+   * @return the value of the '<em>Definitions</em>' containment reference list.
+   * @see maxim.zaks.flatBuffers.FlatBuffersPackage#getSchema_Definitions()
    * @model containment="true"
    * @generated
    */
-  EList<Table> getTables();
+  EList<Definition> getDefinitions();
 
   /**
    * Returns the value of the '<em><b>Root Type</b></em>' containment reference.
