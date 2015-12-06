@@ -1,0 +1,13 @@
+.DS_Store
+target
+bin
+.svn
+*.class
+*.plugin.xml_gen
+*.versionsBackup
+*.bak
+
+plugin.xml_gen
+src-gen
+xtend-gen
+*.jar
