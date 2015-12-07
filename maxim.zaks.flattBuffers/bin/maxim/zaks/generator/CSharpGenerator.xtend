@@ -34,6 +34,7 @@ class CSharpGenerator {
 	def definitionReader(Definition definition) {
 		switch definition{
 			Table case definition: definition.tableStructReader
+			Enum case definition: definition.enumGenerator
 		}
 	}
 	
@@ -100,10 +101,18 @@ class CSharpGenerator {
 				'''
 			}
 		} else if(field.type.defType != null){
-			'''	
-				int o«index» = obj.__offset(4 + 2*«index»); 
-				obj.«field.name» =  o«index» != 0 ? «field.type.defType.name»._Make(obj.bb, obj.__indirect(o«index» + obj.bb_pos)) : null;
-				'''
+				val definition = field.type.defType
+				switch definition {
+					Table case definition: '''	
+						int o«index» = obj.__offset(4 + 2*«index»); 
+						obj.«field.name» =  o«index» != 0 ? «field.type.defType.name»._Make(obj.bb, obj.__indirect(o«index» + obj.bb_pos)) : null;
+						'''
+					Enum case definition: '''
+						int o«index» = obj.__offset(4 + 2*«index»); 
+						obj.«field.name» =  o«index» != 0 ? obj.bb.«definition.type.converPrimitiveTypeGetter»(o«index» + obj.bb_pos) : («definition.name»)0;
+					'''
+				}
+				
 		} else if(field.type.vectorType != null){
 			val LengthStatement = '''
 				 int o«index» =obj. __offset(4 + 2*«index»);
@@ -177,9 +186,13 @@ class CSharpGenerator {
 			'''
 		} else if(field.type.defType != null){
 			val typeName = field.type.defType.name
-			'''
-				Offset<«typeName»> offset«index» = this.«field.name» == null ? default(Offset<«typeName»>) : this.«field.name»._Build(builder);
-			'''
+			val definition = field.type.defType
+			switch definition {
+				Table case definition: '''
+					Offset<«typeName»> offset«index» = this.«field.name» == null ? default(Offset<«typeName»>) : this.«field.name»._Build(builder);
+					''' 
+			}
+			
 		} else if(field.type.vectorType != null){
 			'''
 				VectorOffset offset«index»;
@@ -219,17 +232,28 @@ class CSharpGenerator {
 			
 		} else if(vector.type.defType != null){
 				val typeName = vector.type.defType.name
-				'''
-				Offset<«typeName»>[] data = new Offset<«typeName»>[this.«field.name».Length];
-				for (int i = this.«field.name».Length - 1; i >= 0; i--) {
-					data[i] = this.«field.name»[i]._Build(builder);
+				val definition = vector.type.defType
+				switch definition {
+					Table case definition: '''
+						Offset<«typeName»>[] data = new Offset<«typeName»>[this.«field.name».Length];
+						for (int i = this.«field.name».Length - 1; i >= 0; i--) {
+							data[i] = this.«field.name»[i]._Build(builder);
+						}
+						builder.StartVector(4, this.«field.name».Length, 4);
+						for (int i = data.Length - 1; i >= 0; i--) {
+							builder.AddOffset(data[i].Value);
+						} 
+						offset«index» = builder.EndVector();
+						'''
+					Enum case definition: '''
+						builder.StartVector(«definition.type.converPrimitiveTypeToLength», this.«field.name».Length, «definition.type.converPrimitiveTypeToLength»);
+						for (int i = this.«field.name».Length - 1; i >= 0; i--) {
+							builder.«definition.type.converPrimitiveTypeAdd»(this.«field.name»[i]);
+						} 
+						offset«index» = builder.EndVector();
+						''' 
 				}
-				builder.StartVector(4, this.«field.name».Length, 4);
-				for (int i = data.Length - 1; i >= 0; i--) {
-					builder.AddOffset(data[i].Value);
-				} 
-				offset«index» = builder.EndVector();
-				'''
+				
 		}
 	}
 		
@@ -244,6 +268,12 @@ class CSharpGenerator {
 				'''
 					builder.«field.type.primType.converPrimitiveTypeAdd»(«index», this.«field.name», («field.type.primType.converPrimitiveType»)«field.defaultValueString»);
 				'''
+			}
+		} else if(field.type.defType != null){
+			val definition = field.type.defType
+			switch definition {
+				Table case definition: '''builder.AddOffset(«index», offset«index».Value, 0);'''
+				Enum case definition: '''builder.«definition.type.converPrimitiveTypeAdd»(«index», this.«field.name», 0);''' 
 			}
 		} else {
 			'''
@@ -270,6 +300,8 @@ class CSharpGenerator {
 			'''«fieldType.defType.name»'''
 		} else if(fieldType.vectorType != null) {
 			'''«fieldType.vectorType.generateVectorType»[]'''
+		} else if(fieldType.qualifiedType != null) {
+			'''«fieldType.qualifiedType»'''
 		}
 	}
 	
@@ -280,6 +312,15 @@ class CSharpGenerator {
 			'''«vectorType.type.defType.name»'''
 		}
 	}
+	
+	def enumGenerator(Enum e) '''
+		public enum «e.name»«IF e.type != null»: «e.type.converPrimitiveType»«ENDIF»
+		{
+			«FOR ec : e.enumCases»
+			«ec.name»«IF ec.hasValue» = «ec.value»«ENDIF»,
+			«ENDFOR»
+		};
+	'''
 	
 	def converPrimitiveType(String type) {
 		switch type {

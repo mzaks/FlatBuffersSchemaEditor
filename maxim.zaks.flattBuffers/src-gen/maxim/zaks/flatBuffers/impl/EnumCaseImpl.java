@@ -21,6 +21,7 @@ import org.eclipse.emf.ecore.impl.MinimalEObjectImpl;
  * </p>
  * <ul>
  *   <li>{@link maxim.zaks.flatBuffers.impl.EnumCaseImpl#getName <em>Name</em>}</li>
+ *   <li>{@link maxim.zaks.flatBuffers.impl.EnumCaseImpl#isHasValue <em>Has Value</em>}</li>
  *   <li>{@link maxim.zaks.flatBuffers.impl.EnumCaseImpl#getValue <em>Value</em>}</li>
  * </ul>
  *
@@ -47,6 +48,26 @@ public class EnumCaseImpl extends MinimalEObjectImpl.Container implements EnumCa
    * @ordered
    */
   protected String name = NAME_EDEFAULT;
+
+  /**
+   * The default value of the '{@link #isHasValue() <em>Has Value</em>}' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see #isHasValue()
+   * @generated
+   * @ordered
+   */
+  protected static final boolean HAS_VALUE_EDEFAULT = false;
+
+  /**
+   * The cached value of the '{@link #isHasValue() <em>Has Value</em>}' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see #isHasValue()
+   * @generated
+   * @ordered
+   */
+  protected boolean hasValue = HAS_VALUE_EDEFAULT;
 
   /**
    * The default value of the '{@link #getValue() <em>Value</em>}' attribute.
@@ -117,6 +138,29 @@ public class EnumCaseImpl extends MinimalEObjectImpl.Container implements EnumCa
    * <!-- end-user-doc -->
    * @generated
    */
+  public boolean isHasValue()
+  {
+    return hasValue;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public void setHasValue(boolean newHasValue)
+  {
+    boolean oldHasValue = hasValue;
+    hasValue = newHasValue;
+    if (eNotificationRequired())
+      eNotify(new ENotificationImpl(this, Notification.SET, FlatBuffersPackage.ENUM_CASE__HAS_VALUE, oldHasValue, hasValue));
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
   public int getValue()
   {
     return value;
@@ -147,6 +191,8 @@ public class EnumCaseImpl extends MinimalEObjectImpl.Container implements EnumCa
     {
       case FlatBuffersPackage.ENUM_CASE__NAME:
         return getName();
+      case FlatBuffersPackage.ENUM_CASE__HAS_VALUE:
+        return isHasValue();
       case FlatBuffersPackage.ENUM_CASE__VALUE:
         return getValue();
     }
@@ -165,6 +211,9 @@ public class EnumCaseImpl extends MinimalEObjectImpl.Container implements EnumCa
     {
       case FlatBuffersPackage.ENUM_CASE__NAME:
         setName((String)newValue);
+        return;
+      case FlatBuffersPackage.ENUM_CASE__HAS_VALUE:
+        setHasValue((Boolean)newValue);
         return;
       case FlatBuffersPackage.ENUM_CASE__VALUE:
         setValue((Integer)newValue);
@@ -186,6 +235,9 @@ public class EnumCaseImpl extends MinimalEObjectImpl.Container implements EnumCa
       case FlatBuffersPackage.ENUM_CASE__NAME:
         setName(NAME_EDEFAULT);
         return;
+      case FlatBuffersPackage.ENUM_CASE__HAS_VALUE:
+        setHasValue(HAS_VALUE_EDEFAULT);
+        return;
       case FlatBuffersPackage.ENUM_CASE__VALUE:
         setValue(VALUE_EDEFAULT);
         return;
@@ -205,6 +257,8 @@ public class EnumCaseImpl extends MinimalEObjectImpl.Container implements EnumCa
     {
       case FlatBuffersPackage.ENUM_CASE__NAME:
         return NAME_EDEFAULT == null ? name != null : !NAME_EDEFAULT.equals(name);
+      case FlatBuffersPackage.ENUM_CASE__HAS_VALUE:
+        return hasValue != HAS_VALUE_EDEFAULT;
       case FlatBuffersPackage.ENUM_CASE__VALUE:
         return value != VALUE_EDEFAULT;
     }
@@ -224,6 +278,8 @@ public class EnumCaseImpl extends MinimalEObjectImpl.Container implements EnumCa
     StringBuffer result = new StringBuffer(super.toString());
     result.append(" (name: ");
     result.append(name);
+    result.append(", hasValue: ");
+    result.append(hasValue);
     result.append(", value: ");
     result.append(value);
     result.append(')');

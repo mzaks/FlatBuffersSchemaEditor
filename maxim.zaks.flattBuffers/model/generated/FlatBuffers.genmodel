@@ -90,6 +90,7 @@
     </genClasses>
     <genClasses ecoreClass="FlatBuffers.ecore#//EnumCase">
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute FlatBuffers.ecore#//EnumCase/name"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute FlatBuffers.ecore#//EnumCase/hasValue"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute FlatBuffers.ecore#//EnumCase/value"/>
     </genClasses>
     <genClasses ecoreClass="FlatBuffers.ecore#//Union">

@@ -2,6 +2,7 @@ package maxim.zaks.generator;
 
 import com.google.common.base.Objects;
 import maxim.zaks.flatBuffers.Definition;
+import maxim.zaks.flatBuffers.EnumCase;
 import maxim.zaks.flatBuffers.Fields;
 import maxim.zaks.flatBuffers.Namespace;
 import maxim.zaks.flatBuffers.RootType;
@@ -83,6 +84,14 @@ public class CSharpGenerator {
         if (Objects.equal(definition, ((Table)definition))) {
           _matched=true;
           _switchResult = this.tableStructReader(((Table)definition));
+        }
+      }
+    }
+    if (!_matched) {
+      if (definition instanceof maxim.zaks.flatBuffers.Enum) {
+        if (Objects.equal(definition, ((maxim.zaks.flatBuffers.Enum)definition))) {
+          _matched=true;
+          _switchResult = this.enumGenerator(((maxim.zaks.flatBuffers.Enum)definition));
         }
       }
     }
@@ -310,73 +319,137 @@ public class CSharpGenerator {
       Definition _defType = _type_4.getDefType();
       boolean _notEquals_1 = (!Objects.equal(_defType, null));
       if (_notEquals_1) {
-        StringConcatenation _builder_2 = new StringConcatenation();
-        _builder_2.append("int o");
-        _builder_2.append(index, "");
-        _builder_2.append(" = obj.__offset(4 + 2*");
-        _builder_2.append(index, "");
-        _builder_2.append("); ");
-        _builder_2.newLineIfNotEmpty();
-        _builder_2.append("obj.");
-        String _name_2 = field.getName();
-        _builder_2.append(_name_2, "");
-        _builder_2.append(" =  o");
-        _builder_2.append(index, "");
-        _builder_2.append(" != 0 ? ");
-        Type _type_5 = field.getType();
-        Definition _defType_1 = _type_5.getDefType();
-        String _name_3 = _defType_1.getName();
-        _builder_2.append(_name_3, "");
-        _builder_2.append("._Make(obj.bb, obj.__indirect(o");
-        _builder_2.append(index, "");
-        _builder_2.append(" + obj.bb_pos)) : null;");
-        _builder_2.newLineIfNotEmpty();
-        _xifexpression_2 = _builder_2;
+        CharSequence _xblockexpression = null;
+        {
+          Type _type_5 = field.getType();
+          final Definition definition = _type_5.getDefType();
+          CharSequence _switchResult = null;
+          boolean _matched = false;
+          if (!_matched) {
+            if (definition instanceof Table) {
+              if (Objects.equal(definition, ((Table)definition))) {
+                _matched=true;
+                StringConcatenation _builder_2 = new StringConcatenation();
+                _builder_2.append("int o");
+                _builder_2.append(index, "");
+                _builder_2.append(" = obj.__offset(4 + 2*");
+                _builder_2.append(index, "");
+                _builder_2.append("); ");
+                _builder_2.newLineIfNotEmpty();
+                _builder_2.append("obj.");
+                String _name_2 = field.getName();
+                _builder_2.append(_name_2, "");
+                _builder_2.append(" =  o");
+                _builder_2.append(index, "");
+                _builder_2.append(" != 0 ? ");
+                Type _type_6 = field.getType();
+                Definition _defType_1 = _type_6.getDefType();
+                String _name_3 = _defType_1.getName();
+                _builder_2.append(_name_3, "");
+                _builder_2.append("._Make(obj.bb, obj.__indirect(o");
+                _builder_2.append(index, "");
+                _builder_2.append(" + obj.bb_pos)) : null;");
+                _builder_2.newLineIfNotEmpty();
+                _switchResult = _builder_2;
+              }
+            }
+          }
+          if (!_matched) {
+            if (definition instanceof maxim.zaks.flatBuffers.Enum) {
+              if (Objects.equal(definition, ((maxim.zaks.flatBuffers.Enum)definition))) {
+                _matched=true;
+                StringConcatenation _builder_2 = new StringConcatenation();
+                _builder_2.append("int o");
+                _builder_2.append(index, "");
+                _builder_2.append(" = obj.__offset(4 + 2*");
+                _builder_2.append(index, "");
+                _builder_2.append("); ");
+                _builder_2.newLineIfNotEmpty();
+                _builder_2.append("obj.");
+                String _name_2 = field.getName();
+                _builder_2.append(_name_2, "");
+                _builder_2.append(" =  o");
+                _builder_2.append(index, "");
+                _builder_2.append(" != 0 ? obj.bb.");
+                String _type_6 = ((maxim.zaks.flatBuffers.Enum)definition).getType();
+                CharSequence _converPrimitiveTypeGetter_1 = this.converPrimitiveTypeGetter(_type_6);
+                _builder_2.append(_converPrimitiveTypeGetter_1, "");
+                _builder_2.append("(o");
+                _builder_2.append(index, "");
+                _builder_2.append(" + obj.bb_pos) : (");
+                String _name_3 = ((maxim.zaks.flatBuffers.Enum)definition).getName();
+                _builder_2.append(_name_3, "");
+                _builder_2.append(")0;");
+                _builder_2.newLineIfNotEmpty();
+                _switchResult = _builder_2;
+              }
+            }
+          }
+          _xblockexpression = _switchResult;
+        }
+        _xifexpression_2 = _xblockexpression;
       } else {
-        Type _type_6 = field.getType();
-        Vector _vectorType = _type_6.getVectorType();
+        Type _type_5 = field.getType();
+        Vector _vectorType = _type_5.getVectorType();
         boolean _notEquals_2 = (!Objects.equal(_vectorType, null));
         if (_notEquals_2) {
-          StringConcatenation _builder_3 = new StringConcatenation();
-          _builder_3.append("int o");
-          _builder_3.append(index, "");
-          _builder_3.append(" =obj. __offset(4 + 2*");
-          _builder_3.append(index, "");
-          _builder_3.append(");");
-          _builder_3.newLineIfNotEmpty();
-          _builder_3.append("int length");
-          _builder_3.append(index, "");
-          _builder_3.append(" = o");
-          _builder_3.append(index, "");
-          _builder_3.append(" != 0 ? obj.__vector_len(o");
-          _builder_3.append(index, "");
-          _builder_3.append(") : 0;");
-          _builder_3.newLineIfNotEmpty();
-          _builder_3.append("obj.");
-          String _name_4 = field.getName();
-          _builder_3.append(_name_4, "");
-          _builder_3.append(" = new ");
-          Type _type_7 = field.getType();
-          Vector _vectorType_1 = _type_7.getVectorType();
+          StringConcatenation _builder_2 = new StringConcatenation();
+          _builder_2.append("int o");
+          _builder_2.append(index, "");
+          _builder_2.append(" =obj. __offset(4 + 2*");
+          _builder_2.append(index, "");
+          _builder_2.append(");");
+          _builder_2.newLineIfNotEmpty();
+          _builder_2.append("int length");
+          _builder_2.append(index, "");
+          _builder_2.append(" = o");
+          _builder_2.append(index, "");
+          _builder_2.append(" != 0 ? obj.__vector_len(o");
+          _builder_2.append(index, "");
+          _builder_2.append(") : 0;");
+          _builder_2.newLineIfNotEmpty();
+          _builder_2.append("obj.");
+          String _name_2 = field.getName();
+          _builder_2.append(_name_2, "");
+          _builder_2.append(" = new ");
+          Type _type_6 = field.getType();
+          Vector _vectorType_1 = _type_6.getVectorType();
           CharSequence _generateVectorType = this.generateVectorType(_vectorType_1);
-          _builder_3.append(_generateVectorType, "");
-          _builder_3.append("[length");
-          _builder_3.append(index, "");
-          _builder_3.append("];");
-          _builder_3.newLineIfNotEmpty();
-          final String LengthStatement = _builder_3.toString();
-          Type _type_8 = field.getType();
-          Vector _vectorType_2 = _type_8.getVectorType();
-          Type _type_9 = _vectorType_2.getType();
-          String _primType_4 = _type_9.getPrimType();
+          _builder_2.append(_generateVectorType, "");
+          _builder_2.append("[length");
+          _builder_2.append(index, "");
+          _builder_2.append("];");
+          _builder_2.newLineIfNotEmpty();
+          final String LengthStatement = _builder_2.toString();
+          Type _type_7 = field.getType();
+          Vector _vectorType_2 = _type_7.getVectorType();
+          Type _type_8 = _vectorType_2.getType();
+          String _primType_4 = _type_8.getPrimType();
           boolean _notEquals_3 = (!Objects.equal(_primType_4, null));
           if (_notEquals_3) {
-            Type _type_10 = field.getType();
-            Vector _vectorType_3 = _type_10.getVectorType();
-            Type _type_11 = _vectorType_3.getType();
-            String _primType_5 = _type_11.getPrimType();
+            Type _type_9 = field.getType();
+            Vector _vectorType_3 = _type_9.getVectorType();
+            Type _type_10 = _vectorType_3.getType();
+            String _primType_5 = _type_10.getPrimType();
             boolean _equals_1 = _primType_5.equals("string");
             if (_equals_1) {
+              StringConcatenation _builder_3 = new StringConcatenation();
+              _builder_3.append("for (int j = length");
+              _builder_3.append(index, "");
+              _builder_3.append("-1; j >=0; j-- ){");
+              _builder_3.newLineIfNotEmpty();
+              _builder_3.append("\t");
+              _builder_3.append("obj.");
+              String _name_3 = field.getName();
+              _builder_3.append(_name_3, "\t");
+              _builder_3.append("[j] = obj.__string(obj.__vector(o");
+              _builder_3.append(index, "\t");
+              _builder_3.append(") + j * 4);");
+              _builder_3.newLineIfNotEmpty();
+              _builder_3.append("}");
+              _builder_3.newLine();
+              return (LengthStatement + _builder_3);
+            } else {
               StringConcatenation _builder_4 = new StringConcatenation();
               _builder_4.append("for (int j = length");
               _builder_4.append(index, "");
@@ -384,64 +457,47 @@ public class CSharpGenerator {
               _builder_4.newLineIfNotEmpty();
               _builder_4.append("\t");
               _builder_4.append("obj.");
-              String _name_5 = field.getName();
-              _builder_4.append(_name_5, "\t");
-              _builder_4.append("[j] = obj.__string(obj.__vector(o");
+              String _name_4 = field.getName();
+              _builder_4.append(_name_4, "\t");
+              _builder_4.append("[j] = obj.bb.");
+              Type _type_11 = field.getType();
+              Vector _vectorType_4 = _type_11.getVectorType();
+              Type _type_12 = _vectorType_4.getType();
+              String _primType_6 = _type_12.getPrimType();
+              CharSequence _converPrimitiveTypeGetter_1 = this.converPrimitiveTypeGetter(_primType_6);
+              _builder_4.append(_converPrimitiveTypeGetter_1, "\t");
+              _builder_4.append("(obj.__vector(o");
               _builder_4.append(index, "\t");
               _builder_4.append(") + j * 4);");
               _builder_4.newLineIfNotEmpty();
               _builder_4.append("}");
               _builder_4.newLine();
               return (LengthStatement + _builder_4);
-            } else {
-              StringConcatenation _builder_5 = new StringConcatenation();
-              _builder_5.append("for (int j = length");
-              _builder_5.append(index, "");
-              _builder_5.append("-1; j >=0; j-- ){");
-              _builder_5.newLineIfNotEmpty();
-              _builder_5.append("\t");
-              _builder_5.append("obj.");
-              String _name_6 = field.getName();
-              _builder_5.append(_name_6, "\t");
-              _builder_5.append("[j] = obj.bb.");
-              Type _type_12 = field.getType();
-              Vector _vectorType_4 = _type_12.getVectorType();
-              Type _type_13 = _vectorType_4.getType();
-              String _primType_6 = _type_13.getPrimType();
-              CharSequence _converPrimitiveTypeGetter_1 = this.converPrimitiveTypeGetter(_primType_6);
-              _builder_5.append(_converPrimitiveTypeGetter_1, "\t");
-              _builder_5.append("(obj.__vector(o");
-              _builder_5.append(index, "\t");
-              _builder_5.append(") + j * 4);");
-              _builder_5.newLineIfNotEmpty();
-              _builder_5.append("}");
-              _builder_5.newLine();
-              return (LengthStatement + _builder_5);
             }
           } else {
-            StringConcatenation _builder_6 = new StringConcatenation();
-            _builder_6.append("for (int j = length");
-            _builder_6.append(index, "");
-            _builder_6.append("-1; j >=0; j-- ){");
-            _builder_6.newLineIfNotEmpty();
-            _builder_6.append("\t");
-            _builder_6.append("obj.");
-            String _name_7 = field.getName();
-            _builder_6.append(_name_7, "\t");
-            _builder_6.append("[j] = ");
-            Type _type_14 = field.getType();
-            Vector _vectorType_5 = _type_14.getVectorType();
-            Type _type_15 = _vectorType_5.getType();
-            Definition _defType_2 = _type_15.getDefType();
-            String _name_8 = _defType_2.getName();
-            _builder_6.append(_name_8, "\t");
-            _builder_6.append("._Make(obj.bb, obj.__indirect(obj.__vector(o");
-            _builder_6.append(index, "\t");
-            _builder_6.append(") + j * 4));");
-            _builder_6.newLineIfNotEmpty();
-            _builder_6.append("}");
-            _builder_6.newLine();
-            return (LengthStatement + _builder_6);
+            StringConcatenation _builder_5 = new StringConcatenation();
+            _builder_5.append("for (int j = length");
+            _builder_5.append(index, "");
+            _builder_5.append("-1; j >=0; j-- ){");
+            _builder_5.newLineIfNotEmpty();
+            _builder_5.append("\t");
+            _builder_5.append("obj.");
+            String _name_5 = field.getName();
+            _builder_5.append(_name_5, "\t");
+            _builder_5.append("[j] = ");
+            Type _type_13 = field.getType();
+            Vector _vectorType_5 = _type_13.getVectorType();
+            Type _type_14 = _vectorType_5.getType();
+            Definition _defType_1 = _type_14.getDefType();
+            String _name_6 = _defType_1.getName();
+            _builder_5.append(_name_6, "\t");
+            _builder_5.append("._Make(obj.bb, obj.__indirect(obj.__vector(o");
+            _builder_5.append(index, "\t");
+            _builder_5.append(") + j * 4));");
+            _builder_5.newLineIfNotEmpty();
+            _builder_5.append("}");
+            _builder_5.newLine();
+            return (LengthStatement + _builder_5);
           }
         }
       }
@@ -593,22 +649,34 @@ public class CSharpGenerator {
           Type _type_3 = field.getType();
           Definition _defType_1 = _type_3.getDefType();
           final String typeName = _defType_1.getName();
-          StringConcatenation _builder_1 = new StringConcatenation();
-          _builder_1.append("Offset<");
-          _builder_1.append(typeName, "");
-          _builder_1.append("> offset");
-          _builder_1.append(index, "");
-          _builder_1.append(" = this.");
-          String _name_2 = field.getName();
-          _builder_1.append(_name_2, "");
-          _builder_1.append(" == null ? default(Offset<");
-          _builder_1.append(typeName, "");
-          _builder_1.append(">) : this.");
-          String _name_3 = field.getName();
-          _builder_1.append(_name_3, "");
-          _builder_1.append("._Build(builder);");
-          _builder_1.newLineIfNotEmpty();
-          _xblockexpression = _builder_1;
+          Type _type_4 = field.getType();
+          final Definition definition = _type_4.getDefType();
+          CharSequence _switchResult = null;
+          boolean _matched = false;
+          if (!_matched) {
+            if (definition instanceof Table) {
+              if (Objects.equal(definition, ((Table)definition))) {
+                _matched=true;
+                StringConcatenation _builder_1 = new StringConcatenation();
+                _builder_1.append("Offset<");
+                _builder_1.append(typeName, "");
+                _builder_1.append("> offset");
+                _builder_1.append(index, "");
+                _builder_1.append(" = this.");
+                String _name_2 = field.getName();
+                _builder_1.append(_name_2, "");
+                _builder_1.append(" == null ? default(Offset<");
+                _builder_1.append(typeName, "");
+                _builder_1.append(">) : this.");
+                String _name_3 = field.getName();
+                _builder_1.append(_name_3, "");
+                _builder_1.append("._Build(builder);");
+                _builder_1.newLineIfNotEmpty();
+                _switchResult = _builder_1;
+              }
+            }
+          }
+          _xblockexpression = _switchResult;
         }
         _xifexpression_1 = _xblockexpression;
       } else {
@@ -752,46 +820,101 @@ public class CSharpGenerator {
           Type _type_3 = vector.getType();
           Definition _defType_1 = _type_3.getDefType();
           final String typeName = _defType_1.getName();
-          StringConcatenation _builder_1 = new StringConcatenation();
-          _builder_1.append("Offset<");
-          _builder_1.append(typeName, "");
-          _builder_1.append(">[] data = new Offset<");
-          _builder_1.append(typeName, "");
-          _builder_1.append(">[this.");
-          String _name_4 = field.getName();
-          _builder_1.append(_name_4, "");
-          _builder_1.append(".Length];");
-          _builder_1.newLineIfNotEmpty();
-          _builder_1.append("for (int i = this.");
-          String _name_5 = field.getName();
-          _builder_1.append(_name_5, "");
-          _builder_1.append(".Length - 1; i >= 0; i--) {");
-          _builder_1.newLineIfNotEmpty();
-          _builder_1.append("\t");
-          _builder_1.append("data[i] = this.");
-          String _name_6 = field.getName();
-          _builder_1.append(_name_6, "\t");
-          _builder_1.append("[i]._Build(builder);");
-          _builder_1.newLineIfNotEmpty();
-          _builder_1.append("}");
-          _builder_1.newLine();
-          _builder_1.append("builder.StartVector(4, this.");
-          String _name_7 = field.getName();
-          _builder_1.append(_name_7, "");
-          _builder_1.append(".Length, 4);");
-          _builder_1.newLineIfNotEmpty();
-          _builder_1.append("for (int i = data.Length - 1; i >= 0; i--) {");
-          _builder_1.newLine();
-          _builder_1.append("\t");
-          _builder_1.append("builder.AddOffset(data[i].Value);");
-          _builder_1.newLine();
-          _builder_1.append("} ");
-          _builder_1.newLine();
-          _builder_1.append("offset");
-          _builder_1.append(index, "");
-          _builder_1.append(" = builder.EndVector();");
-          _builder_1.newLineIfNotEmpty();
-          _xblockexpression_1 = _builder_1;
+          Type _type_4 = vector.getType();
+          final Definition definition = _type_4.getDefType();
+          CharSequence _switchResult = null;
+          boolean _matched = false;
+          if (!_matched) {
+            if (definition instanceof Table) {
+              if (Objects.equal(definition, ((Table)definition))) {
+                _matched=true;
+                StringConcatenation _builder_1 = new StringConcatenation();
+                _builder_1.append("Offset<");
+                _builder_1.append(typeName, "");
+                _builder_1.append(">[] data = new Offset<");
+                _builder_1.append(typeName, "");
+                _builder_1.append(">[this.");
+                String _name_4 = field.getName();
+                _builder_1.append(_name_4, "");
+                _builder_1.append(".Length];");
+                _builder_1.newLineIfNotEmpty();
+                _builder_1.append("for (int i = this.");
+                String _name_5 = field.getName();
+                _builder_1.append(_name_5, "");
+                _builder_1.append(".Length - 1; i >= 0; i--) {");
+                _builder_1.newLineIfNotEmpty();
+                _builder_1.append("\t");
+                _builder_1.append("data[i] = this.");
+                String _name_6 = field.getName();
+                _builder_1.append(_name_6, "\t");
+                _builder_1.append("[i]._Build(builder);");
+                _builder_1.newLineIfNotEmpty();
+                _builder_1.append("}");
+                _builder_1.newLine();
+                _builder_1.append("builder.StartVector(4, this.");
+                String _name_7 = field.getName();
+                _builder_1.append(_name_7, "");
+                _builder_1.append(".Length, 4);");
+                _builder_1.newLineIfNotEmpty();
+                _builder_1.append("for (int i = data.Length - 1; i >= 0; i--) {");
+                _builder_1.newLine();
+                _builder_1.append("\t");
+                _builder_1.append("builder.AddOffset(data[i].Value);");
+                _builder_1.newLine();
+                _builder_1.append("} ");
+                _builder_1.newLine();
+                _builder_1.append("offset");
+                _builder_1.append(index, "");
+                _builder_1.append(" = builder.EndVector();");
+                _builder_1.newLineIfNotEmpty();
+                _switchResult = _builder_1;
+              }
+            }
+          }
+          if (!_matched) {
+            if (definition instanceof maxim.zaks.flatBuffers.Enum) {
+              if (Objects.equal(definition, ((maxim.zaks.flatBuffers.Enum)definition))) {
+                _matched=true;
+                StringConcatenation _builder_1 = new StringConcatenation();
+                _builder_1.append("builder.StartVector(");
+                String _type_5 = ((maxim.zaks.flatBuffers.Enum)definition).getType();
+                CharSequence _converPrimitiveTypeToLength = this.converPrimitiveTypeToLength(_type_5);
+                _builder_1.append(_converPrimitiveTypeToLength, "");
+                _builder_1.append(", this.");
+                String _name_4 = field.getName();
+                _builder_1.append(_name_4, "");
+                _builder_1.append(".Length, ");
+                String _type_6 = ((maxim.zaks.flatBuffers.Enum)definition).getType();
+                CharSequence _converPrimitiveTypeToLength_1 = this.converPrimitiveTypeToLength(_type_6);
+                _builder_1.append(_converPrimitiveTypeToLength_1, "");
+                _builder_1.append(");");
+                _builder_1.newLineIfNotEmpty();
+                _builder_1.append("for (int i = this.");
+                String _name_5 = field.getName();
+                _builder_1.append(_name_5, "");
+                _builder_1.append(".Length - 1; i >= 0; i--) {");
+                _builder_1.newLineIfNotEmpty();
+                _builder_1.append("\t");
+                _builder_1.append("builder.");
+                String _type_7 = ((maxim.zaks.flatBuffers.Enum)definition).getType();
+                CharSequence _converPrimitiveTypeAdd = this.converPrimitiveTypeAdd(_type_7);
+                _builder_1.append(_converPrimitiveTypeAdd, "\t");
+                _builder_1.append("(this.");
+                String _name_6 = field.getName();
+                _builder_1.append(_name_6, "\t");
+                _builder_1.append("[i]);");
+                _builder_1.newLineIfNotEmpty();
+                _builder_1.append("} ");
+                _builder_1.newLine();
+                _builder_1.append("offset");
+                _builder_1.append(index, "");
+                _builder_1.append(" = builder.EndVector();");
+                _builder_1.newLineIfNotEmpty();
+                _switchResult = _builder_1;
+              }
+            }
+          }
+          _xblockexpression_1 = _switchResult;
         }
         _xifexpression_2 = _xblockexpression_1;
       }
@@ -845,14 +968,64 @@ public class CSharpGenerator {
       }
       _xifexpression = _xifexpression_1;
     } else {
-      StringConcatenation _builder_2 = new StringConcatenation();
-      _builder_2.append("builder.AddOffset(");
-      _builder_2.append(index, "");
-      _builder_2.append(", offset");
-      _builder_2.append(index, "");
-      _builder_2.append(".Value, 0);");
-      _builder_2.newLineIfNotEmpty();
-      _xifexpression = _builder_2;
+      CharSequence _xifexpression_2 = null;
+      Type _type_4 = field.getType();
+      Definition _defType = _type_4.getDefType();
+      boolean _notEquals_1 = (!Objects.equal(_defType, null));
+      if (_notEquals_1) {
+        CharSequence _xblockexpression = null;
+        {
+          Type _type_5 = field.getType();
+          final Definition definition = _type_5.getDefType();
+          CharSequence _switchResult = null;
+          boolean _matched = false;
+          if (!_matched) {
+            if (definition instanceof Table) {
+              if (Objects.equal(definition, ((Table)definition))) {
+                _matched=true;
+                StringConcatenation _builder_2 = new StringConcatenation();
+                _builder_2.append("builder.AddOffset(");
+                _builder_2.append(index, "");
+                _builder_2.append(", offset");
+                _builder_2.append(index, "");
+                _builder_2.append(".Value, 0);");
+                _switchResult = _builder_2;
+              }
+            }
+          }
+          if (!_matched) {
+            if (definition instanceof maxim.zaks.flatBuffers.Enum) {
+              if (Objects.equal(definition, ((maxim.zaks.flatBuffers.Enum)definition))) {
+                _matched=true;
+                StringConcatenation _builder_2 = new StringConcatenation();
+                _builder_2.append("builder.");
+                String _type_6 = ((maxim.zaks.flatBuffers.Enum)definition).getType();
+                CharSequence _converPrimitiveTypeAdd_1 = this.converPrimitiveTypeAdd(_type_6);
+                _builder_2.append(_converPrimitiveTypeAdd_1, "");
+                _builder_2.append("(");
+                _builder_2.append(index, "");
+                _builder_2.append(", this.");
+                String _name_1 = field.getName();
+                _builder_2.append(_name_1, "");
+                _builder_2.append(", 0);");
+                _switchResult = _builder_2;
+              }
+            }
+          }
+          _xblockexpression = _switchResult;
+        }
+        _xifexpression_2 = _xblockexpression;
+      } else {
+        StringConcatenation _builder_2 = new StringConcatenation();
+        _builder_2.append("builder.AddOffset(");
+        _builder_2.append(index, "");
+        _builder_2.append(", offset");
+        _builder_2.append(index, "");
+        _builder_2.append(".Value, 0);");
+        _builder_2.newLineIfNotEmpty();
+        _xifexpression_2 = _builder_2;
+      }
+      _xifexpression = _xifexpression_2;
     }
     return _xifexpression;
   }
@@ -904,6 +1077,17 @@ public class CSharpGenerator {
           _builder_2.append(_generateVectorType, "");
           _builder_2.append("[]");
           _xifexpression_2 = _builder_2;
+        } else {
+          CharSequence _xifexpression_3 = null;
+          String _qualifiedType = fieldType.getQualifiedType();
+          boolean _notEquals_3 = (!Objects.equal(_qualifiedType, null));
+          if (_notEquals_3) {
+            StringConcatenation _builder_3 = new StringConcatenation();
+            String _qualifiedType_1 = fieldType.getQualifiedType();
+            _builder_3.append(_qualifiedType_1, "");
+            _xifexpression_3 = _builder_3;
+          }
+          _xifexpression_2 = _xifexpression_3;
         }
         _xifexpression_1 = _xifexpression_2;
       }
@@ -940,6 +1124,47 @@ public class CSharpGenerator {
       _xifexpression = _xifexpression_1;
     }
     return _xifexpression;
+  }
+  
+  public CharSequence enumGenerator(final maxim.zaks.flatBuffers.Enum e) {
+    StringConcatenation _builder = new StringConcatenation();
+    _builder.append("public enum ");
+    String _name = e.getName();
+    _builder.append(_name, "");
+    {
+      String _type = e.getType();
+      boolean _notEquals = (!Objects.equal(_type, null));
+      if (_notEquals) {
+        _builder.append(": ");
+        String _type_1 = e.getType();
+        CharSequence _converPrimitiveType = this.converPrimitiveType(_type_1);
+        _builder.append(_converPrimitiveType, "");
+      }
+    }
+    _builder.newLineIfNotEmpty();
+    _builder.append("{");
+    _builder.newLine();
+    {
+      EList<EnumCase> _enumCases = e.getEnumCases();
+      for(final EnumCase ec : _enumCases) {
+        _builder.append("\t");
+        String _name_1 = ec.getName();
+        _builder.append(_name_1, "\t");
+        {
+          boolean _isHasValue = ec.isHasValue();
+          if (_isHasValue) {
+            _builder.append(" = ");
+            int _value = ec.getValue();
+            _builder.append(_value, "\t");
+          }
+        }
+        _builder.append(",");
+        _builder.newLineIfNotEmpty();
+      }
+    }
+    _builder.append("};");
+    _builder.newLine();
+    return _builder;
   }
   
   public CharSequence converPrimitiveType(final String type) {

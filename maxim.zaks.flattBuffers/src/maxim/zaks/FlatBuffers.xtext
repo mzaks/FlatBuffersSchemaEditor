@@ -108,15 +108,15 @@ Primitive:
 ;
 
 Enum:
-	'enum' name=ID (':' type=PrimitiveNumberType)? attributes=FieldAttributes? '{' enumCases += EnumCase (',' enumCases += EnumCase)* '}'	
+	'enum' name=ID (':' type=PrimitiveNumberType)? attributes=FieldAttributes? '{' enumCases += EnumCase (',' enumCases += EnumCase)* (',')? '}'	
 ;
 
 EnumCase:
-	name = ID ('=' value=INT)?
+	name = ID (hasValue?='=' value=INT)?
 ;
 
 Union:
-	'union' name=ID '{'unionCases += [Table] (',' unionCases += [Table])* '}'
+	'union' name=ID '{'unionCases += [Table] (',' unionCases += [Table])* (',')? '}'
 ;
 
 PrimitiveNumberType:

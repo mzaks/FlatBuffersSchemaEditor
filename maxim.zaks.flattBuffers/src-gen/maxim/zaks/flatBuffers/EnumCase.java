@@ -14,6 +14,7 @@ import org.eclipse.emf.ecore.EObject;
  * </p>
  * <ul>
  *   <li>{@link maxim.zaks.flatBuffers.EnumCase#getName <em>Name</em>}</li>
+ *   <li>{@link maxim.zaks.flatBuffers.EnumCase#isHasValue <em>Has Value</em>}</li>
  *   <li>{@link maxim.zaks.flatBuffers.EnumCase#getValue <em>Value</em>}</li>
  * </ul>
  *
@@ -48,6 +49,32 @@ public interface EnumCase extends EObject
    * @generated
    */
   void setName(String value);
+
+  /**
+   * Returns the value of the '<em><b>Has Value</b></em>' attribute.
+   * <!-- begin-user-doc -->
+   * <p>
+   * If the meaning of the '<em>Has Value</em>' attribute isn't clear,
+   * there really should be more of a description here...
+   * </p>
+   * <!-- end-user-doc -->
+   * @return the value of the '<em>Has Value</em>' attribute.
+   * @see #setHasValue(boolean)
+   * @see maxim.zaks.flatBuffers.FlatBuffersPackage#getEnumCase_HasValue()
+   * @model
+   * @generated
+   */
+  boolean isHasValue();
+
+  /**
+   * Sets the value of the '{@link maxim.zaks.flatBuffers.EnumCase#isHasValue <em>Has Value</em>}' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @param value the new value of the '<em>Has Value</em>' attribute.
+   * @see #isHasValue()
+   * @generated
+   */
+  void setHasValue(boolean value);
 
   /**
    * Returns the value of the '<em><b>Value</b></em>' attribute.
