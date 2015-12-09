@@ -13,7 +13,7 @@ class CSharpGenerator {
 	public def generate(Schema schema) {
 		rootTableName = schema.rootType.type.name
 		nameSpace = schema.namepsace?.name
-		fileIdentifier = schema.fileIdentifier
+		fileIdentifier = schema.fileIdentifier.identifier
 		'''
 			«IF nameSpace!=null»
 			namespace «nameSpace».Eager {
@@ -109,7 +109,7 @@ class CSharpGenerator {
 						'''
 					Enum case definition: '''
 						int o«index» = obj.__offset(4 + 2*«index»); 
-						obj.«field.name» =  o«index» != 0 ? obj.bb.«definition.type.converPrimitiveTypeGetter»(o«index» + obj.bb_pos) : («definition.name»)0;
+						obj.«field.name» =  o«index» != 0 ? («definition.name»)obj.bb.«definition.converPrimitiveTypeGetter»(o«index» + obj.bb_pos) : («definition.name»)0;
 					'''
 				}
 				
@@ -149,7 +149,7 @@ class CSharpGenerator {
 		if(table.name == rootTableName){
 			var finishCall = '''builder.Finish(offset.Value);'''
 			if(fileIdentifier != null){
-				finishCall = '''builder.Finish(offset.Value, «fileIdentifier»);'''
+				finishCall = '''builder.Finish(offset.Value, "«fileIdentifier»");'''
 			}
 			rootBuild = '''
 			public byte[] Build(){
@@ -246,9 +246,9 @@ class CSharpGenerator {
 						offset«index» = builder.EndVector();
 						'''
 					Enum case definition: '''
-						builder.StartVector(«definition.type.converPrimitiveTypeToLength», this.«field.name».Length, «definition.type.converPrimitiveTypeToLength»);
+						builder.StartVector(«definition.converPrimitiveTypeToLength», this.«field.name».Length, «definition.converPrimitiveTypeToLength»);
 						for (int i = this.«field.name».Length - 1; i >= 0; i--) {
-							builder.«definition.type.converPrimitiveTypeAdd»(this.«field.name»[i]);
+							builder.«definition.converPrimitiveTypeAdd»(this.«field.name»[i]);
 						} 
 						offset«index» = builder.EndVector();
 						''' 
@@ -273,7 +273,7 @@ class CSharpGenerator {
 			val definition = field.type.defType
 			switch definition {
 				Table case definition: '''builder.AddOffset(«index», offset«index».Value, 0);'''
-				Enum case definition: '''builder.«definition.type.converPrimitiveTypeAdd»(«index», this.«field.name», 0);''' 
+				Enum case definition: '''builder.«definition.converPrimitiveTypeAdd»(«index», («definition.converPrimitiveType»)this.«field.name», 0);''' 
 			}
 		} else {
 			'''
@@ -290,7 +290,15 @@ class CSharpGenerator {
 				return "0"
 			}
 		}
-		return field.defaultValue
+		if(field.defaultValue.isFalse){
+			return "false"
+		} else if(field.defaultValue.isTrue){
+			return "true"
+		} else if(field.defaultValue.enumCase != null){
+			return field.type.defType.name + "." + field.defaultValue.enumCase; 
+		}
+		
+		return field.defaultValue.number
 	}
 	
 	def generateFieldType(Type fieldType) {
@@ -314,13 +322,20 @@ class CSharpGenerator {
 	}
 	
 	def enumGenerator(Enum e) '''
-		public enum «e.name»«IF e.type != null»: «e.type.converPrimitiveType»«ENDIF»
+		public enum «e.name»«IF e.type != null»: «e.converPrimitiveType»«ENDIF»
 		{
 			«FOR ec : e.enumCases»
 			«ec.name»«IF ec.hasValue» = «ec.value»«ENDIF»,
 			«ENDFOR»
 		};
 	'''
+	
+	def converPrimitiveType(Enum definition) {
+		if(definition.type == null){
+			return "int".converPrimitiveType
+		}
+		definition.type.converPrimitiveType
+	}
 	
 	def converPrimitiveType(String type) {
 		switch type {
@@ -339,6 +354,13 @@ class CSharpGenerator {
 		}
 	}
 	
+	def converPrimitiveTypeGetter(Enum definition) {
+		if(definition.type == null){
+			return "int".converPrimitiveTypeGetter
+		}
+		definition.type.converPrimitiveTypeGetter
+	}
+	
 	def converPrimitiveTypeGetter(String type) {
 		switch type {
 			case 'bool' : '''GetBool'''
@@ -355,6 +377,13 @@ class CSharpGenerator {
 		}
 	}
 	
+	def converPrimitiveTypeAdd(Enum definition) {
+		if(definition.type == null){
+			return "int".converPrimitiveTypeAdd
+		}
+		definition.type.converPrimitiveTypeAdd
+	}
+	
 	def converPrimitiveTypeAdd(String type) {
 		switch type {
 			case 'bool' : '''AddBool'''
@@ -369,6 +398,13 @@ class CSharpGenerator {
 			case 'ulong' : '''AddUlong'''
 			case 'double' : '''AddDouble'''
 		}
+	}
+	
+	def converPrimitiveTypeToLength(Enum definition) {
+		if(definition.type == null){
+			return "int".converPrimitiveTypeToLength
+		}
+		definition.type.converPrimitiveTypeToLength
 	}
 	
 	def converPrimitiveTypeToLength(String type) {

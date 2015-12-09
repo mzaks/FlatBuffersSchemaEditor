@@ -50,6 +50,15 @@ public interface FlatBuffersFactory extends EFactory
   CustomAttributes createCustomAttributes();
 
   /**
+   * Returns a new object of class '<em>File Identifier</em>'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return a new object of class '<em>File Identifier</em>'.
+   * @generated
+   */
+  FileIdentifier createFileIdentifier();
+
+  /**
    * Returns a new object of class '<em>Namespace</em>'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->

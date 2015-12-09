@@ -6,7 +6,8 @@
         upperBound="-1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="namepsace" eType="#//Namespace"
         containment="true"/>
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="fileIdentifier" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="fileIdentifier" eType="#//FileIdentifier"
+        containment="true"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="file_extension" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="customAttributes" upperBound="-1"
         eType="#//CustomAttributes" containment="true"/>
@@ -20,6 +21,9 @@
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="CustomAttributes">
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="name" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="FileIdentifier">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="identifier" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="Namespace">
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="name" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>

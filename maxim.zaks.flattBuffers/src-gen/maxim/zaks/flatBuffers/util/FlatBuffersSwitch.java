@@ -8,6 +8,7 @@ import maxim.zaks.flatBuffers.Definition;
 import maxim.zaks.flatBuffers.EnumCase;
 import maxim.zaks.flatBuffers.FieldAttributes;
 import maxim.zaks.flatBuffers.Fields;
+import maxim.zaks.flatBuffers.FileIdentifier;
 import maxim.zaks.flatBuffers.FlatBuffersPackage;
 import maxim.zaks.flatBuffers.Namespace;
 import maxim.zaks.flatBuffers.RootType;
@@ -106,6 +107,13 @@ public class FlatBuffersSwitch<T> extends Switch<T>
       {
         CustomAttributes customAttributes = (CustomAttributes)theEObject;
         T result = caseCustomAttributes(customAttributes);
+        if (result == null) result = defaultCase(theEObject);
+        return result;
+      }
+      case FlatBuffersPackage.FILE_IDENTIFIER:
+      {
+        FileIdentifier fileIdentifier = (FileIdentifier)theEObject;
+        T result = caseFileIdentifier(fileIdentifier);
         if (result == null) result = defaultCase(theEObject);
         return result;
       }
@@ -259,6 +267,22 @@ public class FlatBuffersSwitch<T> extends Switch<T>
    * @generated
    */
   public T caseCustomAttributes(CustomAttributes object)
+  {
+    return null;
+  }
+
+  /**
+   * Returns the result of interpreting the object as an instance of '<em>File Identifier</em>'.
+   * <!-- begin-user-doc -->
+   * This implementation returns null;
+   * returning a non-null result will terminate the switch.
+   * <!-- end-user-doc -->
+   * @param object the target of the switch.
+   * @return the result of interpreting the object as an instance of '<em>File Identifier</em>'.
+   * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+   * @generated
+   */
+  public T caseFileIdentifier(FileIdentifier object)
   {
     return null;
   }

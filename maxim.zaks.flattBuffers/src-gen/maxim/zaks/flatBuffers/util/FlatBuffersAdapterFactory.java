@@ -8,6 +8,7 @@ import maxim.zaks.flatBuffers.Definition;
 import maxim.zaks.flatBuffers.EnumCase;
 import maxim.zaks.flatBuffers.FieldAttributes;
 import maxim.zaks.flatBuffers.Fields;
+import maxim.zaks.flatBuffers.FileIdentifier;
 import maxim.zaks.flatBuffers.FlatBuffersPackage;
 import maxim.zaks.flatBuffers.Namespace;
 import maxim.zaks.flatBuffers.RootType;
@@ -104,6 +105,11 @@ public class FlatBuffersAdapterFactory extends AdapterFactoryImpl
       public Adapter caseCustomAttributes(CustomAttributes object)
       {
         return createCustomAttributesAdapter();
+      }
+      @Override
+      public Adapter caseFileIdentifier(FileIdentifier object)
+      {
+        return createFileIdentifierAdapter();
       }
       @Override
       public Adapter caseNamespace(Namespace object)
@@ -238,6 +244,21 @@ public class FlatBuffersAdapterFactory extends AdapterFactoryImpl
    * @generated
    */
   public Adapter createCustomAttributesAdapter()
+  {
+    return null;
+  }
+
+  /**
+   * Creates a new adapter for an object of class '{@link maxim.zaks.flatBuffers.FileIdentifier <em>File Identifier</em>}'.
+   * <!-- begin-user-doc -->
+   * This default implementation returns null so that we can easily ignore cases;
+   * it's useful to ignore a case when inheritance will catch all the cases anyway.
+   * <!-- end-user-doc -->
+   * @return the new adapter.
+   * @see maxim.zaks.flatBuffers.FileIdentifier
+   * @generated
+   */
+  public Adapter createFileIdentifierAdapter()
   {
     return null;
   }

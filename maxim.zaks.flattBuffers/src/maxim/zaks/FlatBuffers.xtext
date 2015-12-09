@@ -23,7 +23,7 @@ CustomAttributes:
 ;
 
 FileIdentifier:
-	'file_identifier' STRING ';'
+	'file_identifier' identifier=STRING ';'
 ;
 
 FileExtension:

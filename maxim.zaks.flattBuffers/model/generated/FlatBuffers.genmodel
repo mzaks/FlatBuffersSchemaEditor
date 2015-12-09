@@ -10,7 +10,7 @@
     <genClasses ecoreClass="FlatBuffers.ecore#//Schema">
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute FlatBuffers.ecore#//Schema/includes"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference FlatBuffers.ecore#//Schema/namepsace"/>
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute FlatBuffers.ecore#//Schema/fileIdentifier"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference FlatBuffers.ecore#//Schema/fileIdentifier"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute FlatBuffers.ecore#//Schema/file_extension"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference FlatBuffers.ecore#//Schema/customAttributes"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference FlatBuffers.ecore#//Schema/definitions"/>
@@ -21,6 +21,9 @@
     </genClasses>
     <genClasses ecoreClass="FlatBuffers.ecore#//CustomAttributes">
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute FlatBuffers.ecore#//CustomAttributes/name"/>
+    </genClasses>
+    <genClasses ecoreClass="FlatBuffers.ecore#//FileIdentifier">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute FlatBuffers.ecore#//FileIdentifier/identifier"/>
     </genClasses>
     <genClasses ecoreClass="FlatBuffers.ecore#//Namespace">
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute FlatBuffers.ecore#//Namespace/name"/>

@@ -4,6 +4,7 @@ import com.google.common.base.Objects;
 import maxim.zaks.flatBuffers.Definition;
 import maxim.zaks.flatBuffers.EnumCase;
 import maxim.zaks.flatBuffers.Fields;
+import maxim.zaks.flatBuffers.FileIdentifier;
 import maxim.zaks.flatBuffers.Namespace;
 import maxim.zaks.flatBuffers.RootType;
 import maxim.zaks.flatBuffers.Schema;
@@ -39,8 +40,9 @@ public class CSharpGenerator {
         _name_1=_namepsace.getName();
       }
       this.nameSpace = _name_1;
-      String _fileIdentifier = schema.getFileIdentifier();
-      this.fileIdentifier = _fileIdentifier;
+      FileIdentifier _fileIdentifier = schema.getFileIdentifier();
+      String _identifier = _fileIdentifier.getIdentifier();
+      this.fileIdentifier = _identifier;
       StringConcatenation _builder = new StringConcatenation();
       {
         boolean _notEquals = (!Objects.equal(this.nameSpace, null));
@@ -306,7 +308,7 @@ public class CSharpGenerator {
         CharSequence _converPrimitiveType = this.converPrimitiveType(_primType_3);
         _builder_1.append(_converPrimitiveType, "");
         _builder_1.append(")");
-        Object _defaultValueString = this.defaultValueString(field);
+        String _defaultValueString = this.defaultValueString(field);
         _builder_1.append(_defaultValueString, "");
         _builder_1.append(";");
         _builder_1.newLineIfNotEmpty();
@@ -370,15 +372,17 @@ public class CSharpGenerator {
                 _builder_2.append(_name_2, "");
                 _builder_2.append(" =  o");
                 _builder_2.append(index, "");
-                _builder_2.append(" != 0 ? obj.bb.");
-                String _type_6 = ((maxim.zaks.flatBuffers.Enum)definition).getType();
-                CharSequence _converPrimitiveTypeGetter_1 = this.converPrimitiveTypeGetter(_type_6);
+                _builder_2.append(" != 0 ? (");
+                String _name_3 = ((maxim.zaks.flatBuffers.Enum)definition).getName();
+                _builder_2.append(_name_3, "");
+                _builder_2.append(")obj.bb.");
+                CharSequence _converPrimitiveTypeGetter_1 = this.converPrimitiveTypeGetter(((maxim.zaks.flatBuffers.Enum)definition));
                 _builder_2.append(_converPrimitiveTypeGetter_1, "");
                 _builder_2.append("(o");
                 _builder_2.append(index, "");
                 _builder_2.append(" + obj.bb_pos) : (");
-                String _name_3 = ((maxim.zaks.flatBuffers.Enum)definition).getName();
-                _builder_2.append(_name_3, "");
+                String _name_4 = ((maxim.zaks.flatBuffers.Enum)definition).getName();
+                _builder_2.append(_name_4, "");
                 _builder_2.append(")0;");
                 _builder_2.newLineIfNotEmpty();
                 _switchResult = _builder_2;
@@ -520,9 +524,9 @@ public class CSharpGenerator {
         boolean _notEquals = (!Objects.equal(this.fileIdentifier, null));
         if (_notEquals) {
           StringConcatenation _builder_2 = new StringConcatenation();
-          _builder_2.append("builder.Finish(offset.Value, ");
+          _builder_2.append("builder.Finish(offset.Value, \"");
           _builder_2.append(this.fileIdentifier, "");
-          _builder_2.append(");");
+          _builder_2.append("\");");
           finishCall = _builder_2.toString();
         }
         StringConcatenation _builder_3 = new StringConcatenation();
@@ -877,15 +881,13 @@ public class CSharpGenerator {
                 _matched=true;
                 StringConcatenation _builder_1 = new StringConcatenation();
                 _builder_1.append("builder.StartVector(");
-                String _type_5 = ((maxim.zaks.flatBuffers.Enum)definition).getType();
-                CharSequence _converPrimitiveTypeToLength = this.converPrimitiveTypeToLength(_type_5);
+                CharSequence _converPrimitiveTypeToLength = this.converPrimitiveTypeToLength(((maxim.zaks.flatBuffers.Enum)definition));
                 _builder_1.append(_converPrimitiveTypeToLength, "");
                 _builder_1.append(", this.");
                 String _name_4 = field.getName();
                 _builder_1.append(_name_4, "");
                 _builder_1.append(".Length, ");
-                String _type_6 = ((maxim.zaks.flatBuffers.Enum)definition).getType();
-                CharSequence _converPrimitiveTypeToLength_1 = this.converPrimitiveTypeToLength(_type_6);
+                CharSequence _converPrimitiveTypeToLength_1 = this.converPrimitiveTypeToLength(((maxim.zaks.flatBuffers.Enum)definition));
                 _builder_1.append(_converPrimitiveTypeToLength_1, "");
                 _builder_1.append(");");
                 _builder_1.newLineIfNotEmpty();
@@ -896,8 +898,7 @@ public class CSharpGenerator {
                 _builder_1.newLineIfNotEmpty();
                 _builder_1.append("\t");
                 _builder_1.append("builder.");
-                String _type_7 = ((maxim.zaks.flatBuffers.Enum)definition).getType();
-                CharSequence _converPrimitiveTypeAdd = this.converPrimitiveTypeAdd(_type_7);
+                CharSequence _converPrimitiveTypeAdd = this.converPrimitiveTypeAdd(((maxim.zaks.flatBuffers.Enum)definition));
                 _builder_1.append(_converPrimitiveTypeAdd, "\t");
                 _builder_1.append("(this.");
                 String _name_6 = field.getName();
@@ -960,7 +961,7 @@ public class CSharpGenerator {
         CharSequence _converPrimitiveType = this.converPrimitiveType(_primType_3);
         _builder_1.append(_converPrimitiveType, "");
         _builder_1.append(")");
-        Object _defaultValueString = this.defaultValueString(field);
+        String _defaultValueString = this.defaultValueString(field);
         _builder_1.append(_defaultValueString, "");
         _builder_1.append(");");
         _builder_1.newLineIfNotEmpty();
@@ -999,12 +1000,14 @@ public class CSharpGenerator {
                 _matched=true;
                 StringConcatenation _builder_2 = new StringConcatenation();
                 _builder_2.append("builder.");
-                String _type_6 = ((maxim.zaks.flatBuffers.Enum)definition).getType();
-                CharSequence _converPrimitiveTypeAdd_1 = this.converPrimitiveTypeAdd(_type_6);
+                CharSequence _converPrimitiveTypeAdd_1 = this.converPrimitiveTypeAdd(((maxim.zaks.flatBuffers.Enum)definition));
                 _builder_2.append(_converPrimitiveTypeAdd_1, "");
                 _builder_2.append("(");
                 _builder_2.append(index, "");
-                _builder_2.append(", this.");
+                _builder_2.append(", (");
+                CharSequence _converPrimitiveType_1 = this.converPrimitiveType(((maxim.zaks.flatBuffers.Enum)definition));
+                _builder_2.append(_converPrimitiveType_1, "");
+                _builder_2.append(")this.");
                 String _name_1 = field.getName();
                 _builder_2.append(_name_1, "");
                 _builder_2.append(", 0);");
@@ -1030,7 +1033,7 @@ public class CSharpGenerator {
     return _xifexpression;
   }
   
-  public Object defaultValueString(final Fields field) {
+  public String defaultValueString(final Fields field) {
     Value _defaultValue = field.getDefaultValue();
     boolean _equals = Objects.equal(_defaultValue, null);
     if (_equals) {
@@ -1043,7 +1046,32 @@ public class CSharpGenerator {
         return "0";
       }
     }
-    return field.getDefaultValue();
+    Value _defaultValue_1 = field.getDefaultValue();
+    boolean _isIsFalse = _defaultValue_1.isIsFalse();
+    if (_isIsFalse) {
+      return "false";
+    } else {
+      Value _defaultValue_2 = field.getDefaultValue();
+      boolean _isIsTrue = _defaultValue_2.isIsTrue();
+      if (_isIsTrue) {
+        return "true";
+      } else {
+        Value _defaultValue_3 = field.getDefaultValue();
+        String _enumCase = _defaultValue_3.getEnumCase();
+        boolean _notEquals = (!Objects.equal(_enumCase, null));
+        if (_notEquals) {
+          Type _type_1 = field.getType();
+          Definition _defType = _type_1.getDefType();
+          String _name = _defType.getName();
+          String _plus = (_name + ".");
+          Value _defaultValue_4 = field.getDefaultValue();
+          String _enumCase_1 = _defaultValue_4.getEnumCase();
+          return (_plus + _enumCase_1);
+        }
+      }
+    }
+    Value _defaultValue_5 = field.getDefaultValue();
+    return _defaultValue_5.getNumber();
   }
   
   public CharSequence generateFieldType(final Type fieldType) {
@@ -1136,8 +1164,7 @@ public class CSharpGenerator {
       boolean _notEquals = (!Objects.equal(_type, null));
       if (_notEquals) {
         _builder.append(": ");
-        String _type_1 = e.getType();
-        CharSequence _converPrimitiveType = this.converPrimitiveType(_type_1);
+        CharSequence _converPrimitiveType = this.converPrimitiveType(e);
         _builder.append(_converPrimitiveType, "");
       }
     }
@@ -1165,6 +1192,20 @@ public class CSharpGenerator {
     _builder.append("};");
     _builder.newLine();
     return _builder;
+  }
+  
+  public CharSequence converPrimitiveType(final maxim.zaks.flatBuffers.Enum definition) {
+    CharSequence _xblockexpression = null;
+    {
+      String _type = definition.getType();
+      boolean _equals = Objects.equal(_type, null);
+      if (_equals) {
+        return this.converPrimitiveType("int");
+      }
+      String _type_1 = definition.getType();
+      _xblockexpression = this.converPrimitiveType(_type_1);
+    }
+    return _xblockexpression;
   }
   
   public CharSequence converPrimitiveType(final String type) {
@@ -1234,6 +1275,20 @@ public class CSharpGenerator {
     return _switchResult;
   }
   
+  public CharSequence converPrimitiveTypeGetter(final maxim.zaks.flatBuffers.Enum definition) {
+    CharSequence _xblockexpression = null;
+    {
+      String _type = definition.getType();
+      boolean _equals = Objects.equal(_type, null);
+      if (_equals) {
+        return this.converPrimitiveTypeGetter("int");
+      }
+      String _type_1 = definition.getType();
+      _xblockexpression = this.converPrimitiveTypeGetter(_type_1);
+    }
+    return _xblockexpression;
+  }
+  
   public CharSequence converPrimitiveTypeGetter(final String type) {
     CharSequence _switchResult = null;
     switch (type) {
@@ -1296,6 +1351,20 @@ public class CSharpGenerator {
     return _switchResult;
   }
   
+  public CharSequence converPrimitiveTypeAdd(final maxim.zaks.flatBuffers.Enum definition) {
+    CharSequence _xblockexpression = null;
+    {
+      String _type = definition.getType();
+      boolean _equals = Objects.equal(_type, null);
+      if (_equals) {
+        return this.converPrimitiveTypeAdd("int");
+      }
+      String _type_1 = definition.getType();
+      _xblockexpression = this.converPrimitiveTypeAdd(_type_1);
+    }
+    return _xblockexpression;
+  }
+  
   public CharSequence converPrimitiveTypeAdd(final String type) {
     CharSequence _switchResult = null;
     switch (type) {
@@ -1356,6 +1425,20 @@ public class CSharpGenerator {
         break;
     }
     return _switchResult;
+  }
+  
+  public CharSequence converPrimitiveTypeToLength(final maxim.zaks.flatBuffers.Enum definition) {
+    CharSequence _xblockexpression = null;
+    {
+      String _type = definition.getType();
+      boolean _equals = Objects.equal(_type, null);
+      if (_equals) {
+        return this.converPrimitiveTypeToLength("int");
+      }
+      String _type_1 = definition.getType();
+      _xblockexpression = this.converPrimitiveTypeToLength(_type_1);
+    }
+    return _xblockexpression;
   }
   
   public CharSequence converPrimitiveTypeToLength(final String type) {

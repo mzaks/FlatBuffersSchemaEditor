@@ -8,6 +8,7 @@ import maxim.zaks.flatBuffers.Definition;
 import maxim.zaks.flatBuffers.EnumCase;
 import maxim.zaks.flatBuffers.FieldAttributes;
 import maxim.zaks.flatBuffers.Fields;
+import maxim.zaks.flatBuffers.FileIdentifier;
 import maxim.zaks.flatBuffers.FlatBuffersFactory;
 import maxim.zaks.flatBuffers.FlatBuffersPackage;
 import maxim.zaks.flatBuffers.Namespace;
@@ -84,6 +85,7 @@ public class FlatBuffersFactoryImpl extends EFactoryImpl implements FlatBuffersF
       case FlatBuffersPackage.SCHEMA: return createSchema();
       case FlatBuffersPackage.ROOT_TYPE: return createRootType();
       case FlatBuffersPackage.CUSTOM_ATTRIBUTES: return createCustomAttributes();
+      case FlatBuffersPackage.FILE_IDENTIFIER: return createFileIdentifier();
       case FlatBuffersPackage.NAMESPACE: return createNamespace();
       case FlatBuffersPackage.DEFINITION: return createDefinition();
       case FlatBuffersPackage.STRUCT: return createStruct();
@@ -134,6 +136,17 @@ public class FlatBuffersFactoryImpl extends EFactoryImpl implements FlatBuffersF
   {
     CustomAttributesImpl customAttributes = new CustomAttributesImpl();
     return customAttributes;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public FileIdentifier createFileIdentifier()
+  {
+    FileIdentifierImpl fileIdentifier = new FileIdentifierImpl();
+    return fileIdentifier;
   }
 
   /**
