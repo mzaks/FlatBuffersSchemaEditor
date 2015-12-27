@@ -33,7 +33,7 @@ public class CSharpGenerator {
   
   private String fileIdentifier;
   
-  private HashMap<String, List<String>> tableToUnion;
+  private HashMap<String, List<String>> tableToUnion = new HashMap<String, List<String>>();
   
   public CharSequence generate(final Schema schema) {
     CharSequence _xblockexpression = null;
@@ -48,8 +48,7 @@ public class CSharpGenerator {
         _name_1=_namepsace.getName();
       }
       this.nameSpace = _name_1;
-      HashMap<String, List<String>> _createTableToUnionMap = this.createTableToUnionMap(schema);
-      this.tableToUnion = _createTableToUnionMap;
+      this.fillTableToUnionMap(schema);
       FileIdentifier _fileIdentifier = schema.getFileIdentifier();
       String _identifier = null;
       if (_fileIdentifier!=null) {
@@ -91,8 +90,8 @@ public class CSharpGenerator {
     return _xblockexpression;
   }
   
-  public HashMap<String, List<String>> createTableToUnionMap(final Schema schema) {
-    HashMap<String, List<String>> result = new HashMap<String, List<String>>();
+  public void fillTableToUnionMap(final Schema schema) {
+    this.tableToUnion.clear();
     EList<Definition> _definitions = schema.getDefinitions();
     for (final Definition definition : _definitions) {
       boolean _matched = false;
@@ -107,12 +106,12 @@ public class CSharpGenerator {
             List<String> typeNames = ListExtensions.<Table, String>map(_unionCases, _function);
             for (final String tableType : typeNames) {
               {
-                List<String> unionNames = result.get(tableType);
+                List<String> unionNames = this.tableToUnion.get(tableType);
                 boolean _equals = Objects.equal(unionNames, null);
                 if (_equals) {
                   ArrayList<String> _arrayList = new ArrayList<String>();
                   unionNames = _arrayList;
-                  result.put(tableType, unionNames);
+                  this.tableToUnion.put(tableType, unionNames);
                 }
                 String _name = ((Union)definition).getName();
                 unionNames.add(_name);
@@ -122,7 +121,6 @@ public class CSharpGenerator {
         }
       }
     }
-    return result;
   }
   
   public CharSequence generateDefinition(final Definition definition) {

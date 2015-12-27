@@ -14,12 +14,12 @@ class CSharpGenerator {
 	
 	String fileIdentifier
 	
-	HashMap<String, List<String>> tableToUnion 
+	HashMap<String, List<String>> tableToUnion = new HashMap<String, List<String>>()
 	
 	public def generate(Schema schema) {
 		rootTableName = schema.rootType.type.name
 		nameSpace = schema.namepsace?.name
-		tableToUnion = schema.createTableToUnionMap
+		schema.fillTableToUnionMap
 		fileIdentifier = schema.fileIdentifier?.identifier
 		'''
 			«IF nameSpace!=null»
@@ -38,24 +38,23 @@ class CSharpGenerator {
 		'''
 	}
 	
-	def createTableToUnionMap(Schema schema) {
-		var result = new HashMap<String, List<String>>()
+	def fillTableToUnionMap(Schema schema) {
+		tableToUnion.clear
 		for (Definition definition : schema.definitions) {
 			switch definition {
 				Union case definition: {
 					var typeNames = definition.unionCases.map[it.name]
 					for (String tableType : typeNames){
-						var unionNames = result.get(tableType)
+						var unionNames = tableToUnion.get(tableType)
 						if(unionNames == null){
 							unionNames = new ArrayList<String>()
-							result.put(tableType, unionNames)
+							tableToUnion.put(tableType, unionNames)
 						}
 						unionNames.add(definition.name)
 					}
 				}
 			}
-		}
-		return result 
+		} 
 	}
 	
 	def generateDefinition(Definition definition) {
@@ -421,8 +420,8 @@ class CSharpGenerator {
 	'''
 	
 	def generateUnion(Union union) '''
-			public interface «union.name» {}
-			«union.generateUnionHelper»
+		public interface «union.name» {}
+		«union.generateUnionHelper»
 	'''
 	
 	def generateUnionHelper(Union union) '''

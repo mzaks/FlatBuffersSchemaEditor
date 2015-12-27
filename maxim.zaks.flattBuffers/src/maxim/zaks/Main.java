@@ -52,7 +52,7 @@ public class Main {
           formatter.printHelp("java -jar dmodelgen.jar [OPTIONS]", options);
           return -1;
       }
-
+      
       List<String> launchArgs = Lists.newArrayList();
       launchArgs.add(WORKFLOW_MODULE);
       launchArgs.add("-pmodelPath=" + line.getOptionValue("srcdir"));

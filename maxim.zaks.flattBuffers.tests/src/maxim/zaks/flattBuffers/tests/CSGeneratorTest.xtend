@@ -19,25 +19,15 @@ class CSGeneratorTest {
   CSharpGenerator generator = new CSharpGenerator()
  
   @Test
-  def void generateEmptyRootTable() {
-    val model = parser.parse('''
+  def void generateEmptyTable() {
+    val schema = parser.parse('''
       table T1 {}
-      root_type = T1;
     ''')
-    assertEquals(generator.generate(model).toString.trim,
+    assertEquals(generator.generateDefinition(schema.definitions.get(0)).toString.trim,
 '''
-using FlatBuffers;
-
 public sealed class T1 : Table {
 	
-	public static T1 Make(byte[] data) {
-		T1 obj = new T1();
-		obj.bb = new ByteBuffer(data);
-		obj.bb_pos = obj.bb.GetInt(obj.bb.Position) + obj.bb.Position; 
-		
-		return obj;
-	}
-	internal static T1 _Make(ByteBuffer _bb, int pos) {
+	internal static T1 FromByteBuffer(ByteBuffer _bb, int pos) {
 		T1 obj = new T1();
 		
 		obj.bb_pos = pos; 
@@ -46,20 +36,49 @@ public sealed class T1 : Table {
 		return obj;
 	}
 	
-	public byte[] Build(){
-		FlatBufferBuilder builder = new FlatBufferBuilder(1);
-		var offset = this._Build(builder);
-		builder.Finish(offset.Value);
-		return builder.SizedByteArray();
-	}
-	internal Offset<T1> _Build(FlatBufferBuilder builder){
+	internal int AddToByteBuffer(FlatBufferBuilder builder){
 		
 		
 		builder.StartObject(0);
 		
 		
-		int o = builder.EndObject();
-		return new Offset<T1>(o);
+		return builder.EndObject();
+	}
+}
+'''.toString.trim)
+  }
+  
+    @Test
+  def void generateTableWithInt() {
+    val schema = parser.parse('''
+      table T1 {
+      	a : int;
+      }
+    ''')
+    assertEquals(generator.generateDefinition(schema.definitions.get(0)).toString.trim,
+'''
+public sealed class T1 : Table {
+	public int a;
+	
+	internal static T1 FromByteBuffer(ByteBuffer _bb, int pos) {
+		T1 obj = new T1();
+		
+		obj.bb_pos = pos; 
+		obj.bb = _bb;
+		
+		int o0 = obj.__offset(4 + 2*0); 
+		obj.a =  o0 != 0 ? obj.bb.GetInt(o0 + obj.bb_pos) : (int)0;
+		return obj;
+	}
+	
+	internal int AddToByteBuffer(FlatBufferBuilder builder){
+		
+		
+		builder.StartObject(1);
+		
+		builder.AddInt(0, this.a, (int)0);
+		
+		return builder.EndObject();
 	}
 }
 '''.toString.trim)
