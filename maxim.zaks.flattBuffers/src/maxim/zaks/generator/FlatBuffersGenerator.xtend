@@ -16,14 +16,12 @@ import java.util.regex.Pattern
  */
 class FlatBuffersGenerator implements IGenerator {
 	
-	var rootTableName = ""
 	var csGenerator = new CSharpGenerator()
 	var swiftGenerator = new SwiftGenerator()
 	
 	override void doGenerate(Resource resource, IFileSystemAccess fsa) {
 		val schema = resource.contents.head as Schema
 		var fileName = resource.URI.lastSegment.split(Pattern.quote(".")).get(0)
-		rootTableName = schema.rootType.type.name
 		fsa.generateFile(fileName + '.swift', swiftGenerator.generate(schema))
 		fsa.generateFile(fileName + '.cs', csGenerator.generate(schema))
 	}

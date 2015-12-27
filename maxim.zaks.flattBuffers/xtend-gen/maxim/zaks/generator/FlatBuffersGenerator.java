@@ -4,9 +4,7 @@
 package maxim.zaks.generator;
 
 import java.util.regex.Pattern;
-import maxim.zaks.flatBuffers.RootType;
 import maxim.zaks.flatBuffers.Schema;
-import maxim.zaks.flatBuffers.Table;
 import maxim.zaks.generator.CSharpGenerator;
 import maxim.zaks.generator.SwiftGenerator;
 import org.eclipse.emf.common.util.EList;
@@ -24,8 +22,6 @@ import org.eclipse.xtext.xbase.lib.IterableExtensions;
  */
 @SuppressWarnings("all")
 public class FlatBuffersGenerator implements IGenerator {
-  private String rootTableName = "";
-  
   private CSharpGenerator csGenerator = new CSharpGenerator();
   
   private SwiftGenerator swiftGenerator = new SwiftGenerator();
@@ -40,10 +36,6 @@ public class FlatBuffersGenerator implements IGenerator {
     String _quote = Pattern.quote(".");
     String[] _split = _lastSegment.split(_quote);
     String fileName = _split[0];
-    RootType _rootType = schema.getRootType();
-    Table _type = _rootType.getType();
-    String _name = _type.getName();
-    this.rootTableName = _name;
     CharSequence _generate = this.swiftGenerator.generate(schema);
     fsa.generateFile((fileName + ".swift"), _generate);
     CharSequence _generate_1 = this.csGenerator.generate(schema);
