@@ -48,26 +48,22 @@ class SwiftGenerator {
 		if (field.type.primType != null) {
 			if(field.type.primType == "string"){
 				'''	
-				public var «field.name» : «field.type.generateFieldType»? {
-					return _reader.getString(_reader.getOffset(_myOffset, propertyIndex: «index»))
-				}
+				lazy public var «field.name» : «field.type.generateFieldType»? = self._reader.getString(self._reader.getOffset(self._myOffset, propertyIndex: «index»))
 				'''
 			} else {
 				'''	
-				public var «field.name» : «field.type.generateFieldType» {
-					return _reader.get(_myOffset, propertyIndex: «index», defaultValue: 0)
-				}
+				lazy public var «field.name» : «field.type.generateFieldType» = self._reader.get(self._myOffset, propertyIndex: «index», defaultValue: 0)
 				'''
 			}
 		} else if(field.type.defType != null) {
 			val typeName = field.type.generateFieldType
 			'''	
-				public var «field.name» : «typeName»? {
+				lazy public var «field.name» : «typeName»? = {
 					if let myOffset : ObjectOffset = _reader.getOffset(_myOffset, propertyIndex: «index»){
 						return «typeName»(reader: _reader, offset: myOffset)
 					}
 					return nil
-				}
+				}()
 			'''
 		}
 	}

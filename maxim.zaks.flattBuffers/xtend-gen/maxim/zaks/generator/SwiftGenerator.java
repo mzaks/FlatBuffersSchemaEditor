@@ -130,41 +130,31 @@ public class SwiftGenerator {
       boolean _equals = Objects.equal(_primType_1, "string");
       if (_equals) {
         StringConcatenation _builder = new StringConcatenation();
-        _builder.append("public var ");
+        _builder.append("lazy public var ");
         String _name = field.getName();
         _builder.append(_name, "");
         _builder.append(" : ");
         Type _type_2 = field.getType();
         CharSequence _generateFieldType = this.generateFieldType(_type_2);
         _builder.append(_generateFieldType, "");
-        _builder.append("? {");
-        _builder.newLineIfNotEmpty();
-        _builder.append("\t");
-        _builder.append("return _reader.getString(_reader.getOffset(_myOffset, propertyIndex: ");
-        _builder.append(index, "\t");
+        _builder.append("? = self._reader.getString(self._reader.getOffset(self._myOffset, propertyIndex: ");
+        _builder.append(index, "");
         _builder.append("))");
         _builder.newLineIfNotEmpty();
-        _builder.append("}");
-        _builder.newLine();
         _xifexpression_1 = _builder;
       } else {
         StringConcatenation _builder_1 = new StringConcatenation();
-        _builder_1.append("public var ");
+        _builder_1.append("lazy public var ");
         String _name_1 = field.getName();
         _builder_1.append(_name_1, "");
         _builder_1.append(" : ");
         Type _type_3 = field.getType();
         CharSequence _generateFieldType_1 = this.generateFieldType(_type_3);
         _builder_1.append(_generateFieldType_1, "");
-        _builder_1.append(" {");
-        _builder_1.newLineIfNotEmpty();
-        _builder_1.append("\t");
-        _builder_1.append("return _reader.get(_myOffset, propertyIndex: ");
-        _builder_1.append(index, "\t");
+        _builder_1.append(" = self._reader.get(self._myOffset, propertyIndex: ");
+        _builder_1.append(index, "");
         _builder_1.append(", defaultValue: 0)");
         _builder_1.newLineIfNotEmpty();
-        _builder_1.append("}");
-        _builder_1.newLine();
         _xifexpression_1 = _builder_1;
       }
       _xifexpression = _xifexpression_1;
@@ -179,12 +169,12 @@ public class SwiftGenerator {
           Type _type_5 = field.getType();
           final CharSequence typeName = this.generateFieldType(_type_5);
           StringConcatenation _builder_2 = new StringConcatenation();
-          _builder_2.append("public var ");
+          _builder_2.append("lazy public var ");
           String _name_2 = field.getName();
           _builder_2.append(_name_2, "");
           _builder_2.append(" : ");
           _builder_2.append(typeName, "");
-          _builder_2.append("? {");
+          _builder_2.append("? = {");
           _builder_2.newLineIfNotEmpty();
           _builder_2.append("\t");
           _builder_2.append("if let myOffset : ObjectOffset = _reader.getOffset(_myOffset, propertyIndex: ");
@@ -202,7 +192,7 @@ public class SwiftGenerator {
           _builder_2.append("\t");
           _builder_2.append("return nil");
           _builder_2.newLine();
-          _builder_2.append("}");
+          _builder_2.append("}()");
           _builder_2.newLine();
           _xblockexpression = _builder_2;
         }
