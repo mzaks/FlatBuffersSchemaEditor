@@ -17,7 +17,7 @@ import java.util.regex.Pattern
 class FlatBuffersGenerator implements IGenerator {
 	
 	var csGenerator = new CSharpGenerator()
-	var swiftGenerator = new SwiftGenerator()
+	var swiftGenerator = new EagerSwiftGenerator()
 	
 	override void doGenerate(Resource resource, IFileSystemAccess fsa) {
 		val schema = resource.contents.head as Schema

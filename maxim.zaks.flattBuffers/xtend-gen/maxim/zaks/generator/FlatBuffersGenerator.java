@@ -6,7 +6,7 @@ package maxim.zaks.generator;
 import java.util.regex.Pattern;
 import maxim.zaks.flatBuffers.Schema;
 import maxim.zaks.generator.CSharpGenerator;
-import maxim.zaks.generator.SwiftGenerator;
+import maxim.zaks.generator.EagerSwiftGenerator;
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.EObject;
@@ -24,7 +24,7 @@ import org.eclipse.xtext.xbase.lib.IterableExtensions;
 public class FlatBuffersGenerator implements IGenerator {
   private CSharpGenerator csGenerator = new CSharpGenerator();
   
-  private SwiftGenerator swiftGenerator = new SwiftGenerator();
+  private EagerSwiftGenerator swiftGenerator = new EagerSwiftGenerator();
   
   @Override
   public void doGenerate(final Resource resource, final IFileSystemAccess fsa) {

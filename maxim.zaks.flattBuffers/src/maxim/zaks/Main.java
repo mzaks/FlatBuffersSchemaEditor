@@ -10,9 +10,15 @@ import org.apache.commons.cli.Option;
 import org.apache.commons.cli.OptionBuilder;
 import org.apache.commons.cli.Options;
 import org.apache.commons.cli.ParseException;
+import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.mwe2.launch.runtime.Mwe2Launcher;
 
 import com.google.common.collect.Lists;
+import com.google.inject.Injector;
+import com.google.inject.Key;
+
+import maxim.zaks.flatBuffers.Definition;
+import maxim.zaks.flatBuffers.Schema;
 
 // Implementation found under:
 // http://lwc11-xtext.eclipselabs.org.codespot.com/svn-history/r230/doc/LWC11_Documentation/phase3_headlessGenerator.tex
@@ -53,16 +59,30 @@ public class Main {
           return -1;
       }
       
-      List<String> launchArgs = Lists.newArrayList();
-      launchArgs.add(WORKFLOW_MODULE);
-      launchArgs.add("-pmodelPath=" + line.getOptionValue("srcdir"));
-      launchArgs.add("-ptargetDir=" + line.getOptionValue("targetdir",
-      "./src-gen"));
+      FlatBuffersStandaloneSetup setup = new FlatBuffersStandaloneSetup();
+      Injector injector = setup.createInjectorAndDoEMFRegistration();
+      ParseHelper<Schema> parseHelper = injector.getInstance(new Key<ParseHelper<Schema>>(){});
+      
       try {
-          Mwe2Launcher.main(launchArgs.toArray(new String[0]));
-          return 0;
-      } catch (Exception e) {
-          return -1;
-      }
+		Schema schema = parseHelper.parse("table Max{}");
+		EList<Definition> definitions = schema.getDefinitions();
+		
+	} catch (Exception e1) {
+		// TODO Auto-generated catch block
+		e1.printStackTrace();
+	}
+      
+//      List<String> launchArgs = Lists.newArrayList();
+//      launchArgs.add(WORKFLOW_MODULE);
+//      launchArgs.add("-pmodelPath=" + line.getOptionValue("srcdir"));
+//      launchArgs.add("-ptargetDir=" + line.getOptionValue("targetdir",
+//      "./src-gen"));
+//      try {
+//          Mwe2Launcher.main(launchArgs.toArray(new String[0]));
+//          return 0;
+//      } catch (Exception e) {
+//          return -1;
+//      }
+      return 0;
     }
 }
