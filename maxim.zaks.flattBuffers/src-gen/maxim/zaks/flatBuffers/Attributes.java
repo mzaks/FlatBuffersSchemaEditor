@@ -8,21 +8,21 @@ import org.eclipse.emf.ecore.EObject;
 
 /**
  * <!-- begin-user-doc -->
- * A representation of the model object '<em><b>Field Attributes</b></em>'.
+ * A representation of the model object '<em><b>Attributes</b></em>'.
  * <!-- end-user-doc -->
  *
  * <p>
  * The following features are supported:
  * </p>
  * <ul>
- *   <li>{@link maxim.zaks.flatBuffers.FieldAttributes#getAtributeNames <em>Atribute Names</em>}</li>
+ *   <li>{@link maxim.zaks.flatBuffers.Attributes#getAtributeNames <em>Atribute Names</em>}</li>
  * </ul>
  *
- * @see maxim.zaks.flatBuffers.FlatBuffersPackage#getFieldAttributes()
+ * @see maxim.zaks.flatBuffers.FlatBuffersPackage#getAttributes()
  * @model
  * @generated
  */
-public interface FieldAttributes extends EObject
+public interface Attributes extends EObject
 {
   /**
    * Returns the value of the '<em><b>Atribute Names</b></em>' containment reference list.
@@ -34,10 +34,10 @@ public interface FieldAttributes extends EObject
    * </p>
    * <!-- end-user-doc -->
    * @return the value of the '<em>Atribute Names</em>' containment reference list.
-   * @see maxim.zaks.flatBuffers.FlatBuffersPackage#getFieldAttributes_AtributeNames()
+   * @see maxim.zaks.flatBuffers.FlatBuffersPackage#getAttributes_AtributeNames()
    * @model containment="true"
    * @generated
    */
   EList<AttributeName> getAtributeNames();
 
-} // FieldAttributes
+} // Attributes

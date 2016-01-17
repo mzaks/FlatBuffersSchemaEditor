@@ -3,18 +3,18 @@
 package maxim.zaks.flatBuffers.util;
 
 import maxim.zaks.flatBuffers.AttributeName;
+import maxim.zaks.flatBuffers.Attributes;
 import maxim.zaks.flatBuffers.CustomAttributes;
 import maxim.zaks.flatBuffers.Definition;
 import maxim.zaks.flatBuffers.EnumCase;
-import maxim.zaks.flatBuffers.FieldAttributes;
-import maxim.zaks.flatBuffers.Fields;
+import maxim.zaks.flatBuffers.Field;
 import maxim.zaks.flatBuffers.FileIdentifier;
 import maxim.zaks.flatBuffers.FlatBuffersPackage;
 import maxim.zaks.flatBuffers.Namespace;
 import maxim.zaks.flatBuffers.RootType;
 import maxim.zaks.flatBuffers.Schema;
 import maxim.zaks.flatBuffers.Struct;
-import maxim.zaks.flatBuffers.StructFields;
+import maxim.zaks.flatBuffers.StructField;
 import maxim.zaks.flatBuffers.Table;
 import maxim.zaks.flatBuffers.Type;
 import maxim.zaks.flatBuffers.Union;
@@ -127,9 +127,9 @@ public class FlatBuffersAdapterFactory extends AdapterFactoryImpl
         return createStructAdapter();
       }
       @Override
-      public Adapter caseStructFields(StructFields object)
+      public Adapter caseStructField(StructField object)
       {
-        return createStructFieldsAdapter();
+        return createStructFieldAdapter();
       }
       @Override
       public Adapter caseTable(Table object)
@@ -137,9 +137,9 @@ public class FlatBuffersAdapterFactory extends AdapterFactoryImpl
         return createTableAdapter();
       }
       @Override
-      public Adapter caseFields(Fields object)
+      public Adapter caseField(Field object)
       {
-        return createFieldsAdapter();
+        return createFieldAdapter();
       }
       @Override
       public Adapter caseValue(Value object)
@@ -147,9 +147,9 @@ public class FlatBuffersAdapterFactory extends AdapterFactoryImpl
         return createValueAdapter();
       }
       @Override
-      public Adapter caseFieldAttributes(FieldAttributes object)
+      public Adapter caseAttributes(Attributes object)
       {
-        return createFieldAttributesAdapter();
+        return createAttributesAdapter();
       }
       @Override
       public Adapter caseAttributeName(AttributeName object)
@@ -309,16 +309,16 @@ public class FlatBuffersAdapterFactory extends AdapterFactoryImpl
   }
 
   /**
-   * Creates a new adapter for an object of class '{@link maxim.zaks.flatBuffers.StructFields <em>Struct Fields</em>}'.
+   * Creates a new adapter for an object of class '{@link maxim.zaks.flatBuffers.StructField <em>Struct Field</em>}'.
    * <!-- begin-user-doc -->
    * This default implementation returns null so that we can easily ignore cases;
    * it's useful to ignore a case when inheritance will catch all the cases anyway.
    * <!-- end-user-doc -->
    * @return the new adapter.
-   * @see maxim.zaks.flatBuffers.StructFields
+   * @see maxim.zaks.flatBuffers.StructField
    * @generated
    */
-  public Adapter createStructFieldsAdapter()
+  public Adapter createStructFieldAdapter()
   {
     return null;
   }
@@ -339,16 +339,16 @@ public class FlatBuffersAdapterFactory extends AdapterFactoryImpl
   }
 
   /**
-   * Creates a new adapter for an object of class '{@link maxim.zaks.flatBuffers.Fields <em>Fields</em>}'.
+   * Creates a new adapter for an object of class '{@link maxim.zaks.flatBuffers.Field <em>Field</em>}'.
    * <!-- begin-user-doc -->
    * This default implementation returns null so that we can easily ignore cases;
    * it's useful to ignore a case when inheritance will catch all the cases anyway.
    * <!-- end-user-doc -->
    * @return the new adapter.
-   * @see maxim.zaks.flatBuffers.Fields
+   * @see maxim.zaks.flatBuffers.Field
    * @generated
    */
-  public Adapter createFieldsAdapter()
+  public Adapter createFieldAdapter()
   {
     return null;
   }
@@ -369,16 +369,16 @@ public class FlatBuffersAdapterFactory extends AdapterFactoryImpl
   }
 
   /**
-   * Creates a new adapter for an object of class '{@link maxim.zaks.flatBuffers.FieldAttributes <em>Field Attributes</em>}'.
+   * Creates a new adapter for an object of class '{@link maxim.zaks.flatBuffers.Attributes <em>Attributes</em>}'.
    * <!-- begin-user-doc -->
    * This default implementation returns null so that we can easily ignore cases;
    * it's useful to ignore a case when inheritance will catch all the cases anyway.
    * <!-- end-user-doc -->
    * @return the new adapter.
-   * @see maxim.zaks.flatBuffers.FieldAttributes
+   * @see maxim.zaks.flatBuffers.Attributes
    * @generated
    */
-  public Adapter createFieldAttributesAdapter()
+  public Adapter createAttributesAdapter()
   {
     return null;
   }

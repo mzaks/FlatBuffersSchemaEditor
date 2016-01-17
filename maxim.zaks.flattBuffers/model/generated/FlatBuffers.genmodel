@@ -35,20 +35,20 @@
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference FlatBuffers.ecore#//Struct/attributes"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference FlatBuffers.ecore#//Struct/fields"/>
     </genClasses>
-    <genClasses ecoreClass="FlatBuffers.ecore#//StructFields">
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute FlatBuffers.ecore#//StructFields/name"/>
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute FlatBuffers.ecore#//StructFields/primType"/>
-      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference FlatBuffers.ecore#//StructFields/defType"/>
+    <genClasses ecoreClass="FlatBuffers.ecore#//StructField">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute FlatBuffers.ecore#//StructField/name"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute FlatBuffers.ecore#//StructField/primType"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference FlatBuffers.ecore#//StructField/defType"/>
     </genClasses>
     <genClasses ecoreClass="FlatBuffers.ecore#//Table">
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference FlatBuffers.ecore#//Table/attributes"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference FlatBuffers.ecore#//Table/fields"/>
     </genClasses>
-    <genClasses ecoreClass="FlatBuffers.ecore#//Fields">
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute FlatBuffers.ecore#//Fields/name"/>
-      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference FlatBuffers.ecore#//Fields/type"/>
-      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference FlatBuffers.ecore#//Fields/defaultValue"/>
-      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference FlatBuffers.ecore#//Fields/attributes"/>
+    <genClasses ecoreClass="FlatBuffers.ecore#//Field">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute FlatBuffers.ecore#//Field/name"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference FlatBuffers.ecore#//Field/type"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference FlatBuffers.ecore#//Field/defaultValue"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference FlatBuffers.ecore#//Field/attributes"/>
     </genClasses>
     <genClasses ecoreClass="FlatBuffers.ecore#//Value">
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute FlatBuffers.ecore#//Value/number"/>
@@ -56,8 +56,8 @@
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute FlatBuffers.ecore#//Value/isTrue"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute FlatBuffers.ecore#//Value/enumCase"/>
     </genClasses>
-    <genClasses ecoreClass="FlatBuffers.ecore#//FieldAttributes">
-      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference FlatBuffers.ecore#//FieldAttributes/atributeNames"/>
+    <genClasses ecoreClass="FlatBuffers.ecore#//Attributes">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference FlatBuffers.ecore#//Attributes/atributeNames"/>
     </genClasses>
     <genClasses ecoreClass="FlatBuffers.ecore#//AttributeName">
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute FlatBuffers.ecore#//AttributeName/deprectated"/>

@@ -4,10 +4,10 @@ package maxim.zaks.flatBuffers.impl;
 
 import java.util.Collection;
 
-import maxim.zaks.flatBuffers.FieldAttributes;
+import maxim.zaks.flatBuffers.Attributes;
 import maxim.zaks.flatBuffers.FlatBuffersPackage;
 import maxim.zaks.flatBuffers.Struct;
-import maxim.zaks.flatBuffers.StructFields;
+import maxim.zaks.flatBuffers.StructField;
 
 import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.common.notify.NotificationChain;
@@ -46,7 +46,7 @@ public class StructImpl extends DefinitionImpl implements Struct
    * @generated
    * @ordered
    */
-  protected FieldAttributes attributes;
+  protected Attributes attributes;
 
   /**
    * The cached value of the '{@link #getFields() <em>Fields</em>}' containment reference list.
@@ -56,7 +56,7 @@ public class StructImpl extends DefinitionImpl implements Struct
    * @generated
    * @ordered
    */
-  protected EList<StructFields> fields;
+  protected EList<StructField> fields;
 
   /**
    * <!-- begin-user-doc -->
@@ -84,7 +84,7 @@ public class StructImpl extends DefinitionImpl implements Struct
    * <!-- end-user-doc -->
    * @generated
    */
-  public FieldAttributes getAttributes()
+  public Attributes getAttributes()
   {
     return attributes;
   }
@@ -94,9 +94,9 @@ public class StructImpl extends DefinitionImpl implements Struct
    * <!-- end-user-doc -->
    * @generated
    */
-  public NotificationChain basicSetAttributes(FieldAttributes newAttributes, NotificationChain msgs)
+  public NotificationChain basicSetAttributes(Attributes newAttributes, NotificationChain msgs)
   {
-    FieldAttributes oldAttributes = attributes;
+    Attributes oldAttributes = attributes;
     attributes = newAttributes;
     if (eNotificationRequired())
     {
@@ -111,7 +111,7 @@ public class StructImpl extends DefinitionImpl implements Struct
    * <!-- end-user-doc -->
    * @generated
    */
-  public void setAttributes(FieldAttributes newAttributes)
+  public void setAttributes(Attributes newAttributes)
   {
     if (newAttributes != attributes)
     {
@@ -132,11 +132,11 @@ public class StructImpl extends DefinitionImpl implements Struct
    * <!-- end-user-doc -->
    * @generated
    */
-  public EList<StructFields> getFields()
+  public EList<StructField> getFields()
   {
     if (fields == null)
     {
-      fields = new EObjectContainmentEList<StructFields>(StructFields.class, this, FlatBuffersPackage.STRUCT__FIELDS);
+      fields = new EObjectContainmentEList<StructField>(StructField.class, this, FlatBuffersPackage.STRUCT__FIELDS);
     }
     return fields;
   }
@@ -189,11 +189,11 @@ public class StructImpl extends DefinitionImpl implements Struct
     switch (featureID)
     {
       case FlatBuffersPackage.STRUCT__ATTRIBUTES:
-        setAttributes((FieldAttributes)newValue);
+        setAttributes((Attributes)newValue);
         return;
       case FlatBuffersPackage.STRUCT__FIELDS:
         getFields().clear();
-        getFields().addAll((Collection<? extends StructFields>)newValue);
+        getFields().addAll((Collection<? extends StructField>)newValue);
         return;
     }
     super.eSet(featureID, newValue);
@@ -210,7 +210,7 @@ public class StructImpl extends DefinitionImpl implements Struct
     switch (featureID)
     {
       case FlatBuffersPackage.STRUCT__ATTRIBUTES:
-        setAttributes((FieldAttributes)null);
+        setAttributes((Attributes)null);
         return;
       case FlatBuffersPackage.STRUCT__FIELDS:
         getFields().clear();

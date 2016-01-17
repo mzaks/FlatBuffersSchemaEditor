@@ -6,23 +6,23 @@ import org.eclipse.emf.ecore.EObject;
 
 /**
  * <!-- begin-user-doc -->
- * A representation of the model object '<em><b>Struct Fields</b></em>'.
+ * A representation of the model object '<em><b>Struct Field</b></em>'.
  * <!-- end-user-doc -->
  *
  * <p>
  * The following features are supported:
  * </p>
  * <ul>
- *   <li>{@link maxim.zaks.flatBuffers.StructFields#getName <em>Name</em>}</li>
- *   <li>{@link maxim.zaks.flatBuffers.StructFields#getPrimType <em>Prim Type</em>}</li>
- *   <li>{@link maxim.zaks.flatBuffers.StructFields#getDefType <em>Def Type</em>}</li>
+ *   <li>{@link maxim.zaks.flatBuffers.StructField#getName <em>Name</em>}</li>
+ *   <li>{@link maxim.zaks.flatBuffers.StructField#getPrimType <em>Prim Type</em>}</li>
+ *   <li>{@link maxim.zaks.flatBuffers.StructField#getDefType <em>Def Type</em>}</li>
  * </ul>
  *
- * @see maxim.zaks.flatBuffers.FlatBuffersPackage#getStructFields()
+ * @see maxim.zaks.flatBuffers.FlatBuffersPackage#getStructField()
  * @model
  * @generated
  */
-public interface StructFields extends EObject
+public interface StructField extends EObject
 {
   /**
    * Returns the value of the '<em><b>Name</b></em>' attribute.
@@ -34,14 +34,14 @@ public interface StructFields extends EObject
    * <!-- end-user-doc -->
    * @return the value of the '<em>Name</em>' attribute.
    * @see #setName(String)
-   * @see maxim.zaks.flatBuffers.FlatBuffersPackage#getStructFields_Name()
+   * @see maxim.zaks.flatBuffers.FlatBuffersPackage#getStructField_Name()
    * @model
    * @generated
    */
   String getName();
 
   /**
-   * Sets the value of the '{@link maxim.zaks.flatBuffers.StructFields#getName <em>Name</em>}' attribute.
+   * Sets the value of the '{@link maxim.zaks.flatBuffers.StructField#getName <em>Name</em>}' attribute.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @param value the new value of the '<em>Name</em>' attribute.
@@ -60,14 +60,14 @@ public interface StructFields extends EObject
    * <!-- end-user-doc -->
    * @return the value of the '<em>Prim Type</em>' attribute.
    * @see #setPrimType(String)
-   * @see maxim.zaks.flatBuffers.FlatBuffersPackage#getStructFields_PrimType()
+   * @see maxim.zaks.flatBuffers.FlatBuffersPackage#getStructField_PrimType()
    * @model
    * @generated
    */
   String getPrimType();
 
   /**
-   * Sets the value of the '{@link maxim.zaks.flatBuffers.StructFields#getPrimType <em>Prim Type</em>}' attribute.
+   * Sets the value of the '{@link maxim.zaks.flatBuffers.StructField#getPrimType <em>Prim Type</em>}' attribute.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @param value the new value of the '<em>Prim Type</em>' attribute.
@@ -86,14 +86,14 @@ public interface StructFields extends EObject
    * <!-- end-user-doc -->
    * @return the value of the '<em>Def Type</em>' reference.
    * @see #setDefType(Definition)
-   * @see maxim.zaks.flatBuffers.FlatBuffersPackage#getStructFields_DefType()
+   * @see maxim.zaks.flatBuffers.FlatBuffersPackage#getStructField_DefType()
    * @model
    * @generated
    */
   Definition getDefType();
 
   /**
-   * Sets the value of the '{@link maxim.zaks.flatBuffers.StructFields#getDefType <em>Def Type</em>}' reference.
+   * Sets the value of the '{@link maxim.zaks.flatBuffers.StructField#getDefType <em>Def Type</em>}' reference.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @param value the new value of the '<em>Def Type</em>' reference.
@@ -102,4 +102,4 @@ public interface StructFields extends EObject
    */
   void setDefType(Definition value);
 
-} // StructFields
+} // StructField

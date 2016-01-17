@@ -36,6 +36,7 @@ class EagerSwiftGeneratorTest {
     assertEquals(generator.generateMainDataStructureForTable(schema.definitions.get(0) as Table).toString.trim,
 	'''
 	public final class T1 {
+		public init(){}
 	}
 	'''.toString.trim)
   }
@@ -75,6 +76,21 @@ class EagerSwiftGeneratorTest {
 		public var a8 : Int64 = 0
 		public var a9 : UInt64 = 0
 		public var a10 : Float64 = 0
+		public init(){}
+		public init(name: String?, age: Int32, a1: Bool, a2: Int8, a3: UInt8, a4: Int16, a5: UInt16, a6: UInt32, a7: Float32, a8: Int64, a9: UInt64, a10: Float64){
+			self.name = name
+			self.age = age
+			self.a1 = a1
+			self.a2 = a2
+			self.a3 = a3
+			self.a4 = a4
+			self.a5 = a5
+			self.a6 = a6
+			self.a7 = a7
+			self.a8 = a8
+			self.a9 = a9
+			self.a10 = a10
+		}
 	}
 	'''.toString.trim)
   }
@@ -114,6 +130,21 @@ class EagerSwiftGeneratorTest {
 		public var a8 : Int64 = 0
 		public var a9 : UInt64 = 0
 		public var a10 : Float64 = 0
+		public init(){}
+		public init(name: String?, age: Int32, a1: Bool, a2: Int8, a3: UInt8, a4: Int16, a5: UInt16, a6: UInt32, a7: Float32, a8: Int64, a9: UInt64, a10: Float64){
+			self.name = name
+			self.age = age
+			self.a1 = a1
+			self.a2 = a2
+			self.a3 = a3
+			self.a4 = a4
+			self.a5 = a5
+			self.a6 = a6
+			self.a7 = a7
+			self.a8 = a8
+			self.a9 = a9
+			self.a10 = a10
+		}
 	}
 	'''.toString.trim)
   } 
@@ -124,6 +155,7 @@ class EagerSwiftGeneratorTest {
     '''
     table T2 {
     	name : string (deprecated);
+    	age : int;
     }
     ''')
     
@@ -131,6 +163,11 @@ class EagerSwiftGeneratorTest {
 	'''
 	public final class T2 {
 		public var __name : String? = nil
+		public var age : Int32 = 0
+		public init(){}
+		public init(age: Int32){
+			self.age = age
+		}
 	}
 	'''.toString.trim)
   }
@@ -158,6 +195,13 @@ class EagerSwiftGeneratorTest {
 		public var myEnum : A? = A.a
 		public var myUnion : C? = nil
 		public var myStruct : Foo? = nil
+		public init(){}
+		public init(friend: T2?, myEnum: A?, myUnion: C?, myStruct: Foo?){
+			self.friend = friend
+			self.myEnum = myEnum
+			self.myUnion = myUnion
+			self.myStruct = myStruct
+		}
 	}
 	'''.toString.trim)
   }
@@ -175,6 +219,10 @@ class EagerSwiftGeneratorTest {
 	'''
 	public final class T1 {
 		public var t : Any? /* defined as qulified type which is not supported in Swift*/ = nil
+		public init(){}
+		public init(t: Any? /* defined as qulified type which is not supported in Swift*/){
+			self.t = t
+		}
 	}
 	'''.toString.trim)
   }
@@ -207,6 +255,16 @@ class EagerSwiftGeneratorTest {
 		public var t5 : [[T2?]] = []
 		public var t6 : [[Int8]] = []
 		public var t7 : [S1?] = []
+		public init(){}
+		public init(t: [String?], t2: [Bool], t3: [E?], t4: [T2?], t5: [[T2?]], t6: [[Int8]], t7: [S1?]){
+			self.t = t
+			self.t2 = t2
+			self.t3 = t3
+			self.t4 = t4
+			self.t5 = t5
+			self.t6 = t6
+			self.t7 = t7
+		}
 	}
 	'''.toString.trim)
   }
@@ -303,12 +361,12 @@ class EagerSwiftGeneratorTest {
     
     assertEquals(generator.generateCreaterFunctionForUnion(schema.definitions.get(0) as Union).toString.trim,
 	'''
-	private func create_U1(reader : FlatBufferReader, propertyIndex : Int, objectOffset : ObjectOffset?) -> U1? {
+	private func create_U1(reader : FlatBufferReader, propertyIndex : Int, objectOffset : Offset?) -> U1? {
 		guard let objectOffset = objectOffset else {
 			return nil
 		}
 		let unionCase : Int8 = reader.get(objectOffset, propertyIndex: propertyIndex, defaultValue: 0)
-		guard let caseObjectOffset : ObjectOffset = reader.getOffset(objectOffset, propertyIndex:propertyIndex + 1) else {
+		guard let caseObjectOffset : Offset = reader.getOffset(objectOffset, propertyIndex:propertyIndex + 1) else {
 			return nil
 		}
 		switch unionCase {
@@ -318,12 +376,12 @@ class EagerSwiftGeneratorTest {
 		default : return nil
 		}
 	}
-	private func create_U1_LazyAccess(reader : FlatBufferReader, propertyIndex : Int, objectOffset : ObjectOffset?) -> U1_LazyAccess? {
+	private func create_U1_LazyAccess(reader : FlatBufferReader, propertyIndex : Int, objectOffset : Offset?) -> U1_LazyAccess? {
 		guard let objectOffset = objectOffset else {
 			return nil
 		}
 		let unionCase : Int8 = reader.get(objectOffset, propertyIndex: propertyIndex, defaultValue: 0)
-		guard let caseObjectOffset : ObjectOffset = reader.getOffset(objectOffset, propertyIndex:propertyIndex + 1) else {
+		guard let caseObjectOffset : Offset = reader.getOffset(objectOffset, propertyIndex:propertyIndex + 1) else {
 			return nil
 		}
 		switch unionCase {
@@ -331,6 +389,22 @@ class EagerSwiftGeneratorTest {
 		case 2 : return T2.LazyAccess(reader: reader, objectOffset: caseObjectOffset)
 		case 3 : return T3.LazyAccess(reader: reader, objectOffset: caseObjectOffset)
 		default : return nil
+		}
+	}
+	private func unionCase_U1(union : U1?) -> Int8 {
+		switch union {
+		case is T1 : return 1
+		case is T2 : return 2
+		case is T3 : return 3
+		default : return 0
+		}
+	}
+	private func addToByteArray_U1(builder : FlatBufferBuilder, union : U1?) -> Offset {
+		switch union {
+		case let u as T1 : return u.addToByteArray(builder)
+		case let u as T2 : return u.addToByteArray(builder)
+		case let u as T3 : return u.addToByteArray(builder)
+		default : return 0
 		}
 	}
 	'''.toString.trim)
@@ -349,7 +423,7 @@ class EagerSwiftGeneratorTest {
     assertEquals(generator.generateCreateExtension(schema.definitions.get(0) as Table).toString.trim,
 	'''
 public extension T1 {
-	private static func create(reader : FlatBufferReader, objectOffset : ObjectOffset?) -> T1? {
+	private static func create(reader : FlatBufferReader, objectOffset : Offset?) -> T1? {
 		guard let objectOffset = objectOffset else {
 			return nil
 		}
@@ -376,7 +450,7 @@ public extension T1 {
     assertEquals(generator.generateCreateExtension(schema.definitions.get(0) as Table).toString.trim,
 	'''
 public extension T1 {
-	private static func create(reader : FlatBufferReader, objectOffset : ObjectOffset?) -> T1? {
+	private static func create(reader : FlatBufferReader, objectOffset : Offset?) -> T1? {
 		guard let objectOffset = objectOffset else {
 			return nil
 		}
@@ -404,7 +478,7 @@ public extension T1 {
     assertEquals(generator.generateCreateExtension(schema.definitions.get(0) as Table).toString.trim,
 	'''
 public extension T2 {
-	private static func create(reader : FlatBufferReader, objectOffset : ObjectOffset?) -> T2? {
+	private static func create(reader : FlatBufferReader, objectOffset : Offset?) -> T2? {
 		guard let objectOffset = objectOffset else {
 			return nil
 		}
@@ -429,7 +503,7 @@ public extension T2 {
     assertEquals(generator.generateCreateExtension(schema.definitions.get(0) as Table).toString.trim,
 	'''
 public extension T2 {
-	private static func create(reader : FlatBufferReader, objectOffset : ObjectOffset?) -> T2? {
+	private static func create(reader : FlatBufferReader, objectOffset : Offset?) -> T2? {
 		guard let objectOffset = objectOffset else {
 			return nil
 		}
@@ -453,12 +527,12 @@ public extension T2 {
     assertEquals(generator.generateCreateExtension(schema.definitions.get(0) as Table).toString.trim,
 	'''
 public extension T2 {
-	private static func create(reader : FlatBufferReader, objectOffset : ObjectOffset?) -> T2? {
+	private static func create(reader : FlatBufferReader, objectOffset : Offset?) -> T2? {
 		guard let objectOffset = objectOffset else {
 			return nil
 		}
 		let _result = T2()
-		let offset_v1 : VectorOffset? = reader.getOffset(objectOffset, propertyIndex: 0)
+		let offset_v1 : Offset? = reader.getOffset(objectOffset, propertyIndex: 0)
 		let length_v1 = reader.getVectorLength(offset_v1)
 		if(length_v1 > 0){
 			var index = 0
@@ -486,12 +560,12 @@ public extension T2 {
     assertEquals(generator.generateCreateExtension(schema.definitions.get(0) as Table).toString.trim,
 	'''
 public extension T2 {
-	private static func create(reader : FlatBufferReader, objectOffset : ObjectOffset?) -> T2? {
+	private static func create(reader : FlatBufferReader, objectOffset : Offset?) -> T2? {
 		guard let objectOffset = objectOffset else {
 			return nil
 		}
 		let _result = T2()
-		let offset_v1 : VectorOffset? = reader.getOffset(objectOffset, propertyIndex: 0)
+		let offset_v1 : Offset? = reader.getOffset(objectOffset, propertyIndex: 0)
 		let length_v1 = reader.getVectorLength(offset_v1)
 		if(length_v1 > 0){
 			var index = 0
@@ -518,12 +592,12 @@ public extension T2 {
     assertEquals(generator.generateCreateExtension(schema.definitions.get(0) as Table).toString.trim,
 	'''
 public extension T2 {
-	private static func create(reader : FlatBufferReader, objectOffset : ObjectOffset?) -> T2? {
+	private static func create(reader : FlatBufferReader, objectOffset : Offset?) -> T2? {
 		guard let objectOffset = objectOffset else {
 			return nil
 		}
 		let _result = T2()
-		let offset_v1 : VectorOffset? = reader.getOffset(objectOffset, propertyIndex: 0)
+		let offset_v1 : Offset? = reader.getOffset(objectOffset, propertyIndex: 0)
 		let length_v1 = reader.getVectorLength(offset_v1)
 		if(length_v1 > 0){
 			var index = 0
@@ -551,7 +625,7 @@ public extension T2 {
     assertEquals(generator.generateCreateExtension(schema.definitions.get(0) as Table).toString.trim,
 	'''
 public extension T2 {
-	private static func create(reader : FlatBufferReader, objectOffset : ObjectOffset?) -> T2? {
+	private static func create(reader : FlatBufferReader, objectOffset : Offset?) -> T2? {
 		guard let objectOffset = objectOffset else {
 			return nil
 		}
@@ -578,7 +652,7 @@ public extension T2 {
     assertEquals(generator.generateCreateExtension(schema.definitions.get(0) as Table).toString.trim,
 	'''
 public extension T1 {
-	private static func create(reader : FlatBufferReader, objectOffset : ObjectOffset?) -> T1? {
+	private static func create(reader : FlatBufferReader, objectOffset : Offset?) -> T1? {
 		guard let objectOffset = objectOffset else {
 			return nil
 		}
@@ -608,7 +682,7 @@ public extension T1 {
     assertEquals(generator.generateCreateExtension(schema.definitions.get(0) as Table).toString.trim,
 	'''
 public extension T1 {
-	private static func create(reader : FlatBufferReader, objectOffset : ObjectOffset?) -> T1? {
+	private static func create(reader : FlatBufferReader, objectOffset : Offset?) -> T1? {
 		guard let objectOffset = objectOffset else {
 			return nil
 		}
@@ -638,12 +712,12 @@ public extension T1 {
     assertEquals(generator.generateCreateExtension(schema.definitions.get(0) as Table).toString.trim,
 	'''
 public extension T2 {
-	private static func create(reader : FlatBufferReader, objectOffset : ObjectOffset?) -> T2? {
+	private static func create(reader : FlatBufferReader, objectOffset : Offset?) -> T2? {
 		guard let objectOffset = objectOffset else {
 			return nil
 		}
 		let _result = T2()
-		let offset_v1 : VectorOffset? = reader.getOffset(objectOffset, propertyIndex: 0)
+		let offset_v1 : Offset? = reader.getOffset(objectOffset, propertyIndex: 0)
 		let length_v1 = reader.getVectorLength(offset_v1)
 		if(length_v1 > 0){
 			var index = 0
@@ -674,12 +748,12 @@ public extension T2 {
     assertEquals(generator.generateCreateExtension(schema.definitions.get(0) as Table).toString.trim,
 	'''
 public extension T2 {
-	private static func create(reader : FlatBufferReader, objectOffset : ObjectOffset?) -> T2? {
+	private static func create(reader : FlatBufferReader, objectOffset : Offset?) -> T2? {
 		guard let objectOffset = objectOffset else {
 			return nil
 		}
 		let _result = T2()
-		let offset_v1 : VectorOffset? = reader.getOffset(objectOffset, propertyIndex: 0)
+		let offset_v1 : Offset? = reader.getOffset(objectOffset, propertyIndex: 0)
 		let length_v1 = reader.getVectorLength(offset_v1)
 		if(length_v1 > 0){
 			var index = 0
@@ -709,7 +783,7 @@ public extension T2 {
     assertEquals(generator.generateFromByteArrayExtension(schema.definitions.get(0) as Table).toString.trim,
 	'''
 public extension T2 {
-	public static func FromByteArray(data : UnsafePointer<UInt8>) -> T2 {
+	public static func fromByteArray(data : UnsafePointer<UInt8>) -> T2 {
 		let reader = FlatBufferReader(bytes: data)
 		let objectOffset = reader.rootObjectOffset
 		return create(reader, objectOffset : objectOffset)!
@@ -750,12 +824,12 @@ public extension T2 {
 public extension T2 {
 	public final class LazyAccess{
 		private let _reader : FlatBufferReader!
-		private let _objectOffset : ObjectOffset!
+		private let _objectOffset : Offset!
 		public init(data : UnsafePointer<UInt8>){
 			_reader = FlatBufferReader(bytes: data)
 			_objectOffset = _reader.rootObjectOffset
 		}
-		private init?(reader : FlatBufferReader, objectOffset : ObjectOffset?){
+		private init?(reader : FlatBufferReader, objectOffset : Offset?){
 			guard let objectOffset = objectOffset else {
 				_reader = nil
 				_objectOffset = nil
@@ -770,21 +844,21 @@ public extension T2 {
 		public lazy var b2 : Bool = self._reader.get(self._objectOffset, propertyIndex: 2, defaultValue:true)
 		public lazy var t1 : T1.LazyAccess? = T1.LazyAccess(reader: self._reader, objectOffset : self._reader.getOffset(self._objectOffset, propertyIndex: 3))
 		public lazy var numbers : LazyVector<Int32> = {
-			let vectorOffset : VectorOffset? = self._reader.getOffset(self._objectOffset, propertyIndex: 4)
+			let vectorOffset : Offset? = self._reader.getOffset(self._objectOffset, propertyIndex: 4)
 			let vectorLength = self._reader.getVectorLength(vectorOffset)
 			return LazyVector(count: vectorLength){
 				self._reader.getVectorScalarElement(vectorOffset!, index: $0) as Int32
 			}
 		}()
 		public lazy var strings : LazyVector<String> = {
-			let vectorOffset : VectorOffset? = self._reader.getOffset(self._objectOffset, propertyIndex: 5)
+			let vectorOffset : Offset? = self._reader.getOffset(self._objectOffset, propertyIndex: 5)
 			let vectorLength = self._reader.getVectorLength(vectorOffset)
 			return LazyVector(count: vectorLength){
 				self._reader.getString(self._reader.getVectorOffsetElement(vectorOffset!, index: $0))
 			}
 		}()
 		public lazy var objects : LazyVector<T1.LazyAccess> = {
-			let vectorOffset : VectorOffset? = self._reader.getOffset(self._objectOffset, propertyIndex: 6)
+			let vectorOffset : Offset? = self._reader.getOffset(self._objectOffset, propertyIndex: 6)
 			let vectorLength = self._reader.getVectorLength(vectorOffset)
 			return LazyVector(count: vectorLength){
 				T1.LazyAccess(reader: self._reader, objectOffset : self._reader.getVectorOffsetElement(vectorOffset!, index: $0))
@@ -796,7 +870,7 @@ public extension T2 {
 			b : self._reader.getStructProperty(self._objectOffset, propertyIndex: 8, structPropertyOffset: 4, defaultValue: false)
 		) : nil
 		public lazy var sts : LazyVector<ST> = {
-			let vectorOffset : VectorOffset? = self._reader.getOffset(self._objectOffset, propertyIndex: 9)
+			let vectorOffset : Offset? = self._reader.getOffset(self._objectOffset, propertyIndex: 9)
 			let vectorLength = self._reader.getVectorLength(vectorOffset)
 			return LazyVector(count: vectorLength){
 				ST(
@@ -806,7 +880,7 @@ public extension T2 {
 			}
 		}()
 		public lazy var es : LazyVector<E1> = {
-			let vectorOffset : VectorOffset? = self._reader.getOffset(self._objectOffset, propertyIndex: 10)
+			let vectorOffset : Offset? = self._reader.getOffset(self._objectOffset, propertyIndex: 10)
 			let vectorLength = self._reader.getVectorLength(vectorOffset)
 			return LazyVector(count: vectorLength){
 				E1(rawValue: self._reader.getVectorScalarElement(vectorOffset!, index: $0))
@@ -820,4 +894,270 @@ public extension T2 {
 	'''.toString.trim)
   }
   
+  @Test
+  def void generateToByteArrayExtension() {
+    val schema = parser.parse(
+    '''
+    table T2 {
+    	a1 : bool;
+    }
+    ''')
+    
+    assertEquals(generator.generateToByteArrayExtension(schema.definitions.get(0) as Table).toString.trim,
+	'''
+public extension T2 {
+	public var toByteArray : [UInt8] {
+		let builder = FlatBufferBuilder()
+		return try! builder.finish(addToByteArray(builder), fileIdentifier: nil)
+	}
+}
+	'''.toString.trim)
+  }
+  
+  @Test
+  def void generateToByteArrayExtensionWithFileIdentifier() {
+    val schema = parser.parse(
+    '''
+    file_identifier "abcd";
+    table T2 {
+    	a1 : bool;
+    }
+    ''')
+	generator.fileIdentifier = schema.fileIdentifier.identifier
+    assertEquals(generator.generateToByteArrayExtension(schema.definitions.get(0) as Table).toString.trim,
+	'''
+public extension T2 {
+	public var toByteArray : [UInt8] {
+		let builder = FlatBufferBuilder()
+		return try! builder.finish(addToByteArray(builder), fileIdentifier: "abcd")
+	}
+}
+	'''.toString.trim)
+  }
+  
+  @Test
+  def void generateAddToByteArrayExtensionForTableWithScalarsAndEnum() {
+    val schema = parser.parse(
+    '''
+    table T2 {
+    	a1 : bool;
+    	a2 : int;
+    	a3 : byte = 5;
+    	e1 : E1;
+    }
+    enum E1 {A, B}
+    ''')
+    
+    assertEquals(generator.generateAddToByteArrayExtension(schema.definitions.get(0) as Table).toString.trim,
+	'''
+public extension T2 {
+	private func addToByteArray(builder : FlatBufferBuilder) -> Offset {
+		try! builder.openObject(4)
+		try! builder.addPropertyToOpenObject(3, value : e1!.rawValue, defaultValue : 0)
+		try! builder.addPropertyToOpenObject(2, value : a3, defaultValue : 5)
+		try! builder.addPropertyToOpenObject(1, value : a2, defaultValue : 0)
+		try! builder.addPropertyToOpenObject(0, value : a1, defaultValue : false)
+		return try! builder.closeObject()
+	}
+}
+	'''.toString.trim)
+  }
+  
+  @Test
+  def void generateAddToByteArrayExtensionForTableWithStringAndTableReference() {
+    val schema = parser.parse(
+    '''
+    table T2 {
+    	s : string;
+    	t1 : T1;
+    }
+    table T1 {}
+    ''')
+    
+    assertEquals(generator.generateAddToByteArrayExtension(schema.definitions.get(0) as Table).toString.trim,
+	'''
+public extension T2 {
+	private func addToByteArray(builder : FlatBufferBuilder) -> Offset {
+		let offset1 = t1?.addToByteArray(builder) ?? 0
+		let offset0 = try! builder.createString(s)
+		try! builder.openObject(2)
+		try! builder.addPropertyOffsetToOpenObject(1, offset: offset1)
+		try! builder.addPropertyOffsetToOpenObject(0, offset: offset0)
+		return try! builder.closeObject()
+	}
+}
+	'''.toString.trim)
+  }
+  
+  @Test
+  def void generateAddToByteArrayExtensionForTableWithVectorOfStringsIntsEnumsAndTables() {
+    val schema = parser.parse(
+    '''
+    table T2 {
+    	ns : [int];
+    	ts : [T1];
+    	es : [E1];
+    	ss : [string];
+    }
+    table T1 {}
+    enum E1 {}
+    ''')
+    
+    assertEquals(generator.generateAddToByteArrayExtension(schema.definitions.get(0) as Table).toString.trim,
+	'''
+public extension T2 {
+	private func addToByteArray(builder : FlatBufferBuilder) -> Offset {
+		var offset3 = Offset(0)
+		if ss.count > 0{
+			var offsets = [Offset?](count: ss.count, repeatedValue: nil)
+			var index = ss.count - 1
+			while(index >= 0){
+				offsets[index] = try!builder.createString(ss[index])
+				index -= 1
+			}
+			try! builder.startVector(ss.count)
+			index = ss.count - 1
+			while(index >= 0){
+				try! builder.putOffset(offsets[index])
+				index -= 1
+			}
+			offset3 = builder.endVector()
+		}
+		var offset2 = Offset(0)
+		if es.count > 0{
+			try! builder.startVector(es.count)
+			var index = es.count - 1
+			while(index >= 0){
+				builder.put(es[index]!.rawValue)
+				index -= 1
+			}
+			offset2 = builder.endVector()
+		}
+		var offset1 = Offset(0)
+		if ts.count > 0{
+			var offsets = [Offset?](count: ts.count, repeatedValue: nil)
+			var index = ts.count - 1
+			while(index >= 0){
+				offsets[index] = ts[index]?.addToByteArray(builder)
+				index -= 1
+			}
+			try! builder.startVector(ts.count)
+			index = ts.count - 1
+			while(index >= 0){
+				try! builder.putOffset(offsets[index])
+				index -= 1
+			}
+			offset1 = builder.endVector()
+		}
+		var offset0 = Offset(0)
+		if ns.count > 0{
+			try! builder.startVector(ns.count)
+			var index = ns.count - 1
+			while(index >= 0){
+				builder.put(ns[index])
+				index -= 1
+			}
+			offset0 = builder.endVector()
+		}
+		try! builder.openObject(4)
+		try! builder.addPropertyOffsetToOpenObject(3, offset: offset3)
+		try! builder.addPropertyOffsetToOpenObject(2, offset: offset2)
+		try! builder.addPropertyOffsetToOpenObject(1, offset: offset1)
+		try! builder.addPropertyOffsetToOpenObject(0, offset: offset0)
+		return try! builder.closeObject()
+	}
+}
+	'''.toString.trim)
+  }
+  
+  @Test
+  def void generateAddToByteArrayExtensionForTableWithUnion() {
+    val schema = parser.parse(
+    '''
+    table T2 {
+    	u : U1;
+    }
+    table T1 {}
+    table T3 {}
+    union U1 {T1, T3}
+    ''')
+    
+    assertEquals(generator.generateAddToByteArrayExtension(schema.definitions.get(0) as Table).toString.trim,
+	'''
+public extension T2 {
+	private func addToByteArray(builder : FlatBufferBuilder) -> Offset {
+		let offset0 = addToByteArray_U1(builder, union: u)
+		try! builder.openObject(2)
+		try! builder.addPropertyOffsetToOpenObject(1, offset: offset0)
+		try! builder.addPropertyToOpenObject(0, value : unionCase_U1(u), defaultValue : 0)
+		return try! builder.closeObject()
+	}
+}
+	'''.toString.trim)
+  }
+  
+  @Test
+  def void generateAddToByteArrayExtensionForTableWithStruct() {
+    val schema = parser.parse(
+    '''
+    table T2 {
+    	u : S1;
+    }
+    struct S1 {
+    	a : int;
+    	b : float;
+    }
+    ''')
+    
+    assertEquals(generator.generateAddToByteArrayExtension(schema.definitions.get(0) as Table).toString.trim,
+	'''
+public extension T2 {
+	private func addToByteArray(builder : FlatBufferBuilder) -> Offset {
+		try! builder.openObject(1)
+		if let u = u {
+			builder.put(u.b)
+			builder.put(u.a)
+			try! builder.addCurrentOffsetAsPropertyToOpenObject(0)
+		}
+		return try! builder.closeObject()
+	}
+}
+	'''.toString.trim)
+  }
+  
+  @Test
+  def void generateAddToByteArrayExtensionForTableWithStructVector() {
+    val schema = parser.parse(
+    '''
+    table T2 {
+    	ss : [S1];
+    }
+    struct S1 {
+    	a : int;
+    	b : bool;
+    }
+    ''')
+    
+    assertEquals(generator.generateAddToByteArrayExtension(schema.definitions.get(0) as Table).toString.trim,
+	'''
+public extension T2 {
+	private func addToByteArray(builder : FlatBufferBuilder) -> Offset {
+		var offset0 = Offset(0)
+		if ss.count > 0{
+			try! builder.startVector(ss.count)
+			var index = ss.count - 1
+			while(index >= 0){
+				builder.put(ss[index]?.b ?? false)
+				builder.put(ss[index]?.a ?? 0)
+				index -= 1
+			}
+			offset0 = builder.endVector()
+		}
+		try! builder.openObject(1)
+		try! builder.addPropertyOffsetToOpenObject(0, offset: offset0)
+		return try! builder.closeObject()
+	}
+}
+	'''.toString.trim)
+  }
 }

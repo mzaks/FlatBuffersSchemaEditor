@@ -2,7 +2,7 @@ package maxim.zaks.generator;
 
 import com.google.common.base.Objects;
 import maxim.zaks.flatBuffers.Definition;
-import maxim.zaks.flatBuffers.Fields;
+import maxim.zaks.flatBuffers.Field;
 import maxim.zaks.flatBuffers.RootType;
 import maxim.zaks.flatBuffers.Schema;
 import maxim.zaks.flatBuffers.Table;
@@ -83,14 +83,14 @@ public class SwiftGenerator {
     _builder.append("}");
     _builder.newLine();
     {
-      EList<Fields> _fields = table.getFields();
-      Iterable<Pair<Integer, Fields>> _indexed = IterableExtensions.<Fields>indexed(_fields);
-      final Function1<Pair<Integer, Fields>, CharSequence> _function = (Pair<Integer, Fields> it) -> {
-        Fields _value = it.getValue();
+      EList<Field> _fields = table.getFields();
+      Iterable<Pair<Integer, Field>> _indexed = IterableExtensions.<Field>indexed(_fields);
+      final Function1<Pair<Integer, Field>, CharSequence> _function = (Pair<Integer, Field> it) -> {
+        Field _value = it.getValue();
         Integer _key = it.getKey();
         return this.tableStructFieldReader(_value, (_key).intValue());
       };
-      Iterable<CharSequence> _map = IterableExtensions.<Pair<Integer, Fields>, CharSequence>map(_indexed, _function);
+      Iterable<CharSequence> _map = IterableExtensions.<Pair<Integer, Field>, CharSequence>map(_indexed, _function);
       for(final CharSequence p : _map) {
         _builder.append("\t");
         _builder.append(p, "\t");
@@ -118,7 +118,7 @@ public class SwiftGenerator {
     return _xifexpression;
   }
   
-  public CharSequence tableStructFieldReader(final Fields field, final int index) {
+  public CharSequence tableStructFieldReader(final Field field, final int index) {
     CharSequence _xifexpression = null;
     Type _type = field.getType();
     String _primType = _type.getPrimType();

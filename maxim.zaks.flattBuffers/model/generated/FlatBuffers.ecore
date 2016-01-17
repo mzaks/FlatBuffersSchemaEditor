@@ -32,28 +32,28 @@
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="name" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="Struct" eSuperTypes="#//Definition">
-    <eStructuralFeatures xsi:type="ecore:EReference" name="attributes" eType="#//FieldAttributes"
+    <eStructuralFeatures xsi:type="ecore:EReference" name="attributes" eType="#//Attributes"
         containment="true"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="fields" upperBound="-1"
-        eType="#//StructFields" containment="true"/>
+        eType="#//StructField" containment="true"/>
   </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="StructFields">
+  <eClassifiers xsi:type="ecore:EClass" name="StructField">
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="name" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="primType" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="defType" eType="#//Definition"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="Table" eSuperTypes="#//Definition">
-    <eStructuralFeatures xsi:type="ecore:EReference" name="attributes" eType="#//FieldAttributes"
+    <eStructuralFeatures xsi:type="ecore:EReference" name="attributes" eType="#//Attributes"
         containment="true"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="fields" upperBound="-1"
-        eType="#//Fields" containment="true"/>
+        eType="#//Field" containment="true"/>
   </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="Fields">
+  <eClassifiers xsi:type="ecore:EClass" name="Field">
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="name" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="type" eType="#//Type" containment="true"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="defaultValue" eType="#//Value"
         containment="true"/>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="attributes" eType="#//FieldAttributes"
+    <eStructuralFeatures xsi:type="ecore:EReference" name="attributes" eType="#//Attributes"
         containment="true"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="Value">
@@ -62,7 +62,7 @@
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="isTrue" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="enumCase" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
   </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="FieldAttributes">
+  <eClassifiers xsi:type="ecore:EClass" name="Attributes">
     <eStructuralFeatures xsi:type="ecore:EReference" name="atributeNames" upperBound="-1"
         eType="#//AttributeName" containment="true"/>
   </eClassifiers>
@@ -96,7 +96,7 @@
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="Enum" eSuperTypes="#//Definition">
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="type" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="attributes" eType="#//FieldAttributes"
+    <eStructuralFeatures xsi:type="ecore:EReference" name="attributes" eType="#//Attributes"
         containment="true"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="enumCases" upperBound="-1"
         eType="#//EnumCase" containment="true"/>

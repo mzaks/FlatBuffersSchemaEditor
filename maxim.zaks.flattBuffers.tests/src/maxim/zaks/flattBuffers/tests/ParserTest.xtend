@@ -40,8 +40,8 @@ class ParserTest {
     val table = model.definitions.get(0) as Table
     assertEquals(table.name, "MyEntity")
     val field = table.fields.get(0)
-    assertEquals(field.name, "n1")
-    assertEquals(field.type.primType, "int")
+    assertEquals(field.getName, "n1")
+    assertEquals(field.getType.primType, "int")
   }
   
   @Test
@@ -67,8 +67,8 @@ class ParserTest {
     val types = #["byte", "ubyte", "bool", "short", "ushort", "int", "uint", "float", "long", "ulong", "double", "string"]
     types.forEach[type, index|
     	val field = table.fields.get(index)
-    	assertEquals(field.name, "n" + (index+1))
-    	assertEquals(field.type.primType, type)
+    	assertEquals(field.getName, "n" + (index+1))
+    	assertEquals(field.getType.primType, type)
     ]
   }
   
@@ -95,8 +95,8 @@ class ParserTest {
     val types = #["byte", "ubyte", "bool", "short", "ushort", "int", "uint", "float", "long", "ulong", "double", "string"]
     types.forEach[type, index|
     	val field = table.fields.get(index)
-    	assertEquals(field.name, "n" + (index+1))
-    	assertEquals(field.type.vectorType.type.primType, type)
+    	assertEquals(field.getName, "n" + (index+1))
+    	assertEquals(field.getType.vectorType.type.primType, type)
     ]
   }
   
@@ -110,8 +110,8 @@ class ParserTest {
     ''')
     val table = model.definitions.get(0) as Table
     val field = table.fields.get(0)
-    assertEquals(field.name, "friend")
-    assertEquals(field.type.defType.name, "AnotherEntity")
+    assertEquals(field.getName, "friend")
+    assertEquals(field.getType.defType.name, "AnotherEntity")
   }
   
   @Test
@@ -124,8 +124,8 @@ class ParserTest {
     ''')
     val table = model.definitions.get(0) as Table
     val field = table.fields.get(0)
-    assertEquals(field.name, "friend")
-    assertEquals(field.type.vectorType.type.defType.name, "AnotherEntity")
+    assertEquals(field.getName, "friend")
+    assertEquals(field.getType.vectorType.type.defType.name, "AnotherEntity")
   }
   
   @Test
@@ -142,24 +142,24 @@ class ParserTest {
     val table = model.definitions.get(0) as Table
     
     val field1 = table.fields.get(0)
-    assertEquals(field1.name, "n1")
-    assertEquals(field1.type.primType, "bool")
-    assertEquals(field1.defaultValue.isIsTrue, true)
+    assertEquals(field1.getName, "n1")
+    assertEquals(field1.getType.primType, "bool")
+    assertEquals(field1.getDefaultValue.isIsTrue, true)
     
     val field2 = table.fields.get(1)
-    assertEquals(field2.name, "n2")
-    assertEquals(field2.type.primType, "int")
-    assertEquals(field2.defaultValue.number, "32")
+    assertEquals(field2.getName, "n2")
+    assertEquals(field2.getType.primType, "int")
+    assertEquals(field2.getDefaultValue.number, "32")
     
     val field3 = table.fields.get(2)
-    assertEquals(field3.name, "n3")
-    assertEquals(field3.type.primType, "float")
-    assertEquals(field3.defaultValue.number, "0.32")
+    assertEquals(field3.getName, "n3")
+    assertEquals(field3.getType.primType, "float")
+    assertEquals(field3.getDefaultValue.number, "0.32")
     
     val field4 = table.fields.get(3)
-    assertEquals(field4.name, "n4")
-    assertEquals(field4.type.primType, "float")
-    assertEquals(field4.defaultValue.number, "-0.25f")
+    assertEquals(field4.getName, "n4")
+    assertEquals(field4.getType.primType, "float")
+    assertEquals(field4.getDefaultValue.number, "-0.25f")
   }
   
   @Test
@@ -184,23 +184,23 @@ class ParserTest {
     val table = model.definitions.get(0) as Table
     
     val field1 = table.fields.get(0)
-    assertEquals(field1.name, "n1")
-    assertEquals(field1.attributes.atributeNames.get(0).deprectated, true)
+    assertEquals(field1.getName, "n1")
+    assertEquals(field1.getAttributes.atributeNames.get(0).deprectated, true)
     
     val field2 = table.fields.get(1)
-    assertEquals(field2.name, "n2")
-    assertEquals(field2.attributes.atributeNames.get(0).key, true)
-    assertEquals(field2.attributes.atributeNames.get(1).required, true)
-    assertEquals(field2.attributes.atributeNames.get(2).original_order, true)
-    assertEquals(field2.attributes.atributeNames.get(3).hasAlignSize, true)
-    assertEquals(field2.attributes.atributeNames.get(3).alignSize, 8)
-    assertEquals(field2.attributes.atributeNames.get(4).hasAttributeId, true)
-    assertEquals(field2.attributes.atributeNames.get(4).attributeId, 5)
-    assertEquals(field2.attributes.atributeNames.get(5).bit_flags, true)
-    assertEquals(field2.attributes.atributeNames.get(6).customName.name, "prio")
-    assertEquals(field2.attributes.atributeNames.get(7).intValue, 7)
-    assertEquals(field2.attributes.atributeNames.get(8).stringValue, "important")
-    assertEquals(field2.attributes.atributeNames.get(9).nestedTableName, "MyEntity")
+    assertEquals(field2.getName, "n2")
+    assertEquals(field2.getAttributes.atributeNames.get(0).key, true)
+    assertEquals(field2.getAttributes.atributeNames.get(1).required, true)
+    assertEquals(field2.getAttributes.atributeNames.get(2).original_order, true)
+    assertEquals(field2.getAttributes.atributeNames.get(3).hasAlignSize, true)
+    assertEquals(field2.getAttributes.atributeNames.get(3).alignSize, 8)
+    assertEquals(field2.getAttributes.atributeNames.get(4).hasAttributeId, true)
+    assertEquals(field2.getAttributes.atributeNames.get(4).attributeId, 5)
+    assertEquals(field2.getAttributes.atributeNames.get(5).bit_flags, true)
+    assertEquals(field2.getAttributes.atributeNames.get(6).customName.name, "prio")
+    assertEquals(field2.getAttributes.atributeNames.get(7).intValue, 7)
+    assertEquals(field2.getAttributes.atributeNames.get(8).stringValue, "important")
+    assertEquals(field2.getAttributes.atributeNames.get(9).nestedTableName, "MyEntity")
   }
   
   @Test
@@ -242,12 +242,12 @@ class ParserTest {
     ''')
     val struct = model.definitions.get(0) as Struct
     assertEquals(struct.name, "Vec3")
-    assertEquals(struct.fields.get(0).name, "x")
-    assertEquals(struct.fields.get(1).name, "y")
-    assertEquals(struct.fields.get(2).name, "z")
-    assertEquals(struct.fields.get(0).primType, "float")
-    assertEquals(struct.fields.get(1).primType, "float")
-    assertEquals(struct.fields.get(2).primType, "float")
+    assertEquals(struct.fields.get(0).getName, "x")
+    assertEquals(struct.fields.get(1).getName, "y")
+    assertEquals(struct.fields.get(2).getName, "z")
+    assertEquals(struct.fields.get(0).getPrimType, "float")
+    assertEquals(struct.fields.get(1).getPrimType, "float")
+    assertEquals(struct.fields.get(2).getPrimType, "float")
     
   }
   
@@ -276,8 +276,8 @@ class ParserTest {
     val e = model.definitions.get(1) as Table
     assertEquals(e.name, "T1")
     val f = e.fields.get(0)
-    assertEquals(f.name, "foo")
-    assertEquals(f.type.defType.name, "Foo")
-    assertEquals(f.defaultValue.enumCase, "A")
+    assertEquals(f.getName, "foo")
+    assertEquals(f.getType.defType.name, "Foo")
+    assertEquals(f.getDefaultValue.enumCase, "A")
   }
 }

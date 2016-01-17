@@ -3,18 +3,18 @@
 package maxim.zaks.flatBuffers.util;
 
 import maxim.zaks.flatBuffers.AttributeName;
+import maxim.zaks.flatBuffers.Attributes;
 import maxim.zaks.flatBuffers.CustomAttributes;
 import maxim.zaks.flatBuffers.Definition;
 import maxim.zaks.flatBuffers.EnumCase;
-import maxim.zaks.flatBuffers.FieldAttributes;
-import maxim.zaks.flatBuffers.Fields;
+import maxim.zaks.flatBuffers.Field;
 import maxim.zaks.flatBuffers.FileIdentifier;
 import maxim.zaks.flatBuffers.FlatBuffersPackage;
 import maxim.zaks.flatBuffers.Namespace;
 import maxim.zaks.flatBuffers.RootType;
 import maxim.zaks.flatBuffers.Schema;
 import maxim.zaks.flatBuffers.Struct;
-import maxim.zaks.flatBuffers.StructFields;
+import maxim.zaks.flatBuffers.StructField;
 import maxim.zaks.flatBuffers.Table;
 import maxim.zaks.flatBuffers.Type;
 import maxim.zaks.flatBuffers.Union;
@@ -139,10 +139,10 @@ public class FlatBuffersSwitch<T> extends Switch<T>
         if (result == null) result = defaultCase(theEObject);
         return result;
       }
-      case FlatBuffersPackage.STRUCT_FIELDS:
+      case FlatBuffersPackage.STRUCT_FIELD:
       {
-        StructFields structFields = (StructFields)theEObject;
-        T result = caseStructFields(structFields);
+        StructField structField = (StructField)theEObject;
+        T result = caseStructField(structField);
         if (result == null) result = defaultCase(theEObject);
         return result;
       }
@@ -154,10 +154,10 @@ public class FlatBuffersSwitch<T> extends Switch<T>
         if (result == null) result = defaultCase(theEObject);
         return result;
       }
-      case FlatBuffersPackage.FIELDS:
+      case FlatBuffersPackage.FIELD:
       {
-        Fields fields = (Fields)theEObject;
-        T result = caseFields(fields);
+        Field field = (Field)theEObject;
+        T result = caseField(field);
         if (result == null) result = defaultCase(theEObject);
         return result;
       }
@@ -168,10 +168,10 @@ public class FlatBuffersSwitch<T> extends Switch<T>
         if (result == null) result = defaultCase(theEObject);
         return result;
       }
-      case FlatBuffersPackage.FIELD_ATTRIBUTES:
+      case FlatBuffersPackage.ATTRIBUTES:
       {
-        FieldAttributes fieldAttributes = (FieldAttributes)theEObject;
-        T result = caseFieldAttributes(fieldAttributes);
+        Attributes attributes = (Attributes)theEObject;
+        T result = caseAttributes(attributes);
         if (result == null) result = defaultCase(theEObject);
         return result;
       }
@@ -336,17 +336,17 @@ public class FlatBuffersSwitch<T> extends Switch<T>
   }
 
   /**
-   * Returns the result of interpreting the object as an instance of '<em>Struct Fields</em>'.
+   * Returns the result of interpreting the object as an instance of '<em>Struct Field</em>'.
    * <!-- begin-user-doc -->
    * This implementation returns null;
    * returning a non-null result will terminate the switch.
    * <!-- end-user-doc -->
    * @param object the target of the switch.
-   * @return the result of interpreting the object as an instance of '<em>Struct Fields</em>'.
+   * @return the result of interpreting the object as an instance of '<em>Struct Field</em>'.
    * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
    * @generated
    */
-  public T caseStructFields(StructFields object)
+  public T caseStructField(StructField object)
   {
     return null;
   }
@@ -368,17 +368,17 @@ public class FlatBuffersSwitch<T> extends Switch<T>
   }
 
   /**
-   * Returns the result of interpreting the object as an instance of '<em>Fields</em>'.
+   * Returns the result of interpreting the object as an instance of '<em>Field</em>'.
    * <!-- begin-user-doc -->
    * This implementation returns null;
    * returning a non-null result will terminate the switch.
    * <!-- end-user-doc -->
    * @param object the target of the switch.
-   * @return the result of interpreting the object as an instance of '<em>Fields</em>'.
+   * @return the result of interpreting the object as an instance of '<em>Field</em>'.
    * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
    * @generated
    */
-  public T caseFields(Fields object)
+  public T caseField(Field object)
   {
     return null;
   }
@@ -400,17 +400,17 @@ public class FlatBuffersSwitch<T> extends Switch<T>
   }
 
   /**
-   * Returns the result of interpreting the object as an instance of '<em>Field Attributes</em>'.
+   * Returns the result of interpreting the object as an instance of '<em>Attributes</em>'.
    * <!-- begin-user-doc -->
    * This implementation returns null;
    * returning a non-null result will terminate the switch.
    * <!-- end-user-doc -->
    * @param object the target of the switch.
-   * @return the result of interpreting the object as an instance of '<em>Field Attributes</em>'.
+   * @return the result of interpreting the object as an instance of '<em>Attributes</em>'.
    * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
    * @generated
    */
-  public T caseFieldAttributes(FieldAttributes object)
+  public T caseAttributes(Attributes object)
   {
     return null;
   }

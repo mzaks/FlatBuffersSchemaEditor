@@ -3,11 +3,11 @@
 package maxim.zaks.flatBuffers.impl;
 
 import maxim.zaks.flatBuffers.AttributeName;
+import maxim.zaks.flatBuffers.Attributes;
 import maxim.zaks.flatBuffers.CustomAttributes;
 import maxim.zaks.flatBuffers.Definition;
 import maxim.zaks.flatBuffers.EnumCase;
-import maxim.zaks.flatBuffers.FieldAttributes;
-import maxim.zaks.flatBuffers.Fields;
+import maxim.zaks.flatBuffers.Field;
 import maxim.zaks.flatBuffers.FileIdentifier;
 import maxim.zaks.flatBuffers.FlatBuffersFactory;
 import maxim.zaks.flatBuffers.FlatBuffersPackage;
@@ -15,7 +15,7 @@ import maxim.zaks.flatBuffers.Namespace;
 import maxim.zaks.flatBuffers.RootType;
 import maxim.zaks.flatBuffers.Schema;
 import maxim.zaks.flatBuffers.Struct;
-import maxim.zaks.flatBuffers.StructFields;
+import maxim.zaks.flatBuffers.StructField;
 import maxim.zaks.flatBuffers.Table;
 import maxim.zaks.flatBuffers.Type;
 import maxim.zaks.flatBuffers.Union;
@@ -89,11 +89,11 @@ public class FlatBuffersFactoryImpl extends EFactoryImpl implements FlatBuffersF
       case FlatBuffersPackage.NAMESPACE: return createNamespace();
       case FlatBuffersPackage.DEFINITION: return createDefinition();
       case FlatBuffersPackage.STRUCT: return createStruct();
-      case FlatBuffersPackage.STRUCT_FIELDS: return createStructFields();
+      case FlatBuffersPackage.STRUCT_FIELD: return createStructField();
       case FlatBuffersPackage.TABLE: return createTable();
-      case FlatBuffersPackage.FIELDS: return createFields();
+      case FlatBuffersPackage.FIELD: return createField();
       case FlatBuffersPackage.VALUE: return createValue();
-      case FlatBuffersPackage.FIELD_ATTRIBUTES: return createFieldAttributes();
+      case FlatBuffersPackage.ATTRIBUTES: return createAttributes();
       case FlatBuffersPackage.ATTRIBUTE_NAME: return createAttributeName();
       case FlatBuffersPackage.TYPE: return createType();
       case FlatBuffersPackage.VECTOR: return createVector();
@@ -187,10 +187,10 @@ public class FlatBuffersFactoryImpl extends EFactoryImpl implements FlatBuffersF
    * <!-- end-user-doc -->
    * @generated
    */
-  public StructFields createStructFields()
+  public StructField createStructField()
   {
-    StructFieldsImpl structFields = new StructFieldsImpl();
-    return structFields;
+    StructFieldImpl structField = new StructFieldImpl();
+    return structField;
   }
 
   /**
@@ -209,10 +209,10 @@ public class FlatBuffersFactoryImpl extends EFactoryImpl implements FlatBuffersF
    * <!-- end-user-doc -->
    * @generated
    */
-  public Fields createFields()
+  public Field createField()
   {
-    FieldsImpl fields = new FieldsImpl();
-    return fields;
+    FieldImpl field = new FieldImpl();
+    return field;
   }
 
   /**
@@ -231,10 +231,10 @@ public class FlatBuffersFactoryImpl extends EFactoryImpl implements FlatBuffersF
    * <!-- end-user-doc -->
    * @generated
    */
-  public FieldAttributes createFieldAttributes()
+  public Attributes createAttributes()
   {
-    FieldAttributesImpl fieldAttributes = new FieldAttributesImpl();
-    return fieldAttributes;
+    AttributesImpl attributes = new AttributesImpl();
+    return attributes;
   }
 
   /**

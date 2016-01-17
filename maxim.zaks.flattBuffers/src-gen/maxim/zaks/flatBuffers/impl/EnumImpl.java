@@ -4,8 +4,8 @@ package maxim.zaks.flatBuffers.impl;
 
 import java.util.Collection;
 
+import maxim.zaks.flatBuffers.Attributes;
 import maxim.zaks.flatBuffers.EnumCase;
-import maxim.zaks.flatBuffers.FieldAttributes;
 import maxim.zaks.flatBuffers.FlatBuffersPackage;
 
 import org.eclipse.emf.common.notify.Notification;
@@ -66,7 +66,7 @@ public class EnumImpl extends DefinitionImpl implements maxim.zaks.flatBuffers.E
    * @generated
    * @ordered
    */
-  protected FieldAttributes attributes;
+  protected Attributes attributes;
 
   /**
    * The cached value of the '{@link #getEnumCases() <em>Enum Cases</em>}' containment reference list.
@@ -127,7 +127,7 @@ public class EnumImpl extends DefinitionImpl implements maxim.zaks.flatBuffers.E
    * <!-- end-user-doc -->
    * @generated
    */
-  public FieldAttributes getAttributes()
+  public Attributes getAttributes()
   {
     return attributes;
   }
@@ -137,9 +137,9 @@ public class EnumImpl extends DefinitionImpl implements maxim.zaks.flatBuffers.E
    * <!-- end-user-doc -->
    * @generated
    */
-  public NotificationChain basicSetAttributes(FieldAttributes newAttributes, NotificationChain msgs)
+  public NotificationChain basicSetAttributes(Attributes newAttributes, NotificationChain msgs)
   {
-    FieldAttributes oldAttributes = attributes;
+    Attributes oldAttributes = attributes;
     attributes = newAttributes;
     if (eNotificationRequired())
     {
@@ -154,7 +154,7 @@ public class EnumImpl extends DefinitionImpl implements maxim.zaks.flatBuffers.E
    * <!-- end-user-doc -->
    * @generated
    */
-  public void setAttributes(FieldAttributes newAttributes)
+  public void setAttributes(Attributes newAttributes)
   {
     if (newAttributes != attributes)
     {
@@ -237,7 +237,7 @@ public class EnumImpl extends DefinitionImpl implements maxim.zaks.flatBuffers.E
         setType((String)newValue);
         return;
       case FlatBuffersPackage.ENUM__ATTRIBUTES:
-        setAttributes((FieldAttributes)newValue);
+        setAttributes((Attributes)newValue);
         return;
       case FlatBuffersPackage.ENUM__ENUM_CASES:
         getEnumCases().clear();
@@ -261,7 +261,7 @@ public class EnumImpl extends DefinitionImpl implements maxim.zaks.flatBuffers.E
         setType(TYPE_EDEFAULT);
         return;
       case FlatBuffersPackage.ENUM__ATTRIBUTES:
-        setAttributes((FieldAttributes)null);
+        setAttributes((Attributes)null);
         return;
       case FlatBuffersPackage.ENUM__ENUM_CASES:
         getEnumCases().clear();

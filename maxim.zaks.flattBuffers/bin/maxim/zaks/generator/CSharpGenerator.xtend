@@ -5,6 +5,7 @@ import java.util.HashMap
 import java.util.List
 import java.util.ArrayList
 import org.eclipse.emf.common.util.EList
+import maxim.zaks.flatBuffers.Field
 
 class CSharpGenerator {
 	
@@ -83,14 +84,14 @@ class CSharpGenerator {
 	}
 	
 	
-	def fieldAsProperty(Fields field, int index)'''	
-		«IF field.isDeprecated»[System.Obsolete]«ENDIF»public «field.type.generateFieldType» «field.name»;
+	def fieldAsProperty(Field field, int index)'''	
+		«IF field.isDeprecated»[System.Obsolete]«ENDIF»public «field.getType.generateFieldType» «field.getName»;
 	'''
 	
 	
-	def isDeprecated(Fields field){
-		if(field.attributes == null) return false
-		field.attributes.atributeNames.findFirst[it.deprectated] != null
+	def isDeprecated(Field field){
+		if(field.getAttributes == null) return false
+		field.getAttributes.atributeNames.findFirst[it.deprectated] != null
 	}
 	
 	def generateMethodsFromByteArrayAndBuffer(Table table){
@@ -124,15 +125,15 @@ class CSharpGenerator {
 		'''
 	}
 	
-	def indexedFields(EList<Fields> fields) {
-		var result = new ArrayList<Pair<Integer, Fields>>();
+	def indexedFields(EList<Field> fields) {
+		var result = new ArrayList<Pair<Integer, Field>>();
 		var index = 0
-		for (Fields f : fields){
-			if(f.type.isUnion) {
-				result.add(new Pair<Integer, Fields>(index, f))
+		for (Field f : fields){
+			if(f.getType.isUnion) {
+				result.add(new Pair<Integer, Field>(index, f))
 				index += 2
 			} else {
-				result.add(new Pair<Integer, Fields>(index, f))
+				result.add(new Pair<Integer, Field>(index, f))
 				index += 1
 			}
 		}
@@ -149,54 +150,54 @@ class CSharpGenerator {
 		return false
 	}
 	
-	def initFields(Fields field, int index) {
-		if(field.type.primType != null){
-			if(field.type.primType == "string"){
+	def initFields(Field field, int index) {
+		if(field.getType.primType != null){
+			if(field.getType.primType == "string"){
 				'''	
 				int o«index» = obj.__offset(4 + 2*«index»); 
-				obj.«field.name» =  o«index» != 0 ? obj.__string(o«index» + obj.bb_pos) : null;
+				obj.«field.getName» =  o«index» != 0 ? obj.__string(o«index» + obj.bb_pos) : null;
 				'''
 			} else {
 				'''	
 				int o«index» = obj.__offset(4 + 2*«index»); 
-				obj.«field.name» =  o«index» != 0 ? obj.bb.«field.type.primType.converPrimitiveTypeGetter»(o«index» + obj.bb_pos) : («field.type.primType.converPrimitiveType»)«field.defaultValueString»;
+				obj.«field.getName» =  o«index» != 0 ? obj.bb.«field.getType.primType.converPrimitiveTypeGetter»(o«index» + obj.bb_pos) : («field.getType.primType.converPrimitiveType»)«field.defaultValueString»;
 				'''
 			}
-		} else if(field.type.defType != null){
-				val definition = field.type.defType
+		} else if(field.getType.defType != null){
+				val definition = field.getType.defType
 				switch definition {
 					Table case definition: '''	
 						int o«index» = obj.__offset(4 + 2*«index»); 
-						obj.«field.name» =  o«index» != 0 ? «field.type.defType.name».FromByteBuffer(obj.bb, obj.__indirect(o«index» + obj.bb_pos)) : null;
+						obj.«field.getName» =  o«index» != 0 ? «field.getType.defType.name».FromByteBuffer(obj.bb, obj.__indirect(o«index» + obj.bb_pos)) : null;
 						'''
 					Enum case definition: '''
 						int o«index» = obj.__offset(4 + 2*«index»); 
-						obj.«field.name» =  o«index» != 0 ? («definition.name»)obj.bb.«definition.converPrimitiveTypeGetter»(o«index» + obj.bb_pos) : («definition.name»)0;
+						obj.«field.getName» =  o«index» != 0 ? («definition.name»)obj.bb.«definition.converPrimitiveTypeGetter»(o«index» + obj.bb_pos) : («definition.name»)0;
 					'''
 					Union case definition: '''
-						byte «field.name»UnionCase = obj.bb.Get(obj.__offset(4 + 2*«index»));
+						byte «field.getName»UnionCase = obj.bb.Get(obj.__offset(4 + 2*«index»));
 						int o«index» = obj.__offset(4 + 2*«index + 1»);
-						obj.«field.name» =  o«index» != 0 ? «definition.unionHelperName».FromByteBuffer(«field.name»UnionCase, obj.bb, obj.__indirect(o«index» + obj.bb_pos)) : null;
+						obj.«field.getName» =  o«index» != 0 ? «definition.unionHelperName».FromByteBuffer(«field.getName»UnionCase, obj.bb, obj.__indirect(o«index» + obj.bb_pos)) : null;
 					'''
 				}
-		} else if(field.type.vectorType != null){
+		} else if(field.getType.vectorType != null){
 			val LengthStatement = '''
 				 int o«index» = obj.__offset(4 + 2*«index»);
 				 int length«index» = o«index» != 0 ? obj.__vector_len(o«index») : 0;
-				 obj.«field.name» = new «field.type.vectorType.generateVectorType»[length«index»];
+				 obj.«field.getName» = new «field.getType.vectorType.generateVectorType»[length«index»];
 			'''
-			if(field.type.vectorType.type.primType != null){
+			if(field.getType.vectorType.type.primType != null){
 				
-				if(field.type.vectorType.type.primType.equals("string")){
+				if(field.getType.vectorType.type.primType.equals("string")){
 					return LengthStatement + '''
 					for (int j = length«index»-1; j >=0; j-- ){
-						obj.«field.name»[j] = obj.__string(obj.__vector(o«index») + j * 4);
+						obj.«field.getName»[j] = obj.__string(obj.__vector(o«index») + j * 4);
 					}
 					'''
 				}else {
 					return LengthStatement + '''
 					for (int j = length«index»-1; j >=0; j-- ){
-						obj.«field.name»[j] = obj.bb.«field.type.vectorType.type.primType.converPrimitiveTypeGetter»(obj.__vector(o«index») + j * 4);
+						obj.«field.getName»[j] = obj.bb.«field.getType.vectorType.type.primType.converPrimitiveTypeGetter»(obj.__vector(o«index») + j * 4);
 					}
 					'''
 				}
@@ -204,7 +205,7 @@ class CSharpGenerator {
 				// FIXME support for Enums Unions and multi dimensional Arrays
 				return LengthStatement + '''
 				for (int j = length«index»-1; j >=0; j-- ){
-					obj.«field.name»[j] = «field.type.vectorType.type.defType.name».FromByteBuffer(obj.bb, obj.__indirect(obj.__vector(o«index») + j * 4));
+					obj.«field.getName»[j] = «field.getType.vectorType.type.defType.name».FromByteBuffer(obj.bb, obj.__indirect(obj.__vector(o«index») + j * 4));
 				}
 				'''
 			}
@@ -249,61 +250,61 @@ class CSharpGenerator {
 		if(t.fields.isEmpty) return 0
 		
 		val lastField = t.fields.indexedFields.last
-		if(lastField.value.type.isUnion){
+		if(lastField.value.getType.isUnion){
 			lastField.key + 2
 		} else {
 			lastField.key + 1
 		}
 	}
 	
-	def buildChildrenOffsets(Fields field, int index) {
-		if(field.isDeprecated) return '''// «field.name» is deprecated'''
-		if(field.type.primType != null && field.type.primType == "string"){
+	def buildChildrenOffsets(Field field, int index) {
+		if(field.isDeprecated) return '''// «field.getName» is deprecated'''
+		if(field.getType.primType != null && field.getType.primType == "string"){
 			'''
-				StringOffset offset«index» = this.«field.name» == null ? default(StringOffset) : builder.CreateString(this.«field.name»);
+				StringOffset offset«index» = this.«field.getName» == null ? default(StringOffset) : builder.CreateString(this.«field.getName»);
 			'''
-		} else if(field.type.defType != null){
-			val typeName = field.type.defType.name
-			val definition = field.type.defType
+		} else if(field.getType.defType != null){
+			val typeName = field.getType.defType.name
+			val definition = field.getType.defType
 			switch definition {
 				Table case definition: '''
-					int offset«index» = this.«field.name» == null ? 0 : this.«field.name».AddToByteBuffer(builder);
+					int offset«index» = this.«field.getName» == null ? 0 : this.«field.getName».AddToByteBuffer(builder);
 					''' 
 				Union case definition: '''
-					int offset«index» = this.«field.name» == null ? 0 : «definition.unionHelperName».AddToByteBuffer(this.«field.name», builder);
+					int offset«index» = this.«field.getName» == null ? 0 : «definition.unionHelperName».AddToByteBuffer(this.«field.getName», builder);
 				'''
 			}
 			
-		} else if(field.type.vectorType != null) {
+		} else if(field.getType.vectorType != null) {
 			'''
 				VectorOffset offset«index»;
-				if(this.«field.name» == null) {
+				if(this.«field.getName» == null) {
 					offset«index» = default(VectorOffset);
 				} else {
-					«field.type.vectorType.buildVector(field, index)»
+					«field.getType.vectorType.buildVector(field, index)»
 				}
 			'''
 		}
 	}
 	
-	def buildVector(Vector vector, Fields field, int index){
+	def buildVector(Vector vector, Field field, int index){
 		if(vector.type.primType != null){
 			if(vector.type.primType != "string"){
 				val length = vector.type.primType.converPrimitiveTypeToLength
 				'''
-				builder.StartVector(«length», this.«field.name».Length, «length»);
-				for (int i = this.«field.name».Length - 1; i >= 0; i--) {
-					builder.«vector.type.primType.converPrimitiveTypeAdd»(this.«field.name»[i]);
+				builder.StartVector(«length», this.«field.getName».Length, «length»);
+				for (int i = this.«field.getName».Length - 1; i >= 0; i--) {
+					builder.«vector.type.primType.converPrimitiveTypeAdd»(this.«field.getName»[i]);
 				} 
 				offset«index» = builder.EndVector();
 				'''
 			} else {
 				'''
-				StringOffset[] data = new StringOffset[this.«field.name».Length];
-				for (int i = this.«field.name».Length - 1; i >= 0; i--) {
-					data[i] = builder.CreateString(this.«field.name»[i]);
+				StringOffset[] data = new StringOffset[this.«field.getName».Length];
+				for (int i = this.«field.getName».Length - 1; i >= 0; i--) {
+					data[i] = builder.CreateString(this.«field.getName»[i]);
 				}
-				builder.StartVector(4, this.«field.name».Length, 4);
+				builder.StartVector(4, this.«field.getName».Length, 4);
 				for (int i = data.Length - 1; i >= 0; i--) {
 					builder.AddOffset(data[i].Value);
 				} 
@@ -316,20 +317,20 @@ class CSharpGenerator {
 			val definition = vector.type.defType
 			switch definition {
 				Table case definition: '''
-					int[] data = new int[this.«field.name».Length];
-					for (int i = this.«field.name».Length - 1; i >= 0; i--) {
-						data[i] = this.«field.name»[i].AddToByteBuffer(builder);
+					int[] data = new int[this.«field.getName».Length];
+					for (int i = this.«field.getName».Length - 1; i >= 0; i--) {
+						data[i] = this.«field.getName»[i].AddToByteBuffer(builder);
 					}
-					builder.StartVector(4, this.«field.name».Length, 4);
+					builder.StartVector(4, this.«field.getName».Length, 4);
 					for (int i = data.Length - 1; i >= 0; i--) {
 						builder.AddOffset(data[i]);
 					} 
 					offset«index» = builder.EndVector();
 					'''
 				Enum case definition: '''
-					builder.StartVector(«definition.converPrimitiveTypeToLength», this.«field.name».Length, «definition.converPrimitiveTypeToLength»);
-					for (int i = this.«field.name».Length - 1; i >= 0; i--) {
-						builder.«definition.converPrimitiveTypeAdd»(this.«field.name»[i]);
+					builder.StartVector(«definition.converPrimitiveTypeToLength», this.«field.getName».Length, «definition.converPrimitiveTypeToLength»);
+					for (int i = this.«field.getName».Length - 1; i >= 0; i--) {
+						builder.«definition.converPrimitiveTypeAdd»(this.«field.getName»[i]);
 					} 
 					offset«index» = builder.EndVector();
 					''' 
@@ -338,29 +339,29 @@ class CSharpGenerator {
 	}
 		
 	
-	def addVTableToByteBuffer(Fields field, int index){
+	def addVTableToByteBuffer(Field field, int index){
 		if(field.isDeprecated){
-			return '''// «field.name» is deprecated'''
+			return '''// «field.getName» is deprecated'''
 		}
-		if(field.type.primType != null){
-			if(field.type.primType == "string"){
+		if(field.getType.primType != null){
+			if(field.getType.primType == "string"){
 				'''
 					builder.AddOffset(«index», offset«index».Value, 0);
 				'''
 			} else {
 				'''
-					builder.«field.type.primType.converPrimitiveTypeAdd»(«index», this.«field.name», («field.type.primType.converPrimitiveType»)«field.defaultValueString»);
+					builder.«field.getType.primType.converPrimitiveTypeAdd»(«index», this.«field.getName», («field.getType.primType.converPrimitiveType»)«field.defaultValueString»);
 				'''
 			}
-		} else if(field.type.defType != null){
-			val definition = field.type.defType
+		} else if(field.getType.defType != null){
+			val definition = field.getType.defType
 			switch definition {
 				Table case definition: '''builder.AddOffset(«index», offset«index», 0);'''
-				Enum case definition: '''builder.«definition.converPrimitiveTypeAdd»(«index», («definition.converPrimitiveType»)this.«field.name», 0);'''
+				Enum case definition: '''builder.«definition.converPrimitiveTypeAdd»(«index», («definition.converPrimitiveType»)this.«field.getName», 0);'''
 				Union case definition: {
 					'''
 					builder.AddOffset(«index+1», offset«index», 0);
-					builder.AddByte(«index», «definition.unionHelperName».GetCase(this.«field.name»), 0);
+					builder.AddByte(«index», «definition.unionHelperName».GetCase(this.«field.getName»), 0);
 					'''
 				} 
 			}
@@ -371,23 +372,23 @@ class CSharpGenerator {
 		}
 	}
 	
-	def defaultValueString(Fields field){
-		if(field.defaultValue == null){
-			if(field.type.primType == "bool"){
+	def defaultValueString(Field field){
+		if(field.getDefaultValue == null){
+			if(field.getType.primType == "bool"){
 				return "false"
 			} else {
 				return "0"
 			}
 		}
-		if(field.defaultValue.isFalse){
+		if(field.getDefaultValue.isFalse){
 			return "false"
-		} else if(field.defaultValue.isTrue){
+		} else if(field.getDefaultValue.isTrue){
 			return "true"
-		} else if(field.defaultValue.enumCase != null){
-			return field.type.defType.name + "." + field.defaultValue.enumCase; 
+		} else if(field.getDefaultValue.enumCase != null){
+			return field.getType.defType.name + "." + field.getDefaultValue.enumCase; 
 		}
 		
-		return field.defaultValue.number
+		return field.getDefaultValue.number
 	}
 	
 	def generateFieldType(Type fieldType) {

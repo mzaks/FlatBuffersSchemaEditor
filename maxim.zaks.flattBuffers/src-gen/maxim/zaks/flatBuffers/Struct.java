@@ -32,12 +32,12 @@ public interface Struct extends Definition
    * </p>
    * <!-- end-user-doc -->
    * @return the value of the '<em>Attributes</em>' containment reference.
-   * @see #setAttributes(FieldAttributes)
+   * @see #setAttributes(Attributes)
    * @see maxim.zaks.flatBuffers.FlatBuffersPackage#getStruct_Attributes()
    * @model containment="true"
    * @generated
    */
-  FieldAttributes getAttributes();
+  Attributes getAttributes();
 
   /**
    * Sets the value of the '{@link maxim.zaks.flatBuffers.Struct#getAttributes <em>Attributes</em>}' containment reference.
@@ -47,11 +47,11 @@ public interface Struct extends Definition
    * @see #getAttributes()
    * @generated
    */
-  void setAttributes(FieldAttributes value);
+  void setAttributes(Attributes value);
 
   /**
    * Returns the value of the '<em><b>Fields</b></em>' containment reference list.
-   * The list contents are of type {@link maxim.zaks.flatBuffers.StructFields}.
+   * The list contents are of type {@link maxim.zaks.flatBuffers.StructField}.
    * <!-- begin-user-doc -->
    * <p>
    * If the meaning of the '<em>Fields</em>' containment reference list isn't clear,
@@ -63,6 +63,6 @@ public interface Struct extends Definition
    * @model containment="true"
    * @generated
    */
-  EList<StructFields> getFields();
+  EList<StructField> getFields();
 
 } // Struct

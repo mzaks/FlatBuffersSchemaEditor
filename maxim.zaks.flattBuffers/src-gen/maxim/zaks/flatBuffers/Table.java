@@ -32,12 +32,12 @@ public interface Table extends Definition
    * </p>
    * <!-- end-user-doc -->
    * @return the value of the '<em>Attributes</em>' containment reference.
-   * @see #setAttributes(FieldAttributes)
+   * @see #setAttributes(Attributes)
    * @see maxim.zaks.flatBuffers.FlatBuffersPackage#getTable_Attributes()
    * @model containment="true"
    * @generated
    */
-  FieldAttributes getAttributes();
+  Attributes getAttributes();
 
   /**
    * Sets the value of the '{@link maxim.zaks.flatBuffers.Table#getAttributes <em>Attributes</em>}' containment reference.
@@ -47,11 +47,11 @@ public interface Table extends Definition
    * @see #getAttributes()
    * @generated
    */
-  void setAttributes(FieldAttributes value);
+  void setAttributes(Attributes value);
 
   /**
    * Returns the value of the '<em><b>Fields</b></em>' containment reference list.
-   * The list contents are of type {@link maxim.zaks.flatBuffers.Fields}.
+   * The list contents are of type {@link maxim.zaks.flatBuffers.Field}.
    * <!-- begin-user-doc -->
    * <p>
    * If the meaning of the '<em>Fields</em>' containment reference list isn't clear,
@@ -63,6 +63,6 @@ public interface Table extends Definition
    * @model containment="true"
    * @generated
    */
-  EList<Fields> getFields();
+  EList<Field> getFields();
 
 } // Table

@@ -86,13 +86,13 @@ public interface FlatBuffersFactory extends EFactory
   Struct createStruct();
 
   /**
-   * Returns a new object of class '<em>Struct Fields</em>'.
+   * Returns a new object of class '<em>Struct Field</em>'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @return a new object of class '<em>Struct Fields</em>'.
+   * @return a new object of class '<em>Struct Field</em>'.
    * @generated
    */
-  StructFields createStructFields();
+  StructField createStructField();
 
   /**
    * Returns a new object of class '<em>Table</em>'.
@@ -104,13 +104,13 @@ public interface FlatBuffersFactory extends EFactory
   Table createTable();
 
   /**
-   * Returns a new object of class '<em>Fields</em>'.
+   * Returns a new object of class '<em>Field</em>'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @return a new object of class '<em>Fields</em>'.
+   * @return a new object of class '<em>Field</em>'.
    * @generated
    */
-  Fields createFields();
+  Field createField();
 
   /**
    * Returns a new object of class '<em>Value</em>'.
@@ -122,13 +122,13 @@ public interface FlatBuffersFactory extends EFactory
   Value createValue();
 
   /**
-   * Returns a new object of class '<em>Field Attributes</em>'.
+   * Returns a new object of class '<em>Attributes</em>'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @return a new object of class '<em>Field Attributes</em>'.
+   * @return a new object of class '<em>Attributes</em>'.
    * @generated
    */
-  FieldAttributes createFieldAttributes();
+  Attributes createAttributes();
 
   /**
    * Returns a new object of class '<em>Attribute Name</em>'.

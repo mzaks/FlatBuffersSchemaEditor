@@ -6,24 +6,24 @@ import org.eclipse.emf.ecore.EObject;
 
 /**
  * <!-- begin-user-doc -->
- * A representation of the model object '<em><b>Fields</b></em>'.
+ * A representation of the model object '<em><b>Field</b></em>'.
  * <!-- end-user-doc -->
  *
  * <p>
  * The following features are supported:
  * </p>
  * <ul>
- *   <li>{@link maxim.zaks.flatBuffers.Fields#getName <em>Name</em>}</li>
- *   <li>{@link maxim.zaks.flatBuffers.Fields#getType <em>Type</em>}</li>
- *   <li>{@link maxim.zaks.flatBuffers.Fields#getDefaultValue <em>Default Value</em>}</li>
- *   <li>{@link maxim.zaks.flatBuffers.Fields#getAttributes <em>Attributes</em>}</li>
+ *   <li>{@link maxim.zaks.flatBuffers.Field#getName <em>Name</em>}</li>
+ *   <li>{@link maxim.zaks.flatBuffers.Field#getType <em>Type</em>}</li>
+ *   <li>{@link maxim.zaks.flatBuffers.Field#getDefaultValue <em>Default Value</em>}</li>
+ *   <li>{@link maxim.zaks.flatBuffers.Field#getAttributes <em>Attributes</em>}</li>
  * </ul>
  *
- * @see maxim.zaks.flatBuffers.FlatBuffersPackage#getFields()
+ * @see maxim.zaks.flatBuffers.FlatBuffersPackage#getField()
  * @model
  * @generated
  */
-public interface Fields extends EObject
+public interface Field extends EObject
 {
   /**
    * Returns the value of the '<em><b>Name</b></em>' attribute.
@@ -35,14 +35,14 @@ public interface Fields extends EObject
    * <!-- end-user-doc -->
    * @return the value of the '<em>Name</em>' attribute.
    * @see #setName(String)
-   * @see maxim.zaks.flatBuffers.FlatBuffersPackage#getFields_Name()
+   * @see maxim.zaks.flatBuffers.FlatBuffersPackage#getField_Name()
    * @model
    * @generated
    */
   String getName();
 
   /**
-   * Sets the value of the '{@link maxim.zaks.flatBuffers.Fields#getName <em>Name</em>}' attribute.
+   * Sets the value of the '{@link maxim.zaks.flatBuffers.Field#getName <em>Name</em>}' attribute.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @param value the new value of the '<em>Name</em>' attribute.
@@ -61,14 +61,14 @@ public interface Fields extends EObject
    * <!-- end-user-doc -->
    * @return the value of the '<em>Type</em>' containment reference.
    * @see #setType(Type)
-   * @see maxim.zaks.flatBuffers.FlatBuffersPackage#getFields_Type()
+   * @see maxim.zaks.flatBuffers.FlatBuffersPackage#getField_Type()
    * @model containment="true"
    * @generated
    */
   Type getType();
 
   /**
-   * Sets the value of the '{@link maxim.zaks.flatBuffers.Fields#getType <em>Type</em>}' containment reference.
+   * Sets the value of the '{@link maxim.zaks.flatBuffers.Field#getType <em>Type</em>}' containment reference.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @param value the new value of the '<em>Type</em>' containment reference.
@@ -87,14 +87,14 @@ public interface Fields extends EObject
    * <!-- end-user-doc -->
    * @return the value of the '<em>Default Value</em>' containment reference.
    * @see #setDefaultValue(Value)
-   * @see maxim.zaks.flatBuffers.FlatBuffersPackage#getFields_DefaultValue()
+   * @see maxim.zaks.flatBuffers.FlatBuffersPackage#getField_DefaultValue()
    * @model containment="true"
    * @generated
    */
   Value getDefaultValue();
 
   /**
-   * Sets the value of the '{@link maxim.zaks.flatBuffers.Fields#getDefaultValue <em>Default Value</em>}' containment reference.
+   * Sets the value of the '{@link maxim.zaks.flatBuffers.Field#getDefaultValue <em>Default Value</em>}' containment reference.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @param value the new value of the '<em>Default Value</em>' containment reference.
@@ -112,21 +112,21 @@ public interface Fields extends EObject
    * </p>
    * <!-- end-user-doc -->
    * @return the value of the '<em>Attributes</em>' containment reference.
-   * @see #setAttributes(FieldAttributes)
-   * @see maxim.zaks.flatBuffers.FlatBuffersPackage#getFields_Attributes()
+   * @see #setAttributes(Attributes)
+   * @see maxim.zaks.flatBuffers.FlatBuffersPackage#getField_Attributes()
    * @model containment="true"
    * @generated
    */
-  FieldAttributes getAttributes();
+  Attributes getAttributes();
 
   /**
-   * Sets the value of the '{@link maxim.zaks.flatBuffers.Fields#getAttributes <em>Attributes</em>}' containment reference.
+   * Sets the value of the '{@link maxim.zaks.flatBuffers.Field#getAttributes <em>Attributes</em>}' containment reference.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @param value the new value of the '<em>Attributes</em>' containment reference.
    * @see #getAttributes()
    * @generated
    */
-  void setAttributes(FieldAttributes value);
+  void setAttributes(Attributes value);
 
-} // Fields
+} // Field

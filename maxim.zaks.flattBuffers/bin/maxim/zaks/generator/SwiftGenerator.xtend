@@ -1,6 +1,7 @@
 package maxim.zaks.generator
 
 import maxim.zaks.flatBuffers.*
+import maxim.zaks.flatBuffers.Field
 
 class SwiftGenerator {
 	
@@ -44,21 +45,21 @@ class SwiftGenerator {
 		}
 	}
 	
-	def tableStructFieldReader(Fields field, int index) {
-		if (field.type.primType != null) {
-			if(field.type.primType == "string"){
+	def tableStructFieldReader(Field field, int index) {
+		if (field.getType.primType != null) {
+			if(field.getType.primType == "string"){
 				'''	
-				lazy public var «field.name» : «field.type.generateFieldType»? = self._reader.getString(self._reader.getOffset(self._myOffset, propertyIndex: «index»))
+				lazy public var «field.getName» : «field.getType.generateFieldType»? = self._reader.getString(self._reader.getOffset(self._myOffset, propertyIndex: «index»))
 				'''
 			} else {
 				'''	
-				lazy public var «field.name» : «field.type.generateFieldType» = self._reader.get(self._myOffset, propertyIndex: «index», defaultValue: 0)
+				lazy public var «field.getName» : «field.getType.generateFieldType» = self._reader.get(self._myOffset, propertyIndex: «index», defaultValue: 0)
 				'''
 			}
-		} else if(field.type.defType != null) {
-			val typeName = field.type.generateFieldType
+		} else if(field.getType.defType != null) {
+			val typeName = field.getType.generateFieldType
 			'''	
-				lazy public var «field.name» : «typeName»? = {
+				lazy public var «field.getName» : «typeName»? = {
 					if let myOffset : ObjectOffset = _reader.getOffset(_myOffset, propertyIndex: «index»){
 						return «typeName»(reader: _reader, offset: myOffset)
 					}

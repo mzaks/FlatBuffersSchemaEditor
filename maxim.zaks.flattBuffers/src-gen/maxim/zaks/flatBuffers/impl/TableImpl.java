@@ -4,8 +4,8 @@ package maxim.zaks.flatBuffers.impl;
 
 import java.util.Collection;
 
-import maxim.zaks.flatBuffers.FieldAttributes;
-import maxim.zaks.flatBuffers.Fields;
+import maxim.zaks.flatBuffers.Attributes;
+import maxim.zaks.flatBuffers.Field;
 import maxim.zaks.flatBuffers.FlatBuffersPackage;
 import maxim.zaks.flatBuffers.Table;
 
@@ -46,7 +46,7 @@ public class TableImpl extends DefinitionImpl implements Table
    * @generated
    * @ordered
    */
-  protected FieldAttributes attributes;
+  protected Attributes attributes;
 
   /**
    * The cached value of the '{@link #getFields() <em>Fields</em>}' containment reference list.
@@ -56,7 +56,7 @@ public class TableImpl extends DefinitionImpl implements Table
    * @generated
    * @ordered
    */
-  protected EList<Fields> fields;
+  protected EList<Field> fields;
 
   /**
    * <!-- begin-user-doc -->
@@ -84,7 +84,7 @@ public class TableImpl extends DefinitionImpl implements Table
    * <!-- end-user-doc -->
    * @generated
    */
-  public FieldAttributes getAttributes()
+  public Attributes getAttributes()
   {
     return attributes;
   }
@@ -94,9 +94,9 @@ public class TableImpl extends DefinitionImpl implements Table
    * <!-- end-user-doc -->
    * @generated
    */
-  public NotificationChain basicSetAttributes(FieldAttributes newAttributes, NotificationChain msgs)
+  public NotificationChain basicSetAttributes(Attributes newAttributes, NotificationChain msgs)
   {
-    FieldAttributes oldAttributes = attributes;
+    Attributes oldAttributes = attributes;
     attributes = newAttributes;
     if (eNotificationRequired())
     {
@@ -111,7 +111,7 @@ public class TableImpl extends DefinitionImpl implements Table
    * <!-- end-user-doc -->
    * @generated
    */
-  public void setAttributes(FieldAttributes newAttributes)
+  public void setAttributes(Attributes newAttributes)
   {
     if (newAttributes != attributes)
     {
@@ -132,11 +132,11 @@ public class TableImpl extends DefinitionImpl implements Table
    * <!-- end-user-doc -->
    * @generated
    */
-  public EList<Fields> getFields()
+  public EList<Field> getFields()
   {
     if (fields == null)
     {
-      fields = new EObjectContainmentEList<Fields>(Fields.class, this, FlatBuffersPackage.TABLE__FIELDS);
+      fields = new EObjectContainmentEList<Field>(Field.class, this, FlatBuffersPackage.TABLE__FIELDS);
     }
     return fields;
   }
@@ -189,11 +189,11 @@ public class TableImpl extends DefinitionImpl implements Table
     switch (featureID)
     {
       case FlatBuffersPackage.TABLE__ATTRIBUTES:
-        setAttributes((FieldAttributes)newValue);
+        setAttributes((Attributes)newValue);
         return;
       case FlatBuffersPackage.TABLE__FIELDS:
         getFields().clear();
-        getFields().addAll((Collection<? extends Fields>)newValue);
+        getFields().addAll((Collection<? extends Field>)newValue);
         return;
     }
     super.eSet(featureID, newValue);
@@ -210,7 +210,7 @@ public class TableImpl extends DefinitionImpl implements Table
     switch (featureID)
     {
       case FlatBuffersPackage.TABLE__ATTRIBUTES:
-        setAttributes((FieldAttributes)null);
+        setAttributes((Attributes)null);
         return;
       case FlatBuffersPackage.TABLE__FIELDS:
         getFields().clear();

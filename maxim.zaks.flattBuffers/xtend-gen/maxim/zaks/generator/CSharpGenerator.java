@@ -5,10 +5,10 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import maxim.zaks.flatBuffers.AttributeName;
+import maxim.zaks.flatBuffers.Attributes;
 import maxim.zaks.flatBuffers.Definition;
 import maxim.zaks.flatBuffers.EnumCase;
-import maxim.zaks.flatBuffers.FieldAttributes;
-import maxim.zaks.flatBuffers.Fields;
+import maxim.zaks.flatBuffers.Field;
 import maxim.zaks.flatBuffers.FileIdentifier;
 import maxim.zaks.flatBuffers.Namespace;
 import maxim.zaks.flatBuffers.RootType;
@@ -164,14 +164,14 @@ public class CSharpGenerator {
     _builder.append(" {");
     _builder.newLineIfNotEmpty();
     {
-      EList<Fields> _fields = table.getFields();
-      ArrayList<Pair<Integer, Fields>> _indexedFields = this.indexedFields(_fields);
-      final Function1<Pair<Integer, Fields>, CharSequence> _function = (Pair<Integer, Fields> it) -> {
-        Fields _value = it.getValue();
+      EList<Field> _fields = table.getFields();
+      ArrayList<Pair<Integer, Field>> _indexedFields = this.indexedFields(_fields);
+      final Function1<Pair<Integer, Field>, CharSequence> _function = (Pair<Integer, Field> it) -> {
+        Field _value = it.getValue();
         Integer _key = it.getKey();
         return this.fieldAsProperty(_value, (_key).intValue());
       };
-      List<CharSequence> _map = ListExtensions.<Pair<Integer, Fields>, CharSequence>map(_indexedFields, _function);
+      List<CharSequence> _map = ListExtensions.<Pair<Integer, Field>, CharSequence>map(_indexedFields, _function);
       for(final CharSequence p : _map) {
         _builder.append("\t");
         _builder.append(p, "\t");
@@ -225,7 +225,7 @@ public class CSharpGenerator {
     return _xblockexpression;
   }
   
-  public CharSequence fieldAsProperty(final Fields field, final int index) {
+  public CharSequence fieldAsProperty(final Field field, final int index) {
     StringConcatenation _builder = new StringConcatenation();
     {
       boolean _isDeprecated = this.isDeprecated(field);
@@ -245,15 +245,15 @@ public class CSharpGenerator {
     return _builder;
   }
   
-  public boolean isDeprecated(final Fields field) {
+  public boolean isDeprecated(final Field field) {
     boolean _xblockexpression = false;
     {
-      FieldAttributes _attributes = field.getAttributes();
+      Attributes _attributes = field.getAttributes();
       boolean _equals = Objects.equal(_attributes, null);
       if (_equals) {
         return false;
       }
-      FieldAttributes _attributes_1 = field.getAttributes();
+      Attributes _attributes_1 = field.getAttributes();
       EList<AttributeName> _atributeNames = _attributes_1.getAtributeNames();
       final Function1<AttributeName, Boolean> _function = (AttributeName it) -> {
         return Boolean.valueOf(it.isDeprectated());
@@ -295,14 +295,14 @@ public class CSharpGenerator {
         _builder_1.append("\t");
         _builder_1.newLine();
         {
-          EList<Fields> _fields = table.getFields();
-          ArrayList<Pair<Integer, Fields>> _indexedFields = this.indexedFields(_fields);
-          final Function1<Pair<Integer, Fields>, CharSequence> _function = (Pair<Integer, Fields> it) -> {
-            Fields _value = it.getValue();
+          EList<Field> _fields = table.getFields();
+          ArrayList<Pair<Integer, Field>> _indexedFields = this.indexedFields(_fields);
+          final Function1<Pair<Integer, Field>, CharSequence> _function = (Pair<Integer, Field> it) -> {
+            Field _value = it.getValue();
             Integer _key = it.getKey();
             return this.initFields(_value, (_key).intValue());
           };
-          List<CharSequence> _map = ListExtensions.<Pair<Integer, Fields>, CharSequence>map(_indexedFields, _function);
+          List<CharSequence> _map = ListExtensions.<Pair<Integer, Field>, CharSequence>map(_indexedFields, _function);
           for(final CharSequence p : _map) {
             _builder_1.append("\t");
             _builder_1.append(p, "\t");
@@ -341,14 +341,14 @@ public class CSharpGenerator {
       _builder_2.append("\t");
       _builder_2.newLine();
       {
-        EList<Fields> _fields_1 = table.getFields();
-        ArrayList<Pair<Integer, Fields>> _indexedFields_1 = this.indexedFields(_fields_1);
-        final Function1<Pair<Integer, Fields>, CharSequence> _function_1 = (Pair<Integer, Fields> it) -> {
-          Fields _value = it.getValue();
+        EList<Field> _fields_1 = table.getFields();
+        ArrayList<Pair<Integer, Field>> _indexedFields_1 = this.indexedFields(_fields_1);
+        final Function1<Pair<Integer, Field>, CharSequence> _function_1 = (Pair<Integer, Field> it) -> {
+          Field _value = it.getValue();
           Integer _key = it.getKey();
           return this.initFields(_value, (_key).intValue());
         };
-        List<CharSequence> _map_1 = ListExtensions.<Pair<Integer, Fields>, CharSequence>map(_indexedFields_1, _function_1);
+        List<CharSequence> _map_1 = ListExtensions.<Pair<Integer, Field>, CharSequence>map(_indexedFields_1, _function_1);
         for(final CharSequence p_1 : _map_1) {
           _builder_2.append("\t");
           _builder_2.append(p_1, "\t");
@@ -365,21 +365,21 @@ public class CSharpGenerator {
     return _xblockexpression;
   }
   
-  public ArrayList<Pair<Integer, Fields>> indexedFields(final EList<Fields> fields) {
-    ArrayList<Pair<Integer, Fields>> _xblockexpression = null;
+  public ArrayList<Pair<Integer, Field>> indexedFields(final EList<Field> fields) {
+    ArrayList<Pair<Integer, Field>> _xblockexpression = null;
     {
-      ArrayList<Pair<Integer, Fields>> result = new ArrayList<Pair<Integer, Fields>>();
+      ArrayList<Pair<Integer, Field>> result = new ArrayList<Pair<Integer, Field>>();
       int index = 0;
-      for (final Fields f : fields) {
+      for (final Field f : fields) {
         Type _type = f.getType();
         boolean _isUnion = this.isUnion(_type);
         if (_isUnion) {
-          Pair<Integer, Fields> _pair = new Pair<Integer, Fields>(Integer.valueOf(index), f);
+          Pair<Integer, Field> _pair = new Pair<Integer, Field>(Integer.valueOf(index), f);
           result.add(_pair);
           int _index = index;
           index = (_index + 2);
         } else {
-          Pair<Integer, Fields> _pair_1 = new Pair<Integer, Fields>(Integer.valueOf(index), f);
+          Pair<Integer, Field> _pair_1 = new Pair<Integer, Field>(Integer.valueOf(index), f);
           result.add(_pair_1);
           int _index_1 = index;
           index = (_index_1 + 1);
@@ -408,7 +408,7 @@ public class CSharpGenerator {
     return false;
   }
   
-  public CharSequence initFields(final Fields field, final int index) {
+  public CharSequence initFields(final Field field, final int index) {
     CharSequence _xifexpression = null;
     Type _type = field.getType();
     String _primType = _type.getPrimType();
@@ -745,14 +745,14 @@ public class CSharpGenerator {
       _builder_4.append("\t");
       _builder_4.newLine();
       {
-        EList<Fields> _fields = table.getFields();
-        ArrayList<Pair<Integer, Fields>> _indexedFields = this.indexedFields(_fields);
-        final Function1<Pair<Integer, Fields>, CharSequence> _function = (Pair<Integer, Fields> it) -> {
-          Fields _value = it.getValue();
+        EList<Field> _fields = table.getFields();
+        ArrayList<Pair<Integer, Field>> _indexedFields = this.indexedFields(_fields);
+        final Function1<Pair<Integer, Field>, CharSequence> _function = (Pair<Integer, Field> it) -> {
+          Field _value = it.getValue();
           Integer _key = it.getKey();
           return this.buildChildrenOffsets(_value, (_key).intValue());
         };
-        List<CharSequence> _map = ListExtensions.<Pair<Integer, Fields>, CharSequence>map(_indexedFields, _function);
+        List<CharSequence> _map = ListExtensions.<Pair<Integer, Field>, CharSequence>map(_indexedFields, _function);
         for(final CharSequence p : _map) {
           _builder_4.append("\t");
           _builder_4.append(p, "\t");
@@ -770,15 +770,15 @@ public class CSharpGenerator {
       _builder_4.append("\t");
       _builder_4.newLine();
       {
-        EList<Fields> _fields_1 = table.getFields();
-        ArrayList<Pair<Integer, Fields>> _indexedFields_1 = this.indexedFields(_fields_1);
-        List<Pair<Integer, Fields>> _reverse = ListExtensions.<Pair<Integer, Fields>>reverse(_indexedFields_1);
-        final Function1<Pair<Integer, Fields>, CharSequence> _function_1 = (Pair<Integer, Fields> it) -> {
-          Fields _value = it.getValue();
+        EList<Field> _fields_1 = table.getFields();
+        ArrayList<Pair<Integer, Field>> _indexedFields_1 = this.indexedFields(_fields_1);
+        List<Pair<Integer, Field>> _reverse = ListExtensions.<Pair<Integer, Field>>reverse(_indexedFields_1);
+        final Function1<Pair<Integer, Field>, CharSequence> _function_1 = (Pair<Integer, Field> it) -> {
+          Field _value = it.getValue();
           Integer _key = it.getKey();
           return this.addVTableToByteBuffer(_value, (_key).intValue());
         };
-        List<CharSequence> _map_1 = ListExtensions.<Pair<Integer, Fields>, CharSequence>map(_reverse, _function_1);
+        List<CharSequence> _map_1 = ListExtensions.<Pair<Integer, Field>, CharSequence>map(_reverse, _function_1);
         for(final CharSequence p_1 : _map_1) {
           _builder_4.append("\t");
           _builder_4.append(p_1, "\t");
@@ -800,16 +800,16 @@ public class CSharpGenerator {
   public int numberOfFields(final Table t) {
     int _xblockexpression = (int) 0;
     {
-      EList<Fields> _fields = t.getFields();
+      EList<Field> _fields = t.getFields();
       boolean _isEmpty = _fields.isEmpty();
       if (_isEmpty) {
         return 0;
       }
-      EList<Fields> _fields_1 = t.getFields();
-      ArrayList<Pair<Integer, Fields>> _indexedFields = this.indexedFields(_fields_1);
-      final Pair<Integer, Fields> lastField = IterableExtensions.<Pair<Integer, Fields>>last(_indexedFields);
+      EList<Field> _fields_1 = t.getFields();
+      ArrayList<Pair<Integer, Field>> _indexedFields = this.indexedFields(_fields_1);
+      final Pair<Integer, Field> lastField = IterableExtensions.<Pair<Integer, Field>>last(_indexedFields);
       int _xifexpression = (int) 0;
-      Fields _value = lastField.getValue();
+      Field _value = lastField.getValue();
       Type _type = _value.getType();
       boolean _isUnion = this.isUnion(_type);
       if (_isUnion) {
@@ -824,7 +824,7 @@ public class CSharpGenerator {
     return _xblockexpression;
   }
   
-  public CharSequence buildChildrenOffsets(final Fields field, final int index) {
+  public CharSequence buildChildrenOffsets(final Field field, final int index) {
     CharSequence _xblockexpression = null;
     {
       boolean _isDeprecated = this.isDeprecated(field);
@@ -963,7 +963,7 @@ public class CSharpGenerator {
     return _xblockexpression;
   }
   
-  public CharSequence buildVector(final Vector vector, final Fields field, final int index) {
+  public CharSequence buildVector(final Vector vector, final Field field, final int index) {
     CharSequence _xifexpression = null;
     Type _type = vector.getType();
     String _primType = _type.getPrimType();
@@ -1160,7 +1160,7 @@ public class CSharpGenerator {
     return _xifexpression;
   }
   
-  public CharSequence addVTableToByteBuffer(final Fields field, final int index) {
+  public CharSequence addVTableToByteBuffer(final Field field, final int index) {
     CharSequence _xblockexpression = null;
     {
       boolean _isDeprecated = this.isDeprecated(field);
@@ -1307,7 +1307,7 @@ public class CSharpGenerator {
     return _xblockexpression;
   }
   
-  public String defaultValueString(final Fields field) {
+  public String defaultValueString(final Field field) {
     Value _defaultValue = field.getDefaultValue();
     boolean _equals = Objects.equal(_defaultValue, null);
     if (_equals) {

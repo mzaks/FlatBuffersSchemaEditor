@@ -59,12 +59,12 @@ public interface Enum extends Definition
    * </p>
    * <!-- end-user-doc -->
    * @return the value of the '<em>Attributes</em>' containment reference.
-   * @see #setAttributes(FieldAttributes)
+   * @see #setAttributes(Attributes)
    * @see maxim.zaks.flatBuffers.FlatBuffersPackage#getEnum_Attributes()
    * @model containment="true"
    * @generated
    */
-  FieldAttributes getAttributes();
+  Attributes getAttributes();
 
   /**
    * Sets the value of the '{@link maxim.zaks.flatBuffers.Enum#getAttributes <em>Attributes</em>}' containment reference.
@@ -74,7 +74,7 @@ public interface Enum extends Definition
    * @see #getAttributes()
    * @generated
    */
-  void setAttributes(FieldAttributes value);
+  void setAttributes(Attributes value);
 
   /**
    * Returns the value of the '<em><b>Enum Cases</b></em>' containment reference list.
