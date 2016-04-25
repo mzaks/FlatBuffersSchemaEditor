@@ -23,19 +23,21 @@ class CSharpGenerator {
 		schema.fillTableToUnionMap
 		fileIdentifier = schema.fileIdentifier?.identifier
 		'''
-			«IF nameSpace!=null»
-			namespace «nameSpace».Eager {
-			«ENDIF»	
-			
-			using FlatBuffers;
-			
-			«FOR definition : schema.definitions»
-			«definition.generateDefinition»
-			«ENDFOR»
-			
-			«IF nameSpace!=null»
-			}
-			«ENDIF»
+		
+		// generated with FlatBuffersSchemaEditor https://github.com/mzaks/FlatBuffersSchemaEditor
+		«IF nameSpace!=null»
+		namespace «nameSpace».Eager {
+		«ENDIF»	
+		
+		using FlatBuffers;
+		
+		«FOR definition : schema.definitions»
+		«definition.generateDefinition»
+		«ENDFOR»
+		
+		«IF nameSpace!=null»
+		}
+		«ENDIF»
 		'''
 	}
 	
@@ -152,17 +154,11 @@ class CSharpGenerator {
 	
 	def initFields(Field field, int index) {
 		if(field.getType.primType != null){
-			if(field.getType.primType == "string"){
-				'''	
+			'''	
 				int o«index» = obj.__offset(4 + 2*«index»); 
-				obj.«field.getName» =  o«index» != 0 ? obj.__string(o«index» + obj.bb_pos) : null;
-				'''
-			} else {
-				'''	
-				int o«index» = obj.__offset(4 + 2*«index»); 
-				obj.«field.getName» =  o«index» != 0 ? obj.bb.«field.getType.primType.converPrimitiveTypeGetter»(o«index» + obj.bb_pos) : («field.getType.primType.converPrimitiveType»)«field.defaultValueString»;
-				'''
-			}
+				«field.generateSetPrimitiveTypeStatement(index)»
+			'''
+			 
 		} else if(field.getType.defType != null){
 				val definition = field.getType.defType
 				switch definition {
@@ -187,20 +183,11 @@ class CSharpGenerator {
 				 obj.«field.getName» = new «field.getType.vectorType.generateVectorType»[length«index»];
 			'''
 			if(field.getType.vectorType.type.primType != null){
-				
-				if(field.getType.vectorType.type.primType.equals("string")){
-					return LengthStatement + '''
+				return LengthStatement + '''
 					for (int j = length«index»-1; j >=0; j-- ){
-						obj.«field.getName»[j] = obj.__string(obj.__vector(o«index») + j * 4);
+						«field.generateSetPrimitiveTypeStatementForVector(index)»
 					}
 					'''
-				}else {
-					return LengthStatement + '''
-					for (int j = length«index»-1; j >=0; j-- ){
-						obj.«field.getName»[j] = obj.bb.«field.getType.vectorType.type.primType.converPrimitiveTypeGetter»(obj.__vector(o«index») + j * 4);
-					}
-					'''
-				}
 			} else {
 				// FIXME support for Enums Unions and multi dimensional Arrays
 				return LengthStatement + '''
@@ -210,6 +197,28 @@ class CSharpGenerator {
 				'''
 			}
 		}
+	}
+	
+	def generateSetPrimitiveTypeStatement(Field field, int index){
+		if(field.getType.primType == "string"){
+			'''obj.«field.getName» =  o«index» != 0 ? obj.__string(o«index» + obj.bb_pos) : null;'''
+		} else if (field.getType.primType == "bool"){
+			'''obj.«field.getName» =  o«index» != 0 ? 0!=obj.bb.«field.getType.primType.converPrimitiveTypeGetter»(o«index» + obj.bb_pos) : («field.getType.primType.converPrimitiveType»)«field.defaultValueString»;'''
+		} else {
+			'''obj.«field.getName» =  o«index» != 0 ? obj.bb.«field.getType.primType.converPrimitiveTypeGetter»(o«index» + obj.bb_pos) : («field.getType.primType.converPrimitiveType»)«field.defaultValueString»;'''
+		}
+		
+	}
+	
+	def generateSetPrimitiveTypeStatementForVector(Field field, int index){
+		if(field.getType.vectorType.type.primType == "string"){
+			'''obj.«field.getName»[j] = obj.__string(obj.__vector(o«index») + j * 4);'''
+		} else if (field.getType.vectorType.type.primType == "bool"){
+			'''obj.«field.getName»[j] = 0!=obj.bb.«field.getType.vectorType.type.primType.converPrimitiveTypeGetter»(obj.__vector(o«index») + j);'''
+		} else {
+			'''obj.«field.getName»[j] = obj.bb.«field.getType.vectorType.type.primType.converPrimitiveTypeGetter»(obj.__vector(o«index») + j * «field.getType.vectorType.type.primType.converPrimitiveTypeToLength»);'''
+		}
+		
 	}
 	
 	def generateMethodToByteArrayAndAddToByteBuffer(Table table){
@@ -464,8 +473,8 @@ class CSharpGenerator {
 	def converPrimitiveType(String type) {
 		switch type {
 			case 'bool' : '''bool'''
-			case 'byte' : '''byte'''
-			case 'ubyte' : '''ubyte'''
+			case 'byte' : '''sbyte'''
+			case 'ubyte' : '''byte'''
 			case 'short' : '''short'''
 			case 'ushort' : '''ushort'''
 			case 'int' : '''int'''
@@ -487,9 +496,9 @@ class CSharpGenerator {
 	
 	def converPrimitiveTypeGetter(String type) {
 		switch type {
-			case 'bool' : '''GetBool'''
-			case 'byte' : '''GetByte'''
-			case 'ubyte' : '''GetUbyte'''
+			case 'bool' : '''Get'''
+			case 'byte' : '''GetSbyte'''
+			case 'ubyte' : '''Get'''
 			case 'short' : '''GetShort'''
 			case 'ushort' : '''GetUshort'''
 			case 'int' : '''GetInt'''
@@ -511,8 +520,8 @@ class CSharpGenerator {
 	def converPrimitiveTypeAdd(String type) {
 		switch type {
 			case 'bool' : '''AddBool'''
-			case 'byte' : '''AddByte'''
-			case 'ubyte' : '''AddUbyte'''
+			case 'byte' : '''AddSbyte'''
+			case 'ubyte' : '''AddByte'''
 			case 'short' : '''AddShort'''
 			case 'ushort' : '''AddUshort'''
 			case 'int' : '''AddInt'''
