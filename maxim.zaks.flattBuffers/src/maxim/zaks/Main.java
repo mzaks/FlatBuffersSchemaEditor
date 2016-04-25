@@ -84,6 +84,10 @@ public class Main {
 			PrintWriter out = new PrintWriter(line.getOptionValue("out"));
 			String fbsFile = readFile(line.getOptionValue("fbs"), StandardCharsets.UTF_8);
 			Schema schema = parseHelper.parse(fbsFile);
+			if(schema.getRootType() == null){
+				out.close();
+				throw new Exception("Invalid Schema, 'root_type' is not defined.");
+			}
 			CharSequence code;
 			if(language.equals("swift")){
 				code = generatorSwift.generate(schema);				
