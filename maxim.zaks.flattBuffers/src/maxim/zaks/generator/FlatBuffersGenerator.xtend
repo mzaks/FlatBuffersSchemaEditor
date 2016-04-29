@@ -8,6 +8,8 @@ import org.eclipse.xtext.generator.IGenerator
 import org.eclipse.xtext.generator.IFileSystemAccess
 import maxim.zaks.flatBuffers.*
 import java.util.regex.Pattern
+import maxim.zaks.generator.swift.EagerSwiftGenerator
+import maxim.zaks.generator.swift.EagerSwiftGenerator.InfrastructureInclusionRule
 
 /**
  * Generates code from your model files on save.
@@ -22,7 +24,7 @@ class FlatBuffersGenerator implements IGenerator {
 	override void doGenerate(Resource resource, IFileSystemAccess fsa) {
 		val schema = resource.contents.head as Schema
 		var fileName = resource.URI.lastSegment.split(Pattern.quote(".")).get(0)
-		fsa.generateFile(fileName + '.swift', swiftGenerator.generate(schema))
+		fsa.generateFile(fileName + '.swift', swiftGenerator.generate(schema, InfrastructureInclusionRule.Include))
 		fsa.generateFile(fileName + '.cs', csGenerator.generate(schema))
 	}
 }

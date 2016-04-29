@@ -6,7 +6,7 @@ package maxim.zaks.generator;
 import java.util.regex.Pattern;
 import maxim.zaks.flatBuffers.Schema;
 import maxim.zaks.generator.CSharpGenerator;
-import maxim.zaks.generator.EagerSwiftGenerator;
+import maxim.zaks.generator.swift.EagerSwiftGenerator;
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.EObject;
@@ -36,7 +36,7 @@ public class FlatBuffersGenerator implements IGenerator {
     String _quote = Pattern.quote(".");
     String[] _split = _lastSegment.split(_quote);
     String fileName = _split[0];
-    CharSequence _generate = this.swiftGenerator.generate(schema);
+    CharSequence _generate = this.swiftGenerator.generate(schema, EagerSwiftGenerator.InfrastructureInclusionRule.Include);
     fsa.generateFile((fileName + ".swift"), _generate);
     CharSequence _generate_1 = this.csGenerator.generate(schema);
     fsa.generateFile((fileName + ".cs"), _generate_1);

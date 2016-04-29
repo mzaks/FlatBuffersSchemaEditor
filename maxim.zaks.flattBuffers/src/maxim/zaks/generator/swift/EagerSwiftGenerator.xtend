@@ -1,4 +1,4 @@
-package maxim.zaks.generator
+package maxim.zaks.generator.swift
 
 import maxim.zaks.flatBuffers.Schema
 import maxim.zaks.flatBuffers.Table
@@ -11,24 +11,31 @@ import java.util.ArrayList
 import maxim.zaks.flatBuffers.Definition
 import maxim.zaks.flatBuffers.StructField
 import maxim.zaks.flatBuffers.Field
-import org.eclipse.emf.common.util.EList
 
-class EagerSwiftGenerator {
-	
+public class EagerSwiftGenerator {
+	public enum InfrastructureInclusionRule {
+		Include, Import, Exclude
+	}
 	String rootTableName
 	public String fileIdentifier
 	extension ModelExtensions = new ModelExtensions()
 	
-	def generate(Schema schema){
+	def generate(Schema schema, InfrastructureInclusionRule inclusionRule){
 		rootTableName = schema.rootType.type.name
 		fileIdentifier = schema.fileIdentifier?.identifier
+		var String[] namespaceParts = #[]
+		if(schema.namepsace != null){
+			namespaceParts = schema.namepsace?.name.split("\\.")
+		}
 		val unions = schema.definitions.filter[it instanceof Union]
 		'''
 		
 		// generated with FlatBuffersSchemaEditor https://github.com/mzaks/FlatBuffersSchemaEditor
 		
-		import FlatBuffersSwift
-		
+		«IF inclusionRule == InfrastructureInclusionRule.Import»import FlatBuffersSwift«ENDIF»
+«««		«FOR namespacePart : namespaceParts»
+«««		enum «namespacePart» {
+«««		«ENDFOR»
 		«FOR definition : schema.definitions»
 		«definition.generateMainDefinition»
 		«ENDFOR»
@@ -36,6 +43,19 @@ class EagerSwiftGenerator {
 		«(union as Union).generateAllForUnion»
 		«ENDFOR»
 		«schema.generatePerformLateBindings»
+		«schema.generatePerformClearCaches»
+«««		«FOR namespacePart : namespaceParts»
+«««		}
+«««		«ENDFOR»
+		«IF inclusionRule == InfrastructureInclusionRule.Include»
+		// MARK: Generic Type Definitions
+		import Foundation
+		«SwiftLibraryGenericTypes.definitions»
+		// MARK: Reader
+		«SwiftLibraryReader.definitions»
+		// MARK: Builder
+		«SwiftLibraryBuilder.definitions»
+		«ENDIF»
 		'''
 	}
 	
@@ -43,6 +63,14 @@ class EagerSwiftGenerator {
 		private func performLateBindings(builder : FlatBufferBuilder) {
 			«FOR definition : schema.definitions»
 			«definition.generateLateBinding»
+			«ENDFOR»
+		}
+	'''
+	
+	def generatePerformClearCaches(Schema schema)'''
+		private func performClearCaches() {
+			«FOR definition : schema.definitions»
+			«definition.generateClearCaches»
 			«ENDFOR»
 		}
 	'''
@@ -63,6 +91,15 @@ class EagerSwiftGenerator {
 		}
 	}
 	
+	def generateClearCaches(Definition definition){
+		switch definition {
+			Table case definition: 
+				'''
+				«definition.name».clearCaches()
+				'''
+			default : ''''''
+		}
+	}
 	def generateMainDefinition(Definition definition){
 		switch definition {
 			Table case definition: definition.generateAllForTable
@@ -358,7 +395,7 @@ class EagerSwiftGenerator {
 				public lazy var «field.fieldName» «field.getType.vectorType.type.lazyVectorTypeString» = {
 					let vectorOffset : Offset? = self._reader.getOffset(self._objectOffset, propertyIndex: «index»)
 					let vectorLength = self._reader.getVectorLength(vectorOffset)
-					return LazyVector(count: vectorLength){
+					return LazyVector(count: vectorLength){ [unowned self] in
 						«field.getType.vectorType.type.lazyVectorGeneratorImplementation»
 					}
 				}()'''
@@ -417,6 +454,7 @@ class EagerSwiftGenerator {
 				let builder = FlatBufferBuilder()
 				let offset = addToByteArray(builder)
 				performLateBindings(builder)
+				performClearCaches()
 				return try! builder.finish(offset, fileIdentifier: «IF fileIdentifier == null»nil«ELSE»"«fileIdentifier»"«ENDIF»)
 			}
 		}
@@ -427,6 +465,11 @@ class EagerSwiftGenerator {
 			private static var cache : [ObjectIdentifier : Offset] = [:]
 			private static var inProgress : Set<ObjectIdentifier> = []
 			private static var deferedBindings : [(object:«table.name», cursor:Int)] = []
+			static func clearCaches(){
+				cache.removeAll()
+				inProgress.removeAll()
+				deferedBindings.removeAll()
+			}
 			private func addToByteArray(builder : FlatBufferBuilder) -> Offset {
 				if let myOffset = «table.name».cache[ObjectIdentifier(self)] {
 					return myOffset
@@ -561,9 +604,9 @@ class EagerSwiftGenerator {
 		} else if(field.getType.isTable) {
 			'''
 			if «field.fieldName» != nil {
-				let curcor«index» = try! builder.addPropertyOffsetToOpenObject(«index», offset: offset«index»)
+				let cursor«index» = try! builder.addPropertyOffsetToOpenObject(«index», offset: offset«index»)
 				if offset«index» == 0 {
-					«field.type.defType.name».deferedBindings.append((object: «field.fieldName»!, cursor: curcor«index»))
+					«field.type.defType.name».deferedBindings.append((object: «field.fieldName»!, cursor: cursor«index»))
 				}
 			}
 			'''
@@ -582,9 +625,9 @@ class EagerSwiftGenerator {
 		} else if(field.getType.isUnion) {
 			'''
 			if «field.fieldName» != nil {
-				let curcor«index» = try! builder.addPropertyOffsetToOpenObject(«index+1», offset: offset«index»)
+				let cursor«index» = try! builder.addPropertyOffsetToOpenObject(«index+1», offset: offset«index»)
 				if offset«index» == 0 {
-					«field.type.defType.name»_DeferedBindings.append((object: «field.fieldName»!, cursor: curcor«index»))
+					«field.type.defType.name»_DeferedBindings.append((object: «field.fieldName»!, cursor: cursor«index»))
 				}
 				try! builder.addPropertyToOpenObject(«index», value : unionCase_«field.getType.defType.name»(«field.fieldName»), defaultValue : 0)
 			}'''

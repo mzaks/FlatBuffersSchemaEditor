@@ -10,8 +10,9 @@ import org.junit.Before
 import static org.junit.Assert.*
 import maxim.zaks.FlatBuffersInjectorProvider
 import maxim.zaks.flatBuffers.*
-import maxim.zaks.generator.EagerSwiftGenerator
+import maxim.zaks.generator.swift.EagerSwiftGenerator
 import org.eclipse.xtext.junit4.validation.ValidationTestHelper
+import maxim.zaks.generator.swift.EagerSwiftGenerator.InfrastructureInclusionRule
 
 @InjectWith(FlatBuffersInjectorProvider)
 @RunWith(XtextRunner)
@@ -38,6 +39,117 @@ class EagerSwiftGeneratorTest {
 	public final class T1 {
 		public init(){}
 	}
+	'''.toString.trim)
+  }
+ 
+ @Test
+  def void generateEverthingWithNamespace() {
+    val schema = parser.parse(
+    '''
+    namespace Foo.Bar;
+    table T1 {}
+    root_type T1;
+    ''')
+    
+    assertEquals(generator.generate(schema, InfrastructureInclusionRule.Import).toString.trim,
+	'''
+// generated with FlatBuffersSchemaEditor https://github.com/mzaks/FlatBuffersSchemaEditor
+
+import FlatBuffersSwift
+public final class T1 {
+	public init(){}
+}
+public extension T1 {
+	private static var objectPool : [Offset : T1] = [:]
+	private static func create(reader : FlatBufferReader, objectOffset : Offset?) -> T1? {
+		guard let objectOffset = objectOffset else {
+			return nil
+		}
+		if let o = T1.objectPool[objectOffset]{
+			return o
+		}
+		let _result = T1()
+		T1.objectPool[objectOffset] = _result
+		return _result
+	}
+}
+public extension T1 {
+	public static func fromByteArray(data : UnsafePointer<UInt8>) -> T1 {
+		let reader = FlatBufferReader(bytes: data)
+		let objectOffset = reader.rootObjectOffset
+		return create(reader, objectOffset : objectOffset)!
+	}
+}
+public extension T1 {
+	public var toByteArray : [UInt8] {
+		let builder = FlatBufferBuilder()
+		let offset = addToByteArray(builder)
+		performLateBindings(builder)
+		performClearCaches()
+		return try! builder.finish(offset, fileIdentifier: nil)
+	}
+}
+public extension T1 {
+	public final class LazyAccess : Hashable {
+		private let _reader : FlatBufferReader!
+		private let _objectOffset : Offset!
+		public init(data : UnsafePointer<UInt8>){
+			_reader = FlatBufferReader(bytes: data)
+			_objectOffset = _reader.rootObjectOffset
+		}
+		private init?(reader : FlatBufferReader, objectOffset : Offset?){
+			guard let objectOffset = objectOffset else {
+				_reader = nil
+				_objectOffset = nil
+				return nil
+			}
+			_reader = reader
+			_objectOffset = objectOffset
+		}
+
+
+		public lazy var createEagerVersion : T1? = T1.create(self._reader, objectOffset: self._objectOffset)
+		
+		public var hashValue: Int { return Int(_objectOffset) }
+	}
+}
+
+public func ==(t1 : T1.LazyAccess, t2 : T1.LazyAccess) -> Bool {
+	return t1._objectOffset == t2._objectOffset
+}
+
+public extension T1 {
+	private static var cache : [ObjectIdentifier : Offset] = [:]
+	private static var inProgress : Set<ObjectIdentifier> = []
+	private static var deferedBindings : [(object:T1, cursor:Int)] = []
+	static func clearCaches(){
+		cache.removeAll()
+		inProgress.removeAll()
+		deferedBindings.removeAll()
+	}
+	private func addToByteArray(builder : FlatBufferBuilder) -> Offset {
+		if let myOffset = T1.cache[ObjectIdentifier(self)] {
+			return myOffset
+		}
+		if T1.inProgress.contains(ObjectIdentifier(self)){
+			return 0
+		}
+		T1.inProgress.insert(ObjectIdentifier(self))
+		try! builder.openObject(0)
+		let myOffset =  try! builder.closeObject()
+		T1.cache[ObjectIdentifier(self)] = myOffset
+		T1.inProgress.remove(ObjectIdentifier(self))
+		return myOffset
+	}
+}
+private func performLateBindings(builder : FlatBufferBuilder) {
+	for binding in T1.deferedBindings {
+		try! builder.replaceOffset(binding.object.addToByteArray(builder), atCursor: binding.cursor)
+	}
+}
+private func performClearCaches() {
+	T1.clearCaches()
+}
 	'''.toString.trim)
   }
  
@@ -917,21 +1029,21 @@ public extension T2 {
 		public lazy var numbers : LazyVector<Int32> = {
 			let vectorOffset : Offset? = self._reader.getOffset(self._objectOffset, propertyIndex: 4)
 			let vectorLength = self._reader.getVectorLength(vectorOffset)
-			return LazyVector(count: vectorLength){
+			return LazyVector(count: vectorLength){ [unowned self] in
 				self._reader.getVectorScalarElement(vectorOffset!, index: $0) as Int32
 			}
 		}()
 		public lazy var strings : LazyVector<String> = {
 			let vectorOffset : Offset? = self._reader.getOffset(self._objectOffset, propertyIndex: 5)
 			let vectorLength = self._reader.getVectorLength(vectorOffset)
-			return LazyVector(count: vectorLength){
+			return LazyVector(count: vectorLength){ [unowned self] in
 				self._reader.getString(self._reader.getVectorOffsetElement(vectorOffset!, index: $0))
 			}
 		}()
 		public lazy var objects : LazyVector<T1.LazyAccess> = {
 			let vectorOffset : Offset? = self._reader.getOffset(self._objectOffset, propertyIndex: 6)
 			let vectorLength = self._reader.getVectorLength(vectorOffset)
-			return LazyVector(count: vectorLength){
+			return LazyVector(count: vectorLength){ [unowned self] in
 				T1.LazyAccess(reader: self._reader, objectOffset : self._reader.getVectorOffsetElement(vectorOffset!, index: $0))
 			}
 		}()
@@ -943,7 +1055,7 @@ public extension T2 {
 		public lazy var sts : LazyVector<ST> = {
 			let vectorOffset : Offset? = self._reader.getOffset(self._objectOffset, propertyIndex: 9)
 			let vectorLength = self._reader.getVectorLength(vectorOffset)
-			return LazyVector(count: vectorLength){
+			return LazyVector(count: vectorLength){ [unowned self] in
 				ST(
 					a : self._reader.getVectorStructElement(vectorOffset!, vectorIndex: $0, structSize: 5, structElementIndex: 0),
 					b : self._reader.getVectorStructElement(vectorOffset!, vectorIndex: $0, structSize: 5, structElementIndex: 4)
@@ -953,7 +1065,7 @@ public extension T2 {
 		public lazy var es : LazyVector<E1> = {
 			let vectorOffset : Offset? = self._reader.getOffset(self._objectOffset, propertyIndex: 10)
 			let vectorLength = self._reader.getVectorLength(vectorOffset)
-			return LazyVector(count: vectorLength){
+			return LazyVector(count: vectorLength){ [unowned self] in
 				E1(rawValue: self._reader.getVectorScalarElement(vectorOffset!, index: $0))
 			}
 		}()
@@ -987,6 +1099,7 @@ public extension T2 {
 		let builder = FlatBufferBuilder()
 		let offset = addToByteArray(builder)
 		performLateBindings(builder)
+		performClearCaches()
 		return try! builder.finish(offset, fileIdentifier: nil)
 	}
 }
@@ -1010,6 +1123,7 @@ public extension T2 {
 		let builder = FlatBufferBuilder()
 		let offset = addToByteArray(builder)
 		performLateBindings(builder)
+		performClearCaches()
 		return try! builder.finish(offset, fileIdentifier: "abcd")
 	}
 }
@@ -1035,6 +1149,11 @@ public extension T2 {
 	private static var cache : [ObjectIdentifier : Offset] = [:]
 	private static var inProgress : Set<ObjectIdentifier> = []
 	private static var deferedBindings : [(object:T2, cursor:Int)] = []
+	static func clearCaches(){
+		cache.removeAll()
+		inProgress.removeAll()
+		deferedBindings.removeAll()
+	}
 	private func addToByteArray(builder : FlatBufferBuilder) -> Offset {
 		if let myOffset = T2.cache[ObjectIdentifier(self)] {
 			return myOffset
@@ -1074,6 +1193,11 @@ public extension T2 {
 	private static var cache : [ObjectIdentifier : Offset] = [:]
 	private static var inProgress : Set<ObjectIdentifier> = []
 	private static var deferedBindings : [(object:T2, cursor:Int)] = []
+	static func clearCaches(){
+		cache.removeAll()
+		inProgress.removeAll()
+		deferedBindings.removeAll()
+	}
 	private func addToByteArray(builder : FlatBufferBuilder) -> Offset {
 		if let myOffset = T2.cache[ObjectIdentifier(self)] {
 			return myOffset
@@ -1085,9 +1209,11 @@ public extension T2 {
 		let offset1 = t1?.addToByteArray(builder) ?? 0
 		let offset0 = try! builder.createString(s)
 		try! builder.openObject(2)
-		let curcor1 = try! builder.addPropertyOffsetToOpenObject(1, offset: offset1)
-		if offset1 == 0 && t1 != nil {
-			T1.deferedBindings.append((object: t1!, cursor: curcor1))
+		if t1 != nil {
+			let cursor1 = try! builder.addPropertyOffsetToOpenObject(1, offset: offset1)
+			if offset1 == 0 {
+				T1.deferedBindings.append((object: t1!, cursor: cursor1))
+			}
 		}
 		try! builder.addPropertyOffsetToOpenObject(0, offset: offset0)
 		let myOffset =  try! builder.closeObject()
@@ -1096,7 +1222,7 @@ public extension T2 {
 		return myOffset
 	}
 }
-	'''.toString.trim)
+'''.toString.trim)
   }
   
   @Test
@@ -1119,6 +1245,11 @@ public extension T2 {
 	private static var cache : [ObjectIdentifier : Offset] = [:]
 	private static var inProgress : Set<ObjectIdentifier> = []
 	private static var deferedBindings : [(object:T2, cursor:Int)] = []
+	static func clearCaches(){
+		cache.removeAll()
+		inProgress.removeAll()
+		deferedBindings.removeAll()
+	}
 	private func addToByteArray(builder : FlatBufferBuilder) -> Offset {
 		if let myOffset = T2.cache[ObjectIdentifier(self)] {
 			return myOffset
@@ -1191,10 +1322,18 @@ public extension T2 {
 			offset0 = builder.endVector()
 		}
 		try! builder.openObject(4)
-		try! builder.addPropertyOffsetToOpenObject(3, offset: offset3)
-		try! builder.addPropertyOffsetToOpenObject(2, offset: offset2)
-		try! builder.addPropertyOffsetToOpenObject(1, offset: offset1)
-		try! builder.addPropertyOffsetToOpenObject(0, offset: offset0)
+		if ss.count > 0 {
+			try! builder.addPropertyOffsetToOpenObject(3, offset: offset3)
+		}
+		if es.count > 0 {
+			try! builder.addPropertyOffsetToOpenObject(2, offset: offset2)
+		}
+		if ts.count > 0 {
+			try! builder.addPropertyOffsetToOpenObject(1, offset: offset1)
+		}
+		if ns.count > 0 {
+			try! builder.addPropertyOffsetToOpenObject(0, offset: offset0)
+		}
 		let myOffset =  try! builder.closeObject()
 		T2.cache[ObjectIdentifier(self)] = myOffset
 		T2.inProgress.remove(ObjectIdentifier(self))
@@ -1222,6 +1361,11 @@ public extension T2 {
 	private static var cache : [ObjectIdentifier : Offset] = [:]
 	private static var inProgress : Set<ObjectIdentifier> = []
 	private static var deferedBindings : [(object:T2, cursor:Int)] = []
+	static func clearCaches(){
+		cache.removeAll()
+		inProgress.removeAll()
+		deferedBindings.removeAll()
+	}
 	private func addToByteArray(builder : FlatBufferBuilder) -> Offset {
 		if let myOffset = T2.cache[ObjectIdentifier(self)] {
 			return myOffset
@@ -1232,11 +1376,13 @@ public extension T2 {
 		T2.inProgress.insert(ObjectIdentifier(self))
 		let offset0 = addToByteArray_U1(builder, union: u)
 		try! builder.openObject(2)
-		let curcor0 = try! builder.addPropertyOffsetToOpenObject(1, offset: offset0)
-		if offset0 == 0 && u != nil {
-			U1_DeferedBindings.append((object: u!, cursor: curcor0))
+		if u != nil {
+			let cursor0 = try! builder.addPropertyOffsetToOpenObject(1, offset: offset0)
+			if offset0 == 0 {
+				U1_DeferedBindings.append((object: u!, cursor: cursor0))
+			}
+			try! builder.addPropertyToOpenObject(0, value : unionCase_U1(u), defaultValue : 0)
 		}
-		try! builder.addPropertyToOpenObject(0, value : unionCase_U1(u), defaultValue : 0)
 		let myOffset =  try! builder.closeObject()
 		T2.cache[ObjectIdentifier(self)] = myOffset
 		T2.inProgress.remove(ObjectIdentifier(self))
@@ -1265,6 +1411,11 @@ public extension T2 {
 	private static var cache : [ObjectIdentifier : Offset] = [:]
 	private static var inProgress : Set<ObjectIdentifier> = []
 	private static var deferedBindings : [(object:T2, cursor:Int)] = []
+	static func clearCaches(){
+		cache.removeAll()
+		inProgress.removeAll()
+		deferedBindings.removeAll()
+	}
 	private func addToByteArray(builder : FlatBufferBuilder) -> Offset {
 		if let myOffset = T2.cache[ObjectIdentifier(self)] {
 			return myOffset
@@ -1284,7 +1435,7 @@ public extension T2 {
 		T2.inProgress.remove(ObjectIdentifier(self))
 		return myOffset
 	}
-}	'''.toString.trim)
+}'''.toString.trim)
   }
   
   @Test
@@ -1306,6 +1457,11 @@ public extension T2 {
 	private static var cache : [ObjectIdentifier : Offset] = [:]
 	private static var inProgress : Set<ObjectIdentifier> = []
 	private static var deferedBindings : [(object:T2, cursor:Int)] = []
+	static func clearCaches(){
+		cache.removeAll()
+		inProgress.removeAll()
+		deferedBindings.removeAll()
+	}
 	private func addToByteArray(builder : FlatBufferBuilder) -> Offset {
 		if let myOffset = T2.cache[ObjectIdentifier(self)] {
 			return myOffset
@@ -1326,7 +1482,9 @@ public extension T2 {
 			offset0 = builder.endVector()
 		}
 		try! builder.openObject(1)
-		try! builder.addPropertyOffsetToOpenObject(0, offset: offset0)
+		if ss.count > 0 {
+			try! builder.addPropertyOffsetToOpenObject(0, offset: offset0)
+		}
 		let myOffset =  try! builder.closeObject()
 		T2.cache[ObjectIdentifier(self)] = myOffset
 		T2.inProgress.remove(ObjectIdentifier(self))

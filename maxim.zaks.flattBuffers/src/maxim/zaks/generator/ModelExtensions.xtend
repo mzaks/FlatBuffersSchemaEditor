@@ -9,7 +9,7 @@ import maxim.zaks.flatBuffers.Union
 import maxim.zaks.flatBuffers.Enum
 import java.util.ArrayList
 
-class ModelExtensions {
+public class ModelExtensions {
 	def getSize(Struct struct){
 		var size = 0
 		for(StructField field : struct.fields){

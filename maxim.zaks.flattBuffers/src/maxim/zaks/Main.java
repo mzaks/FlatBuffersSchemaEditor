@@ -30,7 +30,8 @@ import com.google.inject.Key;
 
 import maxim.zaks.flatBuffers.Schema;
 import maxim.zaks.generator.CSharpGenerator;
-import maxim.zaks.generator.EagerSwiftGenerator;
+import maxim.zaks.generator.swift.EagerSwiftGenerator;
+import maxim.zaks.generator.swift.EagerSwiftGenerator.InfrastructureInclusionRule;
 
 public class Main {
 	public static void main(String[] args) {
@@ -51,10 +52,14 @@ public class Main {
 		
 		Option optLanguage = OptionBuilder.withArgName("option").withDescription("Choose the language you want to generate: swift | csharp")
 				.hasArg().isRequired().create("lang");
+		
+		Option optInclude = OptionBuilder.withArgName("option").withDescription("Choose how you want to include library (swift only): include | import | exclude")
+				.hasArg().create("lib");
 
 		options.addOption(optSrcDir);
 		options.addOption(optTargetDir);
 		options.addOption(optLanguage);
+		options.addOption(optInclude);
 
 		// create the parser
 		final CommandLineParser parser = new GnuParser();
@@ -90,7 +95,16 @@ public class Main {
 			}
 			CharSequence code;
 			if(language.equals("swift")){
-				code = generatorSwift.generate(schema);				
+				InfrastructureInclusionRule rule = InfrastructureInclusionRule.Include;
+				String libValue = line.getOptionValue("lib");
+				if(libValue != null){
+					if(libValue.trim().equals("import")){
+						rule = InfrastructureInclusionRule.Import;
+					} else if(libValue.trim().equals("exclude")){
+						rule = InfrastructureInclusionRule.Exclude;
+					}
+				}
+				code = generatorSwift.generate(schema, rule);
 			} else {
 				code = generatorCSharp.generate(schema);
 			}

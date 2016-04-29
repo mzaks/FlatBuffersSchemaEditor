@@ -27,4 +27,5 @@ Export-Package: maxim.zaks,
  maxim.zaks.validation,
  maxim.zaks.scoping,
  maxim.zaks.generator,
+ maxim.zaks.generator.swift,
  maxim.zaks.formatting
