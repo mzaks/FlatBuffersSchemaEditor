@@ -1,15 +1,18 @@
 package maxim.zaks.generator
 
+import java.util.ArrayList
+import java.util.HashSet
+import maxim.zaks.flatBuffers.Enum
+import maxim.zaks.flatBuffers.Field
 import maxim.zaks.flatBuffers.Struct
 import maxim.zaks.flatBuffers.StructField
-import maxim.zaks.flatBuffers.Field
-import maxim.zaks.flatBuffers.Type
 import maxim.zaks.flatBuffers.Table
+import maxim.zaks.flatBuffers.Type
 import maxim.zaks.flatBuffers.Union
-import maxim.zaks.flatBuffers.Enum
-import java.util.ArrayList
+import maxim.zaks.flatBuffers.Definition
 
 public class ModelExtensions {
+	
 	def getSize(Struct struct){
 		var size = 0
 		for(StructField field : struct.fields){
@@ -46,6 +49,49 @@ public class ModelExtensions {
 			}
 		}
 		result
+	}
+	
+	def isRecursive(Definition definition) {
+		switch definition {
+			Table case definition: return _isRecursive(definition, new HashSet<String>())
+			Union case definition: return _isRecursive(definition, new HashSet<String>())
+		}
+		false
+	}
+	
+	private def boolean _isRecursive(Table table, HashSet<String> visited) {
+		if (visited.add(table.name) == false){
+			return true
+		}
+		for (Field f : table.fields){
+			val type = f.type
+			if (type.isTable){
+				val t = type.defType as Table
+				if(t._isRecursive(visited) == true){
+					return true
+				}
+			} else if(type.isUnion){
+				val u = type.defType as Union
+				if(u._isRecursive(visited)){
+					return true
+				}
+			} else if(type.isTableVector){
+				val t = type.vectorType.type.defType as Table
+				if(t._isRecursive(visited) == true){
+					return true
+				}
+			}
+		}
+		false
+	}
+	
+	private def boolean _isRecursive(Union union, HashSet<String> visited){
+		for (Table t : union.unionCases){
+			if(t._isRecursive(visited) == true){
+				return true
+			}
+		}
+		false
 	}
 	
 	def isUnion(Type t){

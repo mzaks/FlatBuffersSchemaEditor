@@ -10,6 +10,7 @@ import static org.junit.Assert.*
 import maxim.zaks.FlatBuffersInjectorProvider
 import maxim.zaks.flatBuffers.*
 import maxim.zaks.generator.CSharpGenerator
+import maxim.zaks.generator.ModelExtensions
 
 @InjectWith(FlatBuffersInjectorProvider)
 @RunWith(XtextRunner)
@@ -17,6 +18,8 @@ class CSGeneratorTest {
   @Inject
   ParseHelper<Schema> parser
   CSharpGenerator generator = new CSharpGenerator()
+  
+  extension ModelExtensions = new ModelExtensions()
  
   @Test
   def void generateEmptyTable() {
@@ -82,6 +85,101 @@ public sealed class T1 : Table {
 	}
 }
 '''.toString.trim)
+  }
+  
+  @Test
+  def void findNoRecursion() {
+    val schema = parser.parse(
+    '''
+    table T2 {
+    	u : U1;
+    }
+    table T1 {}
+    table T3 {}
+    union U1 {T1, T3}
+    ''')
+    
+    val tables = schema.definitions.filter[it instanceof Table]
+    for (Definition d : tables){
+    	val t = d as Table
+    	assertFalse(t.isRecursive)
+    }
+  }
+  
+  @Test
+  def void findRecursion() {
+    val schema = parser.parse(
+    '''
+    table T2 {
+    	t : T2;
+    }
+    ''')
+    
+    val tables = schema.definitions.filter[it instanceof Table]
+    for (Definition d : tables){
+    	val t = d as Table
+    	assertTrue(t.isRecursive)
+    }
+  }
+  
+  @Test
+  def void findRecursion2() {
+    val schema = parser.parse(
+    '''
+    table T1 {
+    	t : T2;
+    }
+    table T2 {
+    	t : T1;
+    }
+    ''')
+    
+    val tables = schema.definitions.filter[it instanceof Table]
+    for (Definition d : tables){
+    	val t = d as Table
+    	assertTrue(t.isRecursive)
+    }
+  }
+  
+  @Test
+  def void findRecursion3() {
+    val schema = parser.parse(
+    '''
+    table T2 {
+    	u : U1;
+    }
+    table T1 {t:T3;}
+    table T3 {t:T2;}
+    table T4 {t:T3;}
+    union U1 {T1, T3}
+    ''')
+    
+    val tables = schema.definitions.filter[it instanceof Table]
+    for (Definition d : tables){
+    	val t = d as Table
+    	assertTrue(t.isRecursive)
+    }
+  }
+  
+  @Test
+  def void findRecursion4() {
+    val schema = parser.parse(
+    '''
+    table T1 {
+    	i : int;
+    	t : [T2];
+    }
+    table T2 {
+    	f : float;
+    	t : T1;
+    }
+    ''')
+    
+    val tables = schema.definitions.filter[it instanceof Table]
+    for (Definition d : tables){
+    	val t = d as Table
+    	assertTrue(t.isRecursive)
+    }
   }
  
 }

@@ -13,7 +13,12 @@ public enum FlatBufferBuilderError : ErrorType {
     case UnsupportedType
 }
 
-public class FlatBufferBuilder {
+public final class FlatBufferBuilder {
+
+    var cache : [ObjectIdentifier : Offset] = [:]
+    var inProgress : Set<ObjectIdentifier> = []
+    var deferedBindings : [(object:Any, cursor:Int)] = []
+    
     var capacity : Int
     private var _data : UnsafeMutablePointer<UInt8>
     var data : [UInt8] {

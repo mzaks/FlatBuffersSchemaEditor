@@ -43,7 +43,6 @@ public class EagerSwiftGenerator {
 		«(union as Union).generateAllForUnion»
 		«ENDFOR»
 		«schema.generatePerformLateBindings»
-		«schema.generatePerformClearCaches»
 «««		«FOR namespacePart : namespaceParts»
 «««		}
 «««		«ENDFOR»
@@ -61,17 +60,14 @@ public class EagerSwiftGenerator {
 	
 	def generatePerformLateBindings(Schema schema)'''
 		private func performLateBindings(builder : FlatBufferBuilder) {
-			«FOR definition : schema.definitions»
-			«definition.generateLateBinding»
-			«ENDFOR»
-		}
-	'''
-	
-	def generatePerformClearCaches(Schema schema)'''
-		private func performClearCaches() {
-			«FOR definition : schema.definitions»
-			«definition.generateClearCaches»
-			«ENDFOR»
+			for binding in builder.deferedBindings {
+				switch binding.object {
+				«FOR definition : schema.definitions»
+				«definition.generateLateBinding»
+				«ENDFOR»
+				default: continue
+				}
+			}
 		}
 	'''
 	
@@ -79,14 +75,12 @@ public class EagerSwiftGenerator {
 		switch definition {
 			Table case definition: 
 				'''
-				for binding in «definition.name».deferedBindings {
-					try! builder.replaceOffset(binding.object.addToByteArray(builder), atCursor: binding.cursor)
-				}
+				case let object as «definition.name»: try! builder.replaceOffset(object.addToByteArray(builder), atCursor: binding.cursor)
 				'''
-			Union case definition: 
-				'''
-				performLateBindings_«definition.name»(builder)
-				'''
+//			Union case definition: 
+//				'''
+//				performLateBindings_«definition.name»(builder)
+//				'''
 			default : ''''''
 		}
 	}
@@ -196,7 +190,6 @@ public class EagerSwiftGenerator {
 		extension «table.name» : «union.name» {}
 		extension «table.name».LazyAccess : «union.name»_LazyAccess {}
 		«ENDFOR»
-		private var «union.name»_DeferedBindings : [(object:«union.name», cursor:Int)] = []
 	'''
 	
 	def generateCreaterFunctionForUnion(Union union) '''
@@ -246,16 +239,6 @@ public class EagerSwiftGenerator {
 			default : return 0
 			}
 		}
-		private func performLateBindings_«union.name»(builder : FlatBufferBuilder) {
-			for binding in «union.name»_DeferedBindings {
-				switch binding.object {
-				«FOR indexedUnionCase : union.unionCases.indexed»
-				case let u as «indexedUnionCase.value.name» : try! builder.replaceOffset(u.addToByteArray(builder), atCursor: binding.cursor)
-				«ENDFOR»
-				default : continue
-				}
-			}
-		}
 	'''
 	
 	def generateFromByteArrayExtension(Table table) '''
@@ -270,16 +253,15 @@ public class EagerSwiftGenerator {
 	
 	def generateCreateExtension(Table table) '''
 		public extension «table.name» {
-			private static var objectPool : [Offset : «table.name»] = [:]
 			private static func create(reader : FlatBufferReader, objectOffset : Offset?) -> «table.name»? {
 				guard let objectOffset = objectOffset else {
 					return nil
 				}
-				if let o = «table.name».objectPool[objectOffset]{
-					return o
+				if let o = reader.objectPool[objectOffset]{
+					return o as? «table.name»
 				}
 				let _result = «table.name»()
-				«table.name».objectPool[objectOffset] = _result
+				reader.objectPool[objectOffset] = _result
 				«FOR indexedField : table.indexedFields»
 				«indexedField.readDataIntoLocalVariables»
 				«ENDFOR»
@@ -366,7 +348,7 @@ public class EagerSwiftGenerator {
 		}
 		
 		public func ==(t1 : «table.name».LazyAccess, t2 : «table.name».LazyAccess) -> Bool {
-			return t1._objectOffset == t2._objectOffset
+			return t1._objectOffset == t2._objectOffset && t1._reader === t2._reader
 		}
 		
 	'''
@@ -454,7 +436,6 @@ public class EagerSwiftGenerator {
 				let builder = FlatBufferBuilder()
 				let offset = addToByteArray(builder)
 				performLateBindings(builder)
-				performClearCaches()
 				return try! builder.finish(offset, fileIdentifier: «IF fileIdentifier == null»nil«ELSE»"«fileIdentifier»"«ENDIF»)
 			}
 		}
@@ -462,22 +443,16 @@ public class EagerSwiftGenerator {
 	
 	def generateAddToByteArrayExtension(Table table) '''
 		public extension «table.name» {
-			private static var cache : [ObjectIdentifier : Offset] = [:]
-			private static var inProgress : Set<ObjectIdentifier> = []
-			private static var deferedBindings : [(object:«table.name», cursor:Int)] = []
-			static func clearCaches(){
-				cache.removeAll()
-				inProgress.removeAll()
-				deferedBindings.removeAll()
-			}
 			private func addToByteArray(builder : FlatBufferBuilder) -> Offset {
-				if let myOffset = «table.name».cache[ObjectIdentifier(self)] {
+				if let myOffset = builder.cache[ObjectIdentifier(self)] {
 					return myOffset
 				}
-				if «table.name».inProgress.contains(ObjectIdentifier(self)){
+				«IF table.isRecursive»
+				if builder.inProgress.contains(ObjectIdentifier(self)){
 					return 0
 				}
-				«table.name».inProgress.insert(ObjectIdentifier(self))
+				builder.inProgress.insert(ObjectIdentifier(self))
+				«ENDIF»
 				«FOR indexedField : table.indexedFields.reverse»
 				«indexedField.value.createOffsetForField(indexedField.key)»
 				«ENDFOR»
@@ -486,8 +461,10 @@ public class EagerSwiftGenerator {
 				«indexedField.value.addPropertyOrOffsetToObject(indexedField.key)»
 				«ENDFOR»
 				let myOffset =  try! builder.closeObject()
-				«table.name».cache[ObjectIdentifier(self)] = myOffset
-				«table.name».inProgress.remove(ObjectIdentifier(self))
+				builder.cache[ObjectIdentifier(self)] = myOffset
+				«IF table.isRecursive»
+				builder.inProgress.remove(ObjectIdentifier(self))
+				«ENDIF»
 				return myOffset
 			}
 		}
@@ -535,12 +512,12 @@ public class EagerSwiftGenerator {
 			if «field.fieldName».count > 0{
 				var offsets = [Offset?](count: «field.fieldName».count, repeatedValue: nil)
 				var index = «field.fieldName».count - 1
-				«IF field.type.isTableVector»
+				«IF field.type.isTableVector && field.type.vectorType.type.defType.isRecursive»
 				var deferedBindingObjects : [Int : «field.type.vectorType.type.defType.name»] = [:]
 				«ENDIF»
 				while(index >= 0){
 					«field.vectorOffsetPutStatementInDirect»
-					«IF field.type.isTableVector»
+					«IF field.type.isTableVector && field.type.vectorType.type.defType.isRecursive»
 					if offsets[index] == 0 {
 						deferedBindingObjects[index] = «field.fieldName»[index]!
 					}
@@ -549,21 +526,21 @@ public class EagerSwiftGenerator {
 				}
 				try! builder.startVector(«field.fieldName».count)
 				index = «field.fieldName».count - 1
-				«IF field.getType.isTableVector»
+				«IF field.getType.isTableVector && field.type.vectorType.type.defType.isRecursive»
 				var deferedBindingCursors : [Int : Int] = [:]
 				«ENDIF»
 				while(index >= 0){
-					«IF field.getType.isTableVector»let cursor = «ENDIF»try! builder.putOffset(offsets[index])
-					«IF field.getType.isTableVector»
+					«IF field.getType.isTableVector && field.type.vectorType.type.defType.isRecursive»let cursor = «ENDIF»try! builder.putOffset(offsets[index])
+					«IF field.getType.isTableVector && field.type.vectorType.type.defType.isRecursive»
 					if offsets[index] == 0 {
 						deferedBindingCursors[index] = cursor
 					}
 					«ENDIF»
 					index -= 1
 				}
-				«IF field.type.isTableVector»
+				«IF field.type.isTableVector && field.type.vectorType.type.defType.isRecursive»
 				for key in deferedBindingObjects.keys {
-					«field.type.vectorType.type.defType.name».deferedBindings.append((object: deferedBindingObjects[key]!, cursor: deferedBindingCursors[key]!))
+					builder.deferedBindings.append((object: deferedBindingObjects[key]!, cursor: deferedBindingCursors[key]!))
 				}
 				«ENDIF»
 				offset«index» = builder.endVector()
@@ -604,10 +581,14 @@ public class EagerSwiftGenerator {
 		} else if(field.getType.isTable) {
 			'''
 			if «field.fieldName» != nil {
+				«IF field.type.defType.isRecursive»
 				let cursor«index» = try! builder.addPropertyOffsetToOpenObject(«index», offset: offset«index»)
 				if offset«index» == 0 {
-					«field.type.defType.name».deferedBindings.append((object: «field.fieldName»!, cursor: cursor«index»))
+					builder.deferedBindings.append((object: «field.fieldName»!, cursor: cursor«index»))
 				}
+				«ELSE»
+				try! builder.addPropertyOffsetToOpenObject(«index», offset: offset«index»)
+				«ENDIF»
 			}
 			'''
 		} else if(field.getType.isString) {
@@ -625,10 +606,14 @@ public class EagerSwiftGenerator {
 		} else if(field.getType.isUnion) {
 			'''
 			if «field.fieldName» != nil {
+				«IF field.type.defType.isRecursive»
 				let cursor«index» = try! builder.addPropertyOffsetToOpenObject(«index+1», offset: offset«index»)
 				if offset«index» == 0 {
-					«field.type.defType.name»_DeferedBindings.append((object: «field.fieldName»!, cursor: cursor«index»))
+					builder.deferedBindings.append((object: «field.fieldName»!, cursor: cursor«index»))
 				}
+				«ELSE»
+				try! builder.addPropertyOffsetToOpenObject(«index+1», offset: offset«index»)
+				«ENDIF»
 				try! builder.addPropertyToOpenObject(«index», value : unionCase_«field.getType.defType.name»(«field.fieldName»), defaultValue : 0)
 			}'''
 		} else if(field.getType.isStruct) {
