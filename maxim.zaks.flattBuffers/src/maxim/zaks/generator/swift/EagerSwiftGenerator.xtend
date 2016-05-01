@@ -293,6 +293,7 @@ public class EagerSwiftGenerator {
 				let length_«indexedField.value.fieldName» = reader.getVectorLength(offset_«indexedField.value.fieldName»)
 				if(length_«indexedField.value.fieldName» > 0){
 					var index = 0
+					_result.«indexedField.value.fieldName».reserveCapacity(length_«indexedField.value.fieldName»)
 					while index < length_«indexedField.value.fieldName» {
 						_result.«indexedField.value.fieldName».append(«indexedField.value.accessVectorItem»)
 						index += 1
