@@ -5,19 +5,23 @@ class SwiftLibraryReader {
 
 public final class FlatBufferReader {
 
+    public let config : BinaryReadConfig
+    
     let buffer : UnsafePointer<UInt8>
-    var objectPool : [Offset : AnyObject] = [:]
+    public var objectPool : [Offset : AnyObject] = [:]
     
     func fromByteArray<T : Scalar>(position : Int) -> T{
         return UnsafePointer<T>(buffer.advancedBy(position)).memory
     }
 
-    public init(buffer : [UInt8]){
+    public init(buffer : [UInt8], config: BinaryReadConfig){
         self.buffer = UnsafePointer<UInt8>(buffer)
+        self.config = config
     }
     
-    public init(bytes : UnsafePointer<UInt8>){
+    public init(bytes : UnsafePointer<UInt8>, config: BinaryReadConfig){
         self.buffer = bytes
+        self.config = config
     }
     
     public var rootObjectOffset : Offset {
@@ -69,14 +73,19 @@ public final class FlatBufferReader {
         guard let stringOffset = stringOffset else {
             return nil
         }
-        if let result = stringCache[stringOffset]{
-            return result
+        if config.uniqueStrings {
+            if let result = stringCache[stringOffset]{
+                return result
+            }
         }
+        
         let stringPosition = Int(stringOffset)
         let stringLenght : Int32 = fromByteArray(stringPosition)
         let pointer = UnsafeMutablePointer<UInt8>(buffer).advancedBy((stringPosition + strideof(Int32)))
         let result = String.init(bytesNoCopy: pointer, length: Int(stringLenght), encoding: NSUTF8StringEncoding, freeWhenDone: false)
-        stringCache[stringOffset] = result
+        if config.uniqueStrings {
+            stringCache[stringOffset] = result
+        }
         return result
     }
     
@@ -132,6 +141,7 @@ public final class FlatBufferReader {
         return Int(propertyOffset)
     }
 }
+
 
 
 	'''

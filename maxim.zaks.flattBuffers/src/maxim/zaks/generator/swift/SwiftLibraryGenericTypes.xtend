@@ -64,5 +64,17 @@ public final class LazyVector<T> : SequenceType {
         })
     }
 }
+
+public struct BinaryBuildConfig{
+    var initialCapacity = 1
+    var uniqueStrings = true
+    var uniqueTables = true
+    var uniqueVTables = true
+}
+
+public struct BinaryReadConfig {
+    var uniqueTables = true
+    var uniqueStrings = true
+}
 '''
 }

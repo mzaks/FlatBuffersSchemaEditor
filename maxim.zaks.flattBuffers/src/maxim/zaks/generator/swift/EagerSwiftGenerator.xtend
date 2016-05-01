@@ -243,8 +243,8 @@ public class EagerSwiftGenerator {
 	
 	def generateFromByteArrayExtension(Table table) '''
 		public extension «table.name» {
-			public static func fromByteArray(data : UnsafePointer<UInt8>) -> «table.name» {
-				let reader = FlatBufferReader(bytes: data)
+			public static func fromByteArray(data : UnsafePointer<UInt8>, config : BinaryReadConfig = BinaryReadConfig()) -> «table.name» {
+				let reader = FlatBufferReader(bytes: data, config: config)
 				let objectOffset = reader.rootObjectOffset
 				return create(reader, objectOffset : objectOffset)!
 			}
@@ -257,11 +257,15 @@ public class EagerSwiftGenerator {
 				guard let objectOffset = objectOffset else {
 					return nil
 				}
-				if let o = reader.objectPool[objectOffset]{
-					return o as? «table.name»
+				if reader.config.uniqueTables {
+					if let o = reader.objectPool[objectOffset]{
+						return o as? «table.name»
+					}
 				}
 				let _result = «table.name»()
-				reader.objectPool[objectOffset] = _result
+				if reader.config.uniqueTables {
+					reader.objectPool[objectOffset] = _result
+				}
 				«FOR indexedField : table.indexedFields»
 				«indexedField.readDataIntoLocalVariables»
 				«ENDFOR»
@@ -322,8 +326,8 @@ public class EagerSwiftGenerator {
 				private let _reader : FlatBufferReader!
 				private let _objectOffset : Offset!
 				«IF isRoot»
-				public init(data : UnsafePointer<UInt8>){
-					_reader = FlatBufferReader(bytes: data)
+				public init(data : UnsafePointer<UInt8>, config : BinaryReadConfig = BinaryReadConfig()){
+					_reader = FlatBufferReader(bytes: data, config: config)
 					_objectOffset = _reader.rootObjectOffset
 				}
 				«ENDIF»
@@ -432,8 +436,8 @@ public class EagerSwiftGenerator {
 	
 	def generateToByteArrayExtension(Table table) '''
 		public extension «table.name» {
-			public var toByteArray : [UInt8] {
-				let builder = FlatBufferBuilder()
+			public func toByteArray (config : BinaryBuildConfig = BinaryBuildConfig()) -> [UInt8] {
+				let builder = FlatBufferBuilder(config: config)
 				let offset = addToByteArray(builder)
 				performLateBindings(builder)
 				return try! builder.finish(offset, fileIdentifier: «IF fileIdentifier == null»nil«ELSE»"«fileIdentifier»"«ENDIF»)
@@ -444,8 +448,10 @@ public class EagerSwiftGenerator {
 	def generateAddToByteArrayExtension(Table table) '''
 		public extension «table.name» {
 			private func addToByteArray(builder : FlatBufferBuilder) -> Offset {
-				if let myOffset = builder.cache[ObjectIdentifier(self)] {
-					return myOffset
+				if builder.config.uniqueTables {
+					if let myOffset = builder.cache[ObjectIdentifier(self)] {
+						return myOffset
+					}
 				}
 				«IF table.isRecursive»
 				if builder.inProgress.contains(ObjectIdentifier(self)){
@@ -461,7 +467,9 @@ public class EagerSwiftGenerator {
 				«indexedField.value.addPropertyOrOffsetToObject(indexedField.key)»
 				«ENDFOR»
 				let myOffset =  try! builder.closeObject()
-				builder.cache[ObjectIdentifier(self)] = myOffset
+				if builder.config.uniqueTables {
+					builder.cache[ObjectIdentifier(self)] = myOffset
+				}
 				«IF table.isRecursive»
 				builder.inProgress.remove(ObjectIdentifier(self))
 				«ENDIF»
