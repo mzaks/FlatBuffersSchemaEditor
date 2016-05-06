@@ -181,5 +181,104 @@ public sealed class T1 : Table {
     	assertTrue(t.isRecursive)
     }
   }
+  
+  @Test
+  def void structSize() {
+    val schema = parser.parse(
+    '''
+	struct S2 {
+		i1 : int;
+		b1 : bool;
+	})''')
+    
+    val struct = schema.definitions.get(0) as Struct
+    
+    assertEquals(8, struct.size)
+  }
+  
+  @Test
+  def void structSize2() {
+    val schema = parser.parse(
+    '''
+	struct S1 {
+		f1 : float;
+		d1 : double;
+		f2 : float;
+		f3 : float;
+		s2 : S2;
+	})''')
+    
+    val struct = schema.definitions.get(0) as Struct
+    
+    assertEquals(24, struct.size)
+  }
+  
+  @Test
+  def void structSize3() {
+    val schema = parser.parse(
+    '''
+	struct S1 {
+		f1 : float;
+		d1 : double;
+		f2 : float;
+		f3 : float;
+		s2 : S2;
+	}
+	struct S2 {
+		i1 : int;
+		b1 : bool;
+	})''')
+    
+    val struct = schema.definitions.get(0) as Struct
+    
+    assertEquals(32, struct.size)
+  }
+  
+  @Test
+  def void structSize4() {
+    val schema = parser.parse(
+    '''
+	struct S1 {
+		f1 : float;
+		s2 : S2;
+		d1 : double;
+		f2 : float;
+		f3 : float;
+	}
+	struct S2 {
+		i1 : int;
+		b1 : bool;
+	})''')
+    
+    val struct = schema.definitions.get(0) as Struct
+    
+    assertEquals(32, struct.size)
+  }
+  
+  @Test
+  def void structFieldIndex() {
+    val schema = parser.parse(
+    '''
+	struct S1 {
+		f1 : float;
+		s2 : S2;
+		d1 : double;
+		f2 : float;
+		f3 : float;
+	}
+	struct S2 {
+		i1 : int;
+		b1 : bool;
+	})''')
+    
+    val struct = schema.definitions.get(0) as Struct
+    
+    assertEquals(0, struct.indexOf(0)) // f1
+    assertEquals(4, struct.indexOf(1)) // i1
+    assertEquals(8, struct.indexOf(2)) // b1
+    assertEquals(16, struct.indexOf(3)) // d1
+    assertEquals(24, struct.indexOf(4)) // f2
+    assertEquals(28, struct.indexOf(5)) // f3
+  }
  
 }

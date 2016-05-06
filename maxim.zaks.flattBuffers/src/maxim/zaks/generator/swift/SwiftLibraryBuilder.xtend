@@ -2,7 +2,6 @@ package maxim.zaks.generator.swift
 
 class SwiftLibraryBuilder {
 	public static val definitions = '''
-
 public enum FlatBufferBuilderError : ErrorType {
     case ObjectIsNotClosed
     case NoOpenObject
@@ -15,11 +14,14 @@ public enum FlatBufferBuilderError : ErrorType {
 
 public final class FlatBufferBuilder {
     
+    public static var maxInstanceCacheSize : UInt = 1000 // max number of cached instances
+    static var builderPool : [FlatBufferBuilder] = []
+    
     public var cache : [ObjectIdentifier : Offset] = [:]
     public var inProgress : Set<ObjectIdentifier> = []
     public var deferedBindings : [(object:Any, cursor:Int)] = []
     
-    public let config : BinaryBuildConfig
+    public var config : BinaryBuildConfig
     
     var capacity : Int
     private var _data : UnsafeMutablePointer<UInt8>
@@ -70,7 +72,7 @@ public final class FlatBufferBuilder {
         let c = strideofValue(v)
         increaseCapacity(c)
         withUnsafePointer(&v){
-            _data.advancedBy(leftCursor-c).initializeFrom(UnsafeMutablePointer<UInt8>($0), count: c)
+            _data.advancedBy(leftCursor-c).assignFrom(UnsafeMutablePointer<UInt8>($0), count: c)
         }
         cursor += c
 
@@ -78,7 +80,7 @@ public final class FlatBufferBuilder {
     
     public func put<T : Scalar>(value : UnsafePointer<T>, length : Int){
         increaseCapacity(length)
-        _data.advancedBy(leftCursor-length).initializeFrom(UnsafeMutablePointer<UInt8>(value), count: length)
+        _data.advancedBy(leftCursor-length).assignFrom(UnsafeMutablePointer<UInt8>(value), count: length)
         cursor += length
     }
     
@@ -126,7 +128,7 @@ public final class FlatBufferBuilder {
         }
         let c = strideofValue(v)
         withUnsafePointer(&v){
-            _data.advancedBy(index + leftCursor).initializeFrom(UnsafeMutablePointer<UInt8>($0), count: c)
+            _data.advancedBy(index + leftCursor).assignFrom(UnsafeMutablePointer<UInt8>($0), count: c)
         }
     }
     
@@ -134,7 +136,11 @@ public final class FlatBufferBuilder {
         guard objectStart == -1 && vectorNumElems == -1 else {
             throw FlatBufferBuilderError.ObjectIsNotClosed
         }
-        currentVTable = Array<Int32>(count: numOfProperties, repeatedValue: 0)
+        currentVTable.removeAll(keepCapacity: true)
+        currentVTable.reserveCapacity(numOfProperties)
+        for _ in 0..<numOfProperties {
+            currentVTable.append(0)
+        }
         objectStart = Int32(cursor)
     }
     
@@ -158,7 +164,7 @@ public final class FlatBufferBuilder {
             throw FlatBufferBuilderError.PropertyIndexIsInvalid
         }
         
-        if(value == defaultValue) {
+        if(config.forceDefaults == false && value == defaultValue) {
             return
         }
         
@@ -267,11 +273,19 @@ public final class FlatBufferBuilder {
             }
         }
 
-        let buf = Array(value.utf8)
-        let length = buf.count
+        let length = value.utf8.count
         
         increaseCapacity(length)
-        _data.advancedBy(leftCursor-length).initializeFrom(UnsafeMutablePointer<UInt8>(buf), count: length)
+        
+        let p = UnsafeMutablePointer<UInt8>(_data.advancedBy(leftCursor-length))
+        var charofs = 0
+        for c in value.utf8
+        {
+            assert(charofs < length)
+            p.advancedBy(charofs).memory = c
+            charofs = charofs + 1
+        }
+        
         cursor += length
 
         put(Int32(length))
@@ -310,7 +324,7 @@ public final class FlatBufferBuilder {
         let length = value.byteSize
         
         increaseCapacity(length)
-        _data.advancedBy(leftCursor-length).initializeFrom(UnsafeMutablePointer<UInt8>(buf), count: length)
+        _data.advancedBy(leftCursor-length).assignFrom(UnsafeMutablePointer<UInt8>(buf), count: length)
         cursor += length
         
         put(Int32(length))
@@ -339,11 +353,54 @@ public final class FlatBufferBuilder {
         var v = (Int32(cursor + prefixLength) - offset).littleEndian
         let c = strideofValue(v)
         withUnsafePointer(&v){
-            _data.advancedBy(leftCursor - prefixLength).initializeFrom(UnsafeMutablePointer<UInt8>($0), count: c)
+            _data.advancedBy(leftCursor - prefixLength).assignFrom(UnsafeMutablePointer<UInt8>($0), count: c)
         }
         
         return Array(UnsafeBufferPointer(start: UnsafePointer<UInt8>(_data).advancedBy(leftCursor - prefixLength), count: cursor+prefixLength))
     }
 }
+
+// Pooling
+public extension FlatBufferBuilder {
+    
+    public func reset ()
+    {
+        cursor = 0
+        objectStart = -1
+        vectorNumElems = -1;
+        vTableOffsets.removeAll(keepCapacity: true)
+        currentVTable.removeAll(keepCapacity: true)
+        cache.removeAll(keepCapacity: true)
+        inProgress.removeAll(keepCapacity: true)
+        deferedBindings.removeAll(keepCapacity: true)
+        stringCache.removeAll(keepCapacity: true)
+    }
+    
+    public static func create(config: BinaryBuildConfig) -> FlatBufferBuilder {
+        if (builderPool.count > 0)
+        {
+            let builder = builderPool.removeLast()
+            builder.config = config
+            if (config.initialCapacity > builder.capacity) {
+                builder._data.dealloc(builder.capacity)
+                builder.capacity = config.initialCapacity
+                builder._data = UnsafeMutablePointer.alloc(builder.capacity)
+            }
+            return builder
+        }
+        
+        return FlatBufferBuilder(config: config)
+    }
+    
+    public static func reuse(builder : FlatBufferBuilder) {
+        if (UInt(builderPool.count) < maxInstanceCacheSize) 
+        {
+            builder.reset()
+            builderPool.append(builder)
+        }
+    }
+    
+}
+
 	'''
 }

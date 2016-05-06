@@ -2,26 +2,39 @@ package maxim.zaks.generator.swift
 
 class SwiftLibraryReader {
 	public static val definitions = '''
+public enum FlatBufferReaderError : ErrorType {
+    case CanOnlySetNonDefaultProperty
+}
 
 public final class FlatBufferReader {
 
-    public let config : BinaryReadConfig
+    public static var maxInstanceCacheSize : UInt = 1000 // max number of cached instances
+    static var instancePool : [FlatBufferReader] = []
     
-    let buffer : UnsafePointer<UInt8>
+    public var config : BinaryReadConfig
+    
+    var buffer : UnsafeMutablePointer<UInt8> = nil
     public var objectPool : [Offset : AnyObject] = [:]
     
     func fromByteArray<T : Scalar>(position : Int) -> T{
         return UnsafePointer<T>(buffer.advancedBy(position)).memory
     }
+    
+    private var length : Int
+    public var data : [UInt8] {
+        return Array(UnsafeBufferPointer(start: UnsafePointer<UInt8>(buffer), count: length))
+    }
 
     public init(buffer : [UInt8], config: BinaryReadConfig){
-        self.buffer = UnsafePointer<UInt8>(buffer)
+        self.buffer = UnsafeMutablePointer<UInt8>(buffer)
         self.config = config
+        length = buffer.count
     }
     
-    public init(bytes : UnsafePointer<UInt8>, config: BinaryReadConfig){
-        self.buffer = bytes
+    public init(bytes : UnsafeBufferPointer<UInt8>, config: BinaryReadConfig){
+        self.buffer = UnsafeMutablePointer<UInt8>(bytes.baseAddress)
         self.config = config
+        length = bytes.count
     }
     
     public var rootObjectOffset : Offset {
@@ -38,14 +51,26 @@ public final class FlatBufferReader {
         return fromByteArray(position)
     }
     
-    public func getStructProperty<T : Scalar>(objectOffset : Offset, propertyIndex : Int, structPropertyOffset : Int, defaultValue : T) -> T {
+    public func get<T : Scalar>(objectOffset : Offset, propertyIndex : Int) -> T?{
         let propertyOffset = getPropertyOffset(objectOffset, propertyIndex: propertyIndex)
         if propertyOffset == 0 {
-            return defaultValue
+            return nil
         }
-        let position = Int(objectOffset + propertyOffset) + structPropertyOffset
-        
-        return fromByteArray(position)
+        let position = Int(objectOffset + propertyOffset)
+        return fromByteArray(position) as T
+    }
+    
+    public func set<T : Scalar>(objectOffset : Offset, propertyIndex : Int, value : T) throws {
+        let propertyOffset = getPropertyOffset(objectOffset, propertyIndex: propertyIndex)
+        if propertyOffset == 0 {
+            throw FlatBufferReaderError.CanOnlySetNonDefaultProperty
+        }
+        var v = value
+        let position = Int(objectOffset + propertyOffset)
+        let c = strideofValue(v)
+        withUnsafePointer(&v){
+            buffer.advancedBy(position).assignFrom(UnsafeMutablePointer<UInt8>($0), count: c)
+        }
     }
     
     public func hasProperty(objectOffset : Offset, propertyIndex : Int) -> Bool {
@@ -80,9 +105,11 @@ public final class FlatBufferReader {
         }
         
         let stringPosition = Int(stringOffset)
-        let stringLenght : Int32 = fromByteArray(stringPosition)
+        let stringLength : Int32 = fromByteArray(stringPosition)
+        
         let pointer = UnsafeMutablePointer<UInt8>(buffer).advancedBy((stringPosition + strideof(Int32)))
-        let result = String.init(bytesNoCopy: pointer, length: Int(stringLenght), encoding: NSUTF8StringEncoding, freeWhenDone: false)
+        let result = String.init(bytesNoCopy: pointer, length: Int(stringLength), encoding: NSUTF8StringEncoding, freeWhenDone: false)
+        
         if config.uniqueStrings {
             stringCache[stringOffset] = result
         }
@@ -94,9 +121,9 @@ public final class FlatBufferReader {
             return nil
         }
         let stringPosition = Int(stringOffset)
-        let stringLenght : Int32 = fromByteArray(stringPosition)
+        let stringLength : Int32 = fromByteArray(stringPosition)
         let pointer = UnsafePointer<UInt8>(buffer).advancedBy((stringPosition + strideof(Int32)))
-        return UnsafeBufferPointer<UInt8>.init(start: pointer, count: Int(stringLenght))
+        return UnsafeBufferPointer<UInt8>.init(start: pointer, count: Int(stringLength))
     }
     
     public func getVectorLength(vectorOffset : Offset?) -> Int {
@@ -113,9 +140,13 @@ public final class FlatBufferReader {
         return UnsafePointer<T>(UnsafePointer<UInt8>(buffer).advancedBy(valueStartPosition)).memory
     }
     
-    public func getVectorStructElement<T : Scalar>(vectorOffset : Offset, vectorIndex : Int, structSize : Int, structElementIndex : Int) -> T {
-        let valueStartPosition = Int(vectorOffset + strideof(Int32) + (vectorIndex * structSize) + structElementIndex)
-        return UnsafePointer<T>(UnsafePointer<UInt8>(buffer).advancedBy(valueStartPosition)).memory
+    public func setVectorScalarElement<T : Scalar>(vectorOffset : Offset, index : Int, value : T) {
+        let valueStartPosition = Int(vectorOffset + strideof(Int32) + (index * strideof(T)))
+        var v = value
+        let c = strideofValue(v)
+        withUnsafePointer(&v){
+            buffer.advancedBy(valueStartPosition).assignFrom(UnsafeMutablePointer<UInt8>($0), count: c)
+        }
     }
     
     public func getVectorOffsetElement(vectorOffset : Offset, index : Int) -> Offset? {
@@ -142,7 +173,53 @@ public final class FlatBufferReader {
     }
 }
 
-
-
-	'''
+public extension FlatBufferReader {
+    
+    public func reset ()
+    {
+        buffer = nil
+        objectPool.removeAll(keepCapacity: true)
+        stringCache.removeAll(keepCapacity: true)
+        length = 0
+    }
+    
+    public static func create(buffer : [UInt8], config: BinaryReadConfig) -> FlatBufferReader {
+        if (instancePool.count > 0)
+        {
+            let reader = instancePool.removeLast()
+            
+            reader.buffer = UnsafeMutablePointer<UInt8>(buffer)
+            reader.config = config
+            reader.length = buffer.count
+            
+            return reader
+        }
+        
+        return FlatBufferReader(buffer: buffer, config: config)
+    }
+    
+    public static func create(bytes : UnsafeBufferPointer<UInt8>, config: BinaryReadConfig) -> FlatBufferReader {
+        if (instancePool.count > 0)
+        {
+            let reader = instancePool.removeLast()
+            
+            reader.buffer = UnsafeMutablePointer(bytes.baseAddress)
+            reader.config = config
+            reader.length = bytes.count
+            
+            return reader
+        }
+        
+        return FlatBufferReader(bytes: bytes, config: config)
+    }
+    
+    public static func reuse(reader : FlatBufferReader) {
+        if (UInt(instancePool.count) < maxInstanceCacheSize)
+        {
+            reader.reset()
+            instancePool.append(reader)
+        }
+    }
+}
+'''
 }

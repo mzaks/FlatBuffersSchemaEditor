@@ -37,19 +37,39 @@ extension Float32 : Scalar {}
 extension Float64 : Scalar {}
 
 public final class LazyVector<T> : SequenceType {
+    
     private let _generator : (Int)->T?
+    private let _replacer : ((Int, T)->())?
     private let _count : Int
     
-    public init(count : Int, generator : (Int)->T?){
+    public init(count : Int, _ generator : (Int)->T?){
         _generator = generator
         _count = count
+        _replacer = nil
+    }
+    
+    public init(count : Int, _ generator : (Int)->T?, _ replacer: ((Int, T)->())? = nil){
+        _generator = generator
+        _count = count
+        _replacer = replacer
     }
     
     public subscript(i: Int) -> T? {
-        guard i >= 0 && i < _count else {
-            return nil
+        get {
+            guard i >= 0 && i < _count else {
+                return nil
+            }
+            return _generator(i)
         }
-        return _generator(i)
+        set {
+            guard let replacer = _replacer, let value = newValue else {
+                return
+            }
+            guard i >= 0 && i < _count else {
+                return
+            }
+            replacer(i, value)
+        }
     }
     
     public var count : Int {return _count}
@@ -66,15 +86,28 @@ public final class LazyVector<T> : SequenceType {
 }
 
 public struct BinaryBuildConfig{
-    var initialCapacity = 1
-    var uniqueStrings = true
-    var uniqueTables = true
-    var uniqueVTables = true
+    public let initialCapacity : Int
+    public let uniqueStrings : Bool
+    public let uniqueTables : Bool
+    public let uniqueVTables : Bool
+    public let forceDefaults : Bool
+    public init(initialCapacity : Int = 1, uniqueStrings : Bool = true, uniqueTables : Bool = true, uniqueVTables : Bool = true, forceDefaults : Bool = false) {
+        self.initialCapacity = initialCapacity
+        self.uniqueStrings = uniqueStrings
+        self.uniqueTables = uniqueTables
+        self.uniqueVTables = uniqueVTables
+        self.forceDefaults = forceDefaults
+    }
 }
 
 public struct BinaryReadConfig {
-    var uniqueTables = true
-    var uniqueStrings = true
+    public let uniqueTables : Bool
+    public let uniqueStrings : Bool
+    public init(uniqueStrings : Bool = true, uniqueTables : Bool = true) {
+        self.uniqueStrings = uniqueStrings
+        self.uniqueTables = uniqueTables
+    }
 }
+
 '''
 }

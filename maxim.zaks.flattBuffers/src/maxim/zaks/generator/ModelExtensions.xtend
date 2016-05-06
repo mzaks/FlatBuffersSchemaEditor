@@ -10,30 +10,76 @@ import maxim.zaks.flatBuffers.Table
 import maxim.zaks.flatBuffers.Type
 import maxim.zaks.flatBuffers.Union
 import maxim.zaks.flatBuffers.Definition
+import java.util.List
 
 public class ModelExtensions {
 	
 	def getSize(Struct struct){
 		var size = 0
-		for(StructField field : struct.fields){
-			if(field.getPrimType != null){
-				size += field.getPrimType.lengthOfPrimType
+		val alignment = struct.alignment
+		val fieldList = new ArrayList<String>()
+		struct.flattenedPrimTypes(fieldList)
+		for(Pair<Integer, String> pair : fieldList.indexed){
+			val field = pair.value
+			val index = pair.key
+			size += field.lengthOfPrimType
+			val padding = alignment - (size % alignment)
+			if(padding != alignment){
+				if(index == (fieldList.length - 1)){
+					size += padding
+				}else if(padding < fieldList.get(index+1).lengthOfPrimType){
+					size += padding
+				}
 			}
 		}
 		size
 	}
 	
-	def indexOf(Struct struct, StructField destinationField){
-		var index = 0
-		for(StructField field : struct.fields){
-			if(field == destinationField){
-				return index
-			}
-			if(field.getPrimType != null){
-				index += field.getPrimType.lengthOfPrimType
+	def void flattenedPrimTypes(Struct struct, List<String> list){
+		for (StructField field : struct.fields){
+			if(field.primType != null){
+				list.add(field.primType)
+			}else{
+				val type = field.defType
+				switch type {
+					Struct case type : type.flattenedPrimTypes(list)
+				}
 			}
 		}
-		index
+	}
+	
+	def indexOf(Struct struct, int fieldIndex){
+		var size = 0
+		val alignment = struct.alignment
+		val fieldList = new ArrayList<String>()
+		struct.flattenedPrimTypes(fieldList)
+		for(Pair<Integer, String> pair : fieldList.indexed){
+			val field = pair.value
+			val index = pair.key
+			if(fieldIndex == index){
+				return size
+			}
+			size += field.lengthOfPrimType
+			val padding = alignment - (size % alignment)
+			if(padding != alignment){
+				if(index == (fieldList.length - 1)){
+					size += padding
+				}else if(padding < fieldList.get(index+1).lengthOfPrimType){
+					size += padding
+				}
+			}
+		}
+		size
+	}
+	
+	def alignment(Struct struct){
+		var result = 1
+		for(StructField field : struct.fields){
+			if(field.getPrimType != null){
+				result = Math.max(field.getPrimType.lengthOfPrimType, result)
+			}
+		}
+		result
 	}
 	
 	def indexedFields(Table table) {

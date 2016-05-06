@@ -85,12 +85,12 @@ public interface StructField extends EObject
    * </p>
    * <!-- end-user-doc -->
    * @return the value of the '<em>Def Type</em>' reference.
-   * @see #setDefType(Definition)
+   * @see #setDefType(Struct)
    * @see maxim.zaks.flatBuffers.FlatBuffersPackage#getStructField_DefType()
    * @model
    * @generated
    */
-  Definition getDefType();
+  Struct getDefType();
 
   /**
    * Sets the value of the '{@link maxim.zaks.flatBuffers.StructField#getDefType <em>Def Type</em>}' reference.
@@ -100,6 +100,6 @@ public interface StructField extends EObject
    * @see #getDefType()
    * @generated
    */
-  void setDefType(Definition value);
+  void setDefType(Struct value);
 
 } // StructField

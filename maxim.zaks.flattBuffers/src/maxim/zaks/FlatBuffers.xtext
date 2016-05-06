@@ -49,7 +49,7 @@ Struct:
 ;
 
 StructField:
-	name=ID ':' (primType=PrimitiveWithoutString | defType=[Definition]) ';'
+	name=ID ':' (primType=PrimitiveWithoutString | defType=[Struct]) ';'
 ;
 	
 Table:
