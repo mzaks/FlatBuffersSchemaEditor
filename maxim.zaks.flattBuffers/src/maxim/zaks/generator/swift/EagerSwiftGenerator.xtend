@@ -32,6 +32,8 @@ public class EagerSwiftGenerator {
 		
 		// generated with FlatBuffersSchemaEditor https://github.com/mzaks/FlatBuffersSchemaEditor
 		
+		import Foundation
+		
 		«IF inclusionRule == InfrastructureInclusionRule.Import»import FlatBuffersSwift«ENDIF»
 «««		«FOR namespacePart : namespaceParts»
 «««		enum «namespacePart» {
@@ -48,7 +50,6 @@ public class EagerSwiftGenerator {
 «««		«ENDFOR»
 		«IF inclusionRule == InfrastructureInclusionRule.Include»
 		// MARK: Generic Type Definitions
-		import Foundation
 		«SwiftLibraryGenericTypes.definitions»
 		// MARK: Reader
 		«SwiftLibraryReader.definitions»
@@ -125,15 +126,62 @@ public class EagerSwiftGenerator {
 	def generateMainDataStructureForTable(Table table) '''
 		public final class «table.name» {
 			«FOR field : table.fields»
+			«IF field.type.isString»
+			public var «field.fieldName» : String? {
+				get {
+					if let s = «field.fieldName»_s {
+						return s
+					}
+					if let s = «field.fieldName»_ss {
+						«field.fieldName»_s = s.stringValue
+					}
+					if let s = «field.fieldName»_b {
+						«field.fieldName»_s = String.init(bytesNoCopy: UnsafeMutablePointer<UInt8>(s.baseAddress), length: s.count, encoding: NSUTF8StringEncoding, freeWhenDone: false)
+					}
+					return «field.fieldName»_s
+				}
+				set {
+					«field.fieldName»_s = newValue
+					«field.fieldName»_ss = nil
+					«field.fieldName»_b = nil
+				}
+			}
+			public func «field.fieldName»StaticString(newValue : StaticString) {
+				«field.fieldName»_ss = newValue
+				«field.fieldName»_s = nil
+				«field.fieldName»_b = nil
+			}
+			private var «field.fieldName»_b : UnsafeBufferPointer<UInt8>? = nil
+			public var «field.fieldName»Buffer : UnsafeBufferPointer<UInt8>? {return «field.fieldName»_b}
+			private var «field.fieldName»_s : String? = nil
+			private var «field.fieldName»_ss : StaticString? = nil
+			
+			«ELSE»
 			public var «field.fieldName» : «field.getType.asSwiftFieldType(true)» = «field.defaultValueStringWithVector»
+			«ENDIF»
 			«ENDFOR»
 			public init(){}
 			«IF !table.fields.filter[!it.isDeprecated].empty»
 			public init(«FOR field : table.fields.filter[!it.isDeprecated] SEPARATOR ', '»«field.fieldName»: «field.getType.asSwiftFieldType(true)»«ENDFOR»){
 				«FOR field : table.fields.filter[!it.isDeprecated]»
+				«IF field.type.isString»
+				self.«field.fieldName»_s = «field.fieldName»
+				«ELSE»
 				self.«field.fieldName» = «field.fieldName»
+				«ENDIF»
 				«ENDFOR»
 			}
+			«IF !table.fields.filter[it.type.isString].empty»
+			public init(«FOR field : table.fields.filter[!it.isDeprecated] SEPARATOR ', '»«field.fieldName»: «IF field.type.isString»StaticString?«ELSE»«field.getType.asSwiftFieldType(true)»«ENDIF»«ENDFOR»){
+				«FOR field : table.fields.filter[!it.isDeprecated]»
+				«IF field.type.isString»
+				self.«field.fieldName»_ss = «field.fieldName»
+				«ELSE»
+				self.«field.fieldName» = «field.fieldName»
+				«ENDIF»
+				«ENDFOR»
+			}
+			«ENDIF»
 			«ENDIF»
 		}
 	'''
@@ -293,7 +341,7 @@ public class EagerSwiftGenerator {
 			'''
 		} else if(indexedField.value.getType.isString){
 			'''
-				_result.«indexedField.value.fieldName» = reader.getString(reader.getOffset(objectOffset, propertyIndex: «indexedField.key»))
+				_result.«indexedField.value.fieldName»_b = reader.getStringBuffer(reader.getOffset(objectOffset, propertyIndex: «indexedField.key»))
 			'''
 		} else if(indexedField.value.getType.vectorType != null && !indexedField.value.getType.isUnionVector) {
 			'''
@@ -483,11 +531,21 @@ public class EagerSwiftGenerator {
 				let builder = FlatBufferBuilder.create(config)
 				let offset = addToByteArray(builder)
 				performLateBindings(builder)
-				let result = try! builder.finish(offset, fileIdentifier: «IF fileIdentifier == null»nil«ELSE»"«fileIdentifier»"«ENDIF»)
+				try! builder.finish(offset, fileIdentifier: «IF fileIdentifier == null»nil«ELSE»"«fileIdentifier»"«ENDIF»)
+				let result = builder.data
 				FlatBufferBuilder.reuse(builder)
 				return result
 			}
 		}
+		
+		public extension «table.name» {
+			public func toFlatBufferBuilder (builder : FlatBufferBuilder) -> Void {
+				let offset = addToByteArray(builder)
+				performLateBindings(builder)
+				try! builder.finish(offset, fileIdentifier: «IF fileIdentifier == null»nil«ELSE»"«fileIdentifier»"«ENDIF»)
+			}
+		}
+		
 	'''
 	
 	def generateAddToByteArrayExtension(Table table) '''
@@ -540,7 +598,17 @@ public class EagerSwiftGenerator {
 		} else if(field.isDeprecated){
 			'''// «field.fieldName» is deprecated'''
 		} else if(field.getType.isString){
-			'''let offset«index» = try! builder.createString(«field.fieldName»)'''
+			'''
+			// let offset«index» = try! builder.createString(«field.fieldName»)
+			var offset«index» : Offset
+			if let s = «field.fieldName»_b {
+				offset«index» = try! builder.createString(s)
+			} else if let s = «field.fieldName»_ss {
+				offset«index» = try! builder.createStaticString(s)
+			} else {
+				offset«index» = try! builder.createString(«field.fieldName»)
+			}
+			'''
 		} else if(field.getType.isTable){
 			'''
 			let offset«index» = «field.fieldName»?.addToByteArray(builder) ?? 0
