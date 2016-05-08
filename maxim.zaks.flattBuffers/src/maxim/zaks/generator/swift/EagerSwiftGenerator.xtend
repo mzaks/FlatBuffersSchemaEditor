@@ -125,6 +125,8 @@ public class EagerSwiftGenerator {
 	
 	def generateMainDataStructureForTable(Table table) '''
 		public final class «table.name» {
+			public static var maxInstanceCacheSize : Int = 0
+			public static var instancePool : [«table.name»] = []
 			«FOR field : table.fields»
 			«IF field.type.isString»
 			public var «field.fieldName» : String? {
@@ -183,6 +185,27 @@ public class EagerSwiftGenerator {
 			}
 			«ENDIF»
 			«ENDIF»
+		}
+		
+		extension «table.name» : PoolableInstances {
+			public func reset() { 
+				«FOR field : table.fields.filter[!it.isDeprecated]»
+				«IF field.type.isTableVector»
+				while («field.fieldName».count > 0) {
+					var x = «field.fieldName».removeLast()!
+					«field.type.vectorType.type.asSwiftFieldType».reuseInstance(&x)
+				}
+				«ELSEIF field.type.isTable»
+				if «field.fieldName» != nil {
+					var x = «field.fieldName»!
+					«field.fieldName» = nil
+					«field.type.asSwiftFieldType».reuseInstance(&x)
+				}
+				«ELSE»
+				«field.fieldName» = «field.defaultValueStringWithVector»
+				«ENDIF»
+				«ENDFOR»
+			}
 		}
 	'''
 	
@@ -304,6 +327,13 @@ public class EagerSwiftGenerator {
 				FlatBufferReader.reuse(reader)
 				return result
 			}
+			public static func fromRawMemory(data : UnsafeMutablePointer<UInt8>, count : Int, config : BinaryReadConfig = BinaryReadConfig()) -> «table.name» {
+				let reader = FlatBufferReader.create(data, count: count, config: config)
+				let objectOffset = reader.rootObjectOffset
+				let result = create(reader, objectOffset : objectOffset)!
+				FlatBufferReader.reuse(reader)
+				return result
+			}
 		}
 	'''
 	
@@ -318,7 +348,7 @@ public class EagerSwiftGenerator {
 						return o as? «table.name»
 					}
 				}
-				let _result = «table.name»()
+				let _result = «table.name».createInstance()
 				if reader.config.uniqueTables {
 					reader.objectPool[objectOffset] = _result
 				}
