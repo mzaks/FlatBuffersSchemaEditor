@@ -14,8 +14,8 @@ public enum FlatBufferBuilderError : ErrorType {
 
 public final class FlatBufferBuilder {
     
-    public static var maxInstanceCacheSize : UInt = 1000 // max number of cached instances
-    static var builderPool : [FlatBufferBuilder] = []
+    public static var maxInstanceCacheSize : UInt = 0 // max number of cached instances
+    static var instancePool : [FlatBufferBuilder] = []
     
     public var cache : [ObjectIdentifier : Offset] = [:]
     public var inProgress : Set<ObjectIdentifier> = []
@@ -378,9 +378,12 @@ public extension FlatBufferBuilder {
     }
     
     public static func create(config: BinaryBuildConfig) -> FlatBufferBuilder {
-        if (builderPool.count > 0)
+        objc_sync_enter(instancePool)
+        defer { objc_sync_exit(instancePool) }
+
+        if (instancePool.count > 0)
         {
-            let builder = builderPool.removeLast()
+            let builder = instancePool.removeLast()
             builder.config = config
             if (config.initialCapacity > builder.capacity) {
                 builder._data.dealloc(builder.capacity)
@@ -394,14 +397,16 @@ public extension FlatBufferBuilder {
     }
     
     public static func reuse(builder : FlatBufferBuilder) {
-        if (UInt(builderPool.count) < maxInstanceCacheSize) 
+        objc_sync_enter(instancePool)
+        defer { objc_sync_exit(instancePool) }
+
+        if (UInt(instancePool.count) < maxInstanceCacheSize)
         {
             builder.reset()
-            builderPool.append(builder)
+            instancePool.append(builder)
         }
     }
     
 }
-
 	'''
 }

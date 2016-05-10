@@ -125,7 +125,7 @@ public class EagerSwiftGenerator {
 	
 	def generateMainDataStructureForTable(Table table) '''
 		public final class «table.name» {
-			public static var maxInstanceCacheSize : Int = 0
+			public static var maxInstanceCacheSize : UInt = 0
 			public static var instancePool : [«table.name»] = []
 			«FOR field : table.fields»
 			«IF field.type.isString»
@@ -333,6 +333,9 @@ public class EagerSwiftGenerator {
 				let result = create(reader, objectOffset : objectOffset)!
 				FlatBufferReader.reuse(reader)
 				return result
+			}
+			public static func fromFlatBufferReader(flatBufferReader : FlatBufferReader) -> «table.name» {
+				return create(flatBufferReader, objectOffset : flatBufferReader.rootObjectOffset)!
 			}
 		}
 	'''
