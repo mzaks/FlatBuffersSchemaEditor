@@ -11,6 +11,7 @@ import maxim.zaks.flatBuffers.Type
 import maxim.zaks.flatBuffers.Union
 import maxim.zaks.flatBuffers.Definition
 import java.util.List
+import maxim.zaks.flatBuffers.ScalarType
 
 public class ModelExtensions {
 	
@@ -148,6 +149,13 @@ public class ModelExtensions {
 			}
 		}
 		return false
+	}
+	
+	def name(ScalarType type){
+		switch type {
+			Struct case type: return type.name
+			Enum case type: return type.name
+		}
 	}
 	
 	def isEnum(Type t){

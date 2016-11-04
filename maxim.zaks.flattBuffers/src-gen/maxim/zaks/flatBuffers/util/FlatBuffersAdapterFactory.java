@@ -12,6 +12,7 @@ import maxim.zaks.flatBuffers.FileIdentifier;
 import maxim.zaks.flatBuffers.FlatBuffersPackage;
 import maxim.zaks.flatBuffers.Namespace;
 import maxim.zaks.flatBuffers.RootType;
+import maxim.zaks.flatBuffers.ScalarType;
 import maxim.zaks.flatBuffers.Schema;
 import maxim.zaks.flatBuffers.Struct;
 import maxim.zaks.flatBuffers.StructField;
@@ -130,6 +131,11 @@ public class FlatBuffersAdapterFactory extends AdapterFactoryImpl
       public Adapter caseStructField(StructField object)
       {
         return createStructFieldAdapter();
+      }
+      @Override
+      public Adapter caseScalarType(ScalarType object)
+      {
+        return createScalarTypeAdapter();
       }
       @Override
       public Adapter caseTable(Table object)
@@ -319,6 +325,21 @@ public class FlatBuffersAdapterFactory extends AdapterFactoryImpl
    * @generated
    */
   public Adapter createStructFieldAdapter()
+  {
+    return null;
+  }
+
+  /**
+   * Creates a new adapter for an object of class '{@link maxim.zaks.flatBuffers.ScalarType <em>Scalar Type</em>}'.
+   * <!-- begin-user-doc -->
+   * This default implementation returns null so that we can easily ignore cases;
+   * it's useful to ignore a case when inheritance will catch all the cases anyway.
+   * <!-- end-user-doc -->
+   * @return the new adapter.
+   * @see maxim.zaks.flatBuffers.ScalarType
+   * @generated
+   */
+  public Adapter createScalarTypeAdapter()
   {
     return null;
   }

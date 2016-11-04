@@ -6,22 +6,6 @@ public typealias Offset = Int32
 
 public protocol Scalar : Equatable {}
 
-extension Scalar {
-    var littleEndian : Self {
-        switch self {
-        case let v as Int16 : return v.littleEndian as! Self
-        case let v as UInt16 : return v.littleEndian as! Self
-        case let v as Int32 : return v.littleEndian as! Self
-        case let v as UInt32 : return v.littleEndian as! Self
-        case let v as Int64 : return v.littleEndian as! Self
-        case let v as UInt64 : return v.littleEndian as! Self
-        case let v as Int : return v.littleEndian as! Self
-        case let v as UInt : return v.littleEndian as! Self
-        default : return self
-        }
-    }
-}
-
 extension Bool : Scalar {}
 extension Int8 : Scalar {}
 extension UInt8 : Scalar {}
@@ -38,15 +22,27 @@ extension Float64 : Scalar {}
 
 public protocol PoolableInstances : AnyObject {
     static var maxInstanceCacheSize : UInt { get set }
-    static var instancePool : [Self] { get set }
+    static var instancePool : ContiguousArray<Self> { get set }
+    static var instancePoolMutex : pthread_mutex_t { get set } /// Should be initialized to setupInstancePoolMutex
     init()
     func reset()
 }
 
 public extension PoolableInstances {
     
+    // Must be called to initialize mutex
+    public static func setupInstancePoolMutex() -> pthread_mutex_t
+    {
+        var mtx = pthread_mutex_t()
+        pthread_mutex_init(&mtx, nil)
+        return mtx
+    }
+    
     // Optional preheat of instance pool
     public static func fillInstancePool(initialPoolSize : UInt) -> Void {
+        pthread_mutex_lock(&instancePoolMutex)
+        defer { pthread_mutex_unlock(&instancePoolMutex) }
+
         while ((UInt(instancePool.count) < initialPoolSize) && (UInt(instancePool.count) < maxInstanceCacheSize))
         {
             instancePool.append(Self())
@@ -54,6 +50,14 @@ public extension PoolableInstances {
     }
     
     public static func createInstance() -> Self {
+        guard maxInstanceCacheSize > 0 else // avoid taking the mutex if not using pool
+        {
+            return Self()
+        }
+        
+        pthread_mutex_lock(&instancePoolMutex)
+        defer { pthread_mutex_unlock(&instancePoolMutex) }
+
         if (instancePool.count > 0)
         {
             let instance = instancePool.removeLast()
@@ -65,6 +69,13 @@ public extension PoolableInstances {
     // reuseInstance can be called when we believe we are about to zero out
     // the final strong reference we hold ourselves to put the instance in for reuse
     public static func reuseInstance(inout instance : Self) {
+        guard maxInstanceCacheSize > 0 else // avoid taking the mutex if not using pool
+        {
+            return // don't pool
+        }
+
+        pthread_mutex_lock(&instancePoolMutex)
+        defer { pthread_mutex_unlock(&instancePoolMutex) }
         
         if (isUniquelyReferencedNonObjC(&instance) && (UInt(instancePool.count) < maxInstanceCacheSize))
         {
@@ -73,6 +84,7 @@ public extension PoolableInstances {
         }
     }
 }
+
 
 
 public final class LazyVector<T> : SequenceType {
@@ -130,14 +142,19 @@ public struct BinaryBuildConfig{
     public let uniqueTables : Bool
     public let uniqueVTables : Bool
     public let forceDefaults : Bool
-    public init(initialCapacity : Int = 1, uniqueStrings : Bool = true, uniqueTables : Bool = true, uniqueVTables : Bool = true, forceDefaults : Bool = false) {
+    public let fullMemoryAlignment : Bool
+    public let nullTerminatedUTF8 : Bool
+    public init(initialCapacity : Int = 1, uniqueStrings : Bool = true, uniqueTables : Bool = true, uniqueVTables : Bool = true, forceDefaults : Bool = false, fullMemoryAlignment: Bool = true, nullTerminatedUTF8 : Bool = false) {
         self.initialCapacity = initialCapacity
         self.uniqueStrings = uniqueStrings
         self.uniqueTables = uniqueTables
         self.uniqueVTables = uniqueVTables
         self.forceDefaults = forceDefaults
+        self.fullMemoryAlignment = fullMemoryAlignment
+        self.nullTerminatedUTF8 = nullTerminatedUTF8
     }
 }
+
 
 public struct BinaryReadConfig {
     public let uniqueTables : Bool
@@ -147,6 +164,13 @@ public struct BinaryReadConfig {
         self.uniqueTables = uniqueTables
     }
 }
+
+postfix operator § {}
+
+public postfix func §(value: UnsafeBufferPointer<UInt8>) -> String? {
+    return String.init(bytesNoCopy: UnsafeMutablePointer<UInt8>(value.baseAddress), length: value.count, encoding: NSUTF8StringEncoding, freeWhenDone: false)
+}
+
 
 '''
 }

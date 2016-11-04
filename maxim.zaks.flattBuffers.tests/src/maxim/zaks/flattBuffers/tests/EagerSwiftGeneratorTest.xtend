@@ -360,15 +360,15 @@ private func performClearCaches() {
     assertEquals(generator.generateMainDataStructureForTable(schema.definitions.get(0) as Table).toString.trim,
 	'''
 	public final class T1 {
-		public var t : [String?] = []
-		public var t2 : [Bool] = []
-		public var t3 : [E?] = []
-		public var t4 : [T2?] = []
-		public var t5 : [[T2?]] = []
-		public var t6 : [[Int8]] = []
-		public var t7 : [S1?] = []
+		public var t : ContiguousArray<String?> = []
+		public var t2 : ContiguousArray<Bool> = []
+		public var t3 : ContiguousArray<E?> = []
+		public var t4 : ContiguousArray<T2?> = []
+		public var t5 : ContiguousArray<ContiguousArray<T2?>> = []
+		public var t6 : ContiguousArray<ContiguousArray<Int8>> = []
+		public var t7 : ContiguousArray<S1?> = []
 		public init(){}
-		public init(t: [String?], t2: [Bool], t3: [E?], t4: [T2?], t5: [[T2?]], t6: [[Int8]], t7: [S1?]){
+		public init(t: ContiguousArray<String?>, t2: ContiguousArray<Bool>, t3: ContiguousArray<E?>, t4: ContiguousArray<T2?>, t5: ContiguousArray<ContiguousArray<T2?>>, t6: ContiguousArray<ContiguousArray<Int8>>, t7: ContiguousArray<S1?>){
 			self.t = t
 			self.t2 = t2
 			self.t3 = t3
@@ -386,36 +386,60 @@ private func performClearCaches() {
     val schema = parser.parse(
     '''
     struct S1 {
-    	name : string;
-    	age : int;
+    	i : int;
+    	b : bool;
     }
     ''')
     
     assertEquals(generator.generateMainStructForStruct(schema.definitions.get(0) as Struct).toString.trim,
 	'''
-	public struct S1 {
-		public var name : Any /* unsupported struct field type */
-		public var age : Int32
+	public struct S1 : Scalar {
+		public let i : Int32
+		public let b : Bool
+	}
+	
+	'''.toString.trim)
+  }
+  
+  @Test
+  def void generateStructEquality() {
+    val schema = parser.parse(
+    '''
+    struct S1 {
+    	i : int;
+    	b : bool;
+    }
+    ''')
+    
+    assertEquals(generator.generateStructEquality(schema.definitions.get(0) as Struct).toString.trim,
+	'''
+	public func ==(v1:S1, v2:S1) -> Bool {
+		return  v1.i==v2.i &&  v1.b==v2.b
 	}
 	'''.toString.trim)
   }
   
   @Test
-  def void generateEnum() {
+  def void generateStructWithRefToAnotherStruct() {
     val schema = parser.parse(
     '''
-    enum E1 {
-    	A,
-    	B = 3,
-    	C
+    struct S1 {
+    	i : int;
+    	b : bool;
+    }
+    struct S2 {
+    	s1 : S1;
+    	f  : float;
     }
     ''')
     
-    assertEquals(generator.generateMainEnumForEnum(schema.definitions.get(0) as Enum).toString.trim,
+    assertEquals(generator.generateMainStructForStruct(schema.definitions.get(1) as Struct).toString.trim,
 	'''
-	public enum E1 {
-		case A, B = 3, C
+	public struct S2 : Scalar {
+		public let s1 : S1
+		public let f : Float32
 	}
+	
 	'''.toString.trim)
   }
   
@@ -439,6 +463,25 @@ private func performClearCaches() {
   }
   
   @Test
+  def void generateStructWithEnum() {
+    val schema = parser.parse(
+    '''
+    struct S1 {
+    	e : E;
+    }
+    enum E : byte { a }
+    ''')
+    
+    assertEquals(generator.generateMainStructForStruct(schema.definitions.get(0) as Struct).toString.trim,
+	'''
+	public struct S1 : Scalar {
+		public let e : E
+	}
+	
+	'''.toString.trim)
+  }
+  
+  @Test
   def void generateUnion() {
     val schema = parser.parse(
     '''
@@ -451,14 +494,13 @@ private func performClearCaches() {
     assertEquals(generator.generateProtocolAndTableExtensionsForUnion(schema.definitions.get(0) as Union).toString.trim,
 	'''
 	public protocol U1{}
-	public protocol U1_LazyAccess{}
+	public protocol U1_Direct{}
 	extension T1 : U1 {}
-	extension T1.LazyAccess : U1_LazyAccess {}
+	extension T1.Direct : U1_Direct {}
 	extension T2 : U1 {}
-	extension T2.LazyAccess : U1_LazyAccess {}
+	extension T2.Direct : U1_Direct {}
 	extension T3 : U1 {}
-	extension T3.LazyAccess : U1_LazyAccess {}
-	private var U1_DeferedBindings : [(object:U1, cursor:Int)] = []
+	extension T3.Direct : U1_Direct {}
 	'''.toString.trim)
   }
   
@@ -474,7 +516,7 @@ private func performClearCaches() {
     
     assertEquals(generator.generateCreaterFunctionForUnion(schema.definitions.get(0) as Union).toString.trim,
 	'''
-	private func create_U1(reader : FlatBufferReader, propertyIndex : Int, objectOffset : Offset?) -> U1? {
+	private func create_U1(reader : FBReader, propertyIndex : Int, objectOffset : Offset?) -> U1? {
 		guard let objectOffset = objectOffset else {
 			return nil
 		}
@@ -546,18 +588,20 @@ private func performClearCaches() {
     assertEquals(generator.generateCreateExtension(schema.definitions.get(0) as Table).toString.trim,
 	'''
 public extension T1 {
-	private static var objectPool : [Offset : T1] = [:]
-	private static func create(reader : FlatBufferReader, objectOffset : Offset?) -> T1? {
+	private static func create(reader : FBReader, objectOffset : Offset?) -> T1? {
 		guard let objectOffset = objectOffset else {
 			return nil
 		}
-		if let o = T1.objectPool[objectOffset]{
-			return o
+		if  let cache = reader.cache,
+			let o = cache.objectPool[objectOffset] {
+			return o as? T1
 		}
 		let _result = T1()
-		T1.objectPool[objectOffset] = _result
 		_result.a = reader.get(objectOffset, propertyIndex: 0, defaultValue: false)
 		_result.b = reader.get(objectOffset, propertyIndex: 1, defaultValue: 0)
+		if let cache = reader.cache {
+			cache.objectPool[objectOffset] = _result
+		}
 		return _result
 	}
 }
@@ -578,19 +622,21 @@ public extension T1 {
     assertEquals(generator.generateCreateExtension(schema.definitions.get(0) as Table).toString.trim,
 	'''
 public extension T1 {
-	private static var objectPool : [Offset : T1] = [:]
-	private static func create(reader : FlatBufferReader, objectOffset : Offset?) -> T1? {
+	private static func create(reader : FBReader, objectOffset : Offset?) -> T1? {
 		guard let objectOffset = objectOffset else {
 			return nil
 		}
-		if let o = T1.objectPool[objectOffset]{
-			return o
+		if  let cache = reader.cache,
+			let o = cache.objectPool[objectOffset] {
+			return o as? T1
 		}
 		let _result = T1()
-		T1.objectPool[objectOffset] = _result
 		_result.a = reader.get(objectOffset, propertyIndex: 0, defaultValue: true)
 		_result.b = reader.get(objectOffset, propertyIndex: 1, defaultValue: 3)
 		_result.c = reader.get(objectOffset, propertyIndex: 2, defaultValue: 0.5)
+		if let cache = reader.cache {
+			cache.objectPool[objectOffset] = _result
+		}
 		return _result
 	}
 }
@@ -605,24 +651,26 @@ public extension T1 {
     	e1 : E1;
     	e2 : E1 = C;
     }
-    enum E1 {A, B, C}
+    enum E1 : byte {A, B, C}
     ''')
     
     assertEquals(generator.generateCreateExtension(schema.definitions.get(0) as Table).toString.trim,
 	'''
 public extension T2 {
-	private static var objectPool : [Offset : T2] = [:]
-	private static func create(reader : FlatBufferReader, objectOffset : Offset?) -> T2? {
+	private static func create(reader : FBReader, objectOffset : Offset?) -> T2? {
 		guard let objectOffset = objectOffset else {
 			return nil
 		}
-		if let o = T2.objectPool[objectOffset]{
-			return o
+		if  let cache = reader.cache,
+			let o = cache.objectPool[objectOffset] {
+			return o as? T2
 		}
 		let _result = T2()
-		T2.objectPool[objectOffset] = _result
 		_result.e1 = E1(rawValue: reader.get(objectOffset, propertyIndex: 0, defaultValue: E1.A.rawValue))
 		_result.e2 = E1(rawValue: reader.get(objectOffset, propertyIndex: 1, defaultValue: E1.C.rawValue))
+		if let cache = reader.cache {
+			cache.objectPool[objectOffset] = _result
+		}
 		return _result
 	}
 }
@@ -641,17 +689,19 @@ public extension T2 {
     assertEquals(generator.generateCreateExtension(schema.definitions.get(0) as Table).toString.trim,
 	'''
 public extension T2 {
-	private static var objectPool : [Offset : T2] = [:]
-	private static func create(reader : FlatBufferReader, objectOffset : Offset?) -> T2? {
+	private static func create(reader : FBReader, objectOffset : Offset?) -> T2? {
 		guard let objectOffset = objectOffset else {
 			return nil
 		}
-		if let o = T2.objectPool[objectOffset]{
-			return o
+		if  let cache = reader.cache,
+			let o = cache.objectPool[objectOffset] {
+			return o as? T2
 		}
 		let _result = T2()
-		T2.objectPool[objectOffset] = _result
-		_result.s1 = reader.getString(reader.getOffset(objectOffset, propertyIndex: 0))
+		_result.s1 = reader.getStringBuffer(reader.getOffset(objectOffset, propertyIndex: 0))?§
+		if let cache = reader.cache {
+			cache.objectPool[objectOffset] = _result
+		}
 		return _result
 	}
 }
@@ -670,24 +720,28 @@ public extension T2 {
     assertEquals(generator.generateCreateExtension(schema.definitions.get(0) as Table).toString.trim,
 	'''
 public extension T2 {
-	private static var objectPool : [Offset : T2] = [:]
-	private static func create(reader : FlatBufferReader, objectOffset : Offset?) -> T2? {
+	private static func create(reader : FBReader, objectOffset : Offset?) -> T2? {
 		guard let objectOffset = objectOffset else {
 			return nil
 		}
-		if let o = T2.objectPool[objectOffset]{
-			return o
+		if  let cache = reader.cache,
+			let o = cache.objectPool[objectOffset] {
+			return o as? T2
 		}
 		let _result = T2()
-		T2.objectPool[objectOffset] = _result
 		let offset_v1 : Offset? = reader.getOffset(objectOffset, propertyIndex: 0)
 		let length_v1 = reader.getVectorLength(offset_v1)
 		if(length_v1 > 0){
 			var index = 0
+			_result.v1.reserveCapacity(length_v1)
 			while index < length_v1 {
-				_result.v1.append(reader.getVectorScalarElement(offset_v1!, index: index))
+				let element : Int32 = reader.getVectorScalarElement(offset_v1, index: index)
+				_result.v1.append(element)
 				index += 1
 			}
+		}
+		if let cache = reader.cache {
+			cache.objectPool[objectOffset] = _result
 		}
 		return _result
 	}
@@ -702,30 +756,38 @@ public extension T2 {
     table T2 {
     	v1 : [E];
     }
-    enum E {A,B}
+    enum E : byte {A,B}
     ''')
     
     assertEquals(generator.generateCreateExtension(schema.definitions.get(0) as Table).toString.trim,
 	'''
 public extension T2 {
-	private static var objectPool : [Offset : T2] = [:]
-	private static func create(reader : FlatBufferReader, objectOffset : Offset?) -> T2? {
+	private static func create(reader : FBReader, objectOffset : Offset?) -> T2? {
 		guard let objectOffset = objectOffset else {
 			return nil
 		}
-		if let o = T2.objectPool[objectOffset]{
-			return o
+		if  let cache = reader.cache,
+			let o = cache.objectPool[objectOffset] {
+			return o as? T2
 		}
 		let _result = T2()
-		T2.objectPool[objectOffset] = _result
 		let offset_v1 : Offset? = reader.getOffset(objectOffset, propertyIndex: 0)
 		let length_v1 = reader.getVectorLength(offset_v1)
 		if(length_v1 > 0){
 			var index = 0
+			_result.v1.reserveCapacity(length_v1)
 			while index < length_v1 {
-				_result.v1.append(E(rawValue: reader.getVectorScalarElement(offset_v1!, index: index)))
+				if let raw : Int8 = reader.getVectorScalarElement(offset_v1, index: index){
+					let element : E? = E(rawValue: raw)
+					_result.v1.append(element)
+				} else {
+					_result.v1.append(nil)
+				}
 				index += 1
 			}
+		}
+		if let cache = reader.cache {
+			cache.objectPool[objectOffset] = _result
 		}
 		return _result
 	}
@@ -745,24 +807,28 @@ public extension T2 {
     assertEquals(generator.generateCreateExtension(schema.definitions.get(0) as Table).toString.trim,
 	'''
 public extension T2 {
-	private static var objectPool : [Offset : T2] = [:]
-	private static func create(reader : FlatBufferReader, objectOffset : Offset?) -> T2? {
+	private static func create(reader : FBReader, objectOffset : Offset?) -> T2? {
 		guard let objectOffset = objectOffset else {
 			return nil
 		}
-		if let o = T2.objectPool[objectOffset]{
-			return o
+		if  let cache = reader.cache,
+			let o = cache.objectPool[objectOffset] {
+			return o as? T2
 		}
 		let _result = T2()
-		T2.objectPool[objectOffset] = _result
 		let offset_v1 : Offset? = reader.getOffset(objectOffset, propertyIndex: 0)
 		let length_v1 = reader.getVectorLength(offset_v1)
 		if(length_v1 > 0){
 			var index = 0
+			_result.v1.reserveCapacity(length_v1)
 			while index < length_v1 {
-				_result.v1.append(reader.getString(reader.getVectorOffsetElement(offset_v1!, index: index)))
+				let element = reader.getStringBuffer(reader.getVectorOffsetElement(offset_v1, index: index))?§
+				_result.v1.append(element)
 				index += 1
 			}
+		}
+		if let cache = reader.cache {
+			cache.objectPool[objectOffset] = _result
 		}
 		return _result
 	}
@@ -783,17 +849,19 @@ public extension T2 {
     assertEquals(generator.generateCreateExtension(schema.definitions.get(0) as Table).toString.trim,
 	'''
 public extension T2 {
-	private static var objectPool : [Offset : T2] = [:]
-	private static func create(reader : FlatBufferReader, objectOffset : Offset?) -> T2? {
+	private static func create(reader : FBReader, objectOffset : Offset?) -> T2? {
 		guard let objectOffset = objectOffset else {
 			return nil
 		}
-		if let o = T2.objectPool[objectOffset]{
-			return o
+		if  let cache = reader.cache,
+			let o = cache.objectPool[objectOffset] {
+			return o as? T2
 		}
 		let _result = T2()
-		T2.objectPool[objectOffset] = _result
 		_result.t1 = T1.create(reader, objectOffset: reader.getOffset(objectOffset, propertyIndex: 0))
+		if let cache = reader.cache {
+			cache.objectPool[objectOffset] = _result
+		}
 		return _result
 	}
 }
@@ -815,17 +883,19 @@ public extension T2 {
     assertEquals(generator.generateCreateExtension(schema.definitions.get(0) as Table).toString.trim,
 	'''
 public extension T1 {
-	private static var objectPool : [Offset : T1] = [:]
-	private static func create(reader : FlatBufferReader, objectOffset : Offset?) -> T1? {
+	private static func create(reader : FBReader, objectOffset : Offset?) -> T1? {
 		guard let objectOffset = objectOffset else {
 			return nil
 		}
-		if let o = T1.objectPool[objectOffset]{
-			return o
+		if  let cache = reader.cache,
+			let o = cache.objectPool[objectOffset] {
+			return o as? T1
 		}
 		let _result = T1()
-		T1.objectPool[objectOffset] = _result
 		_result.u1 = create_U1(reader, propertyIndex: 0, objectOffset: objectOffset)
+		if let cache = reader.cache {
+			cache.objectPool[objectOffset] = _result
+		}
 		return _result
 	}
 }
@@ -850,22 +920,19 @@ public extension T1 {
     assertEquals(generator.generateCreateExtension(schema.definitions.get(0) as Table).toString.trim,
 	'''
 public extension T1 {
-	private static var objectPool : [Offset : T1] = [:]
-	private static func create(reader : FlatBufferReader, objectOffset : Offset?) -> T1? {
+	private static func create(reader : FBReader, objectOffset : Offset?) -> T1? {
 		guard let objectOffset = objectOffset else {
 			return nil
 		}
-		if let o = T1.objectPool[objectOffset]{
-			return o
+		if  let cache = reader.cache,
+			let o = cache.objectPool[objectOffset] {
+			return o as? T1
 		}
 		let _result = T1()
-		T1.objectPool[objectOffset] = _result
-		_result.s1 = S1(
-			a : reader.getStructProperty(objectOffset, propertyIndex: 0, structPropertyOffset: 0, defaultValue: false),
-			b : reader.getStructProperty(objectOffset, propertyIndex: 0, structPropertyOffset: 1, defaultValue: 0),
-			c : reader.getStructProperty(objectOffset, propertyIndex: 0, structPropertyOffset: 5, defaultValue: 0),
-			d : reader.getStructProperty(objectOffset, propertyIndex: 0, structPropertyOffset: 9, defaultValue: false)
-		)
+		_result.s1 = reader.get(objectOffset, propertyIndex: 0)
+		if let cache = reader.cache {
+			cache.objectPool[objectOffset] = _result
+		}
 		return _result
 	}
 }
@@ -885,24 +952,28 @@ public extension T1 {
     assertEquals(generator.generateCreateExtension(schema.definitions.get(0) as Table).toString.trim,
 	'''
 public extension T2 {
-	private static var objectPool : [Offset : T2] = [:]
-	private static func create(reader : FlatBufferReader, objectOffset : Offset?) -> T2? {
+	private static func create(reader : FBReader, objectOffset : Offset?) -> T2? {
 		guard let objectOffset = objectOffset else {
 			return nil
 		}
-		if let o = T2.objectPool[objectOffset]{
-			return o
+		if  let cache = reader.cache,
+			let o = cache.objectPool[objectOffset] {
+			return o as? T2
 		}
 		let _result = T2()
-		T2.objectPool[objectOffset] = _result
 		let offset_v1 : Offset? = reader.getOffset(objectOffset, propertyIndex: 0)
 		let length_v1 = reader.getVectorLength(offset_v1)
 		if(length_v1 > 0){
 			var index = 0
+			_result.v1.reserveCapacity(length_v1)
 			while index < length_v1 {
-				_result.v1.append(T1.create(reader, objectOffset: reader.getVectorOffsetElement(offset_v1!, index: index)))
+				let element = T1.create(reader, objectOffset: reader.getVectorOffsetElement(offset_v1, index: index))
+				_result.v1.append(element)
 				index += 1
 			}
+		}
+		if let cache = reader.cache {
+			cache.objectPool[objectOffset] = _result
 		}
 		return _result
 	}
@@ -926,27 +997,28 @@ public extension T2 {
     assertEquals(generator.generateCreateExtension(schema.definitions.get(0) as Table).toString.trim,
 	'''
 public extension T2 {
-	private static var objectPool : [Offset : T2] = [:]
-	private static func create(reader : FlatBufferReader, objectOffset : Offset?) -> T2? {
+	private static func create(reader : FBReader, objectOffset : Offset?) -> T2? {
 		guard let objectOffset = objectOffset else {
 			return nil
 		}
-		if let o = T2.objectPool[objectOffset]{
-			return o
+		if  let cache = reader.cache,
+			let o = cache.objectPool[objectOffset] {
+			return o as? T2
 		}
 		let _result = T2()
-		T2.objectPool[objectOffset] = _result
 		let offset_v1 : Offset? = reader.getOffset(objectOffset, propertyIndex: 0)
 		let length_v1 = reader.getVectorLength(offset_v1)
 		if(length_v1 > 0){
 			var index = 0
+			_result.v1.reserveCapacity(length_v1)
 			while index < length_v1 {
-				_result.v1.append(S1(
-					i : reader.getVectorStructElement(offset_v1!, vectorIndex: index, structSize: 5, structElementIndex: 0),
-					b : reader.getVectorStructElement(offset_v1!, vectorIndex: index, structSize: 5, structElementIndex: 4)
-				))
+				let element : S1? = reader.getVectorScalarElement(offset_v1, index: index)
+				_result.v1.append(element)
 				index += 1
 			}
+		}
+		if let cache = reader.cache {
+			cache.objectPool[objectOffset] = _result
 		}
 		return _result
 	}
@@ -966,10 +1038,14 @@ public extension T2 {
     assertEquals(generator.generateFromByteArrayExtension(schema.definitions.get(0) as Table).toString.trim,
 	'''
 public extension T2 {
-	public static func fromByteArray(data : UnsafePointer<UInt8>) -> T2 {
-		let reader = FlatBufferReader(bytes: data)
+	public static func fromByteArray(data : UnsafePointer<UInt8>, count : Int,  cache : FBReaderCache? = FBReaderCache()) -> T2? {
+		let reader = FBMemoryReader(buffer: data, count: count, cache: cache)
 		let objectOffset = reader.rootObjectOffset
-		return create(reader, objectOffset : objectOffset)!
+		return create(reader, objectOffset : objectOffset)
+	}
+	public static func fromReader(reader : FBReader) -> T2? {
+		let objectOffset = reader.rootObjectOffset
+		return create(reader, objectOffset : objectOffset)
 	}
 }
 	'''.toString.trim)
@@ -1095,12 +1171,22 @@ public func ==(t1 : T2.LazyAccess, t2 : T2.LazyAccess) -> Bool {
     assertEquals(generator.generateToByteArrayExtension(schema.definitions.get(0) as Table).toString.trim,
 	'''
 public extension T2 {
-	public var toByteArray : [UInt8] {
-		let builder = FlatBufferBuilder()
+	public func toByteArray (config : BinaryBuildConfig = BinaryBuildConfig()) throws -> [UInt8] {
+		let builder = FlatBufferBuilder.create(config)
 		let offset = addToByteArray(builder)
 		performLateBindings(builder)
-		performClearCaches()
-		return try! builder.finish(offset, fileIdentifier: nil)
+		try builder.finish(offset, fileIdentifier: nil)
+		let result = builder.data
+		FlatBufferBuilder.reuse(builder)
+		return result
+	}
+}
+
+public extension T2 {
+	public func toFlatBufferBuilder (builder : FlatBufferBuilder) throws -> Void {
+		let offset = addToByteArray(builder)
+		performLateBindings(builder)
+		try! builder.finish(offset, fileIdentifier: nil)
 	}
 }
 	'''.toString.trim)
@@ -1119,12 +1205,22 @@ public extension T2 {
     assertEquals(generator.generateToByteArrayExtension(schema.definitions.get(0) as Table).toString.trim,
 	'''
 public extension T2 {
-	public var toByteArray : [UInt8] {
-		let builder = FlatBufferBuilder()
+	public func toByteArray (config : BinaryBuildConfig = BinaryBuildConfig()) throws -> [UInt8] {
+		let builder = FlatBufferBuilder.create(config)
 		let offset = addToByteArray(builder)
 		performLateBindings(builder)
-		performClearCaches()
-		return try! builder.finish(offset, fileIdentifier: "abcd")
+		try builder.finish(offset, fileIdentifier: "abcd")
+		let result = builder.data
+		FlatBufferBuilder.reuse(builder)
+		return result
+	}
+}
+
+public extension T2 {
+	public func toFlatBufferBuilder (builder : FlatBufferBuilder) throws -> Void {
+		let offset = addToByteArray(builder)
+		performLateBindings(builder)
+		try! builder.finish(offset, fileIdentifier: "abcd")
 	}
 }
 	'''.toString.trim)
@@ -1146,30 +1242,21 @@ public extension T2 {
     assertEquals(generator.generateAddToByteArrayExtension(schema.definitions.get(0) as Table).toString.trim,
 	'''
 public extension T2 {
-	private static var cache : [ObjectIdentifier : Offset] = [:]
-	private static var inProgress : Set<ObjectIdentifier> = []
-	private static var deferedBindings : [(object:T2, cursor:Int)] = []
-	static func clearCaches(){
-		cache.removeAll()
-		inProgress.removeAll()
-		deferedBindings.removeAll()
-	}
 	private func addToByteArray(builder : FlatBufferBuilder) -> Offset {
-		if let myOffset = T2.cache[ObjectIdentifier(self)] {
-			return myOffset
+		if builder.config.uniqueTables {
+			if let myOffset = builder.cache[ObjectIdentifier(self)] {
+				return myOffset
+			}
 		}
-		if T2.inProgress.contains(ObjectIdentifier(self)){
-			return 0
-		}
-		T2.inProgress.insert(ObjectIdentifier(self))
 		try! builder.openObject(4)
 		try! builder.addPropertyToOpenObject(3, value : e1!.rawValue, defaultValue : 0)
 		try! builder.addPropertyToOpenObject(2, value : a3, defaultValue : 5)
 		try! builder.addPropertyToOpenObject(1, value : a2, defaultValue : 0)
 		try! builder.addPropertyToOpenObject(0, value : a1, defaultValue : false)
 		let myOffset =  try! builder.closeObject()
-		T2.cache[ObjectIdentifier(self)] = myOffset
-		T2.inProgress.remove(ObjectIdentifier(self))
+		if builder.config.uniqueTables {
+			builder.cache[ObjectIdentifier(self)] = myOffset
+		}
 		return myOffset
 	}
 }
@@ -1190,35 +1277,23 @@ public extension T2 {
     assertEquals(generator.generateAddToByteArrayExtension(schema.definitions.get(0) as Table).toString.trim,
 	'''
 public extension T2 {
-	private static var cache : [ObjectIdentifier : Offset] = [:]
-	private static var inProgress : Set<ObjectIdentifier> = []
-	private static var deferedBindings : [(object:T2, cursor:Int)] = []
-	static func clearCaches(){
-		cache.removeAll()
-		inProgress.removeAll()
-		deferedBindings.removeAll()
-	}
 	private func addToByteArray(builder : FlatBufferBuilder) -> Offset {
-		if let myOffset = T2.cache[ObjectIdentifier(self)] {
-			return myOffset
+		if builder.config.uniqueTables {
+			if let myOffset = builder.cache[ObjectIdentifier(self)] {
+				return myOffset
+			}
 		}
-		if T2.inProgress.contains(ObjectIdentifier(self)){
-			return 0
-		}
-		T2.inProgress.insert(ObjectIdentifier(self))
 		let offset1 = t1?.addToByteArray(builder) ?? 0
 		let offset0 = try! builder.createString(s)
 		try! builder.openObject(2)
 		if t1 != nil {
-			let cursor1 = try! builder.addPropertyOffsetToOpenObject(1, offset: offset1)
-			if offset1 == 0 {
-				T1.deferedBindings.append((object: t1!, cursor: cursor1))
-			}
+			try! builder.addPropertyOffsetToOpenObject(1, offset: offset1)
 		}
 		try! builder.addPropertyOffsetToOpenObject(0, offset: offset0)
 		let myOffset =  try! builder.closeObject()
-		T2.cache[ObjectIdentifier(self)] = myOffset
-		T2.inProgress.remove(ObjectIdentifier(self))
+		if builder.config.uniqueTables {
+			builder.cache[ObjectIdentifier(self)] = myOffset
+		}
 		return myOffset
 	}
 }
@@ -1242,22 +1317,12 @@ public extension T2 {
     assertEquals(generator.generateAddToByteArrayExtension(schema.definitions.get(0) as Table).toString.trim,
 	'''
 public extension T2 {
-	private static var cache : [ObjectIdentifier : Offset] = [:]
-	private static var inProgress : Set<ObjectIdentifier> = []
-	private static var deferedBindings : [(object:T2, cursor:Int)] = []
-	static func clearCaches(){
-		cache.removeAll()
-		inProgress.removeAll()
-		deferedBindings.removeAll()
-	}
 	private func addToByteArray(builder : FlatBufferBuilder) -> Offset {
-		if let myOffset = T2.cache[ObjectIdentifier(self)] {
-			return myOffset
+		if builder.config.uniqueTables {
+			if let myOffset = builder.cache[ObjectIdentifier(self)] {
+				return myOffset
+			}
 		}
-		if T2.inProgress.contains(ObjectIdentifier(self)){
-			return 0
-		}
-		T2.inProgress.insert(ObjectIdentifier(self))
 		var offset3 = Offset(0)
 		if ss.count > 0{
 			var offsets = [Offset?](count: ss.count, repeatedValue: nil)
@@ -1266,7 +1331,7 @@ public extension T2 {
 				offsets[index] = try!builder.createString(ss[index])
 				index -= 1
 			}
-			try! builder.startVector(ss.count)
+			try! builder.startVector(ss.count, elementSize: strideof(Offset))
 			index = ss.count - 1
 			while(index >= 0){
 				try! builder.putOffset(offsets[index])
@@ -1275,8 +1340,8 @@ public extension T2 {
 			offset3 = builder.endVector()
 		}
 		var offset2 = Offset(0)
-		if es.count > 0{
-			try! builder.startVector(es.count)
+		if es.count > 0 {
+			try! builder.startVector(es.count, elementSize: strideof(E1))
 			var index = es.count - 1
 			while(index >= 0){
 				builder.put(es[index]!.rawValue)
@@ -1288,32 +1353,21 @@ public extension T2 {
 		if ts.count > 0{
 			var offsets = [Offset?](count: ts.count, repeatedValue: nil)
 			var index = ts.count - 1
-			var deferedBindingObjects : [Int : T1] = [:]
 			while(index >= 0){
 				offsets[index] = ts[index]?.addToByteArray(builder)
-				if offsets[index] == 0 {
-					deferedBindingObjects[index] = ts[index]!
-				}
 				index -= 1
 			}
-			try! builder.startVector(ts.count)
+			try! builder.startVector(ts.count, elementSize: strideof(Offset))
 			index = ts.count - 1
-			var deferedBindingCursors : [Int : Int] = [:]
 			while(index >= 0){
-				let cursor = try! builder.putOffset(offsets[index])
-				if offsets[index] == 0 {
-					deferedBindingCursors[index] = cursor
-				}
+				try! builder.putOffset(offsets[index])
 				index -= 1
-			}
-			for key in deferedBindingObjects.keys {
-				T1.deferedBindings.append((object: deferedBindingObjects[key]!, cursor: deferedBindingCursors[key]!))
 			}
 			offset1 = builder.endVector()
 		}
 		var offset0 = Offset(0)
-		if ns.count > 0{
-			try! builder.startVector(ns.count)
+		if ns.count > 0 {
+			try! builder.startVector(ns.count, elementSize: strideof(Int32))
 			var index = ns.count - 1
 			while(index >= 0){
 				builder.put(ns[index])
@@ -1335,8 +1389,9 @@ public extension T2 {
 			try! builder.addPropertyOffsetToOpenObject(0, offset: offset0)
 		}
 		let myOffset =  try! builder.closeObject()
-		T2.cache[ObjectIdentifier(self)] = myOffset
-		T2.inProgress.remove(ObjectIdentifier(self))
+		if builder.config.uniqueTables {
+			builder.cache[ObjectIdentifier(self)] = myOffset
+		}
 		return myOffset
 	}
 }
@@ -1358,34 +1413,22 @@ public extension T2 {
     assertEquals(generator.generateAddToByteArrayExtension(schema.definitions.get(0) as Table).toString.trim,
 	'''
 public extension T2 {
-	private static var cache : [ObjectIdentifier : Offset] = [:]
-	private static var inProgress : Set<ObjectIdentifier> = []
-	private static var deferedBindings : [(object:T2, cursor:Int)] = []
-	static func clearCaches(){
-		cache.removeAll()
-		inProgress.removeAll()
-		deferedBindings.removeAll()
-	}
 	private func addToByteArray(builder : FlatBufferBuilder) -> Offset {
-		if let myOffset = T2.cache[ObjectIdentifier(self)] {
-			return myOffset
+		if builder.config.uniqueTables {
+			if let myOffset = builder.cache[ObjectIdentifier(self)] {
+				return myOffset
+			}
 		}
-		if T2.inProgress.contains(ObjectIdentifier(self)){
-			return 0
-		}
-		T2.inProgress.insert(ObjectIdentifier(self))
 		let offset0 = addToByteArray_U1(builder, union: u)
 		try! builder.openObject(2)
 		if u != nil {
-			let cursor0 = try! builder.addPropertyOffsetToOpenObject(1, offset: offset0)
-			if offset0 == 0 {
-				U1_DeferedBindings.append((object: u!, cursor: cursor0))
-			}
+			try! builder.addPropertyOffsetToOpenObject(1, offset: offset0)
 			try! builder.addPropertyToOpenObject(0, value : unionCase_U1(u), defaultValue : 0)
 		}
 		let myOffset =  try! builder.closeObject()
-		T2.cache[ObjectIdentifier(self)] = myOffset
-		T2.inProgress.remove(ObjectIdentifier(self))
+		if builder.config.uniqueTables {
+			builder.cache[ObjectIdentifier(self)] = myOffset
+		}
 		return myOffset
 	}
 }
@@ -1408,31 +1451,21 @@ public extension T2 {
     assertEquals(generator.generateAddToByteArrayExtension(schema.definitions.get(0) as Table).toString.trim,
 	'''
 public extension T2 {
-	private static var cache : [ObjectIdentifier : Offset] = [:]
-	private static var inProgress : Set<ObjectIdentifier> = []
-	private static var deferedBindings : [(object:T2, cursor:Int)] = []
-	static func clearCaches(){
-		cache.removeAll()
-		inProgress.removeAll()
-		deferedBindings.removeAll()
-	}
 	private func addToByteArray(builder : FlatBufferBuilder) -> Offset {
-		if let myOffset = T2.cache[ObjectIdentifier(self)] {
-			return myOffset
+		if builder.config.uniqueTables {
+			if let myOffset = builder.cache[ObjectIdentifier(self)] {
+				return myOffset
+			}
 		}
-		if T2.inProgress.contains(ObjectIdentifier(self)){
-			return 0
-		}
-		T2.inProgress.insert(ObjectIdentifier(self))
 		try! builder.openObject(1)
 		if let u = u {
-			builder.put(u.b)
-			builder.put(u.a)
+			builder.put(u)
 			try! builder.addCurrentOffsetAsPropertyToOpenObject(0)
 		}
 		let myOffset =  try! builder.closeObject()
-		T2.cache[ObjectIdentifier(self)] = myOffset
-		T2.inProgress.remove(ObjectIdentifier(self))
+		if builder.config.uniqueTables {
+			builder.cache[ObjectIdentifier(self)] = myOffset
+		}
 		return myOffset
 	}
 }'''.toString.trim)
@@ -1454,29 +1487,18 @@ public extension T2 {
     assertEquals(generator.generateAddToByteArrayExtension(schema.definitions.get(0) as Table).toString.trim,
 	'''
 public extension T2 {
-	private static var cache : [ObjectIdentifier : Offset] = [:]
-	private static var inProgress : Set<ObjectIdentifier> = []
-	private static var deferedBindings : [(object:T2, cursor:Int)] = []
-	static func clearCaches(){
-		cache.removeAll()
-		inProgress.removeAll()
-		deferedBindings.removeAll()
-	}
 	private func addToByteArray(builder : FlatBufferBuilder) -> Offset {
-		if let myOffset = T2.cache[ObjectIdentifier(self)] {
-			return myOffset
+		if builder.config.uniqueTables {
+			if let myOffset = builder.cache[ObjectIdentifier(self)] {
+				return myOffset
+			}
 		}
-		if T2.inProgress.contains(ObjectIdentifier(self)){
-			return 0
-		}
-		T2.inProgress.insert(ObjectIdentifier(self))
 		var offset0 = Offset(0)
-		if ss.count > 0{
-			try! builder.startVector(ss.count)
+		if ss.count > 0 {
+			try! builder.startVector(ss.count, elementSize: strideof(S1))
 			var index = ss.count - 1
 			while(index >= 0){
-				builder.put(ss[index]?.b ?? false)
-				builder.put(ss[index]?.a ?? 0)
+				builder.put(ss[index]!)
 				index -= 1
 			}
 			offset0 = builder.endVector()
@@ -1486,8 +1508,9 @@ public extension T2 {
 			try! builder.addPropertyOffsetToOpenObject(0, offset: offset0)
 		}
 		let myOffset =  try! builder.closeObject()
-		T2.cache[ObjectIdentifier(self)] = myOffset
-		T2.inProgress.remove(ObjectIdentifier(self))
+		if builder.config.uniqueTables {
+			builder.cache[ObjectIdentifier(self)] = myOffset
+		}
 		return myOffset
 	}
 }

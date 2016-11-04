@@ -21,7 +21,7 @@ import org.eclipse.emf.common.util.EList;
  * @model
  * @generated
  */
-public interface Struct extends Definition
+public interface Struct extends Definition, ScalarType
 {
   /**
    * Returns the value of the '<em><b>Attributes</b></em>' containment reference.

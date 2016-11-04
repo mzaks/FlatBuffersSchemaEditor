@@ -13,6 +13,7 @@ import maxim.zaks.flatBuffers.FlatBuffersFactory;
 import maxim.zaks.flatBuffers.FlatBuffersPackage;
 import maxim.zaks.flatBuffers.Namespace;
 import maxim.zaks.flatBuffers.RootType;
+import maxim.zaks.flatBuffers.ScalarType;
 import maxim.zaks.flatBuffers.Schema;
 import maxim.zaks.flatBuffers.Struct;
 import maxim.zaks.flatBuffers.StructField;
@@ -90,6 +91,7 @@ public class FlatBuffersFactoryImpl extends EFactoryImpl implements FlatBuffersF
       case FlatBuffersPackage.DEFINITION: return createDefinition();
       case FlatBuffersPackage.STRUCT: return createStruct();
       case FlatBuffersPackage.STRUCT_FIELD: return createStructField();
+      case FlatBuffersPackage.SCALAR_TYPE: return createScalarType();
       case FlatBuffersPackage.TABLE: return createTable();
       case FlatBuffersPackage.FIELD: return createField();
       case FlatBuffersPackage.VALUE: return createValue();
@@ -191,6 +193,17 @@ public class FlatBuffersFactoryImpl extends EFactoryImpl implements FlatBuffersF
   {
     StructFieldImpl structField = new StructFieldImpl();
     return structField;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public ScalarType createScalarType()
+  {
+    ScalarTypeImpl scalarType = new ScalarTypeImpl();
+    return scalarType;
   }
 
   /**

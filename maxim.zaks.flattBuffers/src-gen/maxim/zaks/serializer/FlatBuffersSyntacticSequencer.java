@@ -20,13 +20,13 @@ import org.eclipse.xtext.serializer.sequencer.AbstractSyntacticSequencer;
 public class FlatBuffersSyntacticSequencer extends AbstractSyntacticSequencer {
 
 	protected FlatBuffersGrammarAccess grammarAccess;
-	protected AbstractElementAlias match_Enum_CommaKeyword_7_q;
+	protected AbstractElementAlias match_Enum_CommaKeyword_8_q;
 	protected AbstractElementAlias match_Union_CommaKeyword_5_q;
 	
 	@Inject
 	protected void init(IGrammarAccess access) {
 		grammarAccess = (FlatBuffersGrammarAccess) access;
-		match_Enum_CommaKeyword_7_q = new TokenAlias(false, true, grammarAccess.getEnumAccess().getCommaKeyword_7());
+		match_Enum_CommaKeyword_8_q = new TokenAlias(false, true, grammarAccess.getEnumAccess().getCommaKeyword_8());
 		match_Union_CommaKeyword_5_q = new TokenAlias(false, true, grammarAccess.getUnionAccess().getCommaKeyword_5());
 	}
 	
@@ -106,8 +106,8 @@ public class FlatBuffersSyntacticSequencer extends AbstractSyntacticSequencer {
 		List<INode> transitionNodes = collectNodes(fromNode, toNode);
 		for (AbstractElementAlias syntax : transition.getAmbiguousSyntaxes()) {
 			List<INode> syntaxNodes = getNodesFor(transitionNodes, syntax);
-			if(match_Enum_CommaKeyword_7_q.equals(syntax))
-				emit_Enum_CommaKeyword_7_q(semanticObject, getLastNavigableState(), syntaxNodes);
+			if(match_Enum_CommaKeyword_8_q.equals(syntax))
+				emit_Enum_CommaKeyword_8_q(semanticObject, getLastNavigableState(), syntaxNodes);
 			else if(match_Union_CommaKeyword_5_q.equals(syntax))
 				emit_Union_CommaKeyword_5_q(semanticObject, getLastNavigableState(), syntaxNodes);
 			else acceptNodes(getLastNavigableState(), syntaxNodes);
@@ -121,7 +121,7 @@ public class FlatBuffersSyntacticSequencer extends AbstractSyntacticSequencer {
 	 * This ambiguous syntax occurs at:
 	 *     enumCases+=EnumCase (ambiguity) '}' (rule end)
 	 */
-	protected void emit_Enum_CommaKeyword_7_q(EObject semanticObject, ISynNavigable transition, List<INode> nodes) {
+	protected void emit_Enum_CommaKeyword_8_q(EObject semanticObject, ISynNavigable transition, List<INode> nodes) {
 		acceptNodes(transition, nodes);
 	}
 	

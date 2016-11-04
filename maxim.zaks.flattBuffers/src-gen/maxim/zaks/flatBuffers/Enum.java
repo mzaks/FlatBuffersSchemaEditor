@@ -22,7 +22,7 @@ import org.eclipse.emf.common.util.EList;
  * @model
  * @generated
  */
-public interface Enum extends Definition
+public interface Enum extends Definition, ScalarType
 {
   /**
    * Returns the value of the '<em><b>Type</b></em>' attribute.

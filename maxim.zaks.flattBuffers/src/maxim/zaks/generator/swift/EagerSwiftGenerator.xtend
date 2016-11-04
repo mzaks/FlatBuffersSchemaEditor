@@ -1,16 +1,16 @@
 package maxim.zaks.generator.swift
 
-import maxim.zaks.flatBuffers.Schema
-import maxim.zaks.flatBuffers.Table
-import maxim.zaks.flatBuffers.Type
-import maxim.zaks.flatBuffers.Enum
-import maxim.zaks.flatBuffers.Struct
-import maxim.zaks.flatBuffers.Union
-import maxim.zaks.generator.ModelExtensions;
 import java.util.ArrayList
 import maxim.zaks.flatBuffers.Definition
-import maxim.zaks.flatBuffers.StructField
+import maxim.zaks.flatBuffers.Enum
 import maxim.zaks.flatBuffers.Field
+import maxim.zaks.flatBuffers.Schema
+import maxim.zaks.flatBuffers.Struct
+import maxim.zaks.flatBuffers.StructField
+import maxim.zaks.flatBuffers.Table
+import maxim.zaks.flatBuffers.Type
+import maxim.zaks.flatBuffers.Union
+import maxim.zaks.generator.ModelExtensions
 
 public class EagerSwiftGenerator {
 	public enum InfrastructureInclusionRule {
@@ -78,10 +78,6 @@ public class EagerSwiftGenerator {
 				'''
 				case let object as «definition.name»: try! builder.replaceOffset(object.addToByteArray(builder), atCursor: binding.cursor)
 				'''
-//			Union case definition: 
-//				'''
-//				performLateBindings_«definition.name»(builder)
-//				'''
 			default : ''''''
 		}
 	}
@@ -99,7 +95,7 @@ public class EagerSwiftGenerator {
 		switch definition {
 			Table case definition: definition.generateAllForTable
 			Enum case definition: definition.generateMainEnumForEnum
-			Struct case definition: definition.generateMainStructForStruct
+			Struct case definition: definition.generateAllForStruct
 			// TableName.LazyAccess class is only accesable by code which comes after it. Seems like a Bug in Swift Compiler
 			// This is why we ignore Union case here and has a second for loop in main generate method
 			Union case definition: ''''''
@@ -114,98 +110,31 @@ public class EagerSwiftGenerator {
 		«table.generateFromByteArrayExtension»
 		«table.generateToByteArrayExtension»
 		«ENDIF»
-		«table.generateLazyAccessExtension(table.name == rootTableName)»
+«««		«table.generateLazyAccessExtension(table.name == rootTableName)»
+		«table.generateDirectDataStructureForTable»
 		«table.generateAddToByteArrayExtension»
+«««		«table.generateJSONSupport»
 	'''
 		
 	def generateAllForUnion(Union union)'''
 		«union.generateProtocolAndTableExtensionsForUnion»
+		«union.generateJSONSuportExtensionForUnion»
 		«union.generateCreaterFunctionForUnion»
 	'''
 	
 	def generateMainDataStructureForTable(Table table) '''
 		public final class «table.name» {
-			public static var maxInstanceCacheSize : UInt = 0
-			public static var instancePool : [«table.name»] = []
 			«FOR field : table.fields»
-			«IF field.type.isString»
-			public var «field.fieldName» : String? {
-				get {
-					if let s = «field.fieldName»_s {
-						return s
-					}
-					if let s = «field.fieldName»_ss {
-						«field.fieldName»_s = s.stringValue
-					}
-					if let s = «field.fieldName»_b {
-						«field.fieldName»_s = String.init(bytesNoCopy: UnsafeMutablePointer<UInt8>(s.baseAddress), length: s.count, encoding: NSUTF8StringEncoding, freeWhenDone: false)
-					}
-					return «field.fieldName»_s
-				}
-				set {
-					«field.fieldName»_s = newValue
-					«field.fieldName»_ss = nil
-					«field.fieldName»_b = nil
-				}
-			}
-			public func «field.fieldName»StaticString(newValue : StaticString) {
-				«field.fieldName»_ss = newValue
-				«field.fieldName»_s = nil
-				«field.fieldName»_b = nil
-			}
-			private var «field.fieldName»_b : UnsafeBufferPointer<UInt8>? = nil
-			public var «field.fieldName»Buffer : UnsafeBufferPointer<UInt8>? {return «field.fieldName»_b}
-			private var «field.fieldName»_s : String? = nil
-			private var «field.fieldName»_ss : StaticString? = nil
-			
-			«ELSE»
 			public var «field.fieldName» : «field.getType.asSwiftFieldType(true)» = «field.defaultValueStringWithVector»
-			«ENDIF»
 			«ENDFOR»
 			public init(){}
 			«IF !table.fields.filter[!it.isDeprecated].empty»
 			public init(«FOR field : table.fields.filter[!it.isDeprecated] SEPARATOR ', '»«field.fieldName»: «field.getType.asSwiftFieldType(true)»«ENDFOR»){
 				«FOR field : table.fields.filter[!it.isDeprecated]»
-				«IF field.type.isString»
-				self.«field.fieldName»_s = «field.fieldName»
-				«ELSE»
 				self.«field.fieldName» = «field.fieldName»
-				«ENDIF»
-				«ENDFOR»
-			}
-			«IF !table.fields.filter[it.type.isString].empty»
-			public init(«FOR field : table.fields.filter[!it.isDeprecated] SEPARATOR ', '»«field.fieldName»: «IF field.type.isString»StaticString?«ELSE»«field.getType.asSwiftFieldType(true)»«ENDIF»«ENDFOR»){
-				«FOR field : table.fields.filter[!it.isDeprecated]»
-				«IF field.type.isString»
-				self.«field.fieldName»_ss = «field.fieldName»
-				«ELSE»
-				self.«field.fieldName» = «field.fieldName»
-				«ENDIF»
 				«ENDFOR»
 			}
 			«ENDIF»
-			«ENDIF»
-		}
-		
-		extension «table.name» : PoolableInstances {
-			public func reset() { 
-				«FOR field : table.fields.filter[!it.isDeprecated]»
-				«IF field.type.isTableVector»
-				while («field.fieldName».count > 0) {
-					var x = «field.fieldName».removeLast()!
-					«field.type.vectorType.type.asSwiftFieldType».reuseInstance(&x)
-				}
-				«ELSEIF field.type.isTable»
-				if «field.fieldName» != nil {
-					var x = «field.fieldName»!
-					«field.fieldName» = nil
-					«field.type.asSwiftFieldType».reuseInstance(&x)
-				}
-				«ELSE»
-				«field.fieldName» = «field.defaultValueStringWithVector»
-				«ENDIF»
-				«ENDFOR»
-			}
 		}
 	'''
 	
@@ -228,10 +157,16 @@ public class EagerSwiftGenerator {
 		} else if (type.qualifiedType != null){
 			swiftType = '''Any? /* defined as qulified type which is not supported in Swift*/'''
 		} else if (type.vectorType != null) {
-			swiftType = '''[«type.vectorType.type.asSwiftFieldType(true)»]'''
+			swiftType = '''ContiguousArray<«type.vectorType.type.asSwiftFieldType(true)»>'''
 		}
 		swiftType
 	}
+	
+	def generateAllForStruct(Struct struct) '''
+		«struct.generateMainStructForStruct»
+		«struct.generateStructEquality»
+		«struct.generateJSONStructSupport»
+	'''
 	
 	def generateMainStructForStruct(Struct struct) '''
 		public struct «struct.name» : Scalar {
@@ -239,8 +174,34 @@ public class EagerSwiftGenerator {
 			public let «field.name» : «field.swiftTypeForStructField»
 			«ENDFOR»
 		}
+	'''
+	
+	def generateStructEquality(Struct struct) '''
 		public func ==(v1:«struct.name», v2:«struct.name») -> Bool {
 			return «FOR field : struct.fields SEPARATOR " && "» v1.«field.name»==v2.«field.name»«ENDFOR»
+		}
+	'''
+	
+	def generateJSONStructSupport(Struct struct) '''
+		extension «struct.name» {
+			public func toJSON() -> String{
+				«FOR field : struct.fields»
+				«IF field.primType != null»
+				let «field.name»Property = "\"«field.name»\":\(«field.name»)"
+				«ELSE»
+				let «field.name»Property = "\"«field.name»\":\(«field.name».toJSON())"
+				«ENDIF»
+				«ENDFOR»
+				return "{«FOR field : struct.fields SEPARATOR ","»\(«field.name»Property)«ENDFOR»}"
+			}
+			
+			public static func fromJSON(dict : NSDictionary) -> «struct.name» {
+				return «struct.name»(
+				«FOR field : struct.fields SEPARATOR ","»
+				«field.name»: «IF field.primType != null»(dict["«field.name»"] as! NSNumber).«field.primType.generateNSNumberExpression»«ELSE»«field.defType.name».fromJSON(dict["«field.name»"] as! NSDictionary)«ENDIF»
+				«ENDFOR»
+				)
+			}
 		}
 	'''
 	
@@ -254,23 +215,62 @@ public class EagerSwiftGenerator {
 		"Any /* unsupported struct field type */"
 	}
 	
+	def generateAllForEnum(Enum e) '''
+		«e.generateMainEnumForEnum»
+		«e.generateEnumJSONSupport»
+	'''
+	
 	def generateMainEnumForEnum(Enum e) '''
 		public enum «e.name»«IF e.type != null» : «e.type.convertPrimitiveTypeToSwiftTypes»«ENDIF» {
 			case «FOR eCase : e.enumCases SEPARATOR ', '»«eCase.name»«IF eCase.hasValue» = «eCase.value»«ENDIF»«ENDFOR»
 		}
 	'''
 	
+	def generateEnumJSONSupport(Enum e) '''
+		extension «e.name» {
+			func toJSON() -> String {
+				switch self {
+				«FOR eCase : e.enumCases»
+				case «eCase.name»:
+					return "\"«eCase.name»\""
+				«ENDFOR»
+				}
+			}
+			static func fromJSON(value : String) -> «e.name»? {
+				switch value {
+				«FOR eCase : e.enumCases»
+					case "«eCase.name»":
+						return «eCase.name»
+					«ENDFOR»
+				default:
+					return nil
+				}
+			}
+		}
+		
+	'''
+	
 	def generateProtocolAndTableExtensionsForUnion(Union union) '''
 		public protocol «union.name»{}
-		public protocol «union.name»_LazyAccess{}
+«««		public protocol «union.name»_LazyAccess{}
+		public protocol «union.name»_Direct{}
 		«FOR table : union.unionCases»
 		extension «table.name» : «union.name» {}
-		extension «table.name».LazyAccess : «union.name»_LazyAccess {}
+«««		extension «table.name».LazyAccess : «union.name»_LazyAccess {}
+		extension «table.name».Direct : «union.name»_Direct {}
 		«ENDFOR»
 	'''
 	
+	def generateJSONSuportExtensionForUnion(Union union) '''
+		extension «union.name»{
+			static func fromJSON(dict : NSDictionary) -> Self
+			func toJSON() -> String
+			func jsonTypeName() -> String
+		}
+	'''
+	
 	def generateCreaterFunctionForUnion(Union union) '''
-		private func create_«union.name»(reader : FlatBufferReader, propertyIndex : Int, objectOffset : Offset?) -> «union.name»? {
+		private func create_«union.name»(reader : FBReader, propertyIndex : Int, objectOffset : Offset?) -> «union.name»? {
 			guard let objectOffset = objectOffset else {
 				return nil
 			}
@@ -285,7 +285,31 @@ public class EagerSwiftGenerator {
 			default : return nil
 			}
 		}
-		private func create_«union.name»_LazyAccess(reader : FlatBufferReader, propertyIndex : Int, objectOffset : Offset?) -> «union.name»_LazyAccess? {
+«««		private func fromJSON_«union.name»(dict : NSDictionary, typeName : String) -> «union.name»? {
+«««			switch typeName {
+«««			«FOR unionCase : union.unionCases»
+«««			case "«unionCase.name»" : return «unionCase.name».fromJSON(dict)
+«««			«ENDFOR»
+«««			default : return nil
+«««			}
+«««		}
+		
+«««		private func create_«union.name»_LazyAccess(reader : FlatBufferReader, propertyIndex : Int, objectOffset : Offset?) -> «union.name»_LazyAccess? {
+«««			guard let objectOffset = objectOffset else {
+«««				return nil
+«««			}
+«««			let unionCase : Int8 = reader.get(objectOffset, propertyIndex: propertyIndex, defaultValue: 0)
+«««			guard let caseObjectOffset : Offset = reader.getOffset(objectOffset, propertyIndex:propertyIndex + 1) else {
+«««				return nil
+«««			}
+«««			switch unionCase {
+«««			«FOR indexedUnionCase : union.unionCases.indexed»
+«««			case «indexedUnionCase.key + 1» : return «indexedUnionCase.value.name».LazyAccess(reader: reader, objectOffset: caseObjectOffset)
+«««			«ENDFOR»
+«««			default : return nil
+«««			}
+«««		}
+		private func create_«union.name»_Direct(reader : FBReader, propertyIndex : Int, objectOffset : Offset?) -> «union.name»_Direct? {
 			guard let objectOffset = objectOffset else {
 				return nil
 			}
@@ -295,7 +319,7 @@ public class EagerSwiftGenerator {
 			}
 			switch unionCase {
 			«FOR indexedUnionCase : union.unionCases.indexed»
-			case «indexedUnionCase.key + 1» : return «indexedUnionCase.value.name».LazyAccess(reader: reader, objectOffset: caseObjectOffset)
+			case «indexedUnionCase.key + 1» : return «indexedUnionCase.value.name».Direct(reader: reader, myOffset: caseObjectOffset)
 			«ENDFOR»
 			default : return nil
 			}
@@ -320,44 +344,35 @@ public class EagerSwiftGenerator {
 	
 	def generateFromByteArrayExtension(Table table) '''
 		public extension «table.name» {
-			public static func fromByteArray(data : UnsafeBufferPointer<UInt8>, config : BinaryReadConfig = BinaryReadConfig()) -> «table.name» {
-				let reader = FlatBufferReader.create(data, config: config)
+			public static func fromByteArray(data : UnsafePointer<UInt8>, count : Int,  cache : FBReaderCache? = FBReaderCache()) -> «table.name»? {
+				let reader = FBMemoryReader(buffer: data, count: count, cache: cache)
 				let objectOffset = reader.rootObjectOffset
-				let result = create(reader, objectOffset : objectOffset)!
-				FlatBufferReader.reuse(reader)
-				return result
+				return create(reader, objectOffset : objectOffset)
 			}
-			public static func fromRawMemory(data : UnsafeMutablePointer<UInt8>, count : Int, config : BinaryReadConfig = BinaryReadConfig()) -> «table.name» {
-				let reader = FlatBufferReader.create(data, count: count, config: config)
+			public static func fromReader(reader : FBReader) -> «table.name»? {
 				let objectOffset = reader.rootObjectOffset
-				let result = create(reader, objectOffset : objectOffset)!
-				FlatBufferReader.reuse(reader)
-				return result
-			}
-			public static func fromFlatBufferReader(flatBufferReader : FlatBufferReader) -> «table.name» {
-				return create(flatBufferReader, objectOffset : flatBufferReader.rootObjectOffset)!
+				return create(reader, objectOffset : objectOffset)
 			}
 		}
 	'''
 	
 	def generateCreateExtension(Table table) '''
 		public extension «table.name» {
-			private static func create(reader : FlatBufferReader, objectOffset : Offset?) -> «table.name»? {
+			private static func create(reader : FBReader, objectOffset : Offset?) -> «table.name»? {
 				guard let objectOffset = objectOffset else {
 					return nil
 				}
-				if reader.config.uniqueTables {
-					if let o = reader.objectPool[objectOffset]{
-						return o as? «table.name»
-					}
+				if  let cache = reader.cache,
+					let o = cache.objectPool[objectOffset] {
+					return o as? «table.name»
 				}
-				let _result = «table.name».createInstance()
-				if reader.config.uniqueTables {
-					reader.objectPool[objectOffset] = _result
-				}
+				let _result = «table.name»()
 				«FOR indexedField : table.indexedFields»
 				«indexedField.readDataIntoLocalVariables»
 				«ENDFOR»
+				if let cache = reader.cache {
+					cache.objectPool[objectOffset] = _result
+				}
 				return _result
 			}
 		}
@@ -373,8 +388,9 @@ public class EagerSwiftGenerator {
 				_result.«indexedField.value.fieldName» = «indexedField.value.getType.defType.name»(rawValue: reader.get(objectOffset, propertyIndex: «indexedField.key», defaultValue: «indexedField.value.defaultValueString».rawValue))
 			'''
 		} else if(indexedField.value.getType.isString){
+			//TODO: string cache
 			'''
-				_result.«indexedField.value.fieldName»_b = reader.getStringBuffer(reader.getOffset(objectOffset, propertyIndex: «indexedField.key»))
+				_result.«indexedField.value.fieldName» = reader.getStringBuffer(reader.getOffset(objectOffset, propertyIndex: «indexedField.key»))?§
 			'''
 		} else if(indexedField.value.getType.vectorType != null && !indexedField.value.getType.isUnionVector) {
 			'''
@@ -384,7 +400,7 @@ public class EagerSwiftGenerator {
 					var index = 0
 					_result.«indexedField.value.fieldName».reserveCapacity(length_«indexedField.value.fieldName»)
 					while index < length_«indexedField.value.fieldName» {
-						_result.«indexedField.value.fieldName».append(«indexedField.value.accessVectorItem»)
+						«indexedField.value.accessVectorItem»
 						index += 1
 					}
 				}
@@ -557,14 +573,14 @@ public class EagerSwiftGenerator {
 		}
 		expressions
 	}
-	
+	// TODO remove FBBuilder Reuse
 	def generateToByteArrayExtension(Table table) '''
 		public extension «table.name» {
-			public func toByteArray (config : BinaryBuildConfig = BinaryBuildConfig()) -> [UInt8] {
+			public func toByteArray (config : BinaryBuildConfig = BinaryBuildConfig()) throws -> [UInt8] {
 				let builder = FlatBufferBuilder.create(config)
 				let offset = addToByteArray(builder)
 				performLateBindings(builder)
-				try! builder.finish(offset, fileIdentifier: «IF fileIdentifier == null»nil«ELSE»"«fileIdentifier»"«ENDIF»)
+				try builder.finish(offset, fileIdentifier: «IF fileIdentifier == null»nil«ELSE»"«fileIdentifier»"«ENDIF»)
 				let result = builder.data
 				FlatBufferBuilder.reuse(builder)
 				return result
@@ -572,7 +588,7 @@ public class EagerSwiftGenerator {
 		}
 		
 		public extension «table.name» {
-			public func toFlatBufferBuilder (builder : FlatBufferBuilder) -> Void {
+			public func toFlatBufferBuilder (builder : FlatBufferBuilder) throws -> Void {
 				let offset = addToByteArray(builder)
 				performLateBindings(builder)
 				try! builder.finish(offset, fileIdentifier: «IF fileIdentifier == null»nil«ELSE»"«fileIdentifier»"«ENDIF»)
@@ -614,6 +630,198 @@ public class EagerSwiftGenerator {
 		}
 	'''
 	
+	def generateJSONSupport(Table t) '''
+	extension «t.name» {
+		public func toJSON() -> String{
+			var properties : [String] = []
+			«FOR field : t.fields»
+			«field.generateJSONPropertyStatement»
+			«ENDFOR»
+			
+			return "{\(properties.joinWithSeparator(","))}"
+		}
+
+		public static func fromJSON(dict : NSDictionary) -> «t.name» {
+			let result = «t.name»()
+			«FOR field : t.fields»
+			«field.generateJsonToTableProperty»
+			«ENDFOR»
+			return result
+		}
+		
+		public func jsonTypeName() -> String {
+			return "\"«t.name»\""
+		}
+	}
+	'''
+	
+	def generateJsonToTableProperty(Field field){
+		val fieldName = if(field.deprecated)  '''__«field.name»''' else field.name
+		if (field.type.scalar){
+			return '''
+			if let «field.name» = dict["«field.name»"] as? NSNumber {
+				result.«fieldName» = «field.generateNSNumberExpression»
+			}
+			'''
+		}
+		if (field.type.string){
+			return '''
+			if let «field.name» = dict["«field.name»"] as? NSString {
+				result.«fieldName» = «field.name» as String
+			}
+			'''
+		}
+		if (field.type.enum){
+			return '''
+			if let «field.name» = dict["«field.name»"] as? NSString {
+				result.«fieldName» = «field.type.asSwiftFieldType».fromJSON(«field.name» as String)
+			}
+			'''
+		}
+		if (field.type.table || field.type.struct){
+			return '''
+			if let «field.name» = dict["«field.name»"] as? NSDictionary {
+				result.«fieldName» = «field.type.asSwiftFieldType».fromJSON(«field.name»)
+			}
+			'''
+		}
+		if (field.type.union){
+			return '''
+			if let «field.name» = dict["«field.name»"] as? NSDictionary, let «field.name»_type = dict["«field.name»_type"] as? NSString {
+				result.«fieldName» = fromJSON_«field.type.asSwiftFieldType»(«field.name», typeName: «field.name»_type as String)
+			}
+			'''
+		}
+		if (field.type.tableVector || field.type.structVector){
+			return '''
+			if let «field.name» = dict["«field.name»"] as? NSArray {
+				result.«fieldName» = ContiguousArray(«field.name».map({
+					if let entry = $0 as? NSDictionary {
+						return «field.type.vectorType.type.asSwiftFieldType».fromJSON(entry)
+					}
+					return nil
+				}))
+			}
+			'''
+		}
+		if (field.type.enumVector){
+			return '''
+			if let «field.name» = dict["«field.name»"] as? NSArray {
+				result.«fieldName» = ContiguousArray(«field.name».map({
+					if let entry = $0 as? NSString {
+						return «field.type.vectorType.type.asSwiftFieldType».fromJSON(entry as String)
+					}
+					return nil
+				}))
+			}
+			'''
+		}
+		if (field.type.scalarVector){
+			return '''
+			if let «field.name» = dict["«field.name»"] as? NSArray {
+				result.«fieldName» = ContiguousArray(«field.name».map({
+					if let entry = $0 as? NSNumber {
+						return «field.type.vectorType.type.generateNSNumberExpression("entry")»
+					}
+					return 0
+				}))
+			}
+			'''
+		}
+		if (field.type.stringVector){
+			return '''
+			if let «field.name» = dict["«field.name»"] as? NSArray {
+				result.«fieldName» = ContiguousArray(«field.name».map({
+					if let entry = $0 as? NSString {
+						return entry as String
+					}
+					return nil
+				}))
+			}
+			'''
+		}
+		
+		return '''// UNEXPECTED «fieldName»'''
+	}
+	
+	def generateNSNumberExpression(Field field){
+		field.type.generateNSNumberExpression(field.name)
+	}
+	
+	def generateNSNumberExpression(Type type, String name){
+		if (!type.isScalar){
+			return ''''''
+		}
+		return '''«name».«type.primType.generateNSNumberExpression»'''
+	}
+	
+	def generateNSNumberExpression(String primType){
+		switch primType {
+			case 'bool' : '''boolValue'''
+			case 'byte' : '''charValue'''
+			case 'ubyte' : '''unsignedCharValue'''
+			case 'short' : '''shortValue'''
+			case 'ushort' : '''unsignedShortValue'''
+			case 'int' : '''intValue'''
+			case 'uint' : '''unsignedIntValue'''
+			case 'float' : '''floatValue'''
+			case 'long' : '''longLongValue'''
+			case 'ulong' : '''unsignedLongLongValue'''
+			case 'double' : '''doubleValue'''
+			default : ''''''
+		}
+	}
+	
+	def generateJSONPropertyStatement(Field field){
+		if (field.isDeprecated){
+			return ''''''
+		}
+		if (field.type.scalar){
+			return '''
+			properties.append("\"«field.name»\":\(«field.name»)")
+			'''
+		}
+		if (field.type.string){
+			return '''
+			if let «field.name» = «field.name»{
+				properties.append("\"«field.name»\":\"\(«field.name»)\"")
+			}
+			'''
+		}
+		if (field.type.table || field.type.struct || field.type.enum){
+			return '''
+			if let «field.name» = «field.name»{
+				properties.append("\"«field.name»\":\(«field.name».toJSON())")
+			}
+			'''
+		}
+		if (field.type.union){
+			return '''
+			if let «field.name» = «field.name»{
+				properties.append("\"«field.name»\":\(«field.name».toJSON()),\"«field.name»_type\":\(«field.name».jsonTypeName())")
+			}
+			'''
+		}
+		if (field.type.scalarVector){
+			return '''
+			properties.append("\"«field.name»\":[\(«field.name».map({String($0)}).joinWithSeparator(","))]")
+			'''
+				
+		}
+		if (field.type.stringVector){
+			return '''
+			let «field.name»_List = «field.name».map({$0 == nil ? "null" : "\"\($0!)\""}).joinWithSeparator(",")
+			properties.append("\"«field.name»\":[\(«field.name»_List)]")
+			'''
+		}
+		if (field.type.tableVector || field.type.structVector || field.type.enumVector){
+			return '''
+			properties.append("\"«field.name»\":[\(«field.name».map({$0 == nil ? "null" : $0!.toJSON()}).joinWithSeparator(","))]")
+			'''
+		}
+		return '''// UNEXPECTED «field.name»'''
+	}
+	
 	def numberOfFields(Table t) {
 		if(t.fields.isEmpty) return 0
 		
@@ -632,15 +840,7 @@ public class EagerSwiftGenerator {
 			'''// «field.fieldName» is deprecated'''
 		} else if(field.getType.isString){
 			'''
-			// let offset«index» = try! builder.createString(«field.fieldName»)
-			var offset«index» : Offset
-			if let s = «field.fieldName»_b {
-				offset«index» = try! builder.createString(s)
-			} else if let s = «field.fieldName»_ss {
-				offset«index» = try! builder.createStaticString(s)
-			} else {
-				offset«index» = try! builder.createString(«field.fieldName»)
-			}
+			let offset«index» = try! builder.createString(«field.fieldName»)
 			'''
 		} else if(field.getType.isTable){
 			'''
@@ -651,8 +851,8 @@ public class EagerSwiftGenerator {
 		} else if(field.getType.isScalarVector || field.getType.isEnumVector || field.getType.isStructVector){
 			'''
 			var offset«index» = Offset(0)
-			if «field.fieldName».count > 0{
-				try! builder.startVector(«field.fieldName».count)
+			if «field.fieldName».count > 0 {
+				try! builder.startVector(«field.fieldName».count, elementSize: strideof(«field.type.vectorType.type.asSwiftFieldType»))
 				var index = «field.fieldName».count - 1
 				while(index >= 0){
 					«field.vectorOffsetPutStatementDirect»
@@ -678,7 +878,7 @@ public class EagerSwiftGenerator {
 					«ENDIF»
 					index -= 1
 				}
-				try! builder.startVector(«field.fieldName».count)
+				try! builder.startVector(«field.fieldName».count, elementSize: strideof(Offset))
 				index = «field.fieldName».count - 1
 				«IF field.getType.isTableVector && field.type.vectorType.type.defType.isRecursive»
 				var deferedBindingCursors : [Int : Int] = [:]
@@ -782,16 +982,33 @@ public class EagerSwiftGenerator {
 	
 	def accessVectorItem(Field field){
 		if(field.getType.isScalarVector) {
-			'''reader.getVectorScalarElement(offset_«field.fieldName»!, index: index)'''
+			'''
+			let element : «field.getType.vectorType.type.asSwiftFieldType(true)» = reader.getVectorScalarElement(offset_«field.fieldName», index: index)
+			_result.«field.fieldName».append(element)
+			'''
 		} else if(field.getType.isEnumVector) {
-			'''«field.getType.vectorType.type.defType.name»(rawValue: reader.getVectorScalarElement(offset_«field.fieldName»!, index: index))'''
+			'''
+			if let raw : «(field.getType.vectorType.type.defType as Enum).type.convertPrimitiveTypeToSwiftTypes» = reader.getVectorScalarElement(offset_«field.fieldName», index: index){
+				let element : «field.getType.vectorType.type.asSwiftFieldType(true)» = «field.getType.vectorType.type.asSwiftFieldType(false)»(rawValue: raw)
+				_result.«field.fieldName».append(element)
+			} else {
+				_result.«field.fieldName».append(nil)
+			}
+			'''
 		} else if(field.getType.isStringVector) {
-			'''reader.getString(reader.getVectorOffsetElement(offset_«field.fieldName»!, index: index))'''
+			'''
+			let element = reader.getStringBuffer(reader.getVectorOffsetElement(offset_«field.fieldName», index: index))?§
+			_result.«field.fieldName».append(element)
+			'''
 		} else if(field.getType.isTableVector) {
-			'''«field.getType.vectorType.type.defType.name».create(reader, objectOffset: reader.getVectorOffsetElement(offset_«field.fieldName»!, index: index))'''
+			'''
+			let element = «field.getType.vectorType.type.defType.name».create(reader, objectOffset: reader.getVectorOffsetElement(offset_«field.fieldName», index: index))
+			_result.«field.fieldName».append(element)
+			'''
 		} else if(field.getType.isStructVector) {
 			'''
-			reader.getVectorScalarElement(offset_«field.fieldName»!, index: index) as «field.getType.vectorType.type.defType.name»
+			let element : «field.getType.vectorType.type.asSwiftFieldType(true)» = reader.getVectorScalarElement(offset_«field.fieldName», index: index)
+			_result.«field.fieldName».append(element)
 			'''
 		} else {
 			'''/* unsupported case */'''
@@ -866,6 +1083,174 @@ public class EagerSwiftGenerator {
 			case 'string' : "String"
 			default : "Any /* unsupported primitive field type */"
 		}
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	def generateDirectDataStructureForTable(Table table) '''
+		extension «table.name» {
+		public struct Direct : Hashable {
+			private let reader : FBReader
+			private let myOffset : Offset
+			init(reader: FBReader, myOffset: Offset){
+				self.reader = reader
+				self.myOffset = myOffset
+			}
+			«IF table.name == rootTableName»
+			public init?(_ reader: FBReader) {
+				self.reader = reader
+				guard let offest = reader.rootObjectOffset else {
+					return nil
+				}
+				self.myOffset = offest
+			}
+			«ENDIF»
+			«FOR field : table.indexedFields»
+			«field.generatedDirectComputedProperties»
+			«ENDFOR»
+			public var hashValue: Int { return Int(myOffset) }
+		}
+		}
+		public func ==(t1 : «table.name».Direct, t2 : «table.name».Direct) -> Bool {
+			return t1.reader.isEqual(t2.reader) && t1.myOffset == t2.myOffset
+		}
+	'''
+	
+	def generatedDirectComputedProperties(Pair<Integer, Field> indexedField){
+		val field = indexedField.value
+		val index = indexedField.key
+		if(field.getType.isScalar){
+			'''
+				public var «field.fieldName» : «field.type.asSwiftFieldTypeDirect(true)» { 
+					get { return reader.get(myOffset, propertyIndex: «index», defaultValue: «field.defaultValueString») }
+					// set { try!reader.set(myOffset, propertyIndex: «index», value: newValue) }
+				}
+			'''
+		} else if(field.getType.isEnum){
+			'''
+				public var «field.fieldName» : «field.type.asSwiftFieldTypeDirect(true)» { 
+					get { return «field.getType.defType.name»(rawValue: reader.get(myOffset, propertyIndex: «index», defaultValue: «field.defaultValueString».rawValue)) }
+					/*set {
+						if let newValue = newValue {
+							try!FBReader.set(UnsafeMutableBufferPointer<UInt8>(start:UnsafeMutablePointer(buffer.baseAddress), count: buffer.count), myOffset, propertyIndex: «index», value: newValue.rawValue)
+						}
+					}*/
+				}
+			'''
+		} else if(field.getType.isString){
+			'''
+				public var «field.fieldName» : «field.type.asSwiftFieldTypeDirect(true)» { get { return reader.getStringBuffer(reader.getOffset(myOffset, propertyIndex:«index»)) } }
+			'''
+		} else if(field.getType.vectorType != null && !field.getType.isUnionVector) {
+			'''
+				public var «field.name»Count : Int {
+					return reader.getVectorLength(reader.getOffset(myOffset, propertyIndex: «index»))
+				}
+				public func get«field.name.toFirstUpper»Element(atIndex index : Int) -> «field.type.vectorType.type.asSwiftFieldTypeDirect(true)» {
+					let offsetList = reader.getOffset(myOffset, propertyIndex: «index»)
+					«field.accessVectorItemDirect»
+				}
+				«IF field.type.isScalarVector || field.type.isStructVector || field.type.isEnumVector»
+				/*
+				public func set«field.name.toFirstUpper»(element: «field.type.vectorType.type.asSwiftFieldTypeDirect(false)», atIndex index : Int) throws {
+					let offsetList = FBReader.getOffset(self.buffer, myOffset, propertyIndex: «index»)
+					try FBReader.setVectorScalarElement(UnsafeMutableBufferPointer<UInt8>(start:UnsafeMutablePointer(buffer.baseAddress), count: buffer.count), offsetList, index: index, value: element«IF field.type.isEnumVector».rawValue«ENDIF»)
+				}
+				*/
+				«ENDIF»
+			'''
+		} else if(field.getType.isTable) {
+			'''
+				public var «field.fieldName» : «field.type.asSwiftFieldTypeDirect(true)» { get { 
+					if let offset = reader.getOffset(myOffset, propertyIndex: «index») {
+						return «field.type.defType.name».Direct(reader: reader, myOffset: offset)
+					}
+					return nil
+				} }
+			'''
+		} else if(field.getType.isUnion) {
+			'''
+				public var «field.fieldName» : «field.type.asSwiftFieldTypeDirect(true)» { get { 
+					return create_«field.type.defType.name»_Direct(reader, propertyIndex: «index», objectOffset: self.myOffset)
+				} }
+			'''
+		} else if(field.getType.isStruct) {
+			'''
+				public var «field.fieldName» : «field.type.asSwiftFieldTypeDirect(true)» { 
+					get { return reader.get(myOffset, propertyIndex: «index»)}
+					/*set { 
+						if let newValue = newValue {
+							try!FBReader.set(UnsafeMutableBufferPointer<UInt8>(start:UnsafeMutablePointer(buffer.baseAddress), count: buffer.count), myOffset, propertyIndex: «index», value: newValue)
+						}
+					}*/
+				}
+			'''
+		} else {
+			'''/* unsupported case */'''
+		}
+	}
+	
+	def accessVectorItemDirect(Field field){
+		if(field.getType.isScalarVector) {
+			'''return reader.getVectorScalarElement(offsetList, index: index)'''
+		} else if(field.getType.isEnumVector) {
+			'''
+			guard let rawValue : «(field.getType.vectorType.type.defType as Enum).type.convertPrimitiveTypeToSwiftTypes» = reader.getVectorScalarElement(offsetList, index: index) else {
+				return nil
+			}
+			return «field.getType.vectorType.type.defType.name»(rawValue: rawValue)
+			'''
+		} else if(field.getType.isStringVector) {
+			'''
+			if let ofs = reader.getVectorOffsetElement(offsetList, index: index) {
+				return reader.getStringBuffer(ofs)
+			}
+			return nil
+			'''
+		} else if(field.getType.isTableVector) {
+			'''
+			if let ofs = reader.getVectorOffsetElement(offsetList, index: index) {
+				return «field.type.vectorType.type.asSwiftFieldTypeDirect(false)»(reader: reader, myOffset: ofs)
+			}
+			return nil
+			'''
+		} else if(field.getType.isStructVector) {
+			'''
+			let result : «field.getType.vectorType.type.defType.name»? = reader.getVectorScalarElement(offsetList, index: index)
+			return result
+			'''
+		} else {
+			'''/* unsupported case */'''
+		}
+	}
+	
+	def String asSwiftFieldTypeDirect(Type type, boolean withOptional){
+		var swiftType = type.asSwiftFieldType(withOptional)
+		if(type.isTable){
+			swiftType = type.defType.name + ".Direct"
+			if(withOptional){
+				swiftType += "?"
+			}
+		} else if (type.isString) {
+			swiftType = '''UnsafeBufferPointer<UInt8>'''
+			if(withOptional){
+				swiftType += "?"
+			}
+		} else if (type.isUnion) {
+			swiftType = type.defType.name + "_Direct"
+			if(withOptional){
+				swiftType += "?"
+			}
+		}
+		
+		swiftType
 	}
 	
 }

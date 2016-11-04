@@ -31,7 +31,7 @@
   <eClassifiers xsi:type="ecore:EClass" name="Definition">
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="name" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
   </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="Struct" eSuperTypes="#//Definition">
+  <eClassifiers xsi:type="ecore:EClass" name="Struct" eSuperTypes="#//Definition #//ScalarType">
     <eStructuralFeatures xsi:type="ecore:EReference" name="attributes" eType="#//Attributes"
         containment="true"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="fields" upperBound="-1"
@@ -40,8 +40,9 @@
   <eClassifiers xsi:type="ecore:EClass" name="StructField">
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="name" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="primType" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="defType" eType="#//Struct"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="defType" eType="#//ScalarType"/>
   </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="ScalarType"/>
   <eClassifiers xsi:type="ecore:EClass" name="Table" eSuperTypes="#//Definition">
     <eStructuralFeatures xsi:type="ecore:EReference" name="attributes" eType="#//Attributes"
         containment="true"/>
@@ -94,7 +95,7 @@
   <eClassifiers xsi:type="ecore:EClass" name="Vector">
     <eStructuralFeatures xsi:type="ecore:EReference" name="type" eType="#//Type" containment="true"/>
   </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="Enum" eSuperTypes="#//Definition">
+  <eClassifiers xsi:type="ecore:EClass" name="Enum" eSuperTypes="#//Definition #//ScalarType">
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="type" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="attributes" eType="#//Attributes"
         containment="true"/>

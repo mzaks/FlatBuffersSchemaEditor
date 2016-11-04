@@ -95,6 +95,15 @@ public interface FlatBuffersFactory extends EFactory
   StructField createStructField();
 
   /**
+   * Returns a new object of class '<em>Scalar Type</em>'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return a new object of class '<em>Scalar Type</em>'.
+   * @generated
+   */
+  ScalarType createScalarType();
+
+  /**
    * Returns a new object of class '<em>Table</em>'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->

@@ -49,7 +49,11 @@ Struct:
 ;
 
 StructField:
-	name=ValidID ':' (primType=PrimitiveWithoutString | defType=[Struct]) ';'
+	name=ValidID ':' (primType=PrimitiveWithoutString | defType=[ScalarType] ) ';'
+;
+
+ScalarType:
+	Struct|Enum
 ;
 	
 Table:
@@ -108,7 +112,7 @@ Primitive:
 ;
 
 Enum:
-	'enum' name=ID (':' type=PrimitiveNumberType)? attributes=Attributes? '{' enumCases += EnumCase (',' enumCases += EnumCase)* (',')? '}'	
+	'enum' name=ID ':' type=PrimitiveNumberType attributes=Attributes? '{' enumCases += EnumCase (',' enumCases += EnumCase)* (',')? '}'	
 ;
 
 EnumCase:

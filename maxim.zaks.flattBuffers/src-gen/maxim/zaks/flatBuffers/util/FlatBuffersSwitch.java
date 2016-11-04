@@ -12,6 +12,7 @@ import maxim.zaks.flatBuffers.FileIdentifier;
 import maxim.zaks.flatBuffers.FlatBuffersPackage;
 import maxim.zaks.flatBuffers.Namespace;
 import maxim.zaks.flatBuffers.RootType;
+import maxim.zaks.flatBuffers.ScalarType;
 import maxim.zaks.flatBuffers.Schema;
 import maxim.zaks.flatBuffers.Struct;
 import maxim.zaks.flatBuffers.StructField;
@@ -136,6 +137,7 @@ public class FlatBuffersSwitch<T> extends Switch<T>
         Struct struct = (Struct)theEObject;
         T result = caseStruct(struct);
         if (result == null) result = caseDefinition(struct);
+        if (result == null) result = caseScalarType(struct);
         if (result == null) result = defaultCase(theEObject);
         return result;
       }
@@ -143,6 +145,13 @@ public class FlatBuffersSwitch<T> extends Switch<T>
       {
         StructField structField = (StructField)theEObject;
         T result = caseStructField(structField);
+        if (result == null) result = defaultCase(theEObject);
+        return result;
+      }
+      case FlatBuffersPackage.SCALAR_TYPE:
+      {
+        ScalarType scalarType = (ScalarType)theEObject;
+        T result = caseScalarType(scalarType);
         if (result == null) result = defaultCase(theEObject);
         return result;
       }
@@ -201,6 +210,7 @@ public class FlatBuffersSwitch<T> extends Switch<T>
         maxim.zaks.flatBuffers.Enum enum_ = (maxim.zaks.flatBuffers.Enum)theEObject;
         T result = caseEnum(enum_);
         if (result == null) result = caseDefinition(enum_);
+        if (result == null) result = caseScalarType(enum_);
         if (result == null) result = defaultCase(theEObject);
         return result;
       }
@@ -347,6 +357,22 @@ public class FlatBuffersSwitch<T> extends Switch<T>
    * @generated
    */
   public T caseStructField(StructField object)
+  {
+    return null;
+  }
+
+  /**
+   * Returns the result of interpreting the object as an instance of '<em>Scalar Type</em>'.
+   * <!-- begin-user-doc -->
+   * This implementation returns null;
+   * returning a non-null result will terminate the switch.
+   * <!-- end-user-doc -->
+   * @param object the target of the switch.
+   * @return the result of interpreting the object as an instance of '<em>Scalar Type</em>'.
+   * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+   * @generated
+   */
+  public T caseScalarType(ScalarType object)
   {
     return null;
   }
