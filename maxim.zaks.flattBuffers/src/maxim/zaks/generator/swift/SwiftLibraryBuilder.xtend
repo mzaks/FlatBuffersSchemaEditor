@@ -2,55 +2,107 @@ package maxim.zaks.generator.swift
 
 class SwiftLibraryBuilder {
 	public static val definitions = '''
-public enum FlatBufferBuilderError : ErrorType {
-    case ObjectIsNotClosed
-    case NoOpenObject
-    case PropertyIndexIsInvalid
-    case OffsetIsTooBig
-    case CursorIsInvalid
-    case BadFileIdentifier
-    case UnsupportedType
+public typealias Offset = Int32
+
+public protocol Scalar : Equatable {}
+
+extension Bool : Scalar {}
+extension Int8 : Scalar {}
+extension UInt8 : Scalar {}
+extension Int16 : Scalar {}
+extension UInt16 : Scalar {}
+extension Int32 : Scalar {}
+extension UInt32 : Scalar {}
+extension Int64 : Scalar {}
+extension UInt64 : Scalar {}
+extension Int : Scalar {}
+extension UInt : Scalar {}
+extension Float32 : Scalar {}
+extension Float64 : Scalar {}
+
+/// Various options for the builder
+public struct FlatBuffersBuilderOptions {
+    public let initialCapacity : Int
+    public let uniqueStrings : Bool
+    public let uniqueTables : Bool
+    public let uniqueVTables : Bool
+    public let forceDefaults : Bool
+    public let nullTerminatedUTF8 : Bool
+    public init(initialCapacity : Int = 1, uniqueStrings : Bool = true, uniqueTables : Bool = true, uniqueVTables : Bool = true, forceDefaults : Bool = false, nullTerminatedUTF8 : Bool = false) {
+        self.initialCapacity = initialCapacity
+        self.uniqueStrings = uniqueStrings
+        self.uniqueTables = uniqueTables
+        self.uniqueVTables = uniqueVTables
+        self.forceDefaults = forceDefaults
+        self.nullTerminatedUTF8 = nullTerminatedUTF8
+    }
 }
 
-public final class FlatBufferBuilder {
+public enum FlatBuffersBuildError : Error {
+    case objectIsNotClosed
+    case noOpenObject
+    case propertyIndexIsInvalid
+    case offsetIsTooBig
+    case cursorIsInvalid
+    case badFileIdentifier
+    case unsupportedType
+}
+
+/// A FlatBuffers builder that supports the generation of flatbuffers 'wire' format from an object graph
+public final class FlatBuffersBuilder {
     
-    public static var maxInstanceCacheSize : UInt = 0 // max number of cached instances
-    static var instancePool : [FlatBufferBuilder] = []
+    public var options : FlatBuffersBuilderOptions
+    private var capacity : Int
+    private var _data : UnsafeMutableRawPointer
+    private var minalign = 1;
+    private var cursor = 0
+    private var leftCursor : Int {
+        return capacity - cursor
+    }
+    
+    private var currentVTable : ContiguousArray<Int32> = []
+    private var objectStart : Int32 = -1
+    private var vectorNumElems : Int32 = -1;
+    private var vTableOffsets : ContiguousArray<Int32> = []
     
     public var cache : [ObjectIdentifier : Offset] = [:]
     public var inProgress : Set<ObjectIdentifier> = []
     public var deferedBindings : ContiguousArray<(object:Any, cursor:Int)> = []
-    
-    public var config : BinaryBuildConfig
-    
-    var capacity : Int
-    private var _data : UnsafeMutablePointer<UInt8>
-    public var _dataCount : Int { return cursor } // count of bytes in unsafe buffer
-    public var _dataStart : UnsafeMutablePointer<UInt8> { return _data.advancedBy(leftCursor) } // start of actual raw unsafe buffer data
-    public var data : [UInt8] {
-        return Array(UnsafeBufferPointer(start: UnsafePointer<UInt8>(_data).advancedBy(leftCursor), count: cursor))
-    }
-    var cursor = 0
-    var leftCursor : Int {
-        return capacity - cursor
-    }
-    
-    var currentVTable : ContiguousArray<Int32> = []
-    var objectStart : Int32 = -1
-    var vectorNumElems : Int32 = -1;
-    var vTableOffsets : ContiguousArray<Int32> = []
-    
-    public init(config : BinaryBuildConfig){
-        self.config = config
-        self.capacity = config.initialCapacity
-        _data = UnsafeMutablePointer.alloc(capacity)
-    }
-    
-    deinit {
-        _data.dealloc(capacity)
-    }    
 
-    private func increaseCapacity(size : Int){
+    /**
+     Initializes the builder
+     
+     - parameters:
+         - options: The options to use for this builder.
+     
+     - Returns: A FlatBuffers builder ready for use.
+     */
+    public init(options _options : FlatBuffersBuilderOptions = FlatBuffersBuilderOptions()) {
+        self.options = _options
+        self.capacity = self.options.initialCapacity
+        _data = UnsafeMutableRawPointer.allocate(bytes: capacity, alignedTo: minalign)
+    }
+    
+    /**
+     Allocates and returns a Data object initialized from the builder backing store
+     
+     - Returns: A Data object initilized with the data from the builder backing store
+     */
+    public var makeData : Data {
+        return Data(bytes:_data.advanced(by:leftCursor), count: cursor)
+    }
+    
+    /**
+     Reserve enough space to store at a minimum size more data and resize the 
+     underlying buffer if needed. 
+     
+     The data should be consumed by the builder immediately after reservation.
+     
+     - parameters:
+         - size: The additional size that will be consumed by the builder 
+                 immedieatly after the call
+     */
+    private func reserveAdditionalCapacity(size : Int){
         guard leftCursor <= size else {
             return
         }
@@ -60,157 +112,195 @@ public final class FlatBufferBuilder {
             capacity = capacity << 1
         }
         
-        let newData = UnsafeMutablePointer<UInt8>.alloc(capacity)
-        newData.advancedBy(leftCursor).initializeFrom(_data.advancedBy(_leftCursor), count: cursor)
-        _data.dealloc(_capacity)
+        let newData = UnsafeMutableRawPointer.allocate(bytes: capacity, alignedTo: minalign)
+        newData.advanced(by:leftCursor).copyBytes(from: _data.advanced(by: _leftCursor), count: cursor)
+        _data.deallocate(bytes: _capacity, alignedTo: minalign)
         _data = newData
     }
     
-    var minalign = 1;
+    /**
+     Perform alignment for a value of a given size by performing padding in advance
+     of actually putting the value to the buffer.
+     
+     - parameters:
+         - size: xxx
+         - additionalBytes: xxx
+     */
     private func align(size : Int, additionalBytes : Int){
-        if config.fullMemoryAlignment == false {
-            return
-        }
         if size > minalign {
             minalign = size
         }
         let alignSize = ((~(cursor + additionalBytes)) + 1) & (size - 1)
-        increaseCapacity(alignSize)
+        reserveAdditionalCapacity(size: alignSize)
         cursor += alignSize
-        
     }
     
-    public func put<T : Scalar>(value : T){
-        var v = value
-        let c = strideofValue(v)
+    /**
+     Add a scalar value to the buffer
+     
+     - parameters:
+         - value: The value to add to the buffer
+     */
+    public func insert<T : Scalar>(value : T){
+        let c = MemoryLayout.stride(ofValue: value)
         if c > 8 {
-            align(8, additionalBytes: c)
+            align(size: 8, additionalBytes: c)
         } else {
-            align(c, additionalBytes: 0)
-        }
-
-        increaseCapacity(c)
-        withUnsafePointer(&v){
-            _data.advancedBy(leftCursor-c).assignFrom(UnsafeMutablePointer<UInt8>($0), count: c)
-        }
-        cursor += c
-
-    }
-    
-    public func put<T : Scalar>(value : UnsafePointer<T>, length : Int){
-        if length > 8 {
-            align(8, additionalBytes: length)
-        } else {
-            align(length, additionalBytes: 0)
+            align(size: c, additionalBytes: 0)
         }
         
-        increaseCapacity(length)
-        _data.advancedBy(leftCursor-length).assignFrom(UnsafeMutablePointer<UInt8>(value), count: length)
-        cursor += length
+        reserveAdditionalCapacity(size: c)
+        
+        _data.storeBytes(of: value, toByteOffset: leftCursor-c, as: T.self)
+        cursor += c
     }
     
-    public func putOffset(offset : Offset?) throws -> Int { // make offset relative and put it into byte buffer
+    /**
+     Make offset relative and add it to the buffer
+     
+     - parameters:
+         - offset: The offset to transform and add to the buffer
+     */
+    @discardableResult
+    public func insert(offset : Offset?) throws -> Int {
         guard let offset = offset else {
-            put(Offset(0))
+            insert(value: Offset(0))
             return cursor
         }
         guard offset <= Int32(cursor) else {
-            throw FlatBufferBuilderError.OffsetIsTooBig
+            throw FlatBuffersBuildError.offsetIsTooBig
         }
         
         if offset == Int32(0) {
-            put(Offset(0))
+            insert(value: Offset(0))
             return cursor
         }
-        align(4, additionalBytes: 0)
-        let _offset = Int32(cursor) - offset + strideof(Int32);
-        put(_offset)
+        align(size: 4, additionalBytes: 0)
+        let _offset = Int32(cursor) - offset + MemoryLayout<Int32>.stride;
+        insert(value: _offset)
         return cursor
     }
-    
-    public func replaceOffset(offset : Offset, atCursor jumpCursor: Int) throws{
+  
+    /**
+     Update an offset in place
+     
+     - parameters:
+         - offset: The new offset to transform and add to the buffer
+         - atCursor: The position to put the new offset to
+     */
+    public func update(offset : Offset, atCursor jumpCursor: Int) throws{
         guard offset <= Int32(cursor) else {
-            throw FlatBufferBuilderError.OffsetIsTooBig
+            throw FlatBuffersBuildError.offsetIsTooBig
         }
         guard jumpCursor <= cursor else {
-            throw FlatBufferBuilderError.CursorIsInvalid
+            throw FlatBuffersBuildError.cursorIsInvalid
         }
         let _offset = Int32(jumpCursor) - offset;
         
-        var v = _offset
-        if UInt32(CFByteOrderGetCurrent()) == CFByteOrderBigEndian.rawValue{
-            v = _offset.littleEndian
-        }
-        let c = strideofValue(v)
-        withUnsafePointer(&v){
-            _data.advancedBy((capacity - jumpCursor)).assignFrom(UnsafeMutablePointer<UInt8>($0), count: c)
-        }
+        _data.storeBytes(of: _offset, toByteOffset: capacity - jumpCursor, as: Int32.self)
+    }
+ 
+    /**
+     Update a scalar in place
+     
+     - parameters:
+         - value: The new value 
+         - index: The position to modify
+     */
+    private func update<T : Scalar>(value : T, at index : Int) {
+        _data.storeBytes(of: value, toByteOffset: index + leftCursor, as: T.self)
     }
     
-    private func put<T : Scalar>(value : T, at index : Int){
-        var v = value
-        let c = strideofValue(v)
-        withUnsafePointer(&v){
-            _data.advancedBy(index + leftCursor).assignFrom(UnsafeMutablePointer<UInt8>($0), count: c)
-        }
-    }
-    
-    public func openObject(numOfProperties : Int) throws {
+    /**
+     Start an object construction sequence
+     
+     - parameters:
+         - withPropertyCount: The number of properties we will update
+     */
+    public func startObject(withPropertyCount : Int) throws {
         guard objectStart == -1 && vectorNumElems == -1 else {
-            throw FlatBufferBuilderError.ObjectIsNotClosed
+            throw FlatBuffersBuildError.objectIsNotClosed
         }
-        currentVTable.removeAll(keepCapacity: true)
-        currentVTable.reserveCapacity(numOfProperties)
-        for _ in 0..<numOfProperties {
+        currentVTable.removeAll(keepingCapacity: true)
+        currentVTable.reserveCapacity(withPropertyCount)
+        for _ in 0..<withPropertyCount {
             currentVTable.append(0)
         }
         objectStart = Int32(cursor)
     }
     
-    public func addPropertyOffsetToOpenObject(propertyIndex : Int, offset : Offset) throws -> Int{
+    /**
+     Add an offset into the buffer for the currently open object
+     
+     - parameters:
+         - propertyIndex: The index of the property to update
+         - offset: The offsetnumber of properties we will update
+
+     - Returns: The current cursor position (Note: What is the use case of the return value?)
+     */
+    @discardableResult
+    public func insert(offset : Offset, toStartedObjectAt propertyIndex : Int) throws -> Int{
         guard objectStart > -1 else {
-            throw FlatBufferBuilderError.NoOpenObject
+            throw FlatBuffersBuildError.noOpenObject
         }
         guard propertyIndex >= 0 && propertyIndex < currentVTable.count else {
-            throw FlatBufferBuilderError.PropertyIndexIsInvalid
+            throw FlatBuffersBuildError.propertyIndexIsInvalid
         }
-        try putOffset(offset)
+        _ = try insert(offset: offset)
         currentVTable[propertyIndex] = Int32(cursor)
         return cursor
     }
-    
-    public func addPropertyToOpenObject<T : Scalar>(propertyIndex : Int, value : T, defaultValue : T) throws {
+ 
+    /**
+     Add a scalar into the buffer for the currently open object
+     
+     - parameters:
+         - propertyIndex: The index of the property to update
+         - value: The value to append
+         - defaultValue: If configured to skip default values, a value 
+        matching this default value will not be written to the buffer.
+     */
+    public func insert<T : Scalar>(value : T, defaultValue : T, toStartedObjectAt propertyIndex : Int) throws {
         guard objectStart > -1 else {
-            throw FlatBufferBuilderError.NoOpenObject
+            throw FlatBuffersBuildError.noOpenObject
         }
         guard propertyIndex >= 0 && propertyIndex < currentVTable.count else {
-            throw FlatBufferBuilderError.PropertyIndexIsInvalid
+            throw FlatBuffersBuildError.propertyIndexIsInvalid
         }
         
-        if(config.forceDefaults == false && value == defaultValue) {
+        if(options.forceDefaults == false && value == defaultValue) {
             return
         }
         
-        put(value)
+        insert(value: value)
         currentVTable[propertyIndex] = Int32(cursor)
     }
     
-    public func addCurrentOffsetAsPropertyToOpenObject(propertyIndex : Int) throws {
+    /**
+     Add the current cursor position into the buffer for the currently open object
+     
+     - parameters:
+         - propertyIndex: The index of the property to update
+     */
+    public func insertCurrentOffsetAsProperty(toStartedObjectAt propertyIndex : Int) throws {
         guard objectStart > -1 else {
-            throw FlatBufferBuilderError.NoOpenObject
+            throw FlatBuffersBuildError.noOpenObject
         }
         guard propertyIndex >= 0 && propertyIndex < currentVTable.count else {
-            throw FlatBufferBuilderError.PropertyIndexIsInvalid
+            throw FlatBuffersBuildError.propertyIndexIsInvalid
         }
         currentVTable[propertyIndex] = Int32(cursor)
     }
-    
-    public func closeObject() throws -> Offset {
+  
+    /**
+     Close the current open object.
+     */
+    public func endObject() throws -> Offset {
         guard objectStart > -1 else {
-            throw FlatBufferBuilderError.NoOpenObject
+            throw FlatBuffersBuildError.noOpenObject
         }
-        
-        increaseCapacity(4)
+        align(size: 4, additionalBytes: 0)
+        reserveAdditionalCapacity(size: 4)
         cursor += 4 // Will be set to vtable offset afterwards
         
         let vtableloc = cursor
@@ -220,27 +310,27 @@ public final class FlatBufferBuilder {
         while(index>=0) {
             // Offset relative to the start of the table.
             let off = Int16(currentVTable[index] != 0 ? Int32(vtableloc) - currentVTable[index] : 0);
-            put(off);
+            insert(value: off);
             index -= 1
         }
         
         let numberOfstandardFields = 2
         
-        put(Int16(Int32(vtableloc) - objectStart)); // standard field 1: lenght of the object data
-        put(Int16((currentVTable.count + numberOfstandardFields) * strideof(Int16))); // standard field 2: length of vtable and standard fields them selves
+        insert(value: Int16(Int32(vtableloc) - objectStart)); // standard field 1: lenght of the object data
+        insert(value: Int16((currentVTable.count + numberOfstandardFields) * MemoryLayout<Int16>.stride)); // standard field 2: length of vtable and standard fields them selves
         
         // search if we already have same vtable
         let vtableDataLength = cursor - vtableloc
         
         var foundVTableOffset = vtableDataLength
         
-        if config.uniqueVTables{
+        if options.uniqueVTables{
             for otherVTableOffset in vTableOffsets {
                 let start = cursor - Int(otherVTableOffset)
                 var found = true
                 for i in 0 ..< vtableDataLength {
-                    let a = _data.advancedBy(leftCursor + i).memory
-                    let b = _data.advancedBy(leftCursor + i + start).memory
+                    let a = _data.advanced(by:leftCursor + i).assumingMemoryBound(to: UInt8.self).pointee
+                    let b = _data.advanced(by:leftCursor + i + start).assumingMemoryBound(to: UInt8.self).pointee
                     if a != b {
                         found = false
                         break;
@@ -261,197 +351,115 @@ public final class FlatBufferBuilder {
         
         let indexLocation = cursor - vtableloc
         
-        put(Int32(foundVTableOffset), at: indexLocation)
+        update(value: Int32(foundVTableOffset), at: indexLocation)
         
         objectStart = -1
         
         return Offset(vtableloc)
     }
     
+    /**
+     Start a vector update operation
+     
+     - parameters:
+         - count: The number of elements in the vector
+         - elementSize: The size of the vector elements
+     */
     public func startVector(count : Int, elementSize : Int) throws{
-        align(4, additionalBytes: count * elementSize)
+        align(size: 4, additionalBytes: count * elementSize)
         guard objectStart == -1 && vectorNumElems == -1 else {
-            throw FlatBufferBuilderError.ObjectIsNotClosed
+            throw FlatBuffersBuildError.objectIsNotClosed
         }
         vectorNumElems = Int32(count)
     }
     
+    /**
+     Finish vector update operation
+     */
     public func endVector() -> Offset {
-        put(vectorNumElems)
+        insert(value: vectorNumElems)
         vectorNumElems = -1
         return Int32(cursor)
     }
     
     private var stringCache : [String:Offset] = [:]
-    public func createString(value : String?) throws -> Offset {
+ 
+    /**
+     Add a string to the buffer
+     
+     - parameters:
+         - value: The string to add to the buffer
+
+     - Returns: The current cursor position (Note: What is the use case of the return value?)
+    */
+    public func insert(value : String?) throws -> Offset {
         guard objectStart == -1 && vectorNumElems == -1 else {
-            throw FlatBufferBuilderError.ObjectIsNotClosed
+            throw FlatBuffersBuildError.objectIsNotClosed
         }
         guard let value = value else {
             return 0
         }
         
-        if config.uniqueStrings{
+        if options.uniqueStrings{
             if let o = stringCache[value]{
                 return o
             }
         }
-        
-        if config.nullTerminatedUTF8 {
-            let utf8View = value.nulTerminatedUTF8
-            
+        // TODO: Performance Test
+        if options.nullTerminatedUTF8 {
+            let utf8View = value.utf8CString
             let length = utf8View.count
-            align(4, additionalBytes: length)
-            increaseCapacity(length)
-            
-            let p = UnsafeMutablePointer<UInt8>(_data.advancedBy(leftCursor-length))
-            var charofs = 0
-            for c in utf8View {
-                assert(charofs < length)
-                p.advancedBy(charofs).memory = c
-                charofs = charofs + 1
+            align(size: 4, additionalBytes: length)
+            reserveAdditionalCapacity(size: length)
+            for c in utf8View.lazy.reversed() {
+                insert(value: c)
             }
-            cursor += length
-            put(Int32(length - 1))
+            insert(value: Int32(length - 1))
         } else {
             let utf8View = value.utf8
-            
             let length = utf8View.count
-            align(4, additionalBytes: length)
-            increaseCapacity(length)
-            
-            let p = UnsafeMutablePointer<UInt8>(_data.advancedBy(leftCursor-length))
-            var charofs = 0
-            for c in utf8View {
-                assert(charofs < length)
-                p.advancedBy(charofs).memory = c
-                charofs = charofs + 1
+            align(size: 4, additionalBytes: length)
+            reserveAdditionalCapacity(size: length)
+            for c in utf8View.lazy.reversed() {
+                insert(value: c)
             }
-            cursor += length
-            put(Int32(length))
+            insert(value: Int32(length))
         }
         
         let o = Offset(cursor)
-        if config.uniqueStrings {
+        if options.uniqueStrings {
             stringCache[value] = o
         }
         return o
     }
     
-    public func createString(value : UnsafeBufferPointer<UInt8>?) throws -> Offset {
-        guard objectStart == -1 && vectorNumElems == -1 else {
-            throw FlatBufferBuilderError.ObjectIsNotClosed
-        }
-        guard let value = value else {
-            return 0
-        }
-        let length = value.count
-        align(4, additionalBytes: length)
-        increaseCapacity(length)
-        _data.advancedBy(leftCursor-length).assignFrom(UnsafeMutablePointer(value.baseAddress), count: length)
-        cursor += length
-        put(Int32(length))
-        return Offset(cursor)
-    }
-    
-    public func createStaticString(value : StaticString?) throws -> Offset {
-        guard objectStart == -1 && vectorNumElems == -1 else {
-            throw FlatBufferBuilderError.ObjectIsNotClosed
-        }
-        guard let value = value else {
-            return 0
-        }
-        
-        let buf = value.utf8Start
-        let length = value.byteSize
-        align(4, additionalBytes: length)
-        increaseCapacity(length)
-        _data.advancedBy(leftCursor-length).assignFrom(UnsafeMutablePointer<UInt8>(buf), count: length)
-        cursor += length
-        
-        put(Int32(length))
-        return Offset(cursor)
-    }
-    
     public func finish(offset : Offset, fileIdentifier : String?) throws -> Void {
         guard offset <= Int32(cursor) else {
-            throw FlatBufferBuilderError.OffsetIsTooBig
+            throw FlatBuffersBuildError.offsetIsTooBig
         }
         guard objectStart == -1 && vectorNumElems == -1 else {
-            throw FlatBufferBuilderError.ObjectIsNotClosed
+            throw FlatBuffersBuildError.objectIsNotClosed
         }
         var prefixLength = 4
         if let fileIdentifier = fileIdentifier {
-            align(minalign, additionalBytes: 8)
-            increaseCapacity(8)
-            let buf = fileIdentifier.utf8
-            guard buf.count == 4 else {
-                throw FlatBufferBuilderError.BadFileIdentifier
-            }
-            
-            _data.advancedBy(leftCursor-4).initializeFrom(buf)
             prefixLength += 4
-        } else {
-            align(minalign, additionalBytes: 4)
-            increaseCapacity(4)
-        }
-        
-        var v = (Int32(cursor + prefixLength) - offset).littleEndian
-        let c = strideofValue(v)
-        withUnsafePointer(&v){
-            _data.advancedBy(leftCursor - prefixLength).assignFrom(UnsafeMutablePointer<UInt8>($0), count: c)
-        }
-        cursor += prefixLength
-    }
-}
-
-// Pooling
-public extension FlatBufferBuilder {
-    
-    public func reset ()
-    {
-        cursor = 0
-        objectStart = -1
-        vectorNumElems = -1;
-        vTableOffsets.removeAll(keepCapacity: true)
-        currentVTable.removeAll(keepCapacity: true)
-        cache.removeAll(keepCapacity: true)
-        inProgress.removeAll(keepCapacity: true)
-        deferedBindings.removeAll(keepCapacity: true)
-        stringCache.removeAll(keepCapacity: true)
-    }
-    
-    public static func create(config: BinaryBuildConfig) -> FlatBufferBuilder {
-        objc_sync_enter(instancePool)
-        defer { objc_sync_exit(instancePool) }
-
-        if (instancePool.count > 0)
-        {
-            let builder = instancePool.removeLast()
-            builder.config = config
-            if (config.initialCapacity > builder.capacity) {
-                builder._data.dealloc(builder.capacity)
-                builder.capacity = config.initialCapacity
-                builder._data = UnsafeMutablePointer.alloc(builder.capacity)
+            align(size: minalign, additionalBytes: prefixLength)
+            let utf8View = fileIdentifier.utf8
+            let count = utf8View.count
+            guard count == 4 else {
+                throw FlatBuffersBuildError.badFileIdentifier
             }
-            return builder
+            for c in utf8View.lazy.reversed() {
+                insert(value: c)
+            }
+        } else {
+            align(size: minalign, additionalBytes: prefixLength)
         }
         
-        return FlatBufferBuilder(config: config)
+        let v = (Int32(cursor + 4) - offset)
+        
+        insert(value: v)
     }
-    
-    public static func reuse(builder : FlatBufferBuilder) {
-        objc_sync_enter(instancePool)
-        defer { objc_sync_exit(instancePool) }
-
-        if (UInt(instancePool.count) < maxInstanceCacheSize)
-        {
-            builder.reset()
-            instancePool.append(builder)
-        }
-    }
-    
 }
-
-	'''
+'''
 }
