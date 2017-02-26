@@ -123,25 +123,31 @@ public class EagerSwiftGenerator {
 		«union.generateCreaterFunctionForUnion»
 	'''
 	
-	def generateMainDataStructureForTable(Table table) '''
+	def generateMainDataStructureForTable(Table table){
+		var visibleFields = table.fields.filter[!it.isDeprecated]
+		var requiredFields = visibleFields.filter[it.isRequired]
+		'''
 		public final class «table.name» {
 			«FOR field : table.fields»
 			public var «field.fieldName» : «field.getType.asSwiftFieldType(!field.isRequired)»«IF !field.isRequired» = «field.defaultValueStringWithVector»«ENDIF»
 			«ENDFOR»
-			public init(«FOR field : table.fields.filter[it.isRequired] SEPARATOR ', '»«field.fieldName»: «field.getType.asSwiftFieldType(false)»«ENDFOR»){
-				«FOR field : table.fields.filter[it.isRequired]»
+			«IF !visibleFields.empty»
+			public init(«FOR field : requiredFields SEPARATOR ', '»«field.fieldName»: «field.getType.asSwiftFieldType(false)»«ENDFOR»){
+				«FOR field : requiredFields»
 				self.«field.fieldName» = «field.fieldName»
 				«ENDFOR»
 			}
-			«IF !table.fields.filter[!it.isDeprecated].empty»
-			public init(«FOR field : table.fields.filter[!it.isDeprecated] SEPARATOR ', '»«field.fieldName»: «field.getType.asSwiftFieldType(!field.isRequired)»«ENDFOR»){
-				«FOR field : table.fields.filter[!it.isDeprecated]»
+			«IF visibleFields.length != requiredFields.length»
+			public init(«FOR field : visibleFields SEPARATOR ', '»«field.fieldName»: «field.getType.asSwiftFieldType(!field.isRequired)»«ENDFOR»){
+				«FOR field : visibleFields»
 				self.«field.fieldName» = «field.fieldName»
 				«ENDFOR»
 			}
 			«ENDIF»
+			«ENDIF»
 		}
-	'''
+		'''
+	}
 	
 	def asSwiftFieldType(Type type){
 		type.asSwiftFieldType(false)
