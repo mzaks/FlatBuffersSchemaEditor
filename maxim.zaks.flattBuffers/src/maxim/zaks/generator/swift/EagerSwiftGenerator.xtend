@@ -126,11 +126,15 @@ public class EagerSwiftGenerator {
 	def generateMainDataStructureForTable(Table table) '''
 		public final class «table.name» {
 			«FOR field : table.fields»
-			public var «field.fieldName» : «field.getType.asSwiftFieldType(true)» = «field.defaultValueStringWithVector»
+			public var «field.fieldName» : «field.getType.asSwiftFieldType(!field.isRequired)»«IF !field.isRequired» = «field.defaultValueStringWithVector»«ENDIF»
 			«ENDFOR»
-			public init(){}
+			public init(«FOR field : table.fields.filter[it.isRequired] SEPARATOR ', '»«field.fieldName»: «field.getType.asSwiftFieldType(false)»«ENDFOR»){
+				«FOR field : table.fields.filter[it.isRequired]»
+				self.«field.fieldName» = «field.fieldName»
+				«ENDFOR»
+			}
 			«IF !table.fields.filter[!it.isDeprecated].empty»
-			public init(«FOR field : table.fields.filter[!it.isDeprecated] SEPARATOR ', '»«field.fieldName»: «field.getType.asSwiftFieldType(true)»«ENDFOR»){
+			public init(«FOR field : table.fields.filter[!it.isDeprecated] SEPARATOR ', '»«field.fieldName»: «field.getType.asSwiftFieldType(!field.isRequired)»«ENDFOR»){
 				«FOR field : table.fields.filter[!it.isDeprecated]»
 				self.«field.fieldName» = «field.fieldName»
 				«ENDFOR»
@@ -356,39 +360,42 @@ public class EagerSwiftGenerator {
 					let o = cache.objectPool[objectOffset] {
 					return o as? «table.name»
 				}
-				let _result = «table.name»()
-				if let cache = reader.cache {
-					cache.objectPool[objectOffset] = _result
-				}
 				«FOR indexedField : table.indexedFields»
 				«indexedField.readDataIntoLocalVariables»
 				«ENDFOR»
+				let _result = «table.name»(«FOR indexedField : table.indexedFields SEPARATOR ","»«indexedField.value.fieldName»: «indexedField.value.fieldName»«ENDFOR»)
+				if let cache = reader.cache {
+					cache.objectPool[objectOffset] = _result
+				}
 				return _result
 			}
 		}
 	'''
 	
 	def readDataIntoLocalVariables(Pair<Integer, Field> indexedField){
-		if(indexedField.value.getType.isScalar){
+		val field = indexedField.value
+		val type = field.getType
+		if(type.isScalar){
 			'''
-				_result.«indexedField.value.fieldName» = reader.get(objectOffset: objectOffset, propertyIndex: «indexedField.key», defaultValue: «indexedField.value.defaultValueString»)
+				let «field.fieldName»: «type.asSwiftFieldType(!field.isRequired)» = reader.get(objectOffset: objectOffset, propertyIndex: «indexedField.key», defaultValue: «indexedField.value.defaultValueString»)
 			'''
 		} else if(indexedField.value.getType.isEnum){
 			'''
-				_result.«indexedField.value.fieldName» = «indexedField.value.getType.defType.name»(rawValue: reader.get(objectOffset: objectOffset, propertyIndex: «indexedField.key», defaultValue: «indexedField.value.defaultValueString».rawValue))
+				let «indexedField.value.fieldName» = «indexedField.value.getType.defType.name»(rawValue: reader.get(objectOffset: objectOffset, propertyIndex: «indexedField.key», defaultValue: «indexedField.value.defaultValueString».rawValue))«IF field.isRequired»!«ENDIF»
 			'''
 		} else if(indexedField.value.getType.isString){
 			//TODO: string cache
 			'''
-				_result.«indexedField.value.fieldName» = reader.stringBuffer(stringOffset: reader.offset(objectOffset: objectOffset, propertyIndex: «indexedField.key»))?§
+				let «indexedField.value.fieldName» = (reader.stringBuffer(stringOffset: reader.offset(objectOffset: objectOffset, propertyIndex: «indexedField.key»))?§)«IF indexedField.value.isRequired»!«ENDIF»
 			'''
 		} else if(indexedField.value.getType.vectorType != null && !indexedField.value.getType.isUnionVector) {
 			'''
 				let offset_«indexedField.value.fieldName» : Offset? = reader.offset(objectOffset: objectOffset, propertyIndex: «indexedField.key»)
 				let length_«indexedField.value.fieldName» = reader.vectorElementCount(vectorOffset: offset_«indexedField.value.fieldName»)
+				var «indexedField.value.fieldName»: [«indexedField.value.getType.vectorType.type.asSwiftFieldType(false)»] = []
 				if(length_«indexedField.value.fieldName» > 0){
 					var index = 0
-					_result.«indexedField.value.fieldName».reserveCapacity(length_«indexedField.value.fieldName»)
+					«indexedField.value.fieldName».reserveCapacity(length_«indexedField.value.fieldName»)
 					while index < length_«indexedField.value.fieldName» {
 						«indexedField.value.accessVectorItem»
 						index += 1
@@ -397,15 +404,15 @@ public class EagerSwiftGenerator {
 			'''
 		} else if(indexedField.value.getType.isTable) {
 			'''
-				_result.«indexedField.value.fieldName» = «indexedField.value.getType.asSwiftFieldType».create(reader, objectOffset: reader.offset(objectOffset: objectOffset, propertyIndex: «indexedField.key»))
+				let «indexedField.value.fieldName» = «indexedField.value.getType.asSwiftFieldType».create(reader, objectOffset: reader.offset(objectOffset: objectOffset, propertyIndex: «indexedField.key»))«IF field.isRequired»!«ENDIF»
 			'''
 		} else if(indexedField.value.getType.isUnion) {
 			'''
-				_result.«indexedField.value.fieldName» = create_«indexedField.value.getType.defType.name»(reader, propertyIndex: «indexedField.key», objectOffset: objectOffset)
+				let «indexedField.value.fieldName» = create_«indexedField.value.getType.defType.name»(reader, propertyIndex: «indexedField.key», objectOffset: objectOffset)«IF field.isRequired»!«ENDIF»
 			'''
 		} else if(indexedField.value.getType.isStruct) {
 			'''
-				_result.«indexedField.value.fieldName» = reader.get(objectOffset: objectOffset, propertyIndex: «indexedField.key»)
+				let «indexedField.value.fieldName» = reader.get(objectOffset: objectOffset, propertyIndex: «indexedField.key»)«IF field.isRequired»!«ENDIF»
 			'''
 		} else {
 			'''/* unsupported case */'''
@@ -677,9 +684,15 @@ public class EagerSwiftGenerator {
 			let offset«index» = try builder.insert(value: «field.fieldName»)
 			'''
 		} else if(field.getType.isTable){
-			'''
-			let offset«index» = try «field.fieldName»?.addToByteArray(builder) ?? 0
-			'''
+			if(field.isRequired) {
+				'''
+				let offset«index» = try «field.fieldName».addToByteArray(builder)
+				'''
+			} else {
+				'''
+				let offset«index» = try «field.fieldName»?.addToByteArray(builder) ?? 0
+				'''	
+			}
 		} else if(field.getType.isUnion){
 			'''let offset«index» = try addToByteArray_«field.getType.defType.name»(builder, union: «field.fieldName»)'''
 		} else if(field.getType.isScalarVector || field.getType.isEnumVector || field.getType.isStructVector){
@@ -771,7 +784,7 @@ public class EagerSwiftGenerator {
 			'''// «field.fieldName» is deprecated'''
 		} else if(field.getType.isTable) {
 			'''
-			if «field.fieldName» != nil {
+			«IF !field.isRequired»if «field.fieldName» != nil {«ENDIF»
 				«IF field.type.defType.isRecursive»
 				let cursor«index» = try builder.insert(offset: offset«index», toStartedObjectAt: «index»)
 				if offset«index» == 0 {
@@ -782,7 +795,7 @@ public class EagerSwiftGenerator {
 				«ELSE»
 				try builder.insert(offset: offset«index», toStartedObjectAt: «index»)
 				«ENDIF»
-			}
+			«IF !field.isRequired»}«ENDIF»
 			'''
 		} else if(field.getType.isString) {
 			'''try builder.insert(offset: offset«index», toStartedObjectAt: «index»)'''
@@ -795,7 +808,7 @@ public class EagerSwiftGenerator {
 		} else if(field.getType.isScalar) {
 			'''try builder.insert(value : «field.fieldName», defaultValue : «field.defaultValueString», toStartedObjectAt: «index»)'''
 		} else if(field.getType.isEnum) {
-			'''try builder.insert(value : «field.fieldName»?.rawValue ?? 0, defaultValue : 0, toStartedObjectAt: «index»)'''
+			'''try builder.insert(value : «field.fieldName»«IF field.isRequired».rawValue«ELSE»?.rawValue ?? 0«ENDIF», defaultValue : 0, toStartedObjectAt: «index»)'''
 		} else if(field.getType.isUnion) {
 			'''
 			if let object = «field.fieldName» {
@@ -824,28 +837,28 @@ public class EagerSwiftGenerator {
 		if(field.getType.isScalarVector || field.getType.isStructVector) {
 			'''
 			if let element : «field.getType.vectorType.type.asSwiftFieldType(false)» = reader.vectorElementScalar(vectorOffset: offset_«field.fieldName», index: index) {
-				_result.«field.fieldName».append(element)
+				«field.fieldName».append(element)
 			}
 			'''
 		} else if(field.getType.isEnumVector) {
 			'''
 			if let raw : «(field.getType.vectorType.type.defType as Enum).type.convertPrimitiveTypeToSwiftTypes» = reader.vectorElementScalar(vectorOffset: offset_«field.fieldName», index: index){
 				let element : «field.getType.vectorType.type.asSwiftFieldType(true)» = «field.getType.vectorType.type.asSwiftFieldType(false)»(rawValue: raw)
-				_result.«field.fieldName».append(element)
+				«field.fieldName».append(element)
 			} else {
-				_result.«field.fieldName».append(nil)
+				«field.fieldName».append(nil)
 			}
 			'''
 		} else if(field.getType.isStringVector) {
 			'''
 			if let element = reader.stringBuffer(stringOffset: reader.vectorElementOffset(vectorOffset: offset_«field.fieldName», index: index))?§ {
-				_result.«field.fieldName».append(element)
+				«field.fieldName».append(element)
 			}
 			'''
 		} else if(field.getType.isTableVector) {
 			'''
 			if let element = «field.getType.vectorType.type.defType.name».create(reader, objectOffset: reader.vectorElementOffset(vectorOffset: offset_«field.fieldName», index: index)) {
-				_result.«field.fieldName».append(element)
+				«field.fieldName».append(element)
 			}
 			'''
 		} else {
@@ -965,21 +978,26 @@ public class EagerSwiftGenerator {
 	def generatedDirectComputedProperties(Pair<Integer, Field> indexedField){
 		val field = indexedField.value
 		val index = indexedField.key
+		var isOptional = !field.isRequired
 		if(field.getType.isScalar){
 			'''
-				public var «field.fieldName» : «field.type.asSwiftFieldTypeDirect(true)» { 
+				public var «field.fieldName» : «field.type.asSwiftFieldTypeDirect(isOptional)» { 
 					get { return reader.get(objectOffset: myOffset, propertyIndex: «index», defaultValue: «field.defaultValueString») }
 				}
 			'''
 		} else if(field.getType.isEnum){
 			'''
-				public var «field.fieldName» : «field.type.asSwiftFieldTypeDirect(true)» { 
-					get { return «field.getType.defType.name»(rawValue: reader.get(objectOffset: myOffset, propertyIndex: «index», defaultValue: «field.defaultValueString».rawValue)) }
+				public var «field.fieldName» : «field.type.asSwiftFieldTypeDirect(isOptional)» { 
+					get { return «field.getType.defType.name»(rawValue: reader.get(objectOffset: myOffset, propertyIndex: «index», defaultValue: «field.defaultValueString».rawValue))«IF field.isRequired»!«ENDIF» }
 				}
 			'''
 		} else if(field.getType.isString){
+			var forceUnwrap = ''
+			if (!isOptional) forceUnwrap = '!'
 			'''
-				public var «field.fieldName» : «field.type.asSwiftFieldTypeDirect(true)» { get { return reader.stringBuffer(stringOffset: reader.offset(objectOffset: myOffset, propertyIndex:«index»)) } }
+				public var «field.fieldName» : «field.type.asSwiftFieldTypeDirect(isOptional)» { get {
+					return reader.stringBuffer(stringOffset: reader.offset(objectOffset: myOffset, propertyIndex:«index»))«forceUnwrap»
+				} }
 			'''
 		} else if(field.type.isStringVector){
 			'''
@@ -1007,29 +1025,27 @@ public class EagerSwiftGenerator {
 				public var «field.name»Count : Int {
 					return reader.vectorElementCount(vectorOffset: reader.offset(objectOffset: myOffset, propertyIndex: «index»))
 				}
-				public func «field.name»Element(atIndex index : Int) -> «field.type.vectorType.type.asSwiftFieldTypeDirect(true)» {
+				public func «field.name»Element(atIndex index : Int) -> «field.type.vectorType.type.asSwiftFieldTypeDirect(isOptional)» {
 					let offsetList = reader.offset(objectOffset: myOffset, propertyIndex: «index»)
 					«field.accessVectorItemDirect»
 				}
 			'''
 		} else if(field.getType.isTable) {
 			'''
-				public var «field.fieldName» : «field.type.asSwiftFieldTypeDirect(true)» { get { 
-					if let offset = reader.offset(objectOffset: myOffset, propertyIndex: «index») {
-						return «field.type.defType.name»_Direct(reader: reader, myOffset: offset)
-					}
-					return nil
+				public var «field.fieldName» : «field.type.asSwiftFieldTypeDirect(isOptional)» { get {
+					«IF isOptional»guard «ENDIF»let offset = reader.offset(objectOffset: myOffset, propertyIndex: «index»)«IF isOptional» else { return nil }«ENDIF»
+					return «field.type.defType.name»_Direct(reader: reader, myOffset: offset)«IF !isOptional»!«ENDIF»
 				} }
 			'''
 		} else if(field.getType.isUnion) {
 			'''
-				public var «field.fieldName» : «field.type.asSwiftFieldTypeDirect(true)» { get { 
+				public var «field.fieldName» : «field.type.asSwiftFieldTypeDirect(isOptional)» { get { 
 					return create_«field.type.defType.name»_Direct(reader, propertyIndex: «index», objectOffset: self.myOffset)
 				} }
 			'''
 		} else if(field.getType.isStruct) {
 			'''
-				public var «field.fieldName» : «field.type.asSwiftFieldTypeDirect(true)» { 
+				public var «field.fieldName» : «field.type.asSwiftFieldTypeDirect(isOptional)» { 
 					get { return reader.get(objectOffset: myOffset, propertyIndex: «index»)}
 				}
 			'''

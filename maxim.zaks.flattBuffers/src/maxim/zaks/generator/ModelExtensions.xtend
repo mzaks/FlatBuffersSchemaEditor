@@ -225,6 +225,11 @@ public class ModelExtensions {
 		field.getAttributes.atributeNames.findFirst[it.deprectated] != null
 	}
 	
+	def isRequired(Field field){
+		if(field.getAttributes == null) return false
+		field.getAttributes.atributeNames.findFirst[it.required] != null
+	}
+	
 	def lengthOfPrimType(String type) {
 		switch type {
 			case 'bool' : 1
