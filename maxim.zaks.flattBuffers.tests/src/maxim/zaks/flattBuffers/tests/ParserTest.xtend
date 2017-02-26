@@ -218,20 +218,6 @@ class ParserTest {
   }
   
   @Test
-  def void parseEnumWithoutType() {
-  	val model = parser.parse('''
-      enum Foo {A = 12, B, C}
-    ''')
-    val e = model.definitions.get(0) as Enum
-    assertEquals(e.name, "Foo")
-    assertEquals(e.type, null)
-    assertEquals(e.enumCases.get(0).name, "A")
-    assertEquals(e.enumCases.get(0).value, 12)
-    assertEquals(e.enumCases.get(1).name, "B")
-    assertEquals(e.enumCases.get(2).name, "C")
-  }
-  
-  @Test
   def void parseStruct() {
   	val model = parser.parse('''
 	  struct Vec3 {
